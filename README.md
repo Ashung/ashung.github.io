@@ -1,2 +1,2 @@
 # ashung.github.io
-This is my personal site. It's made with Harp and hosted with Github Pages.
+This is my personal site. It's made with Jekyll and hosted with Github Pages.
