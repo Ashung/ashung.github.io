@@ -1,6 +1,26 @@
+
+@font-face {
+  font-family: "Montserrat";
+  src: url(../font/Montserrat-Regular.ttf);
+  font-weight: 400;
+}
+
+
+
+body {
+  font-family: Montserrat, sans-serif;
+  font-weight: 400 !important;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+
+  font-weight: 400;
+}
+
 /**
  * Reset some basic elements
- */
+
 body, h1, h2, h3, h4, h5, h6,
 p, blockquote, pre, hr,
 dl, dd, ol, ul, figure {
@@ -10,9 +30,7 @@ dl, dd, ol, ul, figure {
 
 
 
-/**
- * Basic styling
- */
+
 body {
     font-family: $base-font-family;
     font-size: $base-font-size;
@@ -25,9 +43,6 @@ body {
 
 
 
-/**
- * Set `margin-bottom` to maintain vertical rhythm
- */
 h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 ul, ol, dl, figure,
@@ -37,9 +52,7 @@ ul, ol, dl, figure,
 
 
 
-/**
- * Images
- */
+
 img {
     max-width: 100%;
     vertical-align: middle;
@@ -47,9 +60,7 @@ img {
 
 
 
-/**
- * Figures
- */
+
 figure > img {
     display: block;
 }
@@ -60,9 +71,6 @@ figcaption {
 
 
 
-/**
- * Lists
- */
 ul, ol {
     margin-left: $spacing-unit;
 }
@@ -76,18 +84,12 @@ li {
 
 
 
-/**
- * Headings
- */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
 }
 
 
 
-/**
- * Links
- */
 a {
     color: $brand-color;
     text-decoration: none;
@@ -104,9 +106,7 @@ a {
 
 
 
-/**
- * Blockquotes
- */
+
 blockquote {
     color: $grey-color;
     border-left: 4px solid $grey-color-light;
@@ -122,9 +122,7 @@ blockquote {
 
 
 
-/**
- * Code formatting
- */
+
 pre,
 code {
     font-size: 15px;
@@ -150,9 +148,6 @@ pre {
 
 
 
-/**
- * Wrapper
- */
 .wrapper {
     max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
     max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
@@ -172,9 +167,7 @@ pre {
 
 
 
-/**
- * Clearfix
- */
+
 %clearfix {
 
     &:after {
@@ -186,9 +179,7 @@ pre {
 
 
 
-/**
- * Icons
- */
+
 .icon {
 
     > svg {
@@ -205,19 +196,4 @@ pre {
 
 
 
-/* latin */
-@font-face {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    src: url(/assets/font/Montserrat-Regular.ttf) format('ttf');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-/* latin */
-@font-face {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 700;
-    src: url(/assets/font/Montserrat-Bold) format('ttf');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
+ */

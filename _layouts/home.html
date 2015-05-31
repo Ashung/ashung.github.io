@@ -1,0 +1,20 @@
+{% include head.html %}
+
+<div class="home">
+    <ul class="postlist">
+        {% for post in site.posts %}
+        <li class="post-entry">
+            <span>J</span>
+            <h3 class="post-title"><a class="post-link" href="{{ post.url }}">{{ post.title }}</a></h3>
+            <p class="post-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 80 }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{{ content }}
+
+<hr>
+
+{% include footer.html %}

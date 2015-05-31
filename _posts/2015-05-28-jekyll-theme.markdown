@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "Jekyll Theme Design"
 date:   2015-05-28 18:27:28
 categories: tests
 ---
+
+A simple Jekyll Theme.
 
 # Markdown h1 
 
@@ -98,6 +100,20 @@ XML
 <TextView android:fontFamily="sans-serif-thin" />
 {% endhighlight %}
 
+
+``` html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>HTML</title>
+    </head>
+    <body>
+        <h1>Hello HTML.</h1>
+    </body>
+</html>
+```
+
 Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
 
 [jekyll]:      http://jekyllrb.com
@@ -126,4 +142,4 @@ Table | Table | Table
 ---
 
 
-![img]({{ site.url }}/assets/welcome-to-jekyll/Octocat.png)
+![img]({{ site.url }}/media/welcome-to-jekyll/Octocat.png)
