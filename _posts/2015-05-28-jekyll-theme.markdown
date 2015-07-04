@@ -1,9 +1,20 @@
 ---
 layout: post
 title:  "Jekyll Theme Design"
+excerpt: A short excerpt...
 date:   2015-05-28 18:27:28
 categories: tests
+level: 1
+type: base
 ---
+
+level
+1 = beginner
+2 = medium
+3 = expert
+4 = master
+
+post.type = ()
 
 A simple Jekyll Theme.
 
@@ -27,7 +38,7 @@ Jekyll also offers powerful support for code snippets:
 
 HTML
 
-{% highlight html %}
+{% highlight html linenos %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -59,61 +70,6 @@ CSS
 }
 {% endhighlight %}
 
-Python
-
-{% highlight css %}
-# Python
-import os
-assets = './res'
-listing = os.listdir(assets)
-for folder in ['drawable-', 'mipmap-']:
-    for dpi in ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']:
-        if os.path.exists('./res/' + folder + dpi):
-            for image in os.listdir('./res/' + folder + dpi):
-                os.system("pngout /y " + './res/' + folder + dpi + "/" + image)
-{% endhighlight %}
-
-Ruby
-
-{% highlight ruby %}
-# Ruby
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
-
-Java
-
-{% highlight java %}
-TextView textview = (TextView) findViewById(R.id.textview);
-/*
-textview.setText(Html.fromHtml("<b>Bold</b> <i>Italic</i>"));
-*/
-textview.setText(Html.fromHtml(getString(R.string.htmltag)));
-{% endhighlight %}
-
-XML
-{% highlight xml %}
-<!-- Android -->
-<TextView android:fontFamily="sans-serif-thin" />
-{% endhighlight %}
-
-
-``` html
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>HTML</title>
-    </head>
-    <body>
-        <h1>Hello HTML.</h1>
-    </body>
-</html>
-```
-
 Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
 
 [jekyll]:      http://jekyllrb.com
@@ -139,7 +95,11 @@ Table | Table | Table
 > Design is not just what it looks like and feels like, design is how it works. 
 > – Steve Jobs
 
----
+
+Font notes[^hello]
+
+[^hello]: Font notes
 
 
-![img]({{ site.url }}/media/welcome-to-jekyll/Octocat.png)
+![img](../images/welcome-to-jekyll/Octocat.png)
+

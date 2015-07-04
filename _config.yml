@@ -1,29 +1,32 @@
 title: Speedup Design Workflow
-email: ashung.hung@foxmail.com
+author: Ashung Hung
+email: ashung.hung@gmail.com
 description: Write an site description.
 keywords: [GUI, Photoshop]
 baseurl: ""
+url: ashung.github.io
 permalink: none
 exclude: ["README.md"]
+lang: zh_CN
 timezone: Asia/shanghai
 
 sns:
   dribbble:
     name: Ashung Hung
-    url: https://dribbble.com/ashung
+    url: dribbble.com/ashung
   behance:
     name: Ashung Hung
-    url: https://www.behance.net/ashung
+    url: behance.net/ashung
   github:
     name: Ashung
-    url: https://github.com/Ashung
+    url: github.com/Ashung
   weibo:
     name: Ashung
-    url: http://weibo.com/ashung
+    url: weibo.com/ashung
 
 # Build settings
 markdown: kramdown
-
 kramdown:
   input: GFM
-
+  auto_ids: false
+  footnote_nr: 1
