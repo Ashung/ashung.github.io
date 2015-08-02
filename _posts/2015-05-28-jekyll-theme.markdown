@@ -3,18 +3,25 @@ layout: post
 title:  "Jekyll Theme Design"
 excerpt: A short excerpt...
 date:   2015-05-28 18:27:28
-categories: tests
 level: 1
 type: base
 ---
 
+
 level
+
 1 = beginner
 2 = medium
 3 = expert
 4 = master
 
-post.type = ()
+type
+
+base
+photoshop
+illustrator
+sketch
+javascript
 
 A simple Jekyll Theme.
 
