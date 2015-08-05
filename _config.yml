@@ -1,9 +1,9 @@
-title: Speedup Design Workflow
+title: SDW
 author: Ashung Hung
 email: ashung.hung@gmail.com
 description: Write an site description.
 keywords: [GUI, Photoshop]
-baseurl: ""
+baseurl: "/"
 url: ashung.github.io
 permalink: none
 exclude: ["README.md"]
@@ -12,17 +12,13 @@ timezone: Asia/shanghai
 
 sns:
   dribbble:
-    name: Ashung Hung
-    url: dribbble.com/ashung
+    url: https://dribbble.com/ashung
   behance:
-    name: Ashung Hung
-    url: behance.net/ashung
+    url: https://behance.net/ashung
   github:
-    name: Ashung
-    url: github.com/Ashung
+    url: https://github.com/Ashung
   weibo:
-    name: Ashung
-    url: weibo.com/ashung
+    url: http://weibo.com/ashung
 
 # Build settings
 markdown: kramdown

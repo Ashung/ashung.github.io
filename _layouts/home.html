@@ -1,6 +1,6 @@
 {% include head.html pagename="layout-home" %}
 
-<div class="home">
+<div class="main">
     <ul class="postlist">
         {% for post in site.posts %}
         <li class="post-entry">
@@ -8,7 +8,7 @@
                 <a class="post-link" href="{{ post.url }}">{{ post.title }}</a>
                 <span class="post-icon {% if post.type %}post-type-{{ post.type }}{% endif %} {% if post.level %}post-level-{{ post.level }}{% endif %}">&nbsp;</span>
             </h3>
-            <p class="post-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}</p>
+            <p class="post-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 140 }}</p>
         </li>
         {% endfor %}
     </ul>

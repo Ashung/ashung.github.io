@@ -1,12 +1,13 @@
 <footer>
+    <p class="copyright">
+        All articles on this site are licensed under
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" title="Creative Commons Attribution-ShareAlike 4.0 International License">CC BY-SA 4.0</a>.
+    </p>
     <ul class="social-list">
         {% for website in site.sns %}
-        <li><a class="social-icon ic-{{ website[0] }}" href="http://{{ website[1]["url"] }}">{{ website[0] }}@{{ website[1]["name"] }} </a></li>
+        <li><a class="social-icon ic-{{ website[0] }}" href="{{ website[1]["url"] }}" title="{{ website[0] }}">{{ website[0] }}</a></li>
         {% endfor %}
     </ul>
-    <p class="copyright">
-        &copy; {{ site.time.getYear() }}
-    </p>
 </footer>
 
 <script type="text/javascript">

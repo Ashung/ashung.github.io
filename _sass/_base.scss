@@ -1,38 +1,85 @@
 
+// Font
 @font-face {
-    font-family: "Merriweather";
+    font-family: Merriweather;
     src: url(../font/Merriweather-Regular.ttf);
     font-weight: normal;
 }
 @font-face {
-    font-family: "Merriweather";
+    font-family: Merriweather;
     src: url(../font/Merriweather-Bold.ttf);
     font-weight: bold;
 }
 @font-face {
-    font-family: "Lato";
+    font-family: Lato;
     src: url(../font/Lato-Regular.ttf);
     font-weight: normal;
 }
 @font-face {
-    font-family: "Lato";
+    font-family: Lato;
     src: url(../font/Lato-Bold.ttf);
     font-weight: bold;
 }
 @font-face {
-    font-family: "FiraMono";
+    font-family: FiraMono;
     src: url(../font/FiraMono-Regular.otf);
 }
 
+$serif: Merriweather, Georgia, Times, serif;
+$sans-serif: Lato, Helvetica, Arial, sans-serif;
+$monospace: FiraMono, Menlo, Consolos, monospace;
+$base-font-family: $serif;
+$base-font-size: medium; // 16px
+$base-line-height: 1.5;
+$body-font: $serif;
+$heading-font: $sans-serif;
+$code-font: $monospace;
+
+// Color
+$primary-text-color: rgba(0, 0, 0, .8);
+$secondary-text-color: rgba(0, 0, 0, .6);
+$link-text-color: #222;
+$hair-line-color: rgba(0, 0, 0, .15);
+
+$background-color: #fff;
+$highlight-color: #ffb;
+
+// Dimens
+$max-content-width: 640px;
+$min-content-width: 320px;
+
+// Reset
+body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
+    margin: 0;
+    padding: 0;
+}
+ul, ol {
+    list-style: none;
+}
+
+a:link, a:visited {
+    color: $primary-text-color;
+    text-decoration: none;
+}
+
+
+
+
 body {
-    font-size: medium;
-    font-family: Merriweather, Georgia, Times, serif;
-    line-height: 1.5;
+    color: $primary-text-color;
+    background-color: $background-color;
+    background-image: url(../img/base_line.png),
+                      url(../img/base_line.png);
+    background-repeat: repeat;
+    background-position: 0 0, 0 -4px;
+    font: $base-font-size/$base-line-height $body-font;
+    font-kerning: normal;
+    -webkit-text-size-adjust: 100%;
 }
 
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: Lato, Helvetica, Arial, sans-serif;
+    font-family: $heading-font;
 }
 
 h5, h6 {
@@ -40,10 +87,86 @@ h5, h6 {
 }
 
 code {
-    font-family: FiraMono, Menlo, monospace;
+    font-family: $code-font;
+}
+
+
+
+
+
+
+
+.container {
+
+
+    .main, footer {
+        margin: auto;
+        padding: 2em;
+
+
+
+        max-width: $max-content-width;
+        min-width: $min-content-width;
+    }
+}
+
+header {
+    padding: 1em 0;
+    height: 2em;
+    background: $background-color;
+
+    &:after {
+        clear: both;
+        content: ".";
+        display: block;
+        height: 1px;
+        overflow: hidden;
+        background: $hair-line-color;
+        margin-top: -webkit-calc(3em - 1px);
+        margin-top: calc(3em - 1px);
+
+    }
+
+
+    .brand {
+        float: left;
+        margin-left: 2em;
+        font-size: 1em;
+        line-height: 2;
+
+    }
+    .nav {
+        float: right;
+        margin-right: 2em;
+        font-family: $sans-serif;
+        text-transform: uppercase;
+
+        li {
+            display: inline-block;
+            margin-left: .5em;
+            a {
+                padding: 0 .5em;
+                height: 2em;
+                line-height: 2;
+                display: block;
+
+            }
+        }
+    }
+}
+
+footer {
+
 }
 
 
 article {
-    font-size: 1.125rem;
+    font-size: 1.125em;
+    line-height: 1.78;
+
+    p {
+        margin-bottom: 1em;
+    }
 }
+
+.main h1, .post-header {display: none}

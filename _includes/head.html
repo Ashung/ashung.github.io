@@ -15,18 +15,17 @@
 <meta name="HandheldFriendly" content="True">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
 <link rel="stylesheet" href="{{ "assets/css/style.css" | prepend: site.baseurl }}">
-<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
 </head>
 <body class="{{ include.pagename }}">
 <div class="container">
 <header>
-    <h1>
-        <a href="/{{ site.baseurl }}" rel="home">{{ site.title }}</a>
+    <h1 class="brand">
+        <a href="{{ site.baseurl }}" rel="home">{{ site.title }}</a>
     </h1>
-    <nav>
+    <nav class="nav">
         <ul>
             {% for page in site.pages %}{% if page.title %}
-            <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+            <li><a href="{{ page.url }}">{{ page.title }}</a></li>
             {% endif %}{% endfor %}
         </ul>
     </nav>

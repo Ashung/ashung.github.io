@@ -1,6 +1,6 @@
 {% include head.html pagename="layout-post" %}
 
-<div class="post">
+<div class="main post">
     <div class="post-header">
         <h1 class="post-title">{{ page.title }}</h1>
         <div class="post-excerpt">{{ page.excerpt | strip_html | strip_newlines }}</div>
@@ -9,8 +9,7 @@
         {{ content }}
     </article>
     <div class="post-meta">
-        <p class="post-date">Published on {{ page.date | date: "%b %-d, %Y" }}</p>
-        {% if page.lastmodify %}<p class="post-lastmodify">{{ page.lastmodify | date: "%b %-d, %Y" }}</p>{% endif %}
+        <span class="post-date">Published on {{ page.date | date: "%b %-d, %Y" }}{% if page.lastmodify %}, <span class="post-lastmodify">{{ page.lastmodify | date: "%b %-d, %Y" }}</span>{% endif %}.</span>
     </div>
 </div>
 
