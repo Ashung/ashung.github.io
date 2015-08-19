@@ -3,11 +3,12 @@ layout: post
 title:  "Jekyll Theme Design"
 excerpt: A short excerpt...
 date:   2015-05-28 18:27:28
+comment: 20150528
 level: 1
 type: base
 ---
 
-
+<!--
 level
 
 1 = beginner
@@ -23,7 +24,9 @@ illustrator
 sketch
 javascript
 
-A simple Jekyll Theme.
+
+-->
+
 
 # Markdown h1 
 
@@ -36,6 +39,8 @@ A simple Jekyll Theme.
 ##### Markdown h5
 
 ###### Markdown h6
+
+A simple Jekyll Theme. 
 
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
@@ -83,30 +88,26 @@ Check out the [Jekyll docs][jekyll] for more info on how to get the most out of 
 [jekyll-gh]:   https://github.com/jekyll/jekyll
 [jekyll-help]: https://github.com/jekyll/jekyll-help
 
-
 Table | Table | Table 
 -- | -- | -- 
 Table | Table | Table 
 Table | Table | Table 
 
-Table | Table | Table 
---: | --: | --: 
-Table | Table | Table 
-Table | Table | Table
-
 - list
 	1. list
+	    1. list
+	    2. list
 	2. list
+	    - list
+	    - list
 - list
 
 > Design is not just what it looks like and feels like, design is how it works. 
-> – Steve Jobs
+> – Steve Jobs [^Steve_Jobs]
+
+[^Steve_Jobs]: Steve Jobs
 
 
-Font notes[^hello]
-
-[^hello]: Font notes
 
 
-![img](../images/welcome-to-jekyll/Octocat.png)
 

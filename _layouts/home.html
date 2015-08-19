@@ -1,17 +1,15 @@
-{% include head.html pagename="layout-home" %}
-
+{% include head.html pagename="section-home" %}
 <div class="main">
     <ul class="postlist">
         {% for post in site.posts %}
         <li class="post-entry">
+            <span class="post-icon {% if post.type %}post-type-{{ post.type }}{% endif %} {% if post.level %}post-level-{{ post.level }}{% endif %}">&nbsp;</span>
             <h3 class="post-title">
                 <a class="post-link" href="{{ post.url }}">{{ post.title }}</a>
-                <span class="post-icon {% if post.type %}post-type-{{ post.type }}{% endif %} {% if post.level %}post-level-{{ post.level }}{% endif %}">&nbsp;</span>
             </h3>
             <p class="post-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 140 }}</p>
         </li>
         {% endfor %}
     </ul>
 </div>
-
 {% include footer.html %}

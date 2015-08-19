@@ -1,16 +1,24 @@
-{% include head.html pagename="layout-post" %}
-
-<div class="main post">
-    <div class="post-header">
-        <h1 class="post-title">{{ page.title }}</h1>
-        <div class="post-excerpt">{{ page.excerpt | strip_html | strip_newlines }}</div>
+{% include head.html pagename="section-post" %}
+{% if page.figure %}
+<div class="post-figure" style="background-image:url({{ page.figure }});">
+    <div class="post-figure-inner">
+        {% include post_header.html %}
     </div>
+</div>
+<div class="main post">
     <article class="post-content">
         {{ content }}
     </article>
-    <div class="post-meta">
-        <span class="post-date">Published on {{ page.date | date: "%b %-d, %Y" }}{% if page.lastmodify %}, <span class="post-lastmodify">{{ page.lastmodify | date: "%b %-d, %Y" }}</span>{% endif %}.</span>
-    </div>
 </div>
-
+{% else %}
+<div class="main post">
+    {% include post_header.html %}
+    <article class="post-content">
+        {{ content }}
+    </article>
+    {% if page.comment %}
+    {% include comments.html sourceid=page.sohucs %}
+    {% endif %}
+</div>
+{% endif %}
 {% include footer.html %}
