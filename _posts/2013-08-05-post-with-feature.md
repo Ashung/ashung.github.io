@@ -1,9 +1,10 @@
 ---
 layout: post
 title: Post and Feature Image
+excerpt: “Whenever you feel like criticizing any one,” he told me, “just remember that all the people in this world haven’t had the advantages that you’ve had.”
 author: A
 category: articles
-excerpt: “Whenever you feel like criticizing any one,” he told me, “just remember that all the people in this world haven’t had the advantages that you’ve had.”
+comment: 20130805
 tags: [intro, beginner, jekyll, tutorial]
 figure: "https://ununsplash.imgix.net/photo-1429032021766-c6a53949594f?q=75&fm=jpg&w=1080&fit=max&s=0a03071077cbe793e7559535e290da60"
 ---

@@ -2,23 +2,49 @@
 {% if page.figure %}
 <div class="post-figure" style="background-image:url({{ page.figure }});">
     <div class="post-figure-inner">
-        {% include post_header.html %}
+        <div class="post-header">
+            <h1 class="post-title">{{ page.title }}</h1>
+            {% if page.excerpt %}<p class="post-excerpt">{{ page.excerpt | strip_html | strip_newlines }}</p>{% endif %}
+            {% if page.author %}<p class="post-author">By {{ page.author }}.</p>{% endif %}
+            {% if page.date %}<p class="post-publish">Published on {{ page.date | date: "%b %-d, %Y" }}.</p>{% endif %}
+            {% if page.lastmodify %}<p class="post-lastmodify">{{ page.lastmodify | date: "%b %-d, %Y" }}.</p>{% endif %}
+        </div>
     </div>
 </div>
 <div class="main post">
-    <article class="post-content">
-        {{ content }}
-    </article>
-</div>
 {% else %}
 <div class="main post">
-    {% include post_header.html %}
+    <div class="post-header">
+        <h1 class="post-title">{{ page.title }}</h1>
+        {% if page.excerpt %}<p class="post-excerpt">{{ page.excerpt | strip_html | strip_newlines }}</p>{% endif %}
+        {% if page.author %}<p class="post-author">By {{ page.author }}.</p>{% endif %}
+        {% if page.date %}<p class="post-publish">Published on {{ page.date | date: "%b %-d, %Y" }}.</p>{% endif %}
+        {% if page.lastmodify %}<p class="post-lastmodify">{{ page.lastmodify | date: "%b %-d, %Y" }}.</p>{% endif %}
+    </div>
+{% endif %}
     <article class="post-content">
         {{ content }}
     </article>
+
+    {% if page.tags %}
+    <div class="post-tags">
+    {% for tag in page.tags %}
+        <span class="tag">{{ tag }}</span>
+    {% endfor %}
+    </div>
+    {% endif %}
+
     {% if page.comment %}
-    {% include comments.html sourceid=page.sohucs %}
+    <div class="post-comments">
+        <div id="SOHUCS" sid="{{ page.comment }}"></div>
+        <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js"></script>
+        <script type="text/javascript">
+            window.changyan.api.config({
+                appid: 'cyrVOtEMg',
+                conf: 'prod_c6a0ab76c08ae21be1877d9daf4f93f0'
+            });
+        </script>
+    </div>
     {% endif %}
 </div>
-{% endif %}
 {% include footer.html %}

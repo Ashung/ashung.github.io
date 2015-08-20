@@ -162,8 +162,8 @@ header {
 .postlist {
     .post-entry {
         border-bottom: 1px solid $hair-line-color-light;
-        padding: 1rem 1rem -webkit-calc(1rem - 1px) 4.5rem;
-        padding: 1rem 1rem calc(1rem - 1px) 4.5rem;
+        padding: 1rem 1rem -webkit-calc(1rem - 1px) 1rem;
+        padding: 1rem 1rem calc(1rem - 1px) 1rem;
     }
     .post-title {
         font-size: 1.25em;
@@ -175,13 +175,9 @@ header {
         color: $secondary-text-color;
     }
     .post-icon {
-        display: block;
-        float: left;
-        margin-left: -3.5rem;
-        margin-top: .25rem;
-        width: 2.5rem; //40px
-        height: 2.5rem;
-        border-radius: 1.25rem;
+        display: inline-block;
+        width: 1.5rem; //24px
+        height: 1.5rem;
         background: #999;
     }
 }
@@ -259,7 +255,7 @@ footer {
     padding: 1rem;
     .post-title {
         font-size: 2.75rem; // 44px
-        line-height: 1.64; // 72px
+        line-height: 1.273; // 56px
         margin-bottom: 1rem;
         &:last-child {
             margin-bottom: 0;
@@ -309,12 +305,12 @@ article {
     }
     h1 {
         font-size: 2.445em; // 44px
-        line-height: 1.640; // 72px
+        line-height: 1.273; // 56px
         margin-bottom: .182em; // 8px
     }
     h2 {
         font-size: 2em; // 36px
-        line-height: 1.778; // 64px
+        line-height: 1.556; // 56px
         margin-bottom: .222em; // 8px
     }
     h3 {
@@ -390,3 +386,4 @@ article {
 
 
 
+// TODO: tags, res, about, code highlight

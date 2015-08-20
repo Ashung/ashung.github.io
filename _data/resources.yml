@@ -1,0 +1,34 @@
+Photoshop:
+  - title: GUI Automation Toolbox
+    desc: Photoshop, Illustrator & Sketch Scripts for automate GUI design workflow.
+    url: https://github.com/Ashung/GUI_Automation_Toolbox
+Illustrator:
+  - title: Illustrator SVG Exporter
+    desc: A better way to generate SVGs from Illustrator.
+    url: https://github.com/iconic/illustrator-svg-exporter
+  - title: Layer Exporter for Adobe Illustrator
+    desc: A panel for Illustrator to easily export all layers
+    url: https://github.com/davidderaedt/Illustrator-Layer-Exporter
+  - title: illustrator-scripts
+    desc: JavaScript scripts for Adobe Illustrator CSx.
+    url: https://github.com/shspage/illustrator-scripts
+
+
+Sketch:
+  - title: Sketch Plugin Directory
+    desc: A semi-official directory of plugins, hosted in GitHub
+    url: https://github.com/sketchplugins/plugin-directory
+#Web:
+#  - title:
+#    desc:
+#    url:
+#iOS:
+#  - title:
+#    desc:
+#    url:
+#Android:
+#  - title:
+#    desc:
+#    url:
+
+# TODO: Refs,

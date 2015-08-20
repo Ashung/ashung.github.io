@@ -2,10 +2,11 @@
 layout: post
 title:  "Jekyll Theme Design"
 excerpt: A short excerpt...
-date:   2015-05-28 18:27:28
+category: articles
 comment: 20150528
 level: 1
 type: base
+tags: theme jekyll template blog
 ---
 
 <!--
