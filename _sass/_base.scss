@@ -57,6 +57,11 @@ $hair-line-color-dark: rgba(0, 0, 0, .25);
 $hair-line-color-light: rgba(0, 0, 0, .05);
 $background-color: #fff;
 $highlight-color: #ffb;
+$white-color: #fff;
+$red-color: #f44336;
+$yellow-color: #ff9800;
+$green-color: #8bc34a;
+$blue-color: #2196f3;
 
 // Dimens
 $max-content-width: 640px;
@@ -130,16 +135,27 @@ header {
     .nav {
         float: right;
         margin-right: 1rem;
-        font-family: $sans-serif;
-        text-transform: uppercase;
-        li {
-            display: inline-block;
-            margin-left: .5rem;
-            a {
-                padding: 0 .5rem;
-                height: 2rem;
-                line-height: 2;
-                display: block;
+        #icon-menu {
+            display: none;
+            width: 2rem;
+            height: 0;
+            padding-top: 2rem;
+            overflow: hidden;
+            line-height: 2;
+            background: Red;
+        }
+        #menu {
+            li {
+                display: inline-block;
+                margin-left: .5rem;
+                font-family: $sans-serif;
+                text-transform: uppercase;
+                a {
+                    padding: 0 .5rem;
+                    height: 2rem;
+                    line-height: 2;
+                    display: block;
+                }
             }
         }
     }
@@ -154,9 +170,19 @@ header {
         }
     }
 }
-@include media-max-width($mobile-device-width) {
-    .nav {display: none;}
-}
+//$mobile-device-width
+//@include media-max-width(400px) {
+//    header {
+//        .nav {
+//            #icon-menu {
+//                display: block;
+//            }
+//            #menu {
+//                display: none;
+//            }
+//        }
+//    }
+//}
 
 
 .postlist {
@@ -186,8 +212,10 @@ footer {
     margin: 2rem auto;
     max-width: $max-content-width;
     color: $secondary-text-color;
+    font-size: .875rem;
+    line-height: 1.714;
     font-family: $sans-serif;
-    .copyright {
+    p {
         padding: 1rem 1rem 0;
     }
     & a:link, & a:visited {
@@ -198,57 +226,87 @@ footer {
         color: $primary-text-color;
     }
     .social-list {
-        padding: 1rem;
+        padding: 2rem 1rem 1rem;
         overflow: hidden;
-        li {
-            float: left;
-            a {
-                display: block;
-                width: 24px;
-                height: 0;
-                padding-top: 24px;
-                margin-right: 24px;
-                overflow: hidden;
-                background-image: url(../img/social_icons.svg);
-                background-repeat: no-repeat;
-                transition: transform 100ms cubic-bezier(0.6, 0, 0.4, 1);
-                &:hover, &:active {
-                    transform: scale(1.333) translateY(-4px);
-                }
-            }
+        .social-icon {
+            display: block;
+            width: 24px;
+            height: 0;
+            padding-top: 24px;
+            margin: 0 auto 8px;
+            overflow: hidden;
+            background-image: url(../img/social_icons.svg);
+            background-repeat: no-repeat;
+            transition: transform 100ms cubic-bezier(0.6, 0, 0.4, 1);
+        }
+        .social-text {
+            display: none;
         }
         .ic-dribbble {
             background-position: 0 0;
-            &:hover, &:active {
-                background-position: 0 -24px;
-            }
         }
         .ic-behance {
             width: 30px;
             background-position: 0 -96px;
-            &:hover, &:active {
-                background-position: 0 -120px;
-            }
         }
         .ic-github {
             background-position: 0 -48px;
-            &:hover, &:active {
-                background-position: 0 -72px;
-            }
         }
         .ic-weibo {
             width: 28px;
             background-position: 0 -144px;
-            &:hover, &:active {
-                background-position: 0 -168px;
+        }
+        li {
+            float: left;
+            a {
+                position: relative;
+                float: left;
+                width: 32px;
+                margin-right: 16px;
+                text-align: center;
+                &:link, &:visited {
+                    text-decoration: none;
+                }
+                &:hover, &:active {
+                    .social-icon {
+                        transform: scale(1.333) translateY(-4px);
+                    }
+                    .ic-dribbble {
+                        background-position: 0 -24px;
+                    }
+                    .ic-behance {
+                        background-position: 0 -120px;
+                    }
+                    .ic-github {
+                        background-position: 0 -72px;
+                    }
+                    .ic-weibo {
+                        background-position: 0 -168px;
+                    }
+                }
             }
         }
     }
 }
 
 .notfound {
-    padding: 1rem;
+    padding: 5rem 1rem;
+    font-size: 1.5rem;
+    font-family: $sans-serif;
     text-align: center;
+    text-transform: uppercase;
+    .status-code {
+        position: relative;
+        z-index: 3;
+        display: block;
+        margin: 0 auto 2rem;
+        width: 8rem;
+        height: 8rem;
+        font-size: 2.5rem;
+        line-height: 8rem;
+        color: #fff;
+        background: #CCC;
+    }
 }
 
 .post-header {
@@ -259,6 +317,16 @@ footer {
         margin-bottom: 1rem;
         &:last-child {
             margin-bottom: 0;
+        }
+    }
+    .post-tags {
+        span {
+            display: inline-block;
+            margin-right: .2rem;
+            padding: .2rem .4rem;
+            border-radius: .4rem;
+            background: #eee;
+            color: $secondary-text-color;
         }
     }
     p {
@@ -288,6 +356,13 @@ footer {
         .post-title, p, p.post-publish, p.post-lastmodify {
             color: $primary-text-color-light;
             text-shadow: 0 .25rem 1.5rem $disable-text-color;
+        }
+        .post-tags {
+            span {
+                color: $primary-text-color-light;
+                background: $secondary-text-color;
+                text-shadow: none;
+            }
         }
     }
 }
@@ -357,6 +432,13 @@ article {
         padding-left: 1em;
         border-left: 4px solid #eee;
     }
+    hr {
+        margin: 1.778em auto;
+        width: 5em;
+        height: 2px;
+        border: 0;
+        background: $hair-line-color;
+    }
     .footnote, .reversefootnote {
         &:link, &:visited {
             text-decoration: none;
@@ -382,8 +464,59 @@ article {
     #SOHUCS #SOHU_MAIN .section-title-w .join-wrap-w span.wrap-join-b { display: none; }
 }
 
+.resources {
+    padding: 1rem;
+    .resource-nav {
+        padding: 1em 0 2em;
+        li {
+            display: inline;
+            a {
+                display: inline-block;
+                margin-right: .3rem;
+                padding: .3rem .5rem;
+                border-radius: .5rem;
+                background: #eee;
+                color: $secondary-text-color;
+                &:hover, &:active {
+                    color: $white-color;
+                    background: $red-color;
+                }
+            }
+        }
+    }
+    h3 {
+        font-size: 1.75rem; //28
+        line-height: 3rem; //48
+        margin-bottom: 1rem;
+    }
+    .resource-list {
+        margin-bottom: 2rem;
+        li {
+            margin-bottom: 1rem;
+        }
+        .res-title {
+            font-weight: bold;
+        }
+        .res-developer {
+            margin-left: .5rem;
+            font-size: .875rem;
+            color: $secondary-text-color;
+            a:link, a:visited {
+                color: $secondary-text-color;
+            }
+            a:hover, a:active {
+                text-decoration: underline;
+            }
+        }
+        .res-desc {
+            color: $secondary-text-color;
+        }
+    }
+}
 
-
-
-
-// TODO: tags, res, about, code highlight
+// TODO: about,
+// TODO: code highlight,
+// TODO: scroll
+// TODO: mobile menu
+// TODO: default avatar
+// todo: res.yml

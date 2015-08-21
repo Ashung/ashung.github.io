@@ -4,5 +4,4 @@ title: About
 permalink: about.html
 ---
 
-
-[github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+这里主要分享一些关于UI设计工作流程方面

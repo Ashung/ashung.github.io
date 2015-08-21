@@ -2,32 +2,10 @@
 layout: post
 title:  "Jekyll Theme Design"
 excerpt: A short excerpt...
-category: articles
-comment: 20150528
-level: 1
-type: base
+category: test
+comment: true
 tags: theme jekyll template blog
 ---
-
-<!--
-level
-
-1 = beginner
-2 = medium
-3 = expert
-4 = master
-
-type
-
-base
-photoshop
-illustrator
-sketch
-javascript
-
-
--->
-
 
 # Markdown h1 
 
@@ -46,6 +24,8 @@ A simple Jekyll Theme.
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
 To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+
+---
 
 Jekyll also offers powerful support for code snippets:
 

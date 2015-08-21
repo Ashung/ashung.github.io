@@ -1,34 +1,121 @@
-Photoshop:
-  - title: GUI Automation Toolbox
-    desc: Photoshop, Illustrator & Sketch Scripts for automate GUI design workflow.
-    url: https://github.com/Ashung/GUI_Automation_Toolbox
-Illustrator:
-  - title: Illustrator SVG Exporter
-    desc: A better way to generate SVGs from Illustrator.
-    url: https://github.com/iconic/illustrator-svg-exporter
-  - title: Layer Exporter for Adobe Illustrator
-    desc: A panel for Illustrator to easily export all layers
-    url: https://github.com/davidderaedt/Illustrator-Layer-Exporter
-  - title: illustrator-scripts
-    desc: JavaScript scripts for Adobe Illustrator CSx.
-    url: https://github.com/shspage/illustrator-scripts
+articles:
+  shortname: Articles
+  fullname: Articles About Design
+  items:
+    - title: Bjango.com
+      desc:
+      url: https://bjango.com/articles/
+
+    - title: Kamil Khadeyev's blog
+      desc:
+      url: http://blog.kam88.com/
 
 
-Sketch:
-  - title: Sketch Plugin Directory
-    desc: A semi-official directory of plugins, hosted in GitHub
-    url: https://github.com/sketchplugins/plugin-directory
-#Web:
-#  - title:
-#    desc:
-#    url:
-#iOS:
-#  - title:
-#    desc:
-#    url:
+
+photoshop:
+  shortname: Photoshop
+  fullname: Photoshop Actions, Scripts & Extensions
+  items:
+    - title: Bjango Actions
+      desc: Photoshop Actions and Automator Workflows for iOS, Android and screen design.
+      url: https://github.com/bjango/Bjango-Actions
+
+    - title: Cut&Slice me
+      desc:
+      url: http://www.cutandslice.me/
+
+    - title: LayerCraft
+      desc: A Photoshop plugin to export UI assets from layers.
+      url: http://lab.rayps.com/lc/
+      developer:
+        name: Ray
+        url: http://rayps.com/
+
+    - title: ColorCraft
+      desc: A color picker plugin with shadings and palettes.
+      url: http://lab.rayps.com/cc/
+      developer:
+        name: Ray
+        url: http://rayps.com/
+
+    - title: GuideGuide
+      desc:
+      url: http://guideguide.me/
+
+    - title: INK
+      desc: A photoshop documentor plugin.
+      url: http://ink.chrometaphore.com/
+
+    - title: DevRocket, WebZap & JetPack
+      desc:
+      url: https://uistore.io/downloads/category/tools/
+
+    - title: render.ly
+      desc: Screens with alternate versions, webfonts and assets extracted with a single click. The fastest plugin out there and the only one that actually works!
+      url: https://render.ly/
+
+    - title: pspowertools
+      desc:
+      url: http://pspowertools.com/
+
+    - title: GUI Automation Toolbox
+      desc: Photoshop, Illustrator & Sketch Scripts for automate GUI design workflow.
+      url: https://github.com/Ashung/GUI_Automation_Toolbox
+      developer:
+        name: Ashung Hung
+        url: https://github.com/Ashung/
+
+illustrator:
+  shortname: Illustrator
+  fullname: Illustrator Actions, Scripts & Extensions
+  items:
+    - title: Illustrator SVG Exporter
+      desc: A better way to generate SVGs from Illustrator.
+      url: https://github.com/iconic/illustrator-svg-exporter
+
+    - title: Layer Exporter for Adobe Illustrator
+      desc: A panel for Illustrator to easily export all layers
+      url: https://github.com/davidderaedt/Illustrator-Layer-Exporter
+
+    - title: illustrator-scripts
+      desc: JavaScript scripts for Adobe Illustrator CSx.
+      url: https://github.com/shspage/illustrator-scripts
+
+
+sketch:
+  shortname: Sketch
+  fullname: Sketch Plugins
+  items:
+    - title: Sketch Plugin Directory
+      desc: A semi-official directory of plugins, hosted in GitHub
+      url: https://github.com/sketchplugins/plugin-directory
+
+#Website & Service:
+##  - title:
+##    desc:
+##    url:
+##iOS:
+##  - title:
+##    desc:
+##    url:
+#
 #Android:
-#  - title:
-#    desc:
-#    url:
+#  - title: SVG 2 VectorDrawable
+#    desc: Command-line tools for convert SVG to Android vector drawable.
+#    url: https://github.com/Ashung/svg2vectordrawable
+#
+#Glup:
+#
+#
+#
+references:
+  shortname: References
+  fullname: References
+  items:
+    - title: Adobe Photoshop Scripting
+      desc:
+      url: http://www.adobe.com/devnet/photoshop/scripting.html
 
-# TODO: Refs,
+    - title: Sketch
+      desc:
+      url: http://www.bohemiancoding.com/sketch/support/developer/
