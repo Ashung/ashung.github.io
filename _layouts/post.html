@@ -1,13 +1,16 @@
 {% include head.html pagename="section-post" %}
-{% if page.figure %}
-<div class="post-figure" style="background-image:url({{ page.figure }});">
-    <div class="post-figure-inner">
-        <div class="post-header">
+<div class="main post">
+    <article>
+        {% if page.figure %}
+        <div class="post-figure" style="background-image:url({{ page.figure }});">
+        {% endif %}
+        <header class="post-header-wrap">
+            <div class="post-header">
             <h1 class="post-title">{{ page.title }}</h1>
             {% if page.excerpt %}<p class="post-excerpt">{{ page.excerpt | strip_html | strip_newlines }}</p>{% endif %}
             {% if page.author %}<p class="post-author">作者 {{ page.author }}.</p>{% endif %}
-            {% if page.date %}<p class="post-publish">发表于{{ page.date | date: "%Y年%m月%-d日" }}.</p>{% endif %}
-            {% if page.lastmodify %}<p class="post-lastmodify">最后修订于{{ page.lastmodify | date: "%Y年%m月%-d日" }}.</p>{% endif %}
+            {% if page.date %}<p class="post-publish">发表于<time datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%Y年%m月%-d日" }}</time>.</p>{% endif %}
+            {% if page.lastmodify %}<p class="post-lastmodify">最后修订于<time datetime="{{ page.lastmodify | date: "%Y-%m-%d" }}">{{ page.lastmodify | date: "%Y年%m月%-d日" }}</time>.</p>{% endif %}
             {% if page.tags %}
             <p class="post-tags">
                 {% for tag in page.tags %}
@@ -15,41 +18,30 @@
                 {% endfor %}
             </p>
             {% endif %}
+            </div>
+        </header>
+        {% if page.figure %}
         </div>
-    </div>
-</div>
-<div class="main post">
-{% else %}
-<div class="main post">
-    <div class="post-header">
-        <h1 class="post-title">{{ page.title }}</h1>
-        {% if page.excerpt %}<p class="post-excerpt">{{ page.excerpt | strip_html | strip_newlines }}</p>{% endif %}
-        {% if page.author %}<p class="post-author">作者 {{ page.author }}.</p>{% endif %}
-        {% if page.date %}<p class="post-publish">发表于{{ page.date | date: "%Y年%m月%-d日" }}.</p>{% endif %}
-        {% if page.lastmodify %}<p class="post-lastmodify">最后修订于{{ page.lastmodify | date: "%Y年%m月%-d日" }}.</p>{% endif %}
-        {% if page.tags %}
-        <p class="post-tags">
-            {% for tag in page.tags %}
-            <span class="tag">{{ tag }}</span>
-            {% endfor %}
-        </p>
         {% endif %}
-    </div>
-{% endif %}
-    <article class="post-content">
-        {{ content }}
+        <div class="post-content-wrap">
+            <div class="post-content">
+                {{ content }}
+            </div>
+        </div>
     </article>
     {% assign commentId = page.id | replace:  '/', '-' | remove_first: '-' %}
     {% if page.comment == true %}
-    <div class="post-comments">
-        <div id="SOHUCS" sid="{{ commentId }}"></div>
-        <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js"></script>
-        <script type="text/javascript">
-            window.changyan.api.config({
-                appid: 'cyrVOtEMg',
-                conf: 'prod_c6a0ab76c08ae21be1877d9daf4f93f0'
-            });
-        </script>
+    <div class="post-comments-wrap">
+        <div class="post-comments">
+            <div id="SOHUCS" sid="{{ commentId }}"></div>
+            <script src="http://changyan.sohu.com/upload/changyan.js"></script>
+            <script>
+                window.changyan.api.config({
+                    appid: 'cyrVOtEMg',
+                    conf: 'prod_c6a0ab76c08ae21be1877d9daf4f93f0'
+                });
+            </script>
+        </div>
     </div>
     {% endif %}
 </div>

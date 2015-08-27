@@ -1,121 +1,144 @@
 articles:
   shortname: Articles
-  fullname: Articles About Design
+  fullname: 文章, 教程及博客
   items:
     - title: Bjango.com
       desc:
+      author:
+        name: Marc Edwards
+        url: https://dribbble.com/bjango
       url: https://bjango.com/articles/
 
-    - title: Kamil Khadeyev's blog
+    - title: blog.kam88.com
       desc:
+      author:
+        name: Kamil Khadeyev
+        url: https://dribbble.com/darkwark
       url: http://blog.kam88.com/
 
 
 
 photoshop:
   shortname: Photoshop
-  fullname: Photoshop Actions, Scripts & Extensions
+  fullname: Photoshop动作, 脚本及扩展
   items:
     - title: Bjango Actions
-      desc: Photoshop Actions and Automator Workflows for iOS, Android and screen design.
+      desc: 为iOS, Android和屏幕设计的Photoshop动作和Automator Workflows文件.
       url: https://github.com/bjango/Bjango-Actions
+      developer:
+        name: Marc Edwards
+        url: https://dribbble.com/bjango
 
     - title: Cut&Slice me
-      desc:
+      desc: 为iOS, Android和Web设计快速导出资源的Photoshop扩展.
       url: http://www.cutandslice.me/
+      developer:
+        name: Daniel Marcos Perujo
+        url: https://dribbble.com/peruho
 
     - title: LayerCraft
-      desc: A Photoshop plugin to export UI assets from layers.
+      desc: 切图扩展, Ps文档必须为1x或mdpi, 使用扩展复制图层到新文档, 再导出iOS或Android平台资源.
       url: http://lab.rayps.com/lc/
       developer:
         name: Ray
         url: http://rayps.com/
 
-    - title: ColorCraft
-      desc: A color picker plugin with shadings and palettes.
-      url: http://lab.rayps.com/cc/
-      developer:
-        name: Ray
-        url: http://rayps.com/
-
     - title: GuideGuide
-      desc:
+      desc: 最好的辅助线扩展.
       url: http://guideguide.me/
 
     - title: INK
-      desc: A photoshop documentor plugin.
+      desc: 标注文档的扩展, 自动为文字, 形状等标注属性.
       url: http://ink.chrometaphore.com/
 
-    - title: DevRocket, WebZap & JetPack
-      desc:
-      url: https://uistore.io/downloads/category/tools/
-
-    - title: render.ly
-      desc: Screens with alternate versions, webfonts and assets extracted with a single click. The fastest plugin out there and the only one that actually works!
-      url: https://render.ly/
-
-    - title: pspowertools
-      desc:
-      url: http://pspowertools.com/
-
     - title: GUI Automation Toolbox
-      desc: Photoshop, Illustrator & Sketch Scripts for automate GUI design workflow.
+      desc: 为GUI设计流程自动化的Photoshop, Illustrator动作和脚本, 包括专门为导出Android平台资源的脚本.
       url: https://github.com/Ashung/GUI_Automation_Toolbox
       developer:
         name: Ashung Hung
-        url: https://github.com/Ashung/
+        url: https://dribbble.com/Ashung
 
 illustrator:
   shortname: Illustrator
-  fullname: Illustrator Actions, Scripts & Extensions
+  fullname: Illustrator动作, 脚本及扩展
   items:
-    - title: Illustrator SVG Exporter
-      desc: A better way to generate SVGs from Illustrator.
-      url: https://github.com/iconic/illustrator-svg-exporter
-
     - title: Layer Exporter for Adobe Illustrator
-      desc: A panel for Illustrator to easily export all layers
+      desc: Adobe开发人员开发的扩展, 自动导出带格式后缀命名的图层, 支持SVG, JPG, PNG及HTML CSS.
       url: https://github.com/davidderaedt/Illustrator-Layer-Exporter
+      developer:
+        name: David Deraedt
+        url: https://github.com/davidderaedt
+
+    - title: Illustrator SVG Exporter
+      desc: 无界面的SVG导出脚本, 自动导出带有".svg"后缀的路径, 图层, 组合, 复合路径和画板.
+      url: https://github.com/iconic/illustrator-svg-exporter
+      developer:
+        name: iconic
+        url: https://useiconic.com/
 
     - title: illustrator-scripts
-      desc: JavaScript scripts for Adobe Illustrator CSx.
+      desc: 一些强化Ai绘图功能的脚本.
       url: https://github.com/shspage/illustrator-scripts
 
+    - title: MultiExporter new
+      desc: <a href="http://www.ericson.net/content/2012/02/multiexporter-multiple-resolutions/">MultiExporter</a>资源导出脚本的增强版, 支持将图层或画板导出为PNG8, PNG24, PDF, JPG, EPS, SVG等格式.
+      url: http://www.tbyrne.org/export-illustrator-layers-to-svg-files
+      developer:
+        name: Thomas Byrne
+        url: http://www.tbyrne.org/
 
 sketch:
   shortname: Sketch
-  fullname: Sketch Plugins
+  fullname: Sketch插件
   items:
     - title: Sketch Plugin Directory
-      desc: A semi-official directory of plugins, hosted in GitHub
+      desc: 半官方插件目录, 收集各种托管在GitHub的Sketch插件.
       url: https://github.com/sketchplugins/plugin-directory
 
-#Website & Service:
-##  - title:
-##    desc:
-##    url:
-##iOS:
-##  - title:
-##    desc:
-##    url:
-#
-#Android:
-#  - title: SVG 2 VectorDrawable
-#    desc: Command-line tools for convert SVG to Android vector drawable.
-#    url: https://github.com/Ashung/svg2vectordrawable
-#
-#Glup:
-#
-#
-#
+web:
+  shortname: Web
+  fullname: Web平台相关工具
+  items:
+    - title: StaticGen
+      desc: 开源静态网站生成器目录及排名.
+      url: http://www.staticgen.com/
+
+apple:
+  shortname: Apple
+  fullname: Mac OS, iOS, Watch OS平台相关工具
+  items:
+    - title:
+      desc:
+      url:
+
+android:
+  shortname: Android
+  fullname: Android平台相关工具
+  items:
+    - title: SVG 2 VectorDrawable
+      desc: Command-line tools for convert SVG to Android vector drawable.
+      url: https://github.com/Ashung/svg2vectordrawable
+
+guide:
+  shortname: 设计指南
+  fullname: 设计指南
+  items:
+    - title: Google Material Design
+      desc: Google Material Design设计指南(英文) <a href="https://www.gitbook.com/book/wcc723/google_design_translate/details">繁体版</a>
+      url: https://www.google.com/design/spec/material-design/introduction.html
+
+    - title: iOS Human Interface Guidelines
+      desc: iOS人机界面指南(英文)
+      url: https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/index.html
+
 references:
-  shortname: References
-  fullname: References
+  shortname: 开发者文档
+  fullname: 开发者文档
   items:
     - title: Adobe Photoshop Scripting
-      desc:
+      desc: Adobe Photoshop 脚本文档
       url: http://www.adobe.com/devnet/photoshop/scripting.html
 
-    - title: Sketch
-      desc:
+    - title: Sketch Developer
+      desc: Sketch官方插件开发文档
       url: http://www.bohemiancoding.com/sketch/support/developer/

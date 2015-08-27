@@ -15,6 +15,7 @@
 <meta name="HandheldFriendly" content="True">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
 <link rel="stylesheet" href="{{ "assets/css/style.css" | prepend: site.baseurl }}">
+<script src="{{ "assets/js/jquery-2.1.4.min.js" | prepend: site.baseurl }}"></script>
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -25,12 +26,12 @@ var _hmt = _hmt || [];
 })();
 </script>
 </head>
-<body class="section-{% if include.pagename %}{{ include.pagename }}{% else %}default{% endif %}">
-<div class="container">
-<header>
-    <h1 class="brand">
+<body>
+<div class="container section-{% if include.pagename %}{{ include.pagename }}{% else %}default{% endif %}">
+<header class="topbar">
+    <div class="logo">
         <a href="{{ site.baseurl }}" rel="home">{{ site.title }}</a>
-    </h1>
+    </div>
     <nav class="nav">
         <a id="icon-menu" href="#menu">Menu</a>
         <ul id="menu">

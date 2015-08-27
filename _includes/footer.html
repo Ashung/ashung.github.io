@@ -10,7 +10,8 @@
         {% for website in site.sns %}
         <li>
             <a href="{{ website["url"] }}">
-                <span class="social-icon ic-{{ website["title"] }}">@</span><span class="social-text">{{ website["title"] }}</span>
+                <span class="social-icon ic-{{ website["title"] }}">@</span>
+                <span class="social-text">{{ website["title"] }}</span>
             </a>
         </li>
         {% endfor %}

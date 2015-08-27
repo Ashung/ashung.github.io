@@ -2,32 +2,45 @@
 // Font
 @font-face {
     font-family: Merriweather;
-    src: url(../font/Merriweather-Regular.ttf);
     font-weight: normal;
+    src: local('Merriweather'),
+        url(../font/Merriweather-Regular.woff2) format('woff2'),
+        url(../font/Merriweather-Regular.ttf) format('truetype');
 }
 @font-face {
     font-family: Merriweather;
-    src: url(../font/Merriweather-Bold.ttf);
     font-weight: bold;
+    src: local('Merriweather Bold'), local('Merriweather-Bold'),
+        url(../font/Merriweather-Bold.woff2) format('woff2'),
+        url(../font/Merriweather-Bold.ttf) format('truetype');
 }
 @font-face {
-    font-family: Lato;
-    src: url(../font/Lato-Regular.ttf);
+    font-family: 'Merriweather Sans';
     font-weight: normal;
+    src: local('Merriweather Sans Regular'), local('MerriweatherSans-Regular'),
+        url(../font/MerriweatherSans-Regular.woff2) format('woff2'),
+        url(../font/MerriweatherSans-Regular.ttf) format('truetype');
 }
 @font-face {
-    font-family: Lato;
-    src: url(../font/Lato-Bold.ttf);
+    font-family: 'Merriweather Sans';
     font-weight: bold;
+    src: local('Merriweather Sans Bold'), local('MerriweatherSans-Bold'),
+        url(../font/MerriweatherSans-Bold.woff2) format('woff2'),
+        url(../font/MerriweatherSans-Bold.ttf) format('truetype');
 }
 @font-face {
     font-family: FiraMono;
-    src: url(../font/FiraMono-Regular.woff2);
+    font-weight: normal;
+    src: local('FiraMono'), local('FiraMono Regular'),
+        url(../font/FiraMono-Regular.woff2) format('woff2'),
+        url(../font/FiraMono-Regular.ttf) format('truetype');
 }
 @font-face {
     font-family: FiraMono;
-    src: url(../font/FiraMono-Bold.woff2);
     font-weight: bold;
+    src: local('FiraMono Bold'), local('FiraMono-Bold'),
+        url(../font/FiraMono-Bold.woff2) format('woff2'),
+        url(../font/FiraMono-Bold.ttf) format('truetype');
 }
 
 $cjk-font: "Noto Sans SC", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
@@ -35,7 +48,7 @@ $cjk-font: "Noto Sans SC", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
            "SourceHanSansSC", "SourceHanSansTC", "SourceHanSansJ", "SourceHanSansK", "SourceHanSans",
            "STHeiti", "Microsoft Yahei";
 $serif: Merriweather, Georgia, Times, $cjk-font, serif;
-$sans-serif: Lato, Helvetica, Arial, $cjk-font, sans-serif;
+$sans-serif: "Merriweather Sans", Helvetica, Arial, $cjk-font, sans-serif;
 $monospace: FiraMono, Menlo, Consolos, $cjk-font, monospace;
 $base-font-family: $serif;
 $base-font-size: medium; // 16px
@@ -64,7 +77,7 @@ $green-color: #8bc34a;
 $blue-color: #2196f3;
 
 // Dimens
-$max-content-width: 640px;
+$max-content-width: 740px;
 $mobile-device-width: 360px;
 $desktop-browser-width: 800px;
 
@@ -79,7 +92,6 @@ $desktop-browser-width: 800px;
         @content;
     }
 }
-
 
 // Reset
 body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
@@ -113,7 +125,7 @@ body {
     max-width: $max-content-width;
 }
 
-header {
+.topbar {
     padding: 1rem 0;
     height: 2rem;
     &:after {
@@ -126,11 +138,13 @@ header {
         margin-top: -webkit-calc(3rem - 1px);
         margin-top: calc(3rem - 1px);
     }
-    .brand {
+    .logo {
         float: left;
         font-size: 1rem;
         line-height: 2;
         margin-left: 1rem;
+        font-family: $sans-serif;
+        font-weight: bold;
     }
     .nav {
         float: right;
@@ -237,10 +251,13 @@ footer {
             overflow: hidden;
             background-image: url(../img/social_icons.svg);
             background-repeat: no-repeat;
-            transition: transform 100ms cubic-bezier(0.6, 0, 0.4, 1);
+            transition: transform 200ms cubic-bezier(0.6, 0, 0.4, 1);
         }
         .social-text {
-            display: none;
+            display: block;
+            font-size: .75rem;
+            opacity: 0;
+            transition: opacity 200ms cubic-bezier(0, 0, 1, 1);
         }
         .ic-dribbble {
             background-position: 0 0;
@@ -259,17 +276,20 @@ footer {
         li {
             float: left;
             a {
-                position: relative;
                 float: left;
-                width: 32px;
-                margin-right: 16px;
+                width: 3.5rem;
+                margin-right: .5rem;
                 text-align: center;
                 &:link, &:visited {
+                    color: $disable-text-color;
                     text-decoration: none;
                 }
                 &:hover, &:active {
                     .social-icon {
                         transform: scale(1.333) translateY(-4px);
+                    }
+                    .social-text {
+                        opacity: 1;
                     }
                     .ic-dribbble {
                         background-position: 0 -24px;
@@ -309,8 +329,15 @@ footer {
     }
 }
 
+.post{
+    max-width: 100%;
+    .post-header-wrap, .post-content-wrap, .post-comments-wrap {
+        margin: auto;
+        max-width: $max-content-width;
+    }
+}
 .post-header {
-    padding: 1rem;
+    padding: 2rem 1rem 1rem;
     .post-title {
         font-size: 2.75rem; // 44px
         line-height: 1.273; // 56px
@@ -340,17 +367,13 @@ footer {
     }
 }
 .post-figure {
-    min-height: 20rem;
-    margin-bottom: 1rem;
+    min-height: 17rem;
+    padding: 1rem 0;
     background-repeat: no-repeat;
     background-position: 50% 0;
     background-size: 100% auto;
     @include media-max-width(640px) {
         background-size: auto 100%;
-    }
-    .post-figure-inner {
-        margin: auto;
-        max-width: $max-content-width;
     }
     .post-header {
         .post-title, p, p.post-publish, p.post-lastmodify {
@@ -366,8 +389,7 @@ footer {
         }
     }
 }
-
-article {
+.post-content {
     font-size: 1.125rem; // 18px
     line-height: 1.778; // 32px
     padding: 1rem;
@@ -445,7 +467,6 @@ article {
         }
     }
 }
-
 .post-comments {
     padding: 0 1rem;
     #SOHUCS { padding-top: 2rem; border-top: 1px solid $hair-line-color; }
@@ -465,14 +486,15 @@ article {
 }
 
 .resources {
+    position: relative;
     padding: 1rem;
     .resource-nav {
-        padding: 1em 0 2em;
+        padding: 1em 0;
         li {
             display: inline;
             a {
                 display: inline-block;
-                margin-right: .3rem;
+                margin: 0 .3rem .6rem 0;
                 padding: .3rem .5rem;
                 border-radius: .5rem;
                 background: #eee;
@@ -497,7 +519,7 @@ article {
         .res-title {
             font-weight: bold;
         }
-        .res-developer {
+        .res-author, .res-developer {
             margin-left: .5rem;
             font-size: .875rem;
             color: $secondary-text-color;
@@ -510,6 +532,27 @@ article {
         }
         .res-desc {
             color: $secondary-text-color;
+            a:link, a:visited {
+                text-decoration: underline;
+            }
+        }
+    }
+    .top {
+        position: absolute;
+        display: block;
+        opacity: 0;
+        right: 1rem;
+        top: 0;
+        margin-top: 2rem;
+        width: 4rem;
+        height: 4rem;
+        text-indent: -999px;
+        overflow: hidden;
+        background: url(../img/top.svg) no-repeat 50%, linear-gradient(#f8f8f8, #eee) no-repeat;
+        border-radius: 2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, .2), 0 2px 2px rgba(0, 0, 0, .2);
+        &:hover, &:active {
+            box-shadow: 0 6px 12px 2px rgba(0, 0, 0, .1), 0 2px 4px 1px rgba(0, 0, 0, .1);
         }
     }
 }
@@ -518,5 +561,5 @@ article {
 // TODO: code highlight,
 // TODO: scroll
 // TODO: mobile menu
-// TODO: default avatar
+
 // todo: res.yml
