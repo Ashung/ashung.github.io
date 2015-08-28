@@ -9,7 +9,7 @@
     <ul class="social-list">
         {% for website in site.sns %}
         <li>
-            <a href="{{ website["url"] }}">
+            <a rel="me" href="{{ website["url"] }}">
                 <span class="social-icon ic-{{ website["title"] }}">@</span>
                 <span class="social-text">{{ website["title"] }}</span>
             </a>

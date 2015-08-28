@@ -11,6 +11,7 @@ permalink: resources.html
         <li><a href="#{{ res[0] }}">#{{ res[1]["shortname"] }}</a></li>
         {% endfor %}
     </ul>
+    <article>
     {% for res in site.data.resources %}
     <h3 id="{{ res[0] }}">{{ res[1]["fullname"] }}</h3>
     <ul class="resource-list">
@@ -19,11 +20,10 @@ permalink: resources.html
             <p>
                 <a href="{{ item["url"] }}" class="res-title">{{ item["title"] }}</a>
                 {% if item["author"] %}
-                <span class="res-author">by <a href="{{ item["author"]["url"] }}">{{ item["author"]["name"] }}</a></span>
+                <small class="res-author">by <a href="{{ item["author"]["url"] }}">{{ item["author"]["name"] }}</a></small>
                 {% endif %}
-
                 {% if item["developer"] %}
-                <span class="res-developer">by <a href="{{ item["developer"]["url"] }}">{{ item["developer"]["name"] }}</a></span>
+                <small class="res-developer">by <a href="{{ item["developer"]["url"] }}">{{ item["developer"]["name"] }}</a></small>
                 {% endif %}
             </p>
             <p class="res-desc">{{ item["desc"] }}</p>
@@ -31,6 +31,7 @@ permalink: resources.html
         {% endfor %}
     </ul>
     {% endfor %}
+    </article>
     <a href="#" class="top">Top</a>
 </div>
 

@@ -29,9 +29,12 @@ var _hmt = _hmt || [];
 <body>
 <div class="container section-{% if include.pagename %}{{ include.pagename }}{% else %}default{% endif %}">
 <header class="topbar">
-    <div class="logo">
-        <a href="{{ site.baseurl }}" rel="home">{{ site.title }}</a>
-    </div>
+    <hgroup class="logo">
+        <a href="{{ site.baseurl }}" rel="home">
+            <h1>{{ site.title }}</h1>
+            <h2>{{ site.subtitle }}</h2>
+        </a>
+    </hgroup>
     <nav class="nav">
         <a id="icon-menu" href="#menu">Menu</a>
         <ul id="menu">
