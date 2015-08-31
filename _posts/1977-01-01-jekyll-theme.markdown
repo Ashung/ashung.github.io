@@ -1,10 +1,12 @@
 ---
 layout: post
 title:  "Jekyll Theme Design"
-excerpt: A short excerpt...
+excerpt: A short excerpt ...
+updated: 1977-01-02
 category: test
 comment: true
 tags: theme jekyll template blog
+#figure: https://cdn-images-2.medium.com/max/2000/1*3AL6oHHbiwuRJgTT4p_0PQ.png
 ---
 
 # Markdown h1 
@@ -63,12 +65,6 @@ CSS
 }
 {% endhighlight %}
 
-Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
-
-[jekyll]:      http://jekyllrb.com
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-help]: https://github.com/jekyll/jekyll-help
-
 Table | Table | Table 
 -- | -- | -- 
 Table | Table | Table 
@@ -87,8 +83,4 @@ Table | Table | Table
 > – Steve Jobs [^Steve_Jobs]
 
 [^Steve_Jobs]: Steve Jobs
-
-
-
-
 

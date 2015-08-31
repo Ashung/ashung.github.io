@@ -43,10 +43,7 @@
         url(../font/FiraMono-Bold.ttf) format('truetype');
 }
 
-$cjk-font: "Noto Sans SC", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
-           "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK JP", "Noto Sans CJK KR",
-           "SourceHanSansSC", "SourceHanSansTC", "SourceHanSansJ", "SourceHanSansK", "SourceHanSans",
-           "STHeiti", "Microsoft Yahei";
+$cjk-font: "Noto Sans SC", "Noto Sans CJK SC", "Noto Sans CJK", "SourceHanSansSC", "SourceHanSans", "STHeiti", "Microsoft Yahei";
 $serif: Merriweather, Georgia, Times, $cjk-font, serif;
 $sans-serif: "Merriweather Sans", Helvetica, Arial, $cjk-font, sans-serif;
 $monospace: FiraMono, Menlo, Consolos, $cjk-font, monospace;
@@ -111,12 +108,27 @@ a:link, a:visited {
     color: $primary-text-color;
     text-decoration: none;
 }
+@mixin filetypeicon($icon) {
+    white-space: nowrap;
+    padding-right: 1.5rem;
+    background: url(#{$icon}) no-repeat 100% 50%;
+}
+a[href$=".pdf"] {
+    @include filetypeicon('../img/icon_pdf.svg');
+}
+a[href$=".zip"] {
+    @include filetypeicon('../img/icon_zip.svg');
+}
 body {
     color: $primary-text-color;
     background-color: $background-color;
     font: $base-font-size/$base-line-height $body-font;
     font-kerning: normal;
     -webkit-text-size-adjust: 100%;
+}
+::selection {
+    color: $white-color;
+    background: $red-color;
 }
 
 /* Main Layout */
@@ -165,7 +177,7 @@ body {
                 display: inline-block;
                 margin-left: .5rem;
                 font-family: $sans-serif;
-                text-transform: uppercase;
+                text-transform: capitalize;
                 a {
                     padding: 0 .5rem;
                     height: 2rem;
@@ -199,7 +211,6 @@ body {
 //        }
 //    }
 //}
-
 
 .postlist {
     .post-entry {
@@ -447,7 +458,7 @@ footer {
         }
     }
     p > code {
-        background: #f5f5f5;
+        background: #f8f8f8;
         padding: .222em .444em;
         border-radius: .222em;
     }
@@ -559,9 +570,4 @@ footer {
     }
 }
 
-// TODO: about,
-// TODO: code highlight,
-// TODO: scroll
 // TODO: mobile menu
-
-// todo: res.yml

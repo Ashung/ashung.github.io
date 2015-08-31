@@ -4,43 +4,39 @@ articles:
   items:
     - title: Bjango.com
       desc: Bjango经常分享一些iOS, Mac OS界面设计经验和资源, Bjango同时也是 <a href="https://bjango.com/mac/skalapreview/">Skala Preview</a> (用于在iOS Android设备上预览设计稿的应用)的开发者.
+      url: https://bjango.com/articles/
       author:
         name: Marc Edwards
         url: https://dribbble.com/bjango
-      url: https://bjango.com/articles/
 
     - title: blog.kam88.com
       desc: darkwark的blog经常分享Photoshop的使用经验, 以及一些由他自己开发免费脚本和扩展.
+      url: http://blog.kam88.com/
       author:
         name: Kamil Khadeyev
         url: https://dribbble.com/darkwark
-      url: http://blog.kam88.com/
 
     - title: davidebarranca.com
       desc: 分享Photoshop脚本和扩展开发经验, 知名的<a href="http://www.davidebarranca.com/category/code/html-panels/">HTML panal系列教程</a>就是出自他的blog, 另外在他的Github上有一些开发CC扩展不可缺少的资源.
+      url: http://www.davidebarranca.com/
       author:
         name: Davide Barranca
         url: https://github.com/undavide
-      url: http://www.davidebarranca.com/
 
 forums:
   shortname: 社区
   fullname: 论坛和社区
   items:
-    - title: s
-      desc: s
-      url: s
-
     - title: designnews.co
-      desc:
+      desc: 设计师社区, 聚合设计相关的各种文章, 资讯, 经验, 分享, 问答和讨论.
       url: https://www.designernews.co/
 
     - title: Photoshop Scripting
-      desc: Adobe官方Photoshop脚本编程讨论区
+      desc: 官方Photoshop脚本编程论坛
       url: https://forums.adobe.com/community/photoshop/photoshop_scripting
 
     - title: Illustrator Scripting
-      desc: Adobe官方Illustrator脚本编程讨论区
+      desc: 官方Illustrator脚本编程论坛
       url: https://forums.adobe.com/community/illustrator/illustrator_scripting
 
 photoshop:
@@ -112,6 +108,29 @@ illustrator:
         name: Thomas Byrne
         url: http://www.tbyrne.org/
 
+ccdev:
+  shortname: CC
+  fullname: Creative Cloud系列软件扩展开发
+  items:
+    - title: Photoshop Scripting
+      desc: Photoshop 脚本文档(英文)
+      url: http://www.adobe.com/devnet/photoshop/scripting.html
+
+    - title: Illustrator Scripting
+      desc: Illustrator 脚本文档(英文)
+      url: http://www.adobe.com/devnet/illustrator/scripting.html
+
+    - title: Using the Adobe Extension SDK
+      desc: Adobe CC14扩展开发工具文档(英文)
+      url: http://wwwimages.adobe.com/content/dam/Adobe/en/devnet/creativesuite/pdfs/CC14_Extension_SDK.pdf
+
+    - title: Creative Cloud Extension Builder for Brackets
+      desc: CC扩展开发工具, 支持开发Photoshop, Illustrator 和 InDesign扩展.
+      url: http://davidderaedt.github.io/CC-Extension-Builder-for-Brackets/
+      developer:
+        name: David Deraedt
+        url: https://github.com/davidderaedt
+
 sketch:
   shortname: Sketch
   fullname: Sketch插件
@@ -120,40 +139,43 @@ sketch:
       desc: 半官方插件目录, 收集各种托管在GitHub的Sketch插件.
       url: https://github.com/sketchplugins/plugin-directory
 
+sketchsdk:
+  shortname: Sketch SDK
+  fullname: Sketch插件开发
+  items:
+    - title: Sketch Developer
+      desc: Sketch 官方插件开发文档(英文)
+      url: http://www.bohemiancoding.com/sketch/support/developer/
+
 web:
   shortname: Web
   fullname: Web平台相关工具
   items:
     - title: StaticGen
-      desc: 开源静态网站生成器目录及排名.
+      desc: 开源静态网站生成器目录及排名. 用于生成静态网站, 博客和文档等.
       url: http://www.staticgen.com/
 
 apple:
   shortname: Apple
   fullname: Mac OS, iOS, Watch OS平台相关工具
   items:
-    - title:
-      desc:
-      url:
 
 android:
   shortname: Android
   fullname: Android平台相关工具
   items:
     - title: SVG 2 VectorDrawable
-      desc: Command-line tools for convert SVG to Android vector drawable.
+      desc: Node.js命令行工具, 用于将SVG文件转换为Android vector drawable xml文件.
       url: https://github.com/Ashung/svg2vectordrawable
+      developer:
+        name: Ashung Hung
+        url: https://dribbble.com/Ashung
 
 tools:
   shortname: 工具
   fullname: 其他工具
   items:
-    - title: Creative Cloud Extension Builder for Brackets
-      desc: CC扩展开发工具, 支持开发Photoshop, Illustrator 和 InDesign扩展.
-      url: http://davidderaedt.github.io/CC-Extension-Builder-for-Brackets/
-      developer:
-        name: David Deraedt
-        url: https://github.com/davidderaedt
+
 
 guide:
   shortname: 设计指南
@@ -171,18 +193,5 @@ references:
   shortname: 开发者文档
   fullname: 开发者文档
   items:
-    - title: Photoshop Scripting
-      desc: Photoshop 脚本文档(英文)
-      url: http://www.adobe.com/devnet/photoshop/scripting.html
 
-    - title: Illustrator Scripting
-      desc: Illustrator 脚本文档(英文)
-      url: http://www.adobe.com/devnet/illustrator/scripting.html
 
-    - title: Using the Adobe Extension SDK
-      desc: Adobe CC14扩展开发工具文档(英文)
-      url: http://wwwimages.adobe.com/content/dam/Adobe/en/devnet/creativesuite/pdfs/CC14_Extension_SDK.pdf
-
-    - title: Sketch Developer
-      desc: Sketch 官方插件开发文档(英文)
-      url: http://www.bohemiancoding.com/sketch/support/developer/

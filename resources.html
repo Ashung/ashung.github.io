@@ -8,11 +8,16 @@ permalink: resources.html
 <div class="resources">
     <ul class="resource-nav">
         {% for res in site.data.resources %}
+        {% assign itemsCount = res[1]["items"] | size %}
+        {% if itemsCount > 0 %}
         <li><a href="#{{ res[0] }}">#{{ res[1]["shortname"] }}</a></li>
+        {% endif %}
         {% endfor %}
     </ul>
     <article>
     {% for res in site.data.resources %}
+    {% assign itemsCount = res[1]["items"] | size %}
+    {% if itemsCount > 0 %}
     <h3 id="{{ res[0] }}">{{ res[1]["fullname"] }}</h3>
     <ul class="resource-list">
         {% for item in res[1].items %}
@@ -30,6 +35,7 @@ permalink: resources.html
         </li>
         {% endfor %}
     </ul>
+    {% endif %}
     {% endfor %}
     </article>
     <a href="#" class="top">Top</a>
