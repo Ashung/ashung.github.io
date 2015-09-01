@@ -23,6 +23,18 @@ articles:
         name: Davide Barranca
         url: https://github.com/undavide
 
+guide:
+  shortname: 设计指南
+  fullname: 设计指南
+  items:
+    - title: Google Material Design
+      desc: Google Material Design设计指南(英文) <a href="http://wiki.jikexueyuan.com/project/material-design/">简体中文版</a> <a href="https://www.gitbook.com/book/wcc723/google_design_translate/details">繁体版</a>
+      url: https://www.google.com/design/spec/material-design/introduction.html
+
+    - title: iOS Human Interface Guidelines
+      desc: iOS人机界面指南(英文)
+      url: https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/index.html
+
 forums:
   shortname: 社区
   fullname: 论坛和社区
@@ -139,6 +151,12 @@ sketch:
       desc: 半官方插件目录, 收集各种托管在GitHub的Sketch插件.
       url: https://github.com/sketchplugins/plugin-directory
 
+    - title: Sketch Commands
+      desc: 官方插件脚本示例.
+      url: http://bomberstudios.github.io/sketch-commands/
+
+
+
 sketchsdk:
   shortname: Sketch SDK
   fullname: Sketch插件开发
@@ -175,19 +193,6 @@ tools:
   shortname: 工具
   fullname: 其他工具
   items:
-
-
-guide:
-  shortname: 设计指南
-  fullname: 设计指南
-  items:
-    - title: Google Material Design
-      desc: Google Material Design设计指南(英文) <a href="http://wiki.jikexueyuan.com/project/material-design/">简体中文版</a> <a href="https://www.gitbook.com/book/wcc723/google_design_translate/details">繁体版</a>
-      url: https://www.google.com/design/spec/material-design/introduction.html
-
-    - title: iOS Human Interface Guidelines
-      desc: iOS人机界面指南(英文)
-      url: https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/index.html
 
 references:
   shortname: 开发者文档
