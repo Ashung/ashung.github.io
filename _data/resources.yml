@@ -165,6 +165,10 @@ sketchsdk:
       desc: Sketch 官方插件开发文档(英文)
       url: http://www.bohemiancoding.com/sketch/support/developer/
 
+    - title: SketchTool
+      desc: A command-line app for exporting pages and slices out of .sketch docs.
+      url: http://bohemiancoding.com/sketch/tool/
+
 web:
   shortname: Web
   fullname: Web平台相关工具
@@ -182,8 +186,12 @@ android:
   shortname: Android
   fullname: Android平台相关工具
   items:
+    - title: Android SVG to VectorDrawable
+      desc: HTML版SVG转Android VectorDrawable工具, 不尺寸批量操作.
+      url: http://inloop.github.io/svg2android/
+
     - title: SVG 2 VectorDrawable
-      desc: Node.js命令行工具, 用于将SVG文件转换为Android vector drawable xml文件.
+      desc: Node.js命令行工具, 用于批量将SVG文件转换为Android VectorDrawable xml文件.
       url: https://github.com/Ashung/svg2vectordrawable
       developer:
         name: Ashung Hung
@@ -193,6 +201,62 @@ tools:
   shortname: 工具
   fullname: 其他工具
   items:
+
+gulp:
+  shortname: Gulp
+  fullname: Gulp与Gulp插件
+  items:
+    - title: Gulp
+      desc: http://www.gulpjs.com.cn/
+      url: http://gulpjs.com/
+
+    - title: gulp-imagemin
+      desc: Minify PNG, JPEG, GIF and SVG images
+      url: https://npmjs.org/package/gulp-imagemin/
+
+    - title: gulp-image-resize
+      desc: Resizing images made easy.
+      url: https://npmjs.org/package/gulp-image-resize/
+
+    - title: gulp-gm
+      desc: Image manipulation with GraphicsMagick for gulp.
+      url: https://npmjs.org/package/gulp-gm/
+
+    - title: gulp-webp
+      desc: Convert images to WebP
+      url: https://npmjs.org/package/gulp-webp/
+
+    - title: gulp-iconfont
+      desc: Create icon fonts from several SVG icons
+      url: https://npmjs.org/package/gulp-iconfont/
+
+    - title: gulp-ttf2woff
+      desc: Create a WOFF font from a TTF one
+      url: https://npmjs.org/package/gulp-ttf2woff/
+
+    - title: gulp-svg2ttf
+      desc: Create a TTF font from an SVG font
+      url: https://npmjs.org/package/gulp-svg2ttf/
+
+    - title: gulp-ttf2eot
+      desc: Create an EOT font from a TTF one
+      url: https://npmjs.org/package/gulp-ttf2eot/
+
+    - title: gulp-ttf2woff2
+      desc: Create a WOFF2 font from a TTF font
+      url: https://npmjs.org/package/gulp-ttf2woff2/
+
+    - title: gulp-fontmin
+      desc: Gulp plugin for minify TTF font to SVG, EOT, WOFF
+      url: https://npmjs.org/package/gulp-fontmin/
+
+    - title: gulp-sketch
+      desc: A SketchTool plugin for gulp
+      url: https://github.com/cognitom/gulp-sketch
+
+    - title: gulp-clean-sketch
+      desc: Cleanup Sketch SVG files
+      url: https://npmjs.org/package/gulp-clean-sketch/
 
 references:
   shortname: 开发者文档
