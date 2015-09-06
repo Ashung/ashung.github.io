@@ -23,18 +23,6 @@ articles:
         name: Davide Barranca
         url: https://github.com/undavide
 
-guide:
-  shortname: 设计指南
-  fullname: 设计指南
-  items:
-    - title: Google Material Design
-      desc: Google Material Design设计指南(英文) <a href="http://wiki.jikexueyuan.com/project/material-design/">简体中文版</a> <a href="https://www.gitbook.com/book/wcc723/google_design_translate/details">繁体版</a>
-      url: https://www.google.com/design/spec/material-design/introduction.html
-
-    - title: iOS Human Interface Guidelines
-      desc: iOS人机界面指南(英文)
-      url: https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/index.html
-
 forums:
   shortname: 社区
   fullname: 论坛和社区
@@ -44,12 +32,28 @@ forums:
       url: https://www.designernews.co/
 
     - title: Photoshop Scripting
-      desc: 官方Photoshop脚本编程论坛
+      desc: 官方Photoshop脚本编程论坛.
       url: https://forums.adobe.com/community/photoshop/photoshop_scripting
 
     - title: Illustrator Scripting
-      desc: 官方Illustrator脚本编程论坛
+      desc: 官方Illustrator脚本编程论坛.
       url: https://forums.adobe.com/community/illustrator/illustrator_scripting
+
+    - title: InDesignSecrets
+      desc: InDesign资源分享和论坛.
+      url: http://indesignsecrets.com/
+
+guide:
+  shortname: 设计指南
+  fullname: 设计指南
+  items:
+    - title: Google Material Design
+      desc: Google Material Design设计指南, <a href="http://wiki.jikexueyuan.com/project/material-design/">简体中文版</a>, <a href="https://www.gitbook.com/book/wcc723/google_design_translate/details">繁体版</a>.
+      url: https://www.google.com/design/spec/material-design/introduction.html
+
+    - title: iOS Human Interface Guidelines
+      desc: iOS人机界面指南.
+      url: https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/index.html
 
 photoshop:
   shortname: Photoshop
@@ -120,28 +124,76 @@ illustrator:
         name: Thomas Byrne
         url: http://www.tbyrne.org/
 
-ccdev:
-  shortname: CC
-  fullname: Creative Cloud系列软件扩展开发
+adobe:
+  shortname: adobe
+  fullname: Adobe其他软件资源
   items:
-    - title: Photoshop Scripting
-      desc: Photoshop 脚本文档(英文)
-      url: http://www.adobe.com/devnet/photoshop/scripting.html
+    - title: InDesign scripts
+      desc: InDesign脚本
+      url: http://www.kahrel.plus.com/indesignscripts.html
 
-    - title: Illustrator Scripting
-      desc: Illustrator 脚本文档(英文)
-      url: http://www.adobe.com/devnet/illustrator/scripting.html
+adobeSDK:
+  shortname: CC SDK
+  fullname: CC系列软件脚本和扩展开发
+  items:
+    - title: Adobe Introduction to Scripting
+      desc: Adobe 脚本开发介绍.
+      url: http://wwwimages.adobe.com/content/dam/Adobe/en/devnet/scripting/pdfs/adobe_intro_to_scripting.pdf
+
+    - title: JavaScript Tools Guide CC
+      desc: JavaScript 工具指南 CC版.
+      url: http://download.macromedia.com/pub/developer/aftereffects/scripting/JavaScript-Tools-Guide-CC.pdf
+
+    - title: Adobe Photoshop Developer Center
+      desc: Photoshop 开发者中心, <a href="http://www.adobe.com/devnet/photoshop/scripting.html">Photoshop 脚本开发文档</a>.
+      url: http://www.adobe.com/devnet/photoshop.html
+
+    - title: Illustrator Developer Center
+      desc: Illustrator 开发者中心, <a href="http://www.adobe.com/devnet/illustrator/scripting.html">Illustrator 脚本开发文档</a>.
+      url: http://www.adobe.com/devnet/illustrator.html
+
+    - title: After Effects Developer Center
+      desc: After Effects 开发者中心.
+      url: http://www.adobe.com/devnet/aftereffects.html
+
+    - title: InDesign Developer Center
+      desc: InDesign 开发者中心.
+      url: http://www.adobe.com/devnet/indesign.html
+
+    - title: Bridge Developer Center
+      desc: Bridge 开发者中心.
+      url: http://www.adobe.com/devnet/bridge.html
+
+    - title: ScriptUI for dummies
+      desc: 非官方ScriptUI教程.
+      url: http://www.kahrel.plus.com/indesign/scriptui-2-7.pdf
+
+    - title: xtools 2.2
+      desc: Photoshop 脚本开发工具.
+      url: http://sourceforge.net/projects/ps-scripts/files/xtools/v2.2/
 
     - title: Using the Adobe Extension SDK
-      desc: Adobe CC14扩展开发工具文档(英文)
+      desc: Adobe CC 2014 扩展开发工具文档.
       url: http://wwwimages.adobe.com/content/dam/Adobe/en/devnet/creativesuite/pdfs/CC14_Extension_SDK.pdf
 
+    - title: Adobe CEP
+      desc: Adobe公共扩展平台(CEP), 扩展开发<a href="https://github.com/Adobe-CEP/Samples">示例</a>和<a href="https://github.com/Adobe-CEP/CEP-Resources">资源</a>
+      url: https://github.com/Adobe-CEP
+
+    - title: Extension Builder 3 & CC Extensions Signing Toolkit
+      desc: 官方的扩展开发工具 Extension Builder 3 (<a href="http://www.eclipse.org/downloads/">Eclipse</a>插件) 与扩展签名工具(命令行界面).
+      url: http://labs.adobe.com/downloads/extensionbuilder3.html
+
     - title: Creative Cloud Extension Builder for Brackets
-      desc: CC扩展开发工具, 支持开发Photoshop, Illustrator 和 InDesign扩展.
+      desc: 非官方的CC扩展开发工具(<a href="http://brackets.io/">Brackets</a>插件), 目前仅支持开发Photoshop, Illustrator 和 InDesign扩展.
       url: http://davidderaedt.github.io/CC-Extension-Builder-for-Brackets/
       developer:
         name: David Deraedt
         url: https://github.com/davidderaedt
+
+    - title: adobe-photoshop @ github
+      desc: Photoshop开源的新技术, 包括 Design Space 和 Generator.
+      url: https://github.com/adobe-photoshop
 
 sketch:
   shortname: Sketch
@@ -155,18 +207,16 @@ sketch:
       desc: 官方插件脚本示例.
       url: http://bomberstudios.github.io/sketch-commands/
 
-
-
 sketchsdk:
   shortname: Sketch SDK
   fullname: Sketch插件开发
   items:
     - title: Sketch Developer
-      desc: Sketch 官方插件开发文档(英文)
+      desc: Sketch 官方插件开发文档.
       url: http://www.bohemiancoding.com/sketch/support/developer/
 
     - title: SketchTool
-      desc: A command-line app for exporting pages and slices out of .sketch docs.
+      desc: 用于导出.sketch文件内的页面和切片的命令行应用.
       url: http://bohemiancoding.com/sketch/tool/
 
 web:
@@ -187,7 +237,7 @@ android:
   fullname: Android平台相关工具
   items:
     - title: Android SVG to VectorDrawable
-      desc: HTML版SVG转Android VectorDrawable工具, 不尺寸批量操作.
+      desc: HTML版SVG转Android VectorDrawable工具, 不支持批量操作.
       url: http://inloop.github.io/svg2android/
 
     - title: SVG 2 VectorDrawable
@@ -262,5 +312,6 @@ references:
   shortname: 开发者文档
   fullname: 开发者文档
   items:
-
-
+    - title: JavaScript
+      desc: Mozilla JavaScript 指南, <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide">中文版本</a>.
+      url: https://developer.mozilla.org/en-US/docs/Web/JavaScript
