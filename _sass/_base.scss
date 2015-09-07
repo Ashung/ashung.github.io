@@ -371,7 +371,7 @@ footer {
     }
     p {
         margin-bottom: 1rem;
-        &.post-publish, &.post-lastmodify {
+        &.post-date {
             color: $secondary-text-color;
         }
         &:last-child {
@@ -428,7 +428,17 @@ footer {
         line-height: 1.714; // 48px
         margin-bottom: .571em; // 16px
     }
-    h4, h5, h6 {
+    h4 {
+        font-size: 1.333em; // 24px
+        line-height: 1.667; // 40px
+        margin-bottom: .667em; // 16px
+    }
+    h5 {
+        font-size: 1.111em; // 20px
+        line-height: 1.600; // 32px
+        margin-bottom: .8em; // 16px
+    }
+    h6 {
         font-size: 1em; // 18px
         margin-bottom: .889em; // 16px
     }
@@ -457,10 +467,13 @@ footer {
             border: 1px solid #ccc;
         }
     }
-    p > code {
-        background: #f8f8f8;
+    p code {
+        background: #eee;
         padding: .222em .444em;
         border-radius: .222em;
+        a:link, a:visited {
+            text-decoration: none;
+        }
     }
     blockquote {
         margin-left: 1em;

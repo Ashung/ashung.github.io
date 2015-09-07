@@ -9,9 +9,14 @@
             <h1 class="post-title">{{ page.title }}</h1>
             {% if page.excerpt %}<p class="post-excerpt">{{ page.excerpt | strip_html | strip_newlines }}</p>{% endif %}
             {% if page.author %}<p class="post-author">作者 {{ page.author }}.</p>{% endif %}
-            {% if page.date %}<p class="post-publish">发表于<time pubdate datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%Y年%m月%-d日" }}</time>.</p>{% endif %}
-            {% if page.lastmodify %}<p class="post-updated">最后修订于<time datetime="{{ page.updated | date: "%Y-%m-%d" }}">{{ page.updated | date: "%Y年%m月%-d日" }}</time>.</p>{% endif %}
-            {% if page.tags %}
+            {% if page.date %}
+            <p class="post-date">
+                发表于<time class="post-publish" pubdate datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%Y年%m月%-d日" }}</time>{% if page.updated %},
+                最后修订于<time class="post-updated" datetime="{{ page.updated | date: "%Y-%m-%d" }}">{{ page.updated | date: "%Y年%m月%-d日" }}</time>{% endif %}.
+            </p>
+            {% endif %}
+            {% assign tagCount = page.tags | size %}
+            {% if tagCount > 0 %}
             <p class="post-tags">
                 {% for tag in page.tags %}
                 <span class="tag">{{ tag }}</span>

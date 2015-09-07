@@ -14,6 +14,21 @@ kramdown:
   auto_ids: false
 sass:
   style: compressed
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comment: true
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "home"
+
 sns:
   - title: dribbble
     name: Ashung Hung
