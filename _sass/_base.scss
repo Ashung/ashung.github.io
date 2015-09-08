@@ -175,7 +175,6 @@ body {
         #menu {
             li {
                 display: inline-block;
-                margin-left: .5rem;
                 font-family: $sans-serif;
                 text-transform: capitalize;
                 a {
@@ -235,7 +234,7 @@ body {
     }
 }
 
-footer {
+.footer {
     margin: 2rem auto;
     max-width: $max-content-width;
     color: $secondary-text-color;

@@ -21,6 +21,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+      category: "articles"
       comment: true
   -
     scope:
@@ -28,6 +29,16 @@ defaults:
       type: "pages"
     values:
       layout: "home"
+  -
+    scope:
+      path: ""
+      type: "book"
+    values:
+      layout: "book"
+
+collections:
+  book:
+    output: true
 
 sns:
   - title: dribbble

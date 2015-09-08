@@ -1,0 +1,73 @@
+title: "Book title"
+subtitle: "Book subtitle"
+author: "author"
+license: ""
+updated:
+chapters:
+  - title: "Chapter 1 : xxxxxx"
+    url: gulp
+    subchapters:
+      - title: "Chapter 1-1 : xxxxxx"
+        url: id
+      - title: "Chapter 1-2 : xxxxxx"
+        url: id
+      - title: "Chapter 1-3 : xxxxxx"
+        url: id
+      - title: "Chapter 1-4 : xxxxxx"
+        url: id
+
+
+  - title: "Chapter 2 : xxxxxx"
+    url: t
+    subchapters:
+      - title: -1
+        url: id
+
+  - title: "Chapter 3 : xxxxxx"
+    url: gulp
+    subchapters:
+      - title: -1
+        url: id
+
+  - title: "Chapter 4 : xxxxxx"
+    url: gulp
+    subchapters:
+      - title: -1
+        url: id
+
+  - title: "Chapter 5 : xxxxxx"
+    url: gulp
+    subchapters:
+      - title: -1
+        url: id
+
+
+
+
+#- 选择合适的UI设计软件:
+#- 将Photoshop作为矢量软件:
+#    * 动作和批处理
+#    * 脚本
+#- d:
+#    * 项目结构
+#    * 画布与分组
+#- 基础自动化-使用Photoshop, Illustrator和Sketch:
+#    * Photoshop与Illustrator
+#        * 动作与批处理
+#        * 脚本
+#        * 扩展
+#        * 第三方应用
+#    * Sketch
+#        * 脚本插件
+#        * 第三方应用
+#    * 寻找工具
+#- 快速输出资源
+#    * 确定资源区域
+#    * Photoshop
+#    * Illustrator
+#    * Sketch
+#- SVG导出
+#    * Photoshop
+#    * Illustrator
+#    * Sketch
+#- 图片压缩

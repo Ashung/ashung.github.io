@@ -2,7 +2,6 @@
 title:  "Jekyll Theme Design"
 excerpt: A short excerpt ...
 updated: 1977-01-02
-category: test
 tags: theme jekyll template blog
 ---
 
