@@ -199,6 +199,10 @@ sketch:
       desc: 官方插件脚本示例.
       url: http://bomberstudios.github.io/sketch-commands/
 
+    - title: Plugin Finder
+      desc: Sketch插件
+      url: http://plugin.sketchtalk.io/
+
 sketchsdk:
   shortname: Sketch SDK
   fullname: Sketch插件开发
@@ -210,6 +214,18 @@ sketchsdk:
     - title: SketchTool
       desc: 用于导出.sketch文件内的页面和切片的命令行应用.
       url: http://bohemiancoding.com/sketch/tool/
+
+    - title: Sketch Talk
+      desc: Sketch User Community
+      url: http://sketchtalk.io/
+
+    - title: sketchplugins.com
+      desc: The mailing list for developers creating Sketch.app plugins
+      url: http://sketchplugins.com/
+
+    - title: Class-dump
+      desc:
+      url: http://stevenygard.com/projects/class-dump/
 
 web:
   shortname: Web
@@ -255,8 +271,16 @@ guide:
       url: https://www.google.com/design/spec/material-design/introduction.html
 
     - title: iOS Human Interface Guidelines
-      desc: iOS人机界面指南.
+      desc: iOS 人机界面指南.
       url: https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/index.html
+
+    - title: OS X Human Interface Guidelines
+      desc: OS X 人机界面指南.
+      url: https://developer.apple.com/library/mac/documentation/UserExperience/Conceptual/OSXHIGuidelines/
+
+    - title: Apple Watch Human Interface Guidelines
+      desc: Apple Watch 人机界面指南.
+      url: https://developer.apple.com/watch/human-interface-guidelines/
 
 references:
   shortname: 开发者文档

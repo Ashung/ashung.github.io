@@ -2,10 +2,10 @@
 <html lang="{{ site.lang }}">
 <head>
 <meta charset="utf-8">
-<title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-<meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-<meta name="keywords" content="{% if page.tags %}{{ page.tags | join: ', ' }}{% else %}{{ site.keywords | join: ', ' }}{% endif %}">
-<meta name="author" content="{{ site.author }}, {{ site.email }}">
+<title>...</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="HandheldFriendly" content="True">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
@@ -21,16 +21,25 @@ var _hmt = _hmt || [];
 </script>
 </head>
 <body>
-<div class="">
-    <aside>
-        <header>
+<div class="layout-book">
+    <section class="book-content">
+        <article>
+            <div class="post-header">
+                <h1 class="post-title">{{ page.title }}</h1>
+            </div>
+            <div class="post-content">
+                {{ content }}
+            </div>
+        </article>
+    </section>
+    <aside class="book-sidebar">
+        <header class="book-title">
             <hgroup>
                 <h1>{{ site.data.book.title }}</h1>
                 <h2>{{ site.data.book.subtitle }}</h2>
             </hgroup>
-
         </header>
-        <nav>
+        <nav class="book-menu">
             <ul>
                 {% for book in site.data.book %}
                 {% assign chapters = book[1] %}
@@ -57,13 +66,6 @@ var _hmt = _hmt || [];
             CC footer
         </footer>
     </aside>
-    <hr>
-    <section>
-        <article>
-            {{ content }}
-        </article>
-
-    </section>
 </div>
 </body>
 </html>
