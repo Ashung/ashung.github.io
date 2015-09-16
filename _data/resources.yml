@@ -1,5 +1,5 @@
 articles:
-  shortname: Articles
+  shortname: 文章
   fullname: 文章, 教程
   items:
     - title: Bjango.com
@@ -24,7 +24,7 @@ articles:
         url: https://github.com/undavide
 
 photoshop:
-  shortname: Photoshop
+  shortname: Ps
   fullname: Photoshop脚本和扩展
   items:
     - title: Bjango Actions
@@ -56,6 +56,10 @@ photoshop:
       desc: 标注文档的扩展, 自动为文字, 形状等标注属性.
       url: http://ink.chrometaphore.com/
 
+    - title: HTML Block
+      desc: 在Ps中显示HTML/CSS代码.
+      url: http://bg-d.net/htmlblock/
+
     - title: GUI Automation Toolbox
       desc: 为GUI设计流程自动化的Photoshop, Illustrator动作和脚本, 包括专门为导出Android平台资源的脚本.
       url: https://github.com/Ashung/GUI_Automation_Toolbox
@@ -64,7 +68,7 @@ photoshop:
         url: https://dribbble.com/Ashung
 
 illustrator:
-  shortname: Illustrator
+  shortname: Ai
   fullname: Illustrator脚本和扩展
   items:
     - title: Layer Exporter for Adobe Illustrator
@@ -96,8 +100,8 @@ illustrator:
       desc: Ai绘图脚本插件, Web版为<a href="http://paperjs.org/">Paper.js</a>.
       url: http://scriptographer.org/
 
-ps_ai_sdk:
-  shortname: Ps & Ai SDK
+photoshop_illustrator_sdk:
+  shortname: Ps/Ai SDK
   fullname: Photoshop & Illustrator 脚本和扩展开发
   items:
     - title: Adobe Introduction to Scripting
@@ -156,7 +160,7 @@ ps_ai_sdk:
       url: https://forums.adobe.com/community/illustrator/illustrator_scripting
 
 adobe:
-  shortname: Adobe
+  shortname: CC
   fullname: Adobe其他软件资源
   items:
     - title: InDesign scripts
@@ -283,8 +287,8 @@ guide:
       url: https://developer.apple.com/watch/human-interface-guidelines/
 
 references:
-  shortname: 开发者文档
-  fullname: 开发者文档
+  shortname: 开发文档
+  fullname: 开发文档
   items:
     - title: JavaScript
       desc: Mozilla JavaScript 指南, <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide">中文版本</a>.

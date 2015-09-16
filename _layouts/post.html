@@ -1,13 +1,9 @@
 {% include head.html pagename="section-post" %}
 <div class="main post">
     <article>
-        {% if page.figure %}
-        <div class="post-figure" style="background-image:url({{ page.figure }});">
-        {% endif %}
         <header class="post-header-wrap">
             <div class="post-header">
                 <h1 class="post-title">{{ page.title }}</h1>
-                {% if page.excerpt %}<p class="post-excerpt">{{ page.excerpt | strip_html | strip_newlines }}</p>{% endif %}
                 {% if page.author %}<p class="post-author">作者 {{ page.author }}.</p>{% endif %}
                 {% if page.date %}
                 <p class="post-date">
@@ -25,13 +21,18 @@
                 {% endif %}
             </div>
         </header>
-        {% if page.figure %}
-        </div>
-        {% endif %}
         <div class="post-content-wrap">
             <div class="post-content">
                 {{ content }}
             </div>
+            <ul class="post-related">
+                {% if page.next %}
+                <li>新篇: <a class="post-newer" href="{{ page.next.url }}">{{ page.next.title }}</a></li>
+                {% endif %}
+                {% if page.previous %}
+                <li>旧作: <a class="post-older" href="{{ page.previous.url }}">{{ page.previous.title }}</a></li>
+                {% endif %}
+            </ul>
         </div>
     </article>
     {% assign commentId = page.id | replace:  '/', '-' | remove_first: '-' %}

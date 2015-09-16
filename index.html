@@ -2,14 +2,27 @@
 layout: home
 section: home
 ---
-
+{% assign page = paginator.page | minus: 1 %}
+{% assign base = paginator.per_page | times: page %}
 <ul class="postlist">
-    {% for post in site.posts %}
-    <li class="post-entry">
+    {% for post in paginator.posts %}
+    {% assign total = paginator.total_posts | plus: 1 %}
+    {% assign loopIndex1 = forloop.index | plus: base %}
+    <li class="post-entry" id="recipeid-{{ total | minus: loopIndex1 }}">
         <h3 class="post-title">
-            <a class="post-link" href="{{ post.url }}">{{ post.title }}</a>
+            <a class="post-link" href="{{ post.url }}">{% if post.category %}[{{ post.category }}]{% endif%} {{ post.title }}</a>
         </h3>
-        <p class="post-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 240 }}</p>
+        <p class="post-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}</p>
     </li>
     {% endfor %}
 </ul>
+{% if paginator.total_posts > paginator.per_page %}
+<div class="paginate">
+    {% if paginator.previous_page %}
+    <a class="paginate-newer" href="{{ paginator.previous_page_path }}">新篇</a>
+    {% endif %}
+    {% if paginator.next_page %}
+    <a class="paginate-older" href="{{ paginator.next_page_path }}">旧作</a>
+    {% endif %}
+</div>
+{% endif %}
