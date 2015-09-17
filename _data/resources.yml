@@ -290,6 +290,14 @@ references:
   shortname: 开发文档
   fullname: 开发文档
   items:
+    - title: CSS
+      desc:  Mozilla CSS 指南, <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS">中文版本</a>.
+      url: https://developer.mozilla.org/en-US/docs/Web/CSS
+
     - title: JavaScript
       desc: Mozilla JavaScript 指南, <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide">中文版本</a>.
       url: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+
+    - title: Node.js
+      desc: Node.js API 文档, <a href="http://nodejs.cn/api/">中文版本</a>.
+      url: https://nodejs.org/api/
