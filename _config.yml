@@ -24,7 +24,7 @@ defaults:
     values:
       layout: "post"
       comment: true
-#      permalink: "/recipes/:title.html"
+      permalink: "/recipes/:title.html"
   -
     scope:
       path: ""
@@ -44,10 +44,8 @@ collections:
 
 sns:
   - title: dribbble
-    name: Ashung Hung
     url: "https://dribbble.com/ashung"
   - title: behance
-    name:
     url: "https://behance.net/ashung"
   - title: github
     url: "https://github.com/Ashung"
