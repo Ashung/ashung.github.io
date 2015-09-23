@@ -24,7 +24,7 @@ defaults:
     values:
       layout: "post"
       comment: true
-      permalink: "/recipes/:title.html"
+#      permalink: "/recipes/:title.html"
   -
     scope:
       path: ""
