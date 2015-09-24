@@ -1,4 +1,5 @@
 ---
+draft: true
 title:  Gulp设计师入门
 excerpt: 写给死美工的Gulp入门
 category: gulp

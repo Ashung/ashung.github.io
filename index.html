@@ -8,12 +8,14 @@ section: home
     {% for post in paginator.posts %}
     {% assign total = paginator.total_posts | plus: 1 %}
     {% assign loopIndex1 = forloop.index | plus: base %}
+    {% unless post.draft %}
     <li class="post-entry" id="recipeid-{{ total | minus: loopIndex1 }}">
         <h3 class="post-title">
-            <a class="post-link" href="{{ post.url }}">{% if post.category %}[{{ post.category }}]{% endif%} {{ post.title }}</a>
+            <a class="post-link" href="{{ post.url }}"><!--{% if post.category %}[{{ post.category }}]{% endif%} -->{{ post.title }}</a>
         </h3>
         <p class="post-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}</p>
     </li>
+    {% endunless %}
     {% endfor %}
 </ul>
 {% if paginator.total_posts > paginator.per_page %}
