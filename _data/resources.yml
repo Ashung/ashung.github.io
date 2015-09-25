@@ -216,15 +216,15 @@ sketchsdk:
       url: http://www.bohemiancoding.com/sketch/support/developer/
 
     - title: SketchTool
-      desc: 用于导出.sketch文件内的页面和切片的命令行应用.
+      desc: 用于导出.sketch文件内的图层或切片, 解析sketch文件的命令行工具.
       url: http://bohemiancoding.com/sketch/tool/
 
     - title: Sketch Talk
-      desc: Sketch User Community
+      desc: Sketch 用户社区.
       url: http://sketchtalk.io/
 
     - title: sketchplugins.com
-      desc: The mailing list for developers creating Sketch.app plugins
+      desc: 官方插件开放者邮件列表.
       url: http://sketchplugins.com/
 
     - title: Class-dump

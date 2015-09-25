@@ -2,7 +2,7 @@
 layout: data
 section: resources
 data: resources
-title: 干货
+title: 资源
 permalink: resources.html
 ---
 

@@ -12,8 +12,10 @@ lang: zh_CN
 timezone: Asia/shanghai
 paginate: 8
 paginate_path: "/recipes/page:num/"
+markdown: kramdown
 kramdown:
   auto_ids: false
+  smart_quotes: apos,apos,quot,quot
 sass:
   style: compressed
 defaults:
@@ -24,7 +26,6 @@ defaults:
     values:
       layout: "post"
       comment: true
-#      permalink: "/recipes/:title.html"
   -
     scope:
       path: ""

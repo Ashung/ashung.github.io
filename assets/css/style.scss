@@ -467,7 +467,7 @@ body {
         font-size: 1em; // 18px
         margin-bottom: .889em; // 16px
     }
-    p, blockquote, ul, ol {
+    p, blockquote, ul, ol, dl {
         margin-bottom: .889em;
     }
     ul, ol {
@@ -479,6 +479,20 @@ body {
     }
     ol {
         list-style: decimal;
+    }
+    dl {
+        dt {
+            font-weight: bold;
+            &:first-letter {
+                text-transform: uppercase;
+            }
+            &:after {
+                content: ":";
+            }
+        }
+        dd {
+            margin-left: 1.5em;
+        }
     }
     table {
         width: 100%;
@@ -510,8 +524,11 @@ body {
         margin: 0 auto .889em;
         border-radius: 4px;
         max-width: $max-content-width - 40;
-        & + em {
+        max-width: 100%;
+        & + em,  & + strong {
             display: block;
+            font-weight: normal;
+            font-style: normal;
             text-align: center;
             color: $secondary-text-color;
             font-size: .889em;
@@ -523,6 +540,14 @@ body {
         height: 2px;
         border: 0;
         background: $hair-line-color;
+    }
+    abbr {
+        border-bottom: 1px dotted;
+        cursor: help;
+    }
+    a.footnote:link, a.footnote:visited,
+    a.reversefootnote:link, a.reversefootnote:visited {
+        color: inherit;
     }
     .footnotes {
         color: $secondary-text-color;
@@ -549,7 +574,7 @@ body {
     line-height: 1.778; // 32px
     padding: 1rem;
     a:link, a:visited {
-        color: $red-color;
+        color: inherit;
     }
     a:hover, a:active {
         text-decoration: underline;
