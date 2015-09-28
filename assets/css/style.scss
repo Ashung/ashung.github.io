@@ -508,6 +508,7 @@ body {
     }
     p code {
         background: #eee;
+        margin: 0 .222em;
         padding: .222em .444em;
         border-radius: .222em;
         a:link, a:visited {
@@ -567,11 +568,27 @@ body {
             text-decoration: none;
         }
     }
+    .tips {
+        padding: .5em 0 .5em 2em;
+        color: $secondary-text-color;
+    }
+    @mixin downicon($icon) {
+        white-space: nowrap;
+        padding-left: 1.2em;
+        background: url(#{$icon}) no-repeat 0 40%;
+    }
+    a[href$=".psd"] {
+        @include downicon('../img/icon_psd.svg');
+    }
+    a[href$=".zip"] {
+        @include downicon('../img/icon_zip.svg');
+    }
 }
 
 .post-related {
     font-size: 1.125rem; // 18px
     line-height: 1.778; // 32px
+    margin-top: 2rem;
     padding: 1rem;
     a:link, a:visited {
         color: inherit;
