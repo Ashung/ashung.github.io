@@ -21,6 +21,8 @@ tags: Android  Photoshop Generator icon
 
 以上这些尺寸资源建议尽量全部提供，但设计时只需要按照规范中提到的规则，设计192px的图标即可。
 
+---
+
 我用了Generator的一个特性快速导出资产，这需要在Photoshop CC 2014及之后的版本中才可以使用。激活Generator功能需要在首选项"Prferences" > "Plug-ins" > "Generator"对话框中勾选"Enable Generator"选项。
 
 另外图标的PSD文档也需要满足针对Generator优化的2点小要求：
@@ -46,7 +48,7 @@ https://github.com/adobe-photoshop/generator-assets/wiki/Generate-Web-Assets-Fun
 
 [google_design_icon]: http://www.google.com/design/spec/style/icons.html#icons-product-icons
 [google_design_icon_chinese]: http://wiki.jikexueyuan.com/project/material-design/style/icons.html
-[psd]: /downloads/android_icon_template.psd
+[psd]: /images/android_launcher_icon_export_use_photoshop/android_icon_template.psd
 
 *[ADT]: Android Developer Tools
 
