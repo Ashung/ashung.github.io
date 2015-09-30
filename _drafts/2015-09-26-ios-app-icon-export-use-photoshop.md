@@ -3,6 +3,7 @@ title: iOS图标快速导出 &ndash; Photoshop & Sketch
 excerpt: 使用Photoshop或Sketch设计iOS图标模版, 以及快速导出资产.
 updated: 
 category: iOS
+comment: false
 tags: iOS iPhone iPad Photoshop Sketch
 ---
 
@@ -20,7 +21,7 @@ carplay = [120, 180];
 mac = [16, 32, 64, 128, 256, 512, 1024];
 {% endhighlight %}
 
-
+未完待续
 
 
 

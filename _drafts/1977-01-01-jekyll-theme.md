@@ -3,6 +3,8 @@ title:  "Jekyll Theme Design"
 excerpt: A short excerpt ...
 updated: 1977-01-02
 category: jekyll
+MathJax: true
+comment: false
 tags: theme jekyll template blog
 ---
 
@@ -65,6 +67,16 @@ CSS
 }
 {% endhighlight %}
 
+
+Command line (bash)
+
+{% highlight bash %}
+gem sources --remove https://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+sudo gem install jekyll
+{% endhighlight %}
+
+
 ### Table 
 
 Table | Table | Table 
@@ -91,9 +103,6 @@ Table | Table | Table
 
 MathJax is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers. 
 [MathJax Documentation](http://docs.mathjax.org/en/latest/index.html)
-
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
 
 $$
 \begin{align*}

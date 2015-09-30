@@ -3,8 +3,10 @@ title:  Android应用启动图标快速导出方法 &ndash; Photoshop篇
 excerpt: 使用Photoshop设计Android应用启动图标模版, 以及快速导出资产.
 updated: 
 category: Android
-tags: Android  Photoshop Generator icon
+tags: Android  Photoshop Generator icon psd
 ---
+
+### 图标尺寸
 
 国内多数设计师在设计Android应用启动图标时，并不会严格遵循[Material Design的图标规范][google_design_icon]([中文版本][google_design_icon_chinese])，他们更在意图标的尺寸，至于命名规则和文件夹结构大多设计师是不清楚的。为了提高效率设计师提供给开发人员的资源，应该尽量是符合开发需要可以直接使用的。
 
@@ -22,6 +24,8 @@ tags: Android  Photoshop Generator icon
 以上这些尺寸资源建议尽量全部提供，但设计时只需要按照规范中提到的规则，设计192px的图标即可。
 
 ---
+
+### Adobe Generator
 
 我用了Generator的一个特性快速导出资产，这需要在Photoshop CC 2014及之后的版本中才可以使用。激活Generator功能需要在首选项"Prferences" > "Plug-ins" > "Generator"对话框中勾选"Enable Generator"选项。
 
