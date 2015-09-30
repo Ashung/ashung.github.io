@@ -191,7 +191,7 @@ for(var j = 0; j < childs.count(); j++) {
 {% highlight javascript %}
 var sliceOptions = [
     { "size" : 90,  "dir" : "hdpi" },
-    { "size" : 136,  "dir" : "xhdpi" },
+    { "size" : 136, "dir" : "xhdpi" },
     { "size" : 192, "dir" : "xxhdpi" }
 ];
 {% endhighlight %}
@@ -201,6 +201,7 @@ var sliceOptions = [
 {% highlight javascript %}
 //  我不知道尺寸
 var sliceOptions = [
+    { "size" : 128,  "dir" : "samll" },
     { "size" : 256,  "dir" : "medium" },
     { "size" : 512,  "dir" : "large" },
     { "size" : 1024, "dir" : "supperlarge" }
@@ -229,9 +230,5 @@ for(var i = 0; i < exportableLayers.count(); i++) {
 
 [google_design_icon]: http://www.google.com/design/spec/style/icons.html#icons-product-icons
 [google_design_icon_chinese]: http://wiki.jikexueyuan.com/project/material-design/style/icons.html
-
-
-
-
 
 [sketch]: /images/android_launcher_icon_export_use_sketch/android_icon_template.sketch

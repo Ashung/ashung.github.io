@@ -27,7 +27,8 @@ tags: Android  Photoshop Generator icon psd
 
 ### Adobe Generator
 
-我用了Generator的一个特性快速导出资产，这需要在Photoshop CC 2014及之后的版本中才可以使用。激活Generator功能需要在首选项"Prferences" > "Plug-ins" > "Generator"对话框中勾选"Enable Generator"选项。
+我用了Generator的一个特性快速导出资产，这需要在Photoshop CC 2014及之后的版本中才可以使用。激活Generator功能需要在首选项"Prferences" > "Plug-ins" > "Generator"对话框中勾选"Enable Generator"选项。基础的Generator用法参考[Photoshop Help / 
+Generate image assets from layers][generate-assets-layers]（中文版本，[Photoshop帮助/从图层生成图像资源][generate-assets-layers-chinese]）。
 
 另外图标的PSD文档也需要满足针对Generator优化的2点小要求：
 
@@ -53,6 +54,8 @@ https://github.com/adobe-photoshop/generator-assets/wiki/Generate-Web-Assets-Fun
 [google_design_icon]: http://www.google.com/design/spec/style/icons.html#icons-product-icons
 [google_design_icon_chinese]: http://wiki.jikexueyuan.com/project/material-design/style/icons.html
 [psd]: /images/android_launcher_icon_export_use_photoshop/android_icon_template.psd
+[generate-assets-layers]: https://helpx.adobe.com/photoshop/using/generate-assets-layers.html
+[generate-assets-layers-chinese]: https://helpx.adobe.com/cn/photoshop/using/generate-assets-layers.html
 
 *[ADT]: Android Developer Tools
 
