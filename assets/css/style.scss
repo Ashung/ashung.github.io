@@ -82,7 +82,7 @@ $green-color: #8bc34a;
 $blue-color: #2196f3;
 
 // Dimens
-$max-content-width: 740px;
+$max-content-width: 800px;
 $mobile-device-width: 360px;
 $desktop-browser-width: 800px;
 
@@ -442,32 +442,46 @@ body {
         font-size: 2.445em; // 44px
         line-height: 1.273; // 56px
         margin-bottom: .182em; // 8px
+        margin-top: .182em * 2;
     }
     h2 {
         font-size: 2em; // 36px
         line-height: 1.556; // 56px
         margin-bottom: .222em; // 8px
+        margin-top: .222em * 2;
     }
     h3 {
         font-size: 1.556em; // 28px
         line-height: 1.714; // 48px
         margin-bottom: .571em; // 16px
+        margin-top: .571em * 2;
     }
     h4 {
         font-size: 1.333em; // 24px
         line-height: 1.667; // 40px
         margin-bottom: .667em; // 16px
+        margin-top: .667em * 2;
     }
     h5 {
         font-size: 1.111em; // 20px
         line-height: 1.600; // 32px
         margin-bottom: .8em; // 16px
+        margin-top: .8em * 2;
     }
     h6 {
         font-size: 1em; // 18px
         margin-bottom: .889em; // 16px
+        margin-top:.889em * 2;
     }
-    p, blockquote, ul, ol {
+    h1:first-child,
+    h2:first-child,
+    h3:first-child,
+    h4:first-child,
+    h5:first-child,
+    h6:first-child {
+        margin-top: 0;
+    }
+    p, blockquote, ul, ol, dl {
         margin-bottom: .889em;
     }
     ul, ol {
@@ -479,6 +493,20 @@ body {
     }
     ol {
         list-style: decimal;
+    }
+    dl {
+        dt {
+            font-weight: bold;
+            &:first-letter {
+                text-transform: uppercase;
+            }
+            &:after {
+                content: ":";
+            }
+        }
+        dd {
+            margin-left: 1.5em;
+        }
     }
     table {
         width: 100%;
@@ -494,6 +522,7 @@ body {
     }
     p code {
         background: #eee;
+        margin: 0 .222em;
         padding: .222em .444em;
         border-radius: .222em;
         a:link, a:visited {
@@ -505,13 +534,32 @@ body {
         padding-left: 1em;
         border-left: 4px solid #eee;
     }
+    pre {
+        margin-bottom: 1em;
+        font-size: .889em;
+        line-height: 1.5;
+        code {
+            display: block;
+            background: #f5f5f5;
+            border-radius: 4px;
+            padding: 1em;
+            overflow: scroll;
+            &.language-bash {
+                color: #2c4;
+                background: $primary-text-color;
+            }
+        }
+    }
     img {
         display: block;
         margin: 0 auto .889em;
         border-radius: 4px;
         max-width: $max-content-width - 40;
-        & + em {
+        max-width: 100%;
+        & + em,  & + strong {
             display: block;
+            font-weight: normal;
+            font-style: normal;
             text-align: center;
             color: $secondary-text-color;
             font-size: .889em;
@@ -523,6 +571,14 @@ body {
         height: 2px;
         border: 0;
         background: $hair-line-color;
+    }
+    abbr {
+        border-bottom: 1px dotted;
+        cursor: help;
+    }
+    a.footnote:link, a.footnote:visited,
+    a.reversefootnote:link, a.reversefootnote:visited {
+        color: inherit;
     }
     .footnotes {
         color: $secondary-text-color;
@@ -542,14 +598,30 @@ body {
             text-decoration: none;
         }
     }
+    .tips {
+        padding: .5em 0 .5em 2em;
+        color: $secondary-text-color;
+    }
+    @mixin downicon($icon) {
+        white-space: nowrap;
+        padding-left: 1.2em;
+        background: url(#{$icon}) no-repeat 0 40%;
+    }
+    a[href$=".psd"] {
+        @include downicon('../img/icon_psd.svg');
+    }
+    a[href$=".zip"] {
+        @include downicon('../img/icon_zip.svg');
+    }
 }
 
 .post-related {
     font-size: 1.125rem; // 18px
     line-height: 1.778; // 32px
+    margin-top: 2rem;
     padding: 1rem;
     a:link, a:visited {
-        color: $red-color;
+        color: inherit;
     }
     a:hover, a:active {
         text-decoration: underline;
@@ -689,21 +761,13 @@ body {
 }
 
 .highlight {
-    font-size: .889em;
-    line-height: 1.5;
-    background: #f5f5f5;
-    border-radius: 4px;
-    margin-bottom: 1em;
-    padding: 1em;
-    overflow: scroll;
-    max-height: 20em;
     .c     { color: #998; font-style: italic } // Comment
     .err   { color: #a61717; background-color: #e3d2d2 } // Error
     .k     { font-weight: bold } // Keyword
     .o     { font-weight: bold } // Operator
-    .cm    { color: #998; font-style: italic } // Comment.Multiline
+    .cm    { color: #999; font-style: italic } // Comment.Multiline
     .cp    { color: #999; font-weight: bold } // Comment.Preproc
-    .c1    { color: #998; font-style: italic } // Comment.Single
+    .c1    { color: #999; font-style: italic } // Comment.Single
     .cs    { color: #999; font-weight: bold; font-style: italic } // Comment.Special
     .gd    { color: #000; background-color: #fdd } // Generic.Deleted
     .gd .x { color: #000; background-color: #faa } // Generic.Deleted.Specific

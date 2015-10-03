@@ -44,14 +44,14 @@
     $(document).ready(function(){
         $('.resource-nav a').click(function(){
             var distance = $($(this).attr('href')).offset().top - $(this).offset().top;
-            var time = distance>1000 ? 1000 : (distance<200 ? 200 : distance);
-            //console.log($(this).attr('href'));
-            //console.log($(this).offset().top + '->' + $($(this).attr('href')).offset().top + '=' + distance);
+            var time = distance>1000 ? 500 : (distance<200 ? 100 : distance);
+            console.log($(this).attr('href'));
+            console.log($(this).offset().top + '->' + $($(this).attr('href')).offset().top + '=' + distance);
             $('body').animate({scrollTop:$($(this).attr('href')).offset().top}, time);
         });
 
         $('.resources .top').click(function(){
-            var time = $(window).scrollTop()>1000 ? 1000 : ($(window).scrollTop()<200 ? 200 : $(window).scrollTop());
+            var time = $(window).scrollTop()>1000 ? 500 : ($(window).scrollTop()<200 ? 100 : $(window).scrollTop());
             $('body').animate({scrollTop:0}, time);
         });
 
@@ -63,8 +63,8 @@
         });
 
         function showGoTopButton() {
-            var top = $(window).height() - $('.resource-nav').offset().top - $('.resources .top').height() + $('.resources .resource-tip').height() + $(window).scrollTop();
-            if(top > $('.resources').outerHeight()) {
+            var top = $(window).height() + $(window).scrollTop() - $('.resources').offset().top - $('.resources .top').height() - 16;
+            if(top > ($('.resources').outerHeight() - $('.resources .top').height() - 16)) {
                 top = $('.resources').outerHeight() - $('.resources .top').height();
             }
             var navPosition = $('.resource-nav').offset().top + $('.resource-nav').height();

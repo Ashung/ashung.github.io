@@ -10,7 +10,7 @@ section: home
     {% assign loopIndex1 = forloop.index | plus: base %}
     <li class="post-entry" id="recipeid-{{ total | minus: loopIndex1 }}">
         <h3 class="post-title">
-            <a class="post-link" href="{{ post.url }}">{% if post.category %}[{{ post.category }}]{% endif%} {{ post.title }}</a>
+            <a class="post-link" href="{{ post.url }}"><!--{% if post.category %}[{{ post.category }}]{% endif%} -->{{ post.title }}</a>
         </h3>
         <p class="post-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}</p>
     </li>

@@ -16,6 +16,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
 <link rel="stylesheet" href="{{ "/assets/css/style.css" | prepend: site.baseurl }}">
 <script src="{{ "/assets/js/jquery-2.1.4.min.js" | prepend: site.baseurl }}"></script>
+{% if page.MathJax %}
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+{% endif %}
+{% unless site.host == "127.0.0.1" %}
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -25,6 +29,7 @@ var _hmt = _hmt || [];
     s.parentNode.insertBefore(hm, s);
 })();
 </script>
+{% endunless %}
 </head>
 <body>
 <div class="container section-{% if include.pagename %}{{ include.pagename }}{% else %}default{% endif %}">

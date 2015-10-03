@@ -6,14 +6,16 @@ description: Automate Workflow for UI Design, UI设计自动化工作流程
 keywords: [UI, GUI, Photoshop, Illustrator, Sketch, Automate, Automation, Workflow, Interface Design, UI设计, 界面设计, 自动化, 工作流]
 baseurl: ""
 url: /
-permalink: none
+permalink: "/recipes/:title.html"
 exclude: ["README.md"]
 lang: zh_CN
 timezone: Asia/shanghai
 paginate: 8
 paginate_path: "/recipes/page:num/"
+markdown: kramdown
 kramdown:
   auto_ids: false
+  smart_quotes: apos,apos,quot,quot
 sass:
   style: compressed
 defaults:
@@ -24,7 +26,12 @@ defaults:
     values:
       layout: "post"
       comment: true
-      permalink: /recipes/:title.html
+  -
+    scope:
+      path: ""
+      type: "drafts"
+    values:
+      layout: "post"
   -
     scope:
       path: ""
@@ -44,15 +51,10 @@ collections:
 
 sns:
   - title: dribbble
-    name: Ashung Hung
-    url: https://dribbble.com/ashung
+    url: "https://dribbble.com/ashung"
   - title: behance
-    name:
-    url: https://behance.net/ashung
+    url: "https://behance.net/ashung"
   - title: github
-    url: https://github.com/Ashung
+    url: "https://github.com/Ashung"
   - title: weibo
-    url: http://weibo.com/ashung
-
-
-
+    url: "http://weibo.com/ashung"
