@@ -120,7 +120,7 @@ a:link, a:visited {
 
 @mixin filetypeicon($icon) {
     white-space: nowrap;
-    padding-right: 1.5rem;
+    padding-right: 1.3rem;
     background: url(#{$icon}) no-repeat 100% 50%;
 }
 

@@ -147,7 +147,7 @@ photoshop_illustrator_sdk:
         name: David Deraedt
         url: https://github.com/davidderaedt
 
-    - title: adobe-photoshop @ github
+    - title: adobe-photoshop@github
       desc: Photoshop开源的新技术, 包括 Design Space 和 Generator.
       url: https://github.com/adobe-photoshop
 
