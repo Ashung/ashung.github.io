@@ -411,6 +411,7 @@ body {
         span {
             display: inline-block;
             margin-right: .2rem;
+            margin-bottom: .4rem;
             padding: .2rem .4rem;
             border-radius: .4rem;
             background: #eee;
@@ -520,7 +521,7 @@ body {
             border: 1px solid #ccc;
         }
     }
-    p code {
+    p code, li code, dl code {
         background: #eee;
         margin: 0 .222em;
         padding: .222em .444em;

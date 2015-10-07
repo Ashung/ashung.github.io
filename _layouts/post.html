@@ -23,7 +23,15 @@
         </header>
         <div class="post-content-wrap">
             <div class="post-content">
+                {% unless site.host == "127.0.0.1" %}
+                {% if page.draft %}
+                <p>未完成.</p>
+                {% else %}
                 {{ content }}
+                {% endif %}
+                {% else %}
+                {{ content }}
+                {% endunless %}
             </div>
             <ul class="post-related">
                 {% if page.next %}

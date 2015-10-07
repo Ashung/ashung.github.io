@@ -1,10 +1,8 @@
 ---
 title: iOS应用图标快速导出 &ndash; 使用Photoshop或Sketch
-excerpt: 使用Photoshop或Sketch设计iOS图标应用模版, 以及快速导出资产.
-updated: 
-layout: post
-category: iOS
-comment: false
+excerpt: 使用Photoshop或Sketch设计能够快速导出资源的iOS图标应用模版.
+updated:
+category: Sketch Photoshop
 tags: iOS iPhone iPad Photoshop Sketch
 ---
 
@@ -51,31 +49,88 @@ Web clip icon是将网页添加至主屏时使用的图标，默认命名方式�
 #### 图标设计尺寸
 
 以下我使用 **120px** 作为基础的图标尺寸，其他资源将由这个尺寸自动缩放后生成。
+这个没有标准可言，你可以使用其他任何尺寸，但建议矢量图层使用小尺寸放大生成其他资源，
+而位图则使用大尺寸缩小生成其他资源。
 
 ---
 
-### 使用Photoshop & Generator
+### 使用Photoshop
 
+我使用Photoshop的Generator功能导出资源，如果你不了解Generator用法请参考[Photoshop Help /
+Generate image assets from layers][generate-assets-layers]
+(中文版本，[Photoshop帮助/从图层生成图像资源][generate-assets-layers-chinese])。
 
-1. 将图标内容的所有图层组成一个分组，命名为"icon.png";
+需要对PSD文档进行以下几步操作:
+
+1. 将图标内容的所有图层组成一个分组，命名为"icon.png"；
 2. 为分组添加一个120x120px的矩形位图蒙板，蒙板选区的位置即是图标资源的边界区域；
-3.  添加一个空白普通图层作为默认设置图层。
+3. 添加一个空白普通图层作为默认设置图层，用下面的代码作为图层名。
+`29`表示资源尺寸，`-29`资源文件名后缀，就是说29px的资源名称为"icon-29.png"。
 
-Generator用法参考[Photoshop Help / 
-Generate image assets from layers][generate-assets-layers]（中文版本，[Photoshop帮助/从图层生成图像资源][generate-assets-layers-chinese]）。
-
-
+iPhone应用图标默认设置图层命名:
 
 ~~~
-default 29 -29, 57 -58, 58 -58, 87 -87, 80 -80, 114 -144, 120 -120, 180 -180, 
+default 29 -29, 57 -58, 58 -58, 87 -87, 80 -80, 114 -144, 120 -120, 180 -180,
 512 -512, 1024 -1024
 ~~~
+
+iPad应用图标默认设置图层命名:
+
+~~~
+default 29 -29, 40 -40, 50 -50, 58 -58, 72 -72, 76 -76, 80 -80, 100 -100, 144 -144,
+152 -152, 512 -512, 1024 -1024
+~~~
+
+通用应用图标默认设置图层命名:
+
+~~~
+default 29 -29, 40 -40, 50 -50, 57 -57, 58 -58, 72 -72, 76 -76, 80 -80, 87 -87, 100 -100,
+114 -114, 120 -120, 144 -144, 152 -152, 180 -180, 512 -512, 1024 -1024
+~~~
+
+如果你设计Web clip图标，图标分组命名为"apple-touch-icon.png"，默认设置图层则命名为:
+
+~~~
+default 76 -76x76, 120 -120x120, 152 -152x152, 167 -167x167, 180 -180x180
+~~~
+
+最后保存PSD文档，使用"File" > "Generate"打开"Image Assets"。
+此时所有所需资源将会被存到PSD文档同级的"[psd文件名]-assets"文件内。
 
 ---
 
 ### 使用Sketch
 
-未完待续...
+将图标所有图层新建名为"icon"的分组，如果设计Web clip图标则命名为"apple-touch-icon"，然后设置图层组为可导出。
+即选中图层组之后，点击在右侧的"检查器"面板最底部的"Make Exportable"按钮。
+
+我使用添加多个导出选项的方式生成多个尺寸资源。
+导出选项的设置项分别是：Size为尺寸后加"w"，例如"29w"；Suffix为尺寸前加"-"，例如"-29"；Format为"PNG"。
+
+你可以人工的把所有尺寸一个个添加到导出选项上，或者选择用运行脚本方式自动添加设置。
+选中图层分组，菜单"Plugins" > "Custom Plugins... ⌃⇧K"，打开"Run Custom Script"对话框，
+运行以下代码。
+
+{% highlight javascript %}
+var sizes = [29, 40, 50, 57, 58, 72, 76, 80, 87, 100, 114, 120, 144, 152, 180, 512, 1024];
+var group = context.selection[0];
+// Clear exportable sizes
+while([[[group exportOptions] sizes] count] > 0) {
+    [[[[group exportOptions] sizes] firstObject] remove];
+}
+// Add export sizes
+for(var i = 0; i < sizes.length; i ++) {
+    var option = [[group exportOptions] addExportSize];
+        [option setFormat: "png"];
+        [option setScale: sizes[i] / group.absoluteRect().width()];
+        [option setName: "-" + sizes[i]];
+}
+//Refresh inspector hack
+[[doc currentPage] deselectAllLayers];
+[group select:true byExpandingSelection:true];
+{% endhighlight %}
+
+最后使用菜单"File" > "Exprot ⇧⌘E"导出资源。
 
 [HIG - Icon and Image Sizes]: https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/IconMatrix.html
 [App Icons on iPad and iPhone]: https://developer.apple.com/library/ios/qa/qa1686/_index.html

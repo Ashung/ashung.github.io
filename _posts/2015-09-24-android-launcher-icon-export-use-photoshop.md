@@ -1,8 +1,8 @@
 ---
 title:  Android应用启动图标快速导出方法 &ndash; Photoshop篇
-excerpt: 使用Photoshop设计Android应用启动图标模版, 以及快速导出资产.
-updated: 
-category: Android
+excerpt: 使用Photoshop设计能够快速导出资源的应用启动图标模版.
+updated:
+category: Photoshop
 tags: Android  Photoshop Generator icon psd
 ---
 
@@ -13,7 +13,7 @@ tags: Android  Photoshop Generator icon psd
 在用Android Studio建立一个Demo项目后，开发工具会帮助开发者初始化一个基础Android应用需要的图标资源，我将Demo项目内的图标尺寸、位置、命名等信息，整理出了下表。这些信息也可以从网上找到。ADT建立的项目默认则将图标放在以"drawable-"为前缀的文件夹下。
 
 图标尺寸(px) | 图标在软件项目中的位置和命名。
---- | --- 
+--- | ---
 48 | res/mipmap-mdpi/ic_launcher.png
 72 | res/mipmap-hdpi/ic_launcher.png
 96 | res/mipmap-xhdpi/ic_launcher.png
@@ -27,7 +27,7 @@ tags: Android  Photoshop Generator icon psd
 
 ### Adobe Generator
 
-我用了Generator的一个特性快速导出资产，这需要在Photoshop CC 2014及之后的版本中才可以使用。激活Generator功能需要在首选项"Prferences" > "Plug-ins" > "Generator"对话框中勾选"Enable Generator"选项。基础的Generator用法参考[Photoshop Help / 
+我用了Generator的一个特性快速导出资产，这需要在Photoshop CC 2014及之后的版本中才可以使用。激活Generator功能需要在首选项"Prferences" > "Plug-ins" > "Generator"对话框中勾选"Enable Generator"选项。基础的Generator用法参考[Photoshop Help /
 Generate image assets from layers][generate-assets-layers]（中文版本，[Photoshop帮助/从图层生成图像资源][generate-assets-layers-chinese]）。
 
 另外图标的PSD文档也需要满足针对Generator优化的2点小要求：
@@ -38,8 +38,8 @@ Generate image assets from layers][generate-assets-layers]（中文版本，[Pho
 完成以上的所有要求之后，在图标的PSD文档中，新建一个普通图层，将图层名修改为以下内容，这段语句定义资源导出时的尺寸、存储路径和文件名后缀等信息。
 
 ~~~
-default 48x48 res/mipmap-mdpi/, 72x72 res/mipmap-hdpi/, 
-96x96 res/mipmap-xhdpi/, 144x144 res/mipmap-xxhdpi/, 
+default 48x48 res/mipmap-mdpi/, 72x72 res/mipmap-hdpi/,
+96x96 res/mipmap-xhdpi/, 144x144 res/mipmap-xxhdpi/,
 192x192 res/mipmap-xxxhdpi/, 512x512 res/-web
 ~~~
 
@@ -58,4 +58,3 @@ https://github.com/adobe-photoshop/generator-assets/wiki/Generate-Web-Assets-Fun
 [generate-assets-layers-chinese]: https://helpx.adobe.com/cn/photoshop/using/generate-assets-layers.html
 
 *[ADT]: Android Developer Tools
-

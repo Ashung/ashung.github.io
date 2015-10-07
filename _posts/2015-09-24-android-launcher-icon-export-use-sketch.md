@@ -1,9 +1,9 @@
 ---
 title:   Android应用启动图标快速导出方法 &ndash; Sketch篇
-excerpt: 使用Sketch设计能够快速导出资产的应用启动图标模版.
-updated: 
-category: Android
-tags: Android Sketch
+excerpt: 使用Sketch设计能够快速导出资源的应用启动图标模版.
+updated:
+category: Sketch
+tags: Android Sketch icon
 ---
 
 ### 使用多个切片导出资源
