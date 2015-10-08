@@ -1,7 +1,7 @@
 ---
 title: iOS应用图标快速导出 &ndash; 使用Photoshop或Sketch
 excerpt: 使用Photoshop或Sketch设计能够快速导出资源的iOS图标应用模版.
-updated:
+updated: 2015-10-08
 category: Sketch Photoshop
 tags: iOS iPhone iPad Photoshop Sketch
 ---
@@ -10,7 +10,7 @@ tags: iOS iPhone iPad Photoshop Sketch
 
 从官方文档[iOS Human Interface Guidelines - Icon and Image Sizes][HIG - Icon and Image Sizes]，还有[App Icons on iPad and iPhone][App Icons on iPad and iPhone]可知，除了"iTunesArtwork"(512px)和"iTunesArtwork@2x"(1024px)必须严格命名外，在iOS 3.2以后其他图标资源都没有强制固定的名称。我觉得用"icon-60.png"这种文件命名形式，更能清晰区分不同尺寸的图片。
 
-上面的2个文档的尺寸有些出入，建议咨询开发人员，以最新版本Xcode上需要的尺寸为准。下表是从Xcode 7.0上的Asset Catalogs得到的数据，表示各个平台需要的图标尺寸。
+上面的2个文档的尺寸有些出入，建议咨询开发人员，以最新版本Xcode上需要的尺寸为准。下表是从Xcode 7.0.1上的Asset Catalogs得到的数据，表示各个平台需要的图标尺寸。
 
 平台 | 尺寸(px)
 --- | ---
