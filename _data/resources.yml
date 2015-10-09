@@ -159,6 +159,10 @@ photoshop_illustrator_sdk:
       desc: 官方Illustrator脚本编程论坛.
       url: https://forums.adobe.com/community/illustrator/illustrator_scripting
 
+    - title: CSSDK Blogs
+      desc: Creative Suite SDK 官方blog
+      url: http://blogs.adobe.com/cssdk/
+
 adobe:
   shortname: CC
   fullname: Adobe其他软件资源
