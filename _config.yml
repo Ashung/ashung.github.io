@@ -6,12 +6,12 @@ description: Automate Workflow for UI Design, UI设计自动化工作流程
 keywords: [UI, GUI, Photoshop, Illustrator, Sketch, Automate, Automation, Workflow, Interface Design, UI设计, 界面设计, 自动化, 工作流]
 baseurl: ""
 url: /
-permalink: "/recipes/:title.html"
+permalink: "/stories/:title.html"
 exclude: ["README.md"]
 lang: zh_CN
 timezone: Asia/shanghai
 paginate: 8
-paginate_path: "/recipes/page:num/"
+paginate_path: "/stories/page:num/"
 markdown: kramdown
 kramdown:
   auto_ids: false

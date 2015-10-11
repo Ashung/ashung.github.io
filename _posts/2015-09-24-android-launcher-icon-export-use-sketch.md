@@ -1,7 +1,7 @@
 ---
-title:   Android应用启动图标快速导出方法 &ndash; Sketch篇
+title: Android应用启动图标快速导出方法 &ndash; Sketch篇
 excerpt: 使用Sketch设计能够快速导出资源的应用启动图标模版.
-updated:
+updated: 2015-10-12 00:30
 category: Sketch
 tags: Android Sketch icon
 ---
@@ -47,7 +47,10 @@ res/ic_launcher-web | 512w | | PNG
 当可导出图层(包括切片)的图层名包含了路径信息，例如`dir/dir/file`，Sketch在导出资源时将按照路径建立文件夹。所以如果需要将同一内容导出至不同文件夹内，则可以增加多个不同命名的切片，当然嵌套可导出图层也是可行的，相比之下使用切片更容易管理。
 {: .tips }
 
-使用菜单"File" > "Exprot ⇧⌘E"导出图标，最终资源将会按照Android标准的目录结构保存。
+![android_launcher_icon_sketch](/images/android_launcher_icon_export_use_sketch/screenshot_2.png)
+_在Sketch中使用多个切片导出资源。_
+
+添加完切片后结果如上图，最后使用菜单"File" > "Exprot ⇧⌘E"导出图标，最终资源将会按照Android标准的目录结构保存。
 
 以上已经可以满足一般设计师的需要了，如果你切片老是对不准边界，不想每次手动加6个切片，更改6组设置项... 或者可能你的sketch里有很多图标，满足以上任何情况的建议继续往下看。
 
