@@ -8,7 +8,7 @@ section: home
     {% for post in paginator.posts %}
     {% assign total = paginator.total_posts | plus: 1 %}
     {% assign loopIndex1 = forloop.index | plus: base %}
-    <li class="post-entry" id="recipeid-{{ total | minus: loopIndex1 }}">
+    <li class="post-entry" id="story-{{ total | minus: loopIndex1 }}">
         <h3 class="post-title">
             <a class="post-link" href="{{ post.url }}"><!--{% if post.category %}[{{ post.category }}]{% endif%} -->{{ post.title }}</a>
         </h3>
