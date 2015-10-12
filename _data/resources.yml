@@ -137,7 +137,7 @@ photoshop_illustrator_sdk:
       url: http://wwwimages.adobe.com/content/dam/Adobe/en/devnet/creativesuite/pdfs/CC14_Extension_SDK.pdf
 
     - title: Adobe CEP
-      desc: Adobe公共扩展平台(CEP), 扩展开发<a href="https://github.com/Adobe-CEP/Samples">示例</a>和<a href="https://github.com/Adobe-CEP/CEP-Resources">资源</a>
+      desc: Adobe公共扩展平台(CEP), 扩展开发<a href="https://github.com/Adobe-CEP/Samples">示例</a>和<a href="http://adobe-cep.github.io/CEP-Resources/">资源</a>
       url: https://github.com/Adobe-CEP
 
     - title: Creative Cloud Extension Builder for Brackets
@@ -167,6 +167,14 @@ adobe:
   shortname: CC
   fullname: Adobe其他软件资源
   items:
+    - title: Extendables
+      desc: InDesign的ExtendScript开发框架。
+      url: http://debrouwere.github.io/Extendables/
+
+    - title: Adobe ExtendScript API documentation
+      desc: 非官方的ExtendScript API文档。
+      url: http://yearbook.github.io/esdocs/
+
     - title: InDesign scripts
       desc: InDesign脚本.
       url: http://www.kahrel.plus.com/indesignscripts.html
