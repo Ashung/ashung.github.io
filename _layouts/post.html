@@ -33,6 +33,7 @@
                 {{ content }}
                 {% endunless %}
             </div>
+            {% if page.date %}
             <ul class="post-related">
                 {% if page.next %}
                 <li>新篇: <a class="post-newer" href="{{ page.next.url }}">{{ page.next.title }}</a></li>
@@ -41,6 +42,7 @@
                 <li>旧作: <a class="post-older" href="{{ page.previous.url }}">{{ page.previous.title }}</a></li>
                 {% endif %}
             </ul>
+            {% endif %}
         </div>
     </article>
     {% assign commentId = page.id | replace:  '/', '-' | remove_first: '-' %}
