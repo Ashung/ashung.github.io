@@ -219,6 +219,10 @@ sketch:
       desc: Sketch插件
       url: http://plugin.sketchtalk.io/
 
+    - title: Awesome Sketch Plugins
+      desc: Sketch插件收集网站
+      url: http://awesome-sket.ch/
+
 sketchsdk:
   shortname: Sketch SDK
   fullname: Sketch插件开发

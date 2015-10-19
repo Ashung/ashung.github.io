@@ -1,7 +1,7 @@
 ---
 title: Android应用启动图标快速导出方法 &ndash; Sketch篇
 excerpt: 使用Sketch设计能够快速导出资源的应用启动图标模版.
-updated: 2015-10-12 00:30
+updated: 2015-10-19 13:57
 category: Sketch
 tags: Android Sketch icon
 ---
@@ -209,6 +209,29 @@ var sliceOptions = [
     { "size" : 512,  "dir" : "large" },
     { "size" : 1024, "dir" : "supperlarge" }
 ];
+{% endhighlight %}
+
+---
+
+### Export Group Contents Only 选项
+
+Sketch中"Slice"和"Exportable layer"有一些不同，"Exportable layer"最终导出时，每个图层或图层组内容时独立的，堆叠下方的图层不会影响上方图层的内容，"Exportable layer"没有其他多余的选项，而默认的"Slice"会像Photoshop的切片工具一样需要隐藏堆叠下方的内容。Sketch中"Slice"比提供"Exportable layer"更多的设置选项，如果需要像"Exportable layer"一样，不受堆叠下方图层的影响，需要勾选"Export Group Contents Only"选项，此项只有切片位于图层组内时可用。
+
+![Export Group Contents Only 选项](/images/android_launcher_icon_export_use_sketch/screenshot_3.png)
+_选中"Export Group Contents Only"选项。_
+
+我没有查到"Export Group Contents Only"选项的相关代码，所以需要手动修改这个选项，当切片很多的时候 可以考虑使用以下代码选择所有位于图层组内的切片。
+
+{% highlight javascript %}
+var doc = context.document;
+    [[doc currentPage] deselectAllLayers];
+var exportableLayers = [[doc currentPage] exportableLayers];
+for(var i = 0; i < exportableLayers.count(); i++) {
+    var layer = exportableLayers[i];
+    if([layer className] == "MSSliceLayer" && [[layer parentGroup] className] == "MSLayerGroup") {
+        [layer select:true byExpandingSelection:true];
+    }
+}
 {% endhighlight %}
 
 ---
