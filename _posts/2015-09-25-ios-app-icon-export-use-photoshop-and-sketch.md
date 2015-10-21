@@ -114,6 +114,7 @@ default 76 -76x76, 120 -120x120, 152 -152x152, 167 -167x167, 180 -180x180
 你可能需要根据你的项目所需尺寸，修改代码中`var sizes = []`方括号内的数值。
 
 {% highlight javascript %}
+var doc = context.document;
 var sizes = [29, 40, 50, 57, 58, 72, 76, 80, 87, 100, 114, 120, 144, 152, 180, 512, 1024];
 var group = context.selection[0];
 // Clear exportable sizes
