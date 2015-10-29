@@ -135,7 +135,7 @@ a[href$=".zip"] {
 body {
     color: $primary-text-color;
     background-color: $background-color;
-    font: $base-font-size/$base-line-height $body-font;
+    font: #{$base-font-size}/#{$base-line-height} $body-font;
     font-kerning: normal;
     -webkit-text-size-adjust: 100%;
 }
@@ -403,6 +403,7 @@ body {
         font-size: 2.75rem; // 44px
         line-height: 1.273; // 56px
         margin-bottom: 1rem;
+        word-break: break-all;
         &:last-child {
             margin-bottom: 0;
         }
