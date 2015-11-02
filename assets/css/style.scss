@@ -409,13 +409,14 @@ body {
         }
     }
     .post-tags {
+        font-family: $sans-serif;
         span {
             display: inline-block;
             margin-right: .2rem;
             margin-bottom: .4rem;
             padding: .2rem .4rem;
             border-radius: .4rem;
-            background: #eee;
+            border: 2px solid #ddd;
             color: $secondary-text-color;
         }
     }
