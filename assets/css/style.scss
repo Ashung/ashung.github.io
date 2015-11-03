@@ -764,6 +764,14 @@ body {
 }
 
 .highlight {
+    & + p > em, & + p > strong {
+        display: block;
+        font-weight: normal;
+        font-style: normal;
+        text-align: center;
+        color: $secondary-text-color;
+        font-size: .889em;
+    }
     .c     { color: #998; font-style: italic } // Comment
     .err   { color: #a61717; background-color: #e3d2d2 } // Error
     .k     { font-weight: bold } // Keyword
@@ -828,38 +836,3 @@ body {
 
 // TODO: mobile menu
 
-
-/////////////////////////////////
-
-$sidebar-width: 300px;
-$sidebar-background: #eee;
-
-.layout-book {
-    .book-content {
-        margin-left: $sidebar-width;
-
-        max-width: $max-content-width;
-        article {
-            padding: 0 1rem;
-        }
-    }
-
-    .book-sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-
-        width: $sidebar-width;
-
-
-        background: $sidebar-background;
-
-        overflow-y: scroll;
-        font-size: 0.875rem;
-        font-family: $sans-serif;
-        .book-title {
-            margin: 2rem;
-        }
-    }
-}

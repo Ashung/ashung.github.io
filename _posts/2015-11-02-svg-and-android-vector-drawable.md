@@ -3,7 +3,6 @@ title: 导出SVG与Android VectorDrawable转换
 excerpt:   从Illustrator、PhotoShop、Sketch导出SVG以及转换为Android VectorDrawable.
 category: Android
 tags: Illustrator Photoshop Sketch Android SVG VectorDrawable
-comment: false
 ---
 
 在我们的开发获得Android 5.0源码后并决定将系统从4.4升级至5.0的那个时候，负责SystemUI的设计同事跟我说，开发没找到通知中心图标的PNG，资源文件夹里面都是叉ML (我一直不习惯这边的开发老是把XML读成叉ML，连设计也跟着念叉ML，码农和死美工们都很有山寨之都的特色)，开发给了他Github上的[svg2android][svg2android]项目让设计师转换资源(当时这个项目支持情况还很差)。我是设计团队里唯一懂代码的，我看了下资料大概明白是什么情况，我让他使用Illustrator设计图标并写了一些Illustrator的导出脚本，这就是当时可用的临时处理方案。
@@ -103,35 +102,85 @@ Github上一些清理Sketch SVG代码的工具:
 
 ### 使用svg2vectordrawable转换
 
-[svg2vectordrawable](https://github.com/Ashung/svg2vectordrawable)SVG转VectorDrawable的Node.js命令行工具。解决了一些svg2android存在的问题，比如不同DPI设计文档的问题，Ps导出SVG的样式问题，最重要的是支持批量转换，另外字符串替换机制可以删除多余标签，或者实现公共元素的pathData重用。
+早期版本的svg2android支持不是很好，于是我开始计划写一些批量转换的脚本，刚好拿这个项目作为Node.js的练手。过了几个月终于写出最初的版本，我将它设计为Node.js命令行工具，这就是[svg2vectordrawable](https://github.com/Ashung/svg2vectordrawable)。
 
-svg2vectordrawable目前存在的问题：
+svg2vectordrawable解决了一些svg2android目前存在的问题，比如不同DPI设计文档的问题，PhotoShop导出SVG的样式问题，最重要的是支持批量转换，另外字符串替换机制可以删除多余标签。
 
-* 未处理变形，偏移等SVG属性转换为Android对应属性；
-* 未处理描边；
-* 未处理`group`标签上的属性；
-* 未处理标签上的`id`属性转换；
-* 未处理`clip`蒙板标签；
+svg2vectordrawable目前依然存在一些问题：
 
-常用去除多余标签命令：
+- 未处理变形，偏移等SVG属性转换为Android对应属性；
+- 未处理描边；
+- 未处理`group`标签上的属性；
+- 未处理标签上的`id`属性转换；
+- 未处理`clip`蒙板标签；
 
-Illustrator生成的SVG，删除`fill="none"`的`<path>`标签。
+##### 安装
 
-``` bash
+1. 安装Node.js。最简单的方法就是从[官网](https://nodejs.org/)下载二进制安装文件安装。
+2. 下载svg2vectordrawable的[ZIP压缩包](https://github.com/Ashung/svg2vectordrawable/archive/master.zip)并解压。
+3. 在终端输入以下命令安装依赖模块，Mac系统用户可能需要使用`sudo npm install`和`sudo npm link`命令。
+{% highlight bash %}
+cd svg2vectordrawable
+npm install
+npm link
+{% endhighlight %}
+4. 最后输入`s2v`，如果出现如下的输出表示安装成功。
+{% highlight bash %}
+iMac:~ Ashung$ s2v
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                                  │
+│  SVG2VectorDrawable 1.0                                                                          │
+│                                                                                                  │
+│  ──────────────────────────────────────────────────────────────────────────────────────────────  │
+│                                                                                                  │
+│  $ s2v icon.svg icon.xml                                                                         │
+│  $ s2v icon.svg res/drawable/icon.xml                                                            │
+│  $ s2v icon.svg res/drawable/icon.xml xhdpi                                                      │
+│  $ s2v icon.svg res/drawable/icon.xml 320                                                        │
+│  $ s2v icon.svg icon.xml "replace(/<rect\s+width=\"\d+\"\s+height=\"d+\"\/>/g,"")"               │
+│  $ s2v icon.svg icon.xml xhdpi "javascript"                                                      │
+│  $ s2v assets/svg res/drawable                                                                   │
+│  $ s2v assets/svg res/drawable xhdpi "javascript"                                                │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+{% endhighlight %}
+
+##### 用法
+
+`s2v`之后的第一个参数表示需要转换的内容，可以是一个SVG文件或一个文件夹，当第一个参数为文件夹时，将会转换文件夹内的SVG文件。
+
+第二个参数表示需要转换后XML保存的路径，支持输入SVG文件或文件夹地址，当第一个参数为文件夹时，第二个参数不能是SVG文件。
+
+第三个可选参数表示设计文档的DPI，支持`mdpi`、`hdpi`、`xhdpi`、`xxhdpi`、`xxxhdpi`或者类似`320`的特定数值。
+
+第四个可选参数是用引号包含起来的一个JavaScript语句，可以对SVG文件的内容的字符串进行任何操作。
+
+##### 常用去除多余标签命令
+
+我在一个可选参数上引入一个JavaScript语句，这样我就可以使用正则表达式替换SVG文件的内容。关于正则表达式的写法请自学或者请教比较有经验的程序员。
+
+用于Illustrator生成的SVG，删除`fill="none"`的`<path>`标签。
+
+{% highlight bash %}
 $ s2v ai_svg ai_xml "replace(/<path.*fill=\"none\".*\/>/,'')"
-```
+{% endhighlight %}
 
-Photoshop 生成的SVG，删除`class="cls-1"`的`<path>`标签，此元素为图层组内最底层的图层。
+用于Photoshop 生成的SVG，删除`class="cls-1"`的`<path>`标签，此元素是图层组内最底层的图层。
 
-``` bash
+{% highlight bash %}
 $ s2v ps_svg ps_xml "replace(/<path.*class=\"cls-1\"\/>/,'')"
-```
+{% endhighlight %}
 
-Sketch生成的SVG，删除带有某个颜色的`<path>`标签及多余`<g>`标签。
+用于Sketch生成的SVG，删除带有某个颜色填充的`<path>`标签及多余`<g>`标签。
 
-``` bash
+{% highlight bash %}
 $ s2v sketch_svg sketch_xml "replace(/<path.*fill=\"#FF0000\".*><\/path>/,'').replace(/<g.*>/g,'').replace(/<\/g>/g,'')"
-```
+{% endhighlight %}
+
+---
+
+如果需要检验生成的VectorDrawable XML文件是否可用，可以安装最新版的Android Studio，建立一个Android项目，将XML文件导入到项目中。可以在Android Studio上粗略的预览XML文件的显示效果，但真实效果应以在应用中显示的为准。
+
 
 
 [svg2android]: http://inloop.github.io/svg2android/
