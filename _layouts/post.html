@@ -45,6 +45,41 @@
             {% endif %}
         </div>
     </article>
+
+    {% comment %}
+    <div id="donate">
+        <a id="donate-button-alipay" href="#">Alipay</a>
+        <a id="donate-button-wechatpay" href="#">weChat Pay</a>
+        <div id="donate-modal-alipay" class="modal">111</div>
+        <div id="donate-modal-wechatpay" class="modal">222</div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('body').append('<div id="donate-dialog-wrapper"></div>')
+                .append($('#donate-modal-alipay'))
+                .append($('#donate-modal-wechatpay'));
+
+
+            $('#donate-button-alipay').click(function(){
+                $('#donate-dialog-wrapper').show();
+
+                $('#donate-modal-alipay').show(1, function(){
+                    $('#donate-modal-alipay').css({
+                        'top' : '0',
+                        'opacity' : '1'
+                    });
+                });
+
+            });
+
+
+
+
+        });
+    </script>
+    {% endcomment %}
+
+
     {% assign commentId = page.id | replace:  '/', '-' | remove_first: '-' %}
     {% if page.comment == true %}
     <div class="post-comments-wrap">
@@ -61,4 +96,5 @@
     </div>
     {% endif %}
 </div>
+
 {% include footer.html %}
