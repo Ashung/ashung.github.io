@@ -46,7 +46,7 @@
         </div>
     </article>
 
-    {% comment %}
+{% comment %}
     <div id="donate">
         <a id="donate-button-alipay" href="#">Alipay</a>
         <a id="donate-button-wechatpay" href="#">weChat Pay</a>
@@ -74,26 +74,49 @@
         $(document).ready(function(){
             $('body').append('<div id="donate-dialog-wrapper"></div>')
                 .append($('#donate-modal-alipay'))
-                .append($('#donate-modal-wechatpay'));
+                .append($('#donate-modal-wechatpay'))
+                .append($('#donate-modal-paypal'));
 
 
             $('#donate-button-alipay').click(function(){
-                $('#donate-dialog-wrapper').show();
-
-                $('#donate-modal-alipay').show(1, function(){
-                    $('#donate-modal-alipay').css({
-                        'top' : '0',
-                        'opacity' : '1'
-                    });
-                });
-
+                showModal();
+                return false;
             });
 
 
+            $('.modal, #donate-dialog-wrapper').click(hideModal);
+
+            function showModal() {
+                $('#donate-dialog-wrapper').show(0, function(){
+                    $('#donate-dialog-wrapper').css('opacity', '1');
+                    $('#donate-modal-alipay').css({
+                        'top' : '200%'
+                    });
+                    $('#donate-modal-alipay').show(1, function(){
+                        $('#donate-modal-alipay').css({
+                            'transform' : 'rotate(0)',
+                            'top' : '50%',
+                            'opacity' : '1'
+                        });
+                    });
+                });
+            }
+
+            function hideModal() {
+                $('#donate-dialog-wrapper').css('opacity', '0');
+                $('#donate-dialog-wrapper').delay(400).hide(0);
+                $('#donate-modal-alipay').css({
+                    'transform' : 'rotate(-20deg)',
+                    'top' : '200%',
+                    'opacity' : '0'
+                });
+                $('#donate-modal-alipay').hide(400);
+            }
 
 
         });
     </script>
+
     {% endcomment %}
 
 

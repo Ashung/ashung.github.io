@@ -834,10 +834,6 @@ body {
     .lineno { color: #ccc }
 }
 
-
-
-
-
 #donate-dialog-wrapper {
     display: none;
     position: fixed;
@@ -849,25 +845,24 @@ body {
     height: 100%;
     overflow: hidden;
     background: rgba(0, 0, 0, .4);
-    //-webkit-backdrop-filter: blur(30px);
-    //-webkit-backdrop-filter: invert(1);
+    opacity: 0;
+    transition: all 0.4s ease-out;
+    -webkit-backdrop-filter: blur(10px);
 }
 .modal {
     display: none;
     position: fixed;
     opacity: 0;
-    top: 100%;
+    top: 50%;
     left: 50%;
     width: 480px;
     height: 320px;
-    margin: 0 0 0 -240px;
+    margin: -160px 0 0 -240px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
-
-
-
-    transition: all 0.5s ease-out;
+    transform: rotate(-20deg);
+    transition: all 0.4s ease-out;
 }
 
 
