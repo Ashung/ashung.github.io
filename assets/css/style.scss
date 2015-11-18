@@ -68,7 +68,7 @@ $disable-text-color: rgba(0, 0, 0, .54);
 $primary-text-color-light: rgba(255, 255, 255, 1);
 $secondary-text-color-light: rgba(255, 255, 255, .7);
 $disable-text-color-light: rgba(255, 255, 255, .3);
-$link-text-color: #222;
+$link-text-color: $primary-text-color;
 $hair-line-color: rgba(0, 0, 0, .15);
 $hair-line-color-dark: rgba(0, 0, 0, .25);
 $hair-line-color-light: rgba(0, 0, 0, .05);
@@ -116,20 +116,6 @@ code {
 a:link, a:visited {
     color: $primary-text-color;
     text-decoration: none;
-}
-
-@mixin filetypeicon($icon) {
-    white-space: nowrap;
-    padding-right: 1.3rem;
-    background: url(#{$icon}) no-repeat 100% 50%;
-}
-
-a[href$=".pdf"] {
-    @include filetypeicon('../img/icon_pdf.svg');
-}
-
-a[href$=".zip"] {
-    @include filetypeicon('../img/icon_zip.svg');
 }
 
 body {
@@ -212,20 +198,6 @@ body {
         }
     }
 }
-
-//$mobile-device-width
-//@include media-max-width(400px) {
-//    header {
-//        .nav {
-//            #icon-menu {
-//                display: block;
-//            }
-//            #menu {
-//                display: none;
-//            }
-//        }
-//    }
-//}
 
 .postlist {
     .post-entry {
@@ -403,6 +375,7 @@ body {
         font-size: 2.75rem; // 44px
         line-height: 1.273; // 56px
         margin-bottom: 1rem;
+        word-wrap: break-word;
         word-break: break-all;
         &:last-child {
             margin-bottom: 0;
@@ -435,11 +408,17 @@ body {
     font-size: 1.125rem; // 18px
     line-height: 1.778; // 32px
     padding: 1rem;
+    word-wrap: break-word;
+    word-break: break-all;
     a:link, a:visited {
-        color: $red-color;
+        color: $link-text-color;
+        background-image: linear-gradient(rgba(0,0,0,0) 50%, $secondary-text-color 50%);
+        background-repeat: repeat-x;
+        background-size: 2px 2px;
+        background-position: 0 100%;
     }
     a:hover, a:active {
-        text-decoration: underline;
+        text-decoration: none;
     }
     h1 {
         font-size: 2.445em; // 44px
@@ -610,10 +589,10 @@ body {
         padding-left: 1.2em;
         background: url(#{$icon}) no-repeat 0 40%;
     }
-    a[href$=".psd"] {
+    a.download[href$=".psd"] {
         @include downicon('../img/icon_psd.svg');
     }
-    a[href$=".zip"] {
+    a.download[href$=".zip"] {
         @include downicon('../img/icon_zip.svg');
     }
 }
@@ -736,6 +715,19 @@ body {
                 text-decoration: underline;
             }
         }
+
+        @mixin filetypeicon($icon) {
+            white-space: nowrap;
+            padding-right: 1.3rem;
+            background: url(#{$icon}) no-repeat 100% 50%;
+        }
+        a[href$=".pdf"] {
+            @include filetypeicon('../img/icon_pdf.svg');
+        }
+        a[href$=".zip"] {
+            @include filetypeicon('../img/icon_zip.svg');
+        }
+
     }
     .top {
         position: absolute;
@@ -849,6 +841,7 @@ body {
     transition: all 0.4s ease-out;
     -webkit-backdrop-filter: blur(10px);
 }
+
 .modal {
     display: none;
     position: fixed;
