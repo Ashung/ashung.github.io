@@ -1,8 +1,8 @@
 ---
 title: 从SVG转Android VectorDrawable
-excerpt:   从Illustrator、PhotoShop、Sketch导出的SVG转换为Android VectorDrawable.
+excerpt:   从SVG转换为Android VectorDrawable.
 category: Android
-tags: Illustrator Photoshop Sketch Android SVG VectorDrawable
+tags: Android SVG VectorDrawable
 ---
 
 在我们的开发获得Android 5.0源码后并决定将系统从4.4升级至5.0的那个时候，负责SystemUI的设计同事跟我说，开发没找到通知中心图标的PNG，资源文件夹里面都是叉ML (我一直不习惯这边的开发老是把XML读成叉ML，连设计也跟着念叉ML，码农和死美工们都很有山寨之都的特色)，开发给了他Github上的[svg2android][svg2android]项目让设计师转换资源(当时这个项目支持情况还很差)。我是设计团队里唯一懂代码的，我看了下资料大概明白是什么情况，我让他使用Illustrator设计图标并写了一些Illustrator的导出脚本，这就是当时可用的临时处理方案。
@@ -23,7 +23,7 @@ tags: Illustrator Photoshop Sketch Android SVG VectorDrawable
 
 ### 源文件尺寸
 
-如果已经确定要采用VectorDrawable，建议使用MDPI尺寸作为源文件的尺寸。因为VectorDrawable代码内的宽高数值使用dp单位，目前的常用转换器不会计算px对应的dp值，导致开发需要逐个文件修改宽高属性。已经用其他尺寸设计了，重做吧。
+如果已经确定要采用VectorDrawable，建议使用MDPI尺寸作为源文件的尺寸。因为VectorDrawable代码内的宽高数值使用dp单位，目前的常用转换器不会计算px对应的dp值，导致开发可能需要逐个文件修改宽高属性。如果已经用其他尺寸设计了，建议重新调整。另外一个原因是小尺寸的设计稿导出的SVG代码相对较少。
 
 ---
 
@@ -31,7 +31,7 @@ tags: Illustrator Photoshop Sketch Android SVG VectorDrawable
 
 手动转换是处理一两个SVG文件最快的方法，但VectorDrawable并不是完整的SVG，所以手动转换经常要遇到绘图软件生成的那些VectorDrawable不支持的SVG标签。矩形、圆形和椭圆都可能会产生不支持标签，这种标签的属性需要通过复杂的计算才能专为path标签的data属性，如果能尽量避免绘图软件导出的SVG产生这些不支持标签，就可以为开发节省很多时间。
 
-Illustrator的复合路径能让导出的SVG避免生成那些VectorDrawable不支持的标签，同时复合路径仍然保持某些类型路径的可编辑。Photoshop则需要将路径合并，但是遇到只有一个圆形或者矩形就无法合并路径了，这做情况需要移动路径的节点后再复位，这样破坏路径的可编辑。Sketch也有和Photoshop同样的问题。好在目前[svg2android][svg2android]都支持转换这类SVG标签。
+Illustrator的复合路径能让导出的SVG避免生成那些VectorDrawable不支持的标签，部分复合路径仍然保持路径的可编辑。Photoshop则需要将路径合并，但是遇到只有一个圆形或者矩形就无法合并路径了，这做情况需要移动路径的节点后再复位，这样破坏路径的可编辑。Sketch也有和Photoshop同样的问题，目前[svg2android][svg2android]已支持转换这类SVG标签。
 
 ### 使用svg2android转换
 
@@ -40,7 +40,7 @@ Illustrator的复合路径能让导出的SVG避免生成那些VectorDrawable不�
 svg2android目前已知问题如下：
 
 * 直接将SVG的尺寸数值转位DP，这样以其他PDI导出的SVG需要开发逐个文件修改尺寸数值；
-* 不支持PhotoShop导出的style与标签分离的SVG，导致PhotoShop导出的SVG使用svg2android转换都会变成黑色； 
+* 不支持PhotoShop导出的style与标签分离的SVG，导致PhotoShop导出的SVG使用svg2android转换都会变成黑色；
 * 不支持将色彩和透明度转换为Android的`#AARRGGBB`记色方式；
 * 不支持批量转换；
 
@@ -64,13 +64,15 @@ svg2vectordrawable目前依然存在一些问题：
 
 1. 安装Node.js。最简单的方法就是从[官网](https://nodejs.org/)下载二进制安装文件安装。
 2. 下载svg2vectordrawable的[ZIP压缩包](https://github.com/Ashung/svg2vectordrawable/archive/master.zip)并解压。
-3. 在终端输入以下命令安装依赖模块，Mac系统用户可能需要使用`sudo npm install`和`sudo npm link`命令。
+3. 在终端输入`cd svg2vectordrawable`，转至解压后的目录，接着输入`npm install -g`命令，这会把svg2vectordrawable作为全局模块安装。Mac系统用户需要使用`sudo npm install -g`命令，随后输入帐户密码。
+4. 最后输入`s2v`，安装成功则会显示出版本和帮助信息。
+
 {% highlight bash %}
 cd svg2vectordrawable
-npm install
-npm link
+npm install -g
 {% endhighlight %}
-4. 最后输入`s2v`，如果出现如下的输出表示安装成功。
+_作为全局模块安装，程序会自动安装依赖模块。_
+
 {% highlight bash %}
 iMac:~ Ashung$ s2v
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -90,16 +92,17 @@ iMac:~ Ashung$ s2v
 │                                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────┘
 {% endhighlight %}
+_SVG2VectorDrawable帮助信息_
 
 ##### 用法
 
-`s2v`之后的第一个参数表示需要转换的内容，可以是一个SVG文件或一个文件夹，当第一个参数为文件夹时，将会转换文件夹内的SVG文件。
+`s2v `之后的第一个参数表示需要转换的内容(参数间使用空格分隔)，可以是一个SVG文件或一个文件夹，当第一个参数为文件夹时，将会转换文件夹内的SVG文件。
 
 第二个参数表示需要转换后XML保存的路径，支持输入SVG文件或文件夹地址，当第一个参数为文件夹时，第二个参数不能是SVG文件。
 
 第三个可选参数表示设计文档的DPI，支持`mdpi`、`hdpi`、`xhdpi`、`xxhdpi`、`xxxhdpi`或者类似`320`的特定数值。
 
-第四个可选参数是用引号包含起来的一个JavaScript语句，可以对SVG文件的内容的字符串进行任何操作。
+第四个可选参数是用引号包围起来的一个JavaScript语句，可以对SVG代码进行字符串相关的操作。
 
 ##### 常用去除多余标签命令
 
@@ -125,7 +128,7 @@ $ s2v sketch_svg sketch_xml "replace(/<path.*fill=\"#FF0000\".*><\/path>/,'').re
 
 ---
 
-如果需要检验生成的VectorDrawable XML文件是否可用，可以安装最新版的Android Studio，建立一个Android项目，将XML文件导入到项目中。可以在Android Studio上粗略的预览XML文件的显示效果，但真实效果应以在应用中显示的为准。
+建议在生成完VectorDrawable XML文件之后，检验生成的文件是否可用。可以安装最新版的Android Studio，建立一个Android项目，将XML文件导入到项目中，这样可以在Android Studio上粗略的预览XML文件的显示效果，真实效果以在应用中实际显示的为准。
 
 
 

@@ -1,5 +1,5 @@
 ---
-title:  Android应用启动图标快速导出方法 &ndash; Photoshop篇
+title:  Android应用启动图标快速导出方法 (Photoshop篇)
 excerpt: 使用Photoshop设计能够快速导出资源的应用启动图标模版.
 updated:
 category: Photoshop

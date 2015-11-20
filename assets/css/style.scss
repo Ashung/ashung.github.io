@@ -124,6 +124,7 @@ body {
     font: #{$base-font-size}/#{$base-line-height} $body-font;
     font-kerning: normal;
     -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
@@ -526,10 +527,6 @@ body {
             border-radius: 4px;
             padding: 1em;
             overflow: scroll;
-            &.language-bash {
-                color: #2c4;
-                background: $primary-text-color;
-            }
         }
     }
     img {
@@ -756,6 +753,8 @@ body {
 }
 
 .highlight {
+    word-wrap: normal;
+    word-break: normal;
     & + p > em, & + p > strong {
         display: block;
         font-weight: normal;
@@ -824,6 +823,13 @@ body {
     .vi    { color: #008080 } // Name.Variable.Instance
     .il    { color: #099 } // Literal.Number.Integer.Long
     .lineno { color: #ccc }
+    .language-bash {
+        color: $white-color;
+        background: $primary-text-color;
+        * {
+            color: $white-color;
+        }
+    }
 }
 
 #donate-dialog-wrapper {

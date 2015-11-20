@@ -1,5 +1,5 @@
 ---
-title: Photoshop脚本 &ndash; Android_Assets_Export.jsx
+title: "Photoshop脚本: Android_Assets_Export.jsx"
 excerpt: 使用Android_Assets_Export.jsx脚本导出Android资源.
 updated: 2015-10-12 13:23
 category: photoshop
