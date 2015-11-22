@@ -42,7 +42,7 @@ defaults:
 sns:
   - title: dribbble
     url: "https://dribbble.com/ashung"
-  - title: behance
+  - title: Behance
     url: "https://behance.net/ashung"
   - title: github
     url: "https://github.com/Ashung"

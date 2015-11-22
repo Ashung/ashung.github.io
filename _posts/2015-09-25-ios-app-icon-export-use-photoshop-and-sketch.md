@@ -1,6 +1,6 @@
 ---
 title: iOS应用图标快速导出 &ndash; 使用Photoshop或Sketch
-excerpt: 使用Photoshop或Sketch设计能够快速导出资源的iOS图标应用模版.
+excerpt: 使用Photoshop或Sketch设计能够快速导出资源的iOS图标应用模版。
 updated: 2015-10-08
 category: Sketch Photoshop
 tags: iOS iPhone iPad Photoshop Sketch

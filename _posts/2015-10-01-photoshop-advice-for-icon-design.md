@@ -1,6 +1,6 @@
 ---
 title: 图标设计的Photoshop文档建议
-excerpt: 如何让PSD文档具有最佳的可缩放性和可读性.
+excerpt: 如何让PSD文档具有最佳的可缩放性和可读性。
 updated: 2015-10-10
 category: photoshop
 tags: Photoshop icon 图标设计

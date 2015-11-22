@@ -1,6 +1,6 @@
 ---
 title: "Photoshop脚本: Android_Export_Layers.jsx"
-excerpt: 使用Android_Export_Layers.jsx脚本导出Android资源.
+excerpt: 使用Android_Export_Layers.jsx脚本导出Android资源。
 updated: 2015-10-12 14:37
 category: photoshop
 tags: Photoshop Android Script

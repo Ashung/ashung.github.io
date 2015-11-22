@@ -1,11 +1,11 @@
 ---
-title: 从SVG转Android VectorDrawable
-excerpt:   从SVG转换为Android VectorDrawable.
+title: 制作Android VectorDrawable资源
+excerpt: 快速将SVG转换为Android VectorDrawable。
 category: Android
 tags: Android SVG VectorDrawable
 ---
 
-在我们的开发获得Android 5.0源码后并决定将系统从4.4升级至5.0的那个时候，负责SystemUI的设计同事跟我说，开发没找到通知中心图标的PNG，资源文件夹里面都是叉ML (我一直不习惯这边的开发老是把XML读成叉ML，连设计也跟着念叉ML，码农和死美工们都很有山寨之都的特色)，开发给了他Github上的[svg2android][svg2android]项目让设计师转换资源(当时这个项目支持情况还很差)。我是设计团队里唯一懂代码的，我看了下资料大概明白是什么情况，我让他使用Illustrator设计图标并写了一些Illustrator的导出脚本，这就是当时可用的临时处理方案。
+在我们的开发获得Android 5.0源码后并决定将系统从4.4升级至5.0的那个时候，负责SystemUI的设计同事跟我说，开发没找到通知中心图标的PNG，资源文件夹里面都是叉ML (我一直不习惯这边的开发老是把XML读成叉ML，连设计也跟着念叉ML，码农和死美工们都很有山寨之都的特色)，开发给了他Github上的[svg2android][svg2android]项目让设计师转换资源(当时这个项目对SVG支持情况还很差)。我是设计团队里唯一懂代码的，我看了下资料大概明白是什么情况，我让他使用Illustrator设计图标并写了一些Illustrator的导出脚本，这就是当时可用的临时处理方案。
 
 后来他工作的转交给了其他几个设计师，至今都没处理好这个事情。设计不肯安装开发工具无法判断转换后的文件是否可用，而开发用的是淘汰了的基于Eclipse的ADT，根本没有VectorDrawable预览功能。新技术对水平较差的设计师和开发者都是个很大的考验，至今开发都没把VectorDrawable的特色动画加上。我当时对VectorDrawable的印象就是Google不让死美工们好好切图了。
 
@@ -23,7 +23,7 @@ tags: Android SVG VectorDrawable
 
 ### 源文件尺寸
 
-如果已经确定要采用VectorDrawable，建议使用MDPI尺寸作为源文件的尺寸。因为VectorDrawable代码内的宽高数值使用dp单位，目前的常用转换器不会计算px对应的dp值，导致开发可能需要逐个文件修改宽高属性。如果已经用其他尺寸设计了，建议重新调整。另外一个原因是小尺寸的设计稿导出的SVG代码相对较少。
+如果已经确定要采用VectorDrawable，建议使用MDPI尺寸作为源文件的尺寸。因为VectorDrawable代码内的宽高数值使用dp单位，目前的常用转换器不会计算px对应的dp值，导致开发可能需要逐个文件修改宽高属性。如果已经用其他尺寸设计了，建议重新调整。另外一个原因是小尺寸的设计稿导出的SVG代码相对较少。如果希望得到最小的文件体积，建议先压缩SVG代码后再进行转换。
 
 ---
 
@@ -39,8 +39,8 @@ Illustrator的复合路径能让导出的SVG避免生成那些VectorDrawable不�
 
 svg2android目前已知问题如下：
 
-* 直接将SVG的尺寸数值转位DP，这样以其他PDI导出的SVG需要开发逐个文件修改尺寸数值；
-* 不支持PhotoShop导出的style与标签分离的SVG，导致PhotoShop导出的SVG使用svg2android转换都会变成黑色；
+* 直接将SVG的尺寸数值转位DP，这样其他尺寸的源文件导出的SVG，就需要开发逐个文件修改尺寸数值；
+* 暂不支持PhotoShop导出的style与标签分离的SVG，导致PhotoShop导出的SVG使用svg2android转换都会变成黑色；
 * 不支持将色彩和透明度转换为Android的`#AARRGGBB`记色方式；
 * 不支持批量转换；
 
@@ -56,14 +56,14 @@ svg2vectordrawable目前依然存在一些问题：
 
 - 未处理变形，偏移等SVG属性转换为Android对应属性；
 - 未处理描边；
-- 未处理`group`标签上的属性；
-- 未处理标签上的`id`属性转换；
-- 未处理`clip`蒙板标签；
+- 未处理"group"标签上的属性；
+- 未处理标签上的"id"属性转换；
+- 未处理"clip"蒙板标签；
 
 ##### 安装
 
-1. 安装Node.js。最简单的方法就是从[官网](https://nodejs.org/)下载二进制安装文件安装。
-2. 下载svg2vectordrawable的[ZIP压缩包](https://github.com/Ashung/svg2vectordrawable/archive/master.zip)并解压。
+1. 安装Node.js。最简单的方法就是从[Node.js官网][nodejs]下载二进制安装文件安装。
+2. 下载svg2vectordrawable的[ZIP压缩包][svg2vectordrawable-zip]并解压。
 3. 在终端输入`cd svg2vectordrawable`，转至解压后的目录，接着输入`npm install -g`命令，这会把svg2vectordrawable作为全局模块安装。Mac系统用户需要使用`sudo npm install -g`命令，随后输入帐户密码。
 4. 最后输入`s2v`，安装成功则会显示出版本和帮助信息。
 
@@ -96,11 +96,11 @@ _SVG2VectorDrawable帮助信息_
 
 ##### 用法
 
-`s2v `之后的第一个参数表示需要转换的内容(参数间使用空格分隔)，可以是一个SVG文件或一个文件夹，当第一个参数为文件夹时，将会转换文件夹内的SVG文件。
+"s2v"之后的第一个参数表示需要转换的内容(参数间使用空格分隔)，可以是一个SVG文件或一个文件夹，当第一个参数为文件夹时，将会转换文件夹内的SVG文件。
 
 第二个参数表示需要转换后XML保存的路径，支持输入SVG文件或文件夹地址，当第一个参数为文件夹时，第二个参数不能是SVG文件。
 
-第三个可选参数表示设计文档的DPI，支持`mdpi`、`hdpi`、`xhdpi`、`xxhdpi`、`xxxhdpi`或者类似`320`的特定数值。
+第三个可选参数表示设计文档的DPI，支持"mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"或者类似"320"的特定数值。
 
 第四个可选参数是用引号包围起来的一个JavaScript语句，可以对SVG代码进行字符串相关的操作。
 
@@ -108,19 +108,19 @@ _SVG2VectorDrawable帮助信息_
 
 我在一个可选参数上引入一个JavaScript语句，这样我就可以使用正则表达式替换SVG文件的内容。关于正则表达式的写法请自学或者请教比较有经验的程序员。
 
-用于Illustrator生成的SVG，删除`fill="none"`的`<path>`标签。
+用于Illustrator生成的SVG，删除带有`fill="none"`属性的"path"标签。
 
 {% highlight bash %}
 $ s2v ai_svg ai_xml "replace(/<path.*fill=\"none\".*\/>/,'')"
 {% endhighlight %}
 
-用于Photoshop 生成的SVG，删除`class="cls-1"`的`<path>`标签，此元素是图层组内最底层的图层。
+用于Photoshop 生成的SVG，删除带有`class="cls-1"`属性的"path"标签，此元素是图层组内最底层的图层。
 
 {% highlight bash %}
 $ s2v ps_svg ps_xml "replace(/<path.*class=\"cls-1\"\/>/,'')"
 {% endhighlight %}
 
-用于Sketch生成的SVG，删除带有某个颜色填充的`<path>`标签及多余`<g>`标签。
+用于Sketch生成的SVG，删除带有某个颜色填充"path"标签及多余"g"标签。
 
 {% highlight bash %}
 $ s2v sketch_svg sketch_xml "replace(/<path.*fill=\"#FF0000\".*><\/path>/,'').replace(/<g.*>/g,'').replace(/<\/g>/g,'')"
@@ -131,6 +131,8 @@ $ s2v sketch_svg sketch_xml "replace(/<path.*fill=\"#FF0000\".*><\/path>/,'').re
 建议在生成完VectorDrawable XML文件之后，检验生成的文件是否可用。可以安装最新版的Android Studio，建立一个Android项目，将XML文件导入到项目中，这样可以在Android Studio上粗略的预览XML文件的显示效果，真实效果以在应用中实际显示的为准。
 
 
-
+[nodejs]: https://nodejs.org/
+[svg2vectordrawable-zip]: https://github.com/Ashung/svg2vectordrawable/archive/master.zip
 [svg2android]: http://inloop.github.io/svg2android/
 [SketchVectorDrawable]: https://github.com/jacobmoncur/SketchVectorDrawable
+[Material_design_icons]: http://github.com/google/material-design-icons/

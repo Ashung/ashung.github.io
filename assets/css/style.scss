@@ -82,9 +82,7 @@ $green-color: #8bc34a;
 $blue-color: #2196f3;
 
 // Dimens
-$max-content-width: 800px;
-$mobile-device-width: 360px;
-$desktop-browser-width: 800px;
+$max-content-width: 700px;
 
 // Mixin
 @mixin media-max-width($width) {
@@ -377,7 +375,6 @@ body {
         line-height: 1.273; // 56px
         margin-bottom: 1rem;
         word-wrap: break-word;
-        word-break: break-all;
         &:last-child {
             margin-bottom: 0;
         }
@@ -409,11 +406,9 @@ body {
     font-size: 1.125rem; // 18px
     line-height: 1.778; // 32px
     padding: 1rem;
-    word-wrap: break-word;
-    word-break: break-all;
     a:link, a:visited {
         color: $link-text-color;
-        background-image: linear-gradient(rgba(0,0,0,0) 50%, $secondary-text-color 50%);
+        background-image: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,.5) 50%);
         background-repeat: repeat-x;
         background-size: 2px 2px;
         background-position: 0 100%;
@@ -424,48 +419,34 @@ body {
     h1 {
         font-size: 2.445em; // 44px
         line-height: 1.273; // 56px
-        margin-bottom: .182em; // 8px
-        margin-top: .182em * 2;
+        margin-bottom: .545em; // 24px
     }
     h2 {
         font-size: 2em; // 36px
         line-height: 1.556; // 56px
-        margin-bottom: .222em; // 8px
-        margin-top: .222em * 2;
+        margin-bottom: .667em; // 24px
     }
     h3 {
         font-size: 1.556em; // 28px
         line-height: 1.714; // 48px
-        margin-bottom: .571em; // 16px
-        margin-top: .571em * 2;
+        margin-bottom: .857em; // 24px
     }
     h4 {
         font-size: 1.333em; // 24px
         line-height: 1.667; // 40px
-        margin-bottom: .667em; // 16px
-        margin-top: .667em * 2;
+        margin-bottom: 1em; // 24px
     }
     h5 {
         font-size: 1.111em; // 20px
         line-height: 1.600; // 32px
-        margin-bottom: .8em; // 16px
-        margin-top: .8em * 2;
+        margin-bottom: 1.2em; // 24px
     }
     h6 {
         font-size: 1em; // 18px
-        margin-bottom: .889em; // 16px
-        margin-top:.889em * 2;
-    }
-    h1:first-child,
-    h2:first-child,
-    h3:first-child,
-    h4:first-child,
-    h5:first-child,
-    h6:first-child {
-        margin-top: 0;
+        margin-bottom: 1.333em; // 24px
     }
     p, blockquote, ul, ol, dl {
-        margin-bottom: .889em;
+        margin-bottom: 1.333em;
     }
     ul, ol {
         padding-left: 1.5em;
@@ -495,7 +476,7 @@ body {
         width: 100%;
         font-size: .889em;
         line-height: 1.5;
-        margin-bottom: 1em;
+        margin-bottom: 1.5em;
         border-collapse: collapse;
         td, th {
             text-align: left;
@@ -504,22 +485,19 @@ body {
         }
     }
     p code, li code, dl code {
-        background: #eee;
+        color: $secondary-text-color;
         margin: 0 .222em;
-        padding: .222em .444em;
-        border-radius: .222em;
         a:link, a:visited {
             color: $primary-text-color;
         }
     }
     blockquote {
-        margin-left: 1em;
-        padding-left: 1em;
-        border-left: 4px solid #eee;
+        margin-left: -.889em;
+        padding-left: .667em;
+        border-left: .222em solid #eee;
     }
     pre {
-        margin-bottom: 1em;
-        font-size: .889em;
+        font-size: 1em;
         line-height: 1.5;
         code {
             display: block;
@@ -545,7 +523,7 @@ body {
         }
     }
     hr {
-        margin: 1.778em auto;
+        margin: 2.667em auto;
         width: 5em;
         height: 2px;
         border: 0;
@@ -565,7 +543,7 @@ body {
         line-height: 1.5;
         margin-top: 2em;
         padding: 1em 0 0;
-        border-top: 1px solid $hair-line-color-light;
+        //border-top: 1px solid $hair-line-color-light;
         li {
             margin-bottom: 1em;
         }
@@ -753,6 +731,8 @@ body {
 }
 
 .highlight {
+    font-size: .889em;
+    margin-bottom: 1.5em;
     word-wrap: normal;
     word-break: normal;
     & + p > em, & + p > strong {
