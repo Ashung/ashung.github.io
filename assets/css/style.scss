@@ -49,8 +49,8 @@
     url(../font/FiraMono-Bold.ttf) format('truetype');
 }
 
-$cjk-font: "PingFang SC", "Noto Sans SC", "Noto Sans CJK SC", "Noto Sans CJK", "SourceHanSansSC", "SourceHanSans", "STHeiti", "Microsoft Yahei";
-$serif: Merriweather, Georgia, Times, $cjk-font, serif;
+$cjk-font: "PingFang SC", "STHeiti", "Microsoft Yahei";
+$serif: Merriweather, Georgia,$cjk-font, serif;
 $sans-serif: "Merriweather Sans", Helvetica, Arial, $cjk-font, sans-serif;
 $monospace: FiraMono, Menlo, Consolos, $cjk-font, monospace;
 $base-font-family: $serif;
@@ -362,7 +362,7 @@ body {
 
 .post {
     max-width: 100%;
-    .post-header-wrap, .post-content-wrap, .post-comments-wrap {
+    .post-header-wrap, .post-content-wrap, .post-comments-wrap, .post-donate-wrap {
         margin: auto;
         max-width: $max-content-width;
     }
@@ -812,7 +812,11 @@ body {
     }
 }
 
-#donate-dialog-wrapper {
+.post-donate {
+    font-size: 1.125rem;
+    padding: 1rem 1rem 2rem;
+}
+#donate-dialog-wrap {
     display: none;
     position: fixed;
     top: 0;
@@ -824,7 +828,7 @@ body {
     overflow: hidden;
     background: rgba(0, 0, 0, .4);
     opacity: 0;
-    transition: all 0.4s ease-out;
+    transition: all 0.3s ease-out;
     -webkit-backdrop-filter: blur(10px);
 }
 
@@ -834,14 +838,38 @@ body {
     opacity: 0;
     top: 50%;
     left: 50%;
-    width: 480px;
+    margin: -170px 0 0 -190px;
+    width: 320px;
     height: 320px;
-    margin: -160px 0 0 -240px;
+    padding: 40px 20px 20px;
+    overflow: hidden;
+    text-align: center;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
     transform: rotate(-20deg);
-    transition: all 0.4s ease-out;
+    transition: all 0.3s ease-out;
+    .qrcode {
+        img {
+            display: block;
+            margin: 16px auto 0;
+            width: 200px;
+            height: 200px;
+        }
+        strong {
+            display: block;
+            font-size: 2rem;
+            span {
+                font-size: 1rem;
+                color: $secondary-text-color;
+                margin-right: .3rem;
+            }
+        }
+    }
+    .tips {
+        font-size: .875rem;
+        color: $secondary-text-color;
+    }
 }
 
 

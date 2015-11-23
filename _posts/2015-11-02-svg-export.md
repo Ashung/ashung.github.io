@@ -82,7 +82,7 @@ Github上有一些清理Sketch SVG代码的工具，都是命令行工具或某�
 
 ### SVG代码优化
 
-设计软件导出的SVG都包含各种多余的代码，这会导致文件体积较大，一般最终使用的SVG都会对SVG代码优化处理。
+设计软件导出的SVG都包含各种多余的代码，这会导致文件体积较大，一般最终使用的SVG都会对SVG进行优化处理。
 
 常用的SVG代码优化工具[SVG Optimizer][SVGO](简称SVGO)是一个[Nodejs][Nodejs]命令行工具。也就是说这是没有界面的，要在终端上敲代码来优化SVG，这是非常高效处理方法，但对不熟悉命令行工具的设计师来说可能会有难度，具体操作可以查阅[SVGO][SVGO]主页上的文档。
 
@@ -92,7 +92,7 @@ Github上有一些清理Sketch SVG代码的工具，都是命令行工具或某�
 
 SVGO相关的工具还有Nodejs模块版本的[imagemin-svgo][imagemin-svgo]，gulp插件版本的[gulp-svgmin][gulp-svgmin]，项目主页上都有示例代码。
 
-[SVGCleaner][SVGCleaner]
+[SVGCleaner][SVGCleaner]另一个跨平台的带GUI界面的SVG优化软件，对命令行不熟悉的设计师可以选择这个软件。
 
 
 

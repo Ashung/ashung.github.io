@@ -7,7 +7,7 @@
                 {% if page.author %}<p class="post-author">作者 {{ page.author }}.</p>{% endif %}
                 {% if page.date %}
                 <p class="post-date">
-                    发表于<time class="post-publish" pubdate datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%Y年%m月%-d日" }}</time>{% if page.updated %},
+                    发表于<time class="post-publish" datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%Y年%m月%-d日" }}</time>{% if page.updated %},
                     最后修订于<time class="post-updated" datetime="{{ page.updated | date: "%Y-%m-%d" }}">{{ page.updated | date: "%Y年%m月%-d日" }}</time>{% endif %}.
                 </p>
                 {% endif %}
@@ -46,76 +46,103 @@
         </div>
     </article>
 
-{% comment %}
-    <div id="donate">
-        <a id="donate-button-alipay" href="#">Alipay</a>
-        <a id="donate-button-wechatpay" href="#">weChat Pay</a>
-        <div id="donate-modal-alipay" class="modal">111</div>
-        <div id="donate-modal-wechatpay" class="modal">222</div>
-        <div id="donate-modal-paypal" class="modal">
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="YB3LBHPPHXM4Y">
-                <input type="hidden" name="on0" value="Donate">
-                <label for="paypal">via PayPal</label><br>
-                <select name="os0" id="paypal">
-                    <option value="1 -">1 - $ 1.00 USD</option>
-                    <option value="2 -">2 - $ 2.00 USD</option>
-                    <option value="3 -">3 - $ 5.00 USD</option>
-                </select>
-                <input type="hidden" name="currency_code" value="USD">
-                <p>
-                    <input type="submit" name="submit" value="Pay" alt="PayPal - The safer, easier way to pay online!">
-                </p>
-            </form>
+    {% comment %}
+    <div class="post-donate-wrap">
+        <div class="post-donate" id="donate">
+            <p>如果觉得这篇文章对您有用, 请随意打赏.</p>
+            <ul class="donate-buttons">
+                <li><a id="donate-button-wechatpay" href="#">微信支付</a></li>
+                <li><a id="donate-button-alipay" href="#">支付宝</a></li>
+                <li><a id="donate-button-paypal" href="#">PayPal</a></li>
+            </ul>
+
+            <div id="donate-modal-wechatpay" class="modal">
+                <p>您的支持将鼓励作者写作更多实用教程.</p>
+                <div class="qrcode">
+                    <img src="/assets/img/wechat_rmb_2.png" alt="微信打赏2元">
+                    <strong><span>&yen;</span>2.00</strong>
+                </div>
+                <p class="tips">打开微信, 点击右上角"+", 选择"扫一扫".</p>
+            </div>
+            <div id="donate-modal-alipay" class="modal">
+                <p>您的支持将鼓励作者写作更多实用教程.</p>
+                <div class="qrcode">
+                    <img src="/assets/img/alipay_rmb_2.png" alt="支付宝打赏2元">
+                    <strong><span>&yen;</span>2.00</strong>
+                </div>
+            </div>
+            <div id="donate-modal-paypal" class="modal">
+                <p>您的支持将鼓励作者写作更多实用教程.</p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="YB3LBHPPHXM4Y">
+                    <input type="hidden" name="on0" value="Donate">
+                    <label for="paypal">PayPal</label><br>
+                    <select name="os0" id="paypal">
+                        <option value="1 -">1 - $ 1.00 USD</option>
+                        <option value="2 -">2 - $ 2.00 USD</option>
+                        <option value="3 -">3 - $ 5.00 USD</option>
+                    </select>
+                    <input type="hidden" name="currency_code" value="USD">
+                    <input type="submit" name="submit" value="Pay">
+                </form>
+            </div>
         </div>
-    </div>
-    <script>
-        $(document).ready(function(){
-            $('body').append('<div id="donate-dialog-wrapper"></div>')
-                .append($('#donate-modal-alipay'))
-                .append($('#donate-modal-wechatpay'))
-                .append($('#donate-modal-paypal'));
+        <script>
+            $(document).ready(function(){
+                $('body').append('<div id="donate-dialog-wrap"></div>')
+                        .append($('#donate-modal-wechatpay'))
+                        .append($('#donate-modal-alipay'))
+                        .append($('#donate-modal-paypal'));
 
+                $('#donate-button-alipay').click(function(){
+                    showModal('#donate-modal-alipay');
+                    return false;
+                });
+                $('#donate-button-wechatpay').click(function(){
+                    showModal('#donate-modal-wechatpay');
+                    return false;
+                });
+                $('#donate-button-paypal').click(function(){
+                    showModal('#donate-modal-paypal');
+                    return false;
+                });
 
-            $('#donate-button-alipay').click(function(){
-                showModal();
-                return false;
-            });
+//                $('.modal').click(hideModal);
+                $('#donate-dialog-wrap').click(hideModal);
 
-
-            $('.modal, #donate-dialog-wrapper').click(hideModal);
-
-            function showModal() {
-                $('#donate-dialog-wrapper').show(0, function(){
-                    $('#donate-dialog-wrapper').css('opacity', '1');
-                    $('#donate-modal-alipay').css({
-                        'top' : '200%'
-                    });
-                    $('#donate-modal-alipay').show(1, function(){
-                        $('#donate-modal-alipay').css({
-                            'transform' : 'rotate(0)',
-                            'top' : '50%',
-                            'opacity' : '1'
+                function showModal(targetModal) {
+                    $('#donate-dialog-wrap').show(0, function(){
+                        $('#donate-dialog-wrap').css('opacity', '1');
+                        $(targetModal).css({
+                            'top' : '200%'
+                        });
+                        $(targetModal).show(1, function(){
+                            $(targetModal).css({
+                                'transform' : 'rotate(0)',
+                                'top' : '50%',
+                                'opacity' : '1'
+                            });
                         });
                     });
-                });
-            }
+                }
 
-            function hideModal() {
-                $('#donate-dialog-wrapper').css('opacity', '0');
-                $('#donate-dialog-wrapper').delay(400).hide(0);
-                $('#donate-modal-alipay').css({
-                    'transform' : 'rotate(-20deg)',
-                    'top' : '200%',
-                    'opacity' : '0'
-                });
-                $('#donate-modal-alipay').hide(400);
-            }
+                function hideModal() {
+                    $('#donate-dialog-wrap').css('opacity', '0');
+                    $('#donate-dialog-wrap').delay(300).hide(0);
+                    $('.modal').css({
+                        'transform' : 'rotate(-20deg)',
+                        'top' : '200%',
+                        'opacity' : '0'
+                    });
+                    $('.modal').hide(300);
+                }
 
 
-        });
-    </script>
+            });
+        </script>
+    </div>
+
 
     {% endcomment %}
 

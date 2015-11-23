@@ -19,7 +19,7 @@ tags: Android SVG VectorDrawable
 
 我不清楚VectorDrawable和PNG之间存在的性能差异有多大。VectorDrawable是无法向后兼容的，只有Android 5.0的设备才能使用，如果应用要兼顾旧版本，且不做两种兼容方案的话，明显VectorDrawable是不适合的。目前VectorDrawable的路径上还不支持渐变，也就是说只能做一些纯色的图形。VectorDrawable并不是可以随意放大的矢量图片，要得到一个资源的放大或缩小的版本，得需要两个VectorDrawable文件，但是它们之间可以共用path的数据。文件比PNG资源占用空间大，如果应用仅支持一个DPI，并且不考虑图标上的动画，完全可以直接用PNG图片。另外这个技术对设计师比较具有挑战，可能会影响项目的进度，建议先让开发和设计师评估下。
 
-从Github上的[Material design icons][Material_design_icons]项目来看Google并没有开放相关的工具，但是却设计了包含各种格式的近千个图标，看来他们是不建议设计师重做其他风格图标的。
+Google的[Material design icons][Material_design_icons]项目并没有开放相关的转换工具，却设计了包含各种格式的近千个图标，看来他们似乎不建议设计师重做其他风格图标的。
 
 ### 源文件尺寸
 
