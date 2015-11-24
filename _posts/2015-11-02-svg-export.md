@@ -16,7 +16,7 @@ comment: false
 
 还有一种方法是使用Illustrator画板导出SVG，画板大小做为图标切图区域，在另存为SVG时选择导出多个画板，建议画布命名为资源文件名。Illustrator中增加新画板对新手来说经常会忽视不齐像素，我用一个脚本把选中的图层转为画板并且自动对齐像素，最后用再另外一个脚本导出画板。如果图标很多，因为画板最多只能支持100个，这种方法还是有一些局限。你可以下载[Selection_to_Artboard.jsx][Selection_to_Artboard.jsx](用于将选择图层转为画板)和[Artboards_To_SVG.jsx][Artboards_To_SVG.jsx](用于将画板导出为SVG)这两个脚本，它们对于小项目还是适用的。
 
-当项目较大时推荐使用[Illustrator SVG Exporter][illustrator-svg-exporter]，这是一个只有选择保存路径对话框的Illustrator脚本，用于导出文档中带".svg"后缀的路径、复合路径、组合、图层、画板等等，具体操作可见[Illustrator SVG Exporter][illustrator-svg-exporter]的项目主页。Illustrator SVG Exporter导出的SVG是沿着内容边界裁切的，所以需要在组合或图层内包含一个矩形作为切图边界，这个矩形可以是无填充的路径，最后再统一去掉这个作为切图区域矩形的代码。SVG中无填充的路径会显示为黑色，如果图标也是黑色，预览时就无法看到图标的内容，为避免这种情况可以使用白色或某个固定色值作为边界图层的填充。
+当项目较大时推荐使用[Illustrator SVG Exporter][illustrator-svg-exporter]，这是一个只有选择保存路径对话框的Illustrator脚本，用于导出文档中带".svg"后缀的路径、复合路径、组合、图层、画板等等，具体操作可见[Illustrator SVG Exporter][illustrator-svg-exporter]的项目主页。Illustrator SVG Exporter导出的SVG是沿着内容边界裁切的，所以需要在组合或图层内包含一个矩形作为切图边界，这个矩形可以是无填充的路径，最后再统一去掉这个作为切图区域矩形的代码。
 
 ![](../images/svg_and_android_vector_drawable/screenshot_ai.png)_使用Illustrator SVG Exporter导出SVG时建议的图层结构_
 
@@ -76,7 +76,70 @@ Github上有一些清理Sketch SVG代码的工具，都是命令行工具或某�
 
 ### 批量删除多余代码
 
+[Material design icons][Material_design_icons]项目中各个分类文件夹下的"/svg/design/"目录内的SVG就是带有多余的矩形的，"/svg/production/"目录内的SVG则是删除各种多余代码并压缩成一行的SVG。
 
+{% highlight xml %}
+<path d="M0 0h24v24H0z" fill="none"/>
+<path fill="none" d="M0,0h24v24H0V0z"/>
+<rect fill="none" width="24" height="24"/>
+<path d="M...Z" class="cls-1"/>
+{% endhighlight %}
+
+{% highlight javascript %}
+var fs = require("fs");
+var path = require("path");
+
+function traversal(rootDir, callback) {
+    fs.readdirSync(rootDir).forEach(function(file) {
+        var pathname = path.join(rootDir, file);
+        if(fs.statSync(pathname).isDirectory()) {
+            traversal(pathname, callback)
+        } else if(fs.statSync(pathname).isFile()) {
+            callback(pathname);
+        }
+    });
+}
+
+var designSVGDirs = [
+    "action/svg/design/",
+    "alert/svg/design/",
+    "av/svg/design/",
+    "communication/svg/design/",
+    "content/svg/design/",
+    "device/svg/design/",
+    "editor/svg/design/",
+    "file/svg/design/",
+    "hardware/svg/design/",
+    "image/svg/design/",
+    "maps/svg/design/",
+    "navigation/svg/design/",
+    "notification/svg/design/",
+    "places/svg/design/",
+    "social/svg/design/",
+    "toggle/svg/design/"
+];
+
+for(var i = 0; i < designSVGDirs.length; i ++) {
+    traversal(designSVGDirs[i], function(file){
+        // console.log(file);
+        var productionSVGCode = fs.readFileSync(file)
+            .toString()
+            .replace(/<.*fill=\"none\".*\/>/g, "");
+        var productionSVGDir = path.join(
+                path.dirname(designSVGDirs[i]),
+                "production_2"
+            );
+        if(!fs.existsSync(productionSVGDir)) {
+            fs.mkdirSync(productionSVGDir);
+        }
+        fs.writeFileSync(
+            path.join(productionSVGDir, path.basename(file)),
+            productionSVGCode
+        );
+    });
+}
+{% endhighlight %}
+_cleanSVG.js_
 
 ---
 

@@ -111,7 +111,7 @@ _SVG2VectorDrawable帮助信息_
 用于Illustrator生成的SVG，删除带有`fill="none"`属性的"path"标签。
 
 {% highlight bash %}
-$ s2v ai_svg ai_xml "replace(/<path.*fill=\"none\".*\/>/,'')"
+$ s2v ai_svg ai_xml "replace(/<path.*fill=\"none\".*\/>/g,'')"
 {% endhighlight %}
 
 用于Photoshop 生成的SVG，删除带有`class="cls-1"`属性的"path"标签，此元素是图层组内最底层的图层。
