@@ -1,12 +1,9 @@
 ---
 title: SVG导出与优化
-excerpt: 介绍从Illustrator、PhotoShop、Sketch导出SVG，并优化SVG代码。
+excerpt: 介绍从Illustrator、Photoshop、Sketch导出SVG，并优化SVG代码。
 category: SVG
 tags: Illustrator Photoshop Sketch SVG
-comment: false
 ---
-
-
 
 ### 使用Illustrator导出SVG
 
@@ -38,24 +35,24 @@ David Deraedt的[Layer Exporter][Layer Exporter for Adobe Illustrator]是个拥�
 * 注意画板的坐标尽量是整数。
 * 不要用Illustrator打开SVG文件修改再保存，这样经常会导致保存后的SVG代码中viewport、path标签的数值偏移。
 
-### PhotoShop中使用Generate导出SVG
+### Photoshop中使用Generate导出SVG
 
-早期版本的PhotoShop有一些商业的付费插件和脚本可以导出SVG，我没有用过这类工具，这里使用的是Adobe Generate的方法，具体使用方法参考[Generate Web Assets Functional Spec](https://github.com/adobe-photoshop/generator-assets/wiki/Generate-Web-Assets-Functional-Spec)。Generator仅在PhotoShop CC 14.1及以上版本上可用。PhotoShop CC 2014.2及以后的版本可以单独导出单个图层组，如果要在低版本中导出单个图层组，需要将要图层组复制到新文档，再打开Generator资源生成器。
+早期版本的Photoshop有一些商业的付费插件和脚本可以导出SVG，我没有用过这类工具，这里使用的是Adobe Generate的方法，具体使用方法参考[Generate Web Assets Functional Spec](https://github.com/adobe-Photoshop/generator-assets/wiki/Generate-Web-Assets-Functional-Spec)。Generator仅在Photoshop CC 14.1及以上版本上可用。Photoshop CC 2014.2及以后的版本可以单独导出单个图层组，如果要在低版本中导出单个图层组，需要将要图层组复制到新文档，再打开Generator资源生成器。
 
-![](../images/svg_and_android_vector_drawable/screenshot_ps.png)_使用PhotoShop的Generate导出SVG_
+![](../images/svg_and_android_vector_drawable/screenshot_ps.png)_使用Photoshop的Generate导出SVG_
 
 我采用命名图层组，并在图层组内增加一个矩形图层作为切图的区域，矩形可以是无填充或透明的路径图层。这样导出的SVG代码同样会有多余标签，还是要面对删除多余标签的问题。
 
-在PhotoShop CC 2015可以使用画板导出SVG，将画板大小作为切图区域，这样可以不需要额外图层作为边界。
+在Photoshop CC 2015可以使用画板导出SVG，将画板大小作为切图区域，这样可以不需要额外图层作为边界。
 
-![](../images/svg_and_android_vector_drawable/screenshot_ps_artboard.png)_使用PhotoShop CC 2015的Artboard导出SVG_
+![](../images/svg_and_android_vector_drawable/screenshot_ps_artboard.png)_使用Photoshop CC 2015的Artboard导出SVG_
 
 ##### 注意事项
 
 * 尽量把路径描边需要扩展为填充。
 * 对于同一个图标，或者图标内同类元素尽量放在同一个矢量图层内。
-* 因为PhotoShop没有矢量预览功能，所以尽量注意路径结合处的细节。
-* PhotoShop导出的SVG代码不可设置，而且SVG代码中元素属性被分离成CSS样式。
+* 因为Photoshop没有矢量预览功能，所以尽量注意路径结合处的细节。
+* Photoshop导出的SVG代码不可设置，而且SVG代码中元素属性被分离成CSS样式。
 
 ### Sketch导出SVG
 
@@ -76,14 +73,23 @@ Github上有一些清理Sketch SVG代码的工具，都是命令行工具或某�
 
 ### 批量删除多余代码
 
-[Material design icons][Material_design_icons]项目中各个分类文件夹下的"/svg/design/"目录内的SVG就是带有多余的矩形的，"/svg/production/"目录内的SVG则是删除各种多余代码并压缩成一行的SVG。
+[Material design icons][Material_design_icons]项目中各个分类文件夹下的"/svg/design/"目录内的SVG也是带有多余的矩形的，"/svg/production/"目录内的SVG则是删除各种多余代码并压缩成一行的SVG。
+
+下面的演示，使用Nodejs来处理Material design icons的SVG文件，假设你的项目也使用类似的目录结构，为了防止处理过的SVG覆盖原始的文件，这里将处理过的SVG保存至同目录下的"/svg/production_2"文件夹内。
+
+在Illustrator和Photoshop中作为切图边界的无填充矩形图层，在最终导出的SVG内可能会是以下几种代码。在Illustrator导出的SVG中可以查找带有`fill="none"`属性的标签，而在Photoshop使用Generate生成器导出SVG中可以查找带有`class="cls-1"`的标签，所以Photoshop中要把矩形图层放在图层组的最底下，Photoshop导出SVG按照图层从下至上的顺序添加`class="cls-n"`。
 
 {% highlight xml %}
 <path d="M0 0h24v24H0z" fill="none"/>
 <path fill="none" d="M0,0h24v24H0V0z"/>
 <rect fill="none" width="24" height="24"/>
+{% endhighlight %}
+_Illustrator导出的SVG中作为切图边界图层的代码，版本不同可能是三种中的其中一种。_
+
+{% highlight xml %}
 <path d="M...Z" class="cls-1"/>
 {% endhighlight %}
+_Photoshop导出SVG中最底层图层的代码，这个图层作为切图边界图层。_
 
 {% highlight javascript %}
 var fs = require("fs");
@@ -126,8 +132,7 @@ for(var i = 0; i < designSVGDirs.length; i ++) {
             .toString()
             .replace(/<.*fill=\"none\".*\/>/g, "");
         var productionSVGDir = path.join(
-                path.dirname(designSVGDirs[i]),
-                "production_2"
+                path.dirname(designSVGDirs[i]), "production_2"
             );
         if(!fs.existsSync(productionSVGDir)) {
             fs.mkdirSync(productionSVGDir);
@@ -139,7 +144,40 @@ for(var i = 0; i < designSVGDirs.length; i ++) {
     });
 }
 {% endhighlight %}
-_cleanSVG.js_
+
+保存上面的代码到Material design icons文件夹根目录，并命名为"clean.js"。执行代码需要Nodejs运行环境，最简单的方法就是从[Nodejs官网][nodejs]下载二进制安装文件安装。
+
+打开"终端"，输入以下命令来运行"clean.js"代码。
+
+{% highlight bash %}
+cd material-design-icons
+node clean.js
+{% endhighlight %}
+
+"designSVGDirs"用来保存所有的SVG文件夹，文件夹是"clean.js"所在位置的相对路径。
+
+{% highlight javascript %}
+var designSVGDirs = [
+    "action/svg/design/",
+    ...
+];
+{% endhighlight %}
+
+处理过的SVG保存在SVG统计的"production_2"目录，"production_2"是随意取的名字，可以随意更改。
+
+{% highlight javascript %}
+var productionSVGDir = path.join(
+    path.dirname(designSVGDirs[i]), "production_2"
+);
+{% endhighlight %}
+
+上面的代码用来处理Illustrator导出的SVG，如果要处理Photoshop使用Generate生成器导出SVG，需要把字符串替换的部分代码按以下方式修改。
+
+{% highlight javascript %}
+var productionSVGCode = fs.readFileSync(file)
+    .toString()
+    .replace(/<.*class=\"cls-1\".*\/>/g, "");
+{% endhighlight %}
 
 ---
 
@@ -157,11 +195,15 @@ SVGO相关的工具还有Nodejs模块版本的[imagemin-svgo][imagemin-svgo]，g
 
 [SVGCleaner][SVGCleaner]另一个跨平台的带GUI界面的SVG优化软件，对命令行不熟悉的设计师可以选择这个软件。
 
+{% highlight bash %}
+cd material-design-icons
+svgo -f action/svg/design -o action/svg/optimize
+{% endhighlight %}
+
+熟悉命令行工具之后，会使用发现大部分界面工具的效率并不高，所以设计师最好花点时间熟悉下命令行工具操作方式。
 
 
-
-
-
+[nodejs]: https://nodejs.org/
 [SVGCleaner]: https://github.com/RazrFalcon/SVGCleaner
 [SVGCleaner-sourceforge]: http://sourceforge.net/projects/svgcleaner/
 [svg-now]: https://github.com/davidderaedt/SVG-NOW
@@ -178,4 +220,3 @@ SVGO相关的工具还有Nodejs模块版本的[imagemin-svgo][imagemin-svgo]，g
 [Material_design_icons]: http://github.com/google/material-design-icons/
 [SketchVectorDrawable]: https://github.com/jacobmoncur/SketchVectorDrawable
 [SVGO]: https://github.com/svg/svgo
-[Nodejs]: https://nodejs.org/

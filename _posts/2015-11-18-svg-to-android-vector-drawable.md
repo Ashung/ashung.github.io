@@ -62,7 +62,7 @@ svg2vectordrawable目前依然存在一些问题：
 
 ##### 安装
 
-1. 安装Node.js。最简单的方法就是从[Node.js官网][nodejs]下载二进制安装文件安装。
+1. 安装Nodejs。最简单的方法就是从[Node.js官网][nodejs]下载二进制安装文件安装。
 2. 下载svg2vectordrawable的[ZIP压缩包][svg2vectordrawable-zip]并解压。
 3. 在终端输入`cd svg2vectordrawable`，转至解压后的目录，接着输入`npm install -g`命令，这会把svg2vectordrawable作为全局模块安装。Mac系统用户需要使用`sudo npm install -g`命令，随后输入帐户密码。
 4. 最后输入`s2v`，安装成功则会显示出版本和帮助信息。
