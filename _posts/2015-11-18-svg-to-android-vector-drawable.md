@@ -15,9 +15,9 @@ tags: Android SVG VectorDrawable
 
 ### VectorDrawable优劣
 
-先说优点吧。VectorDrawable只需要一套尺寸的资源，但文件往往会比同内容的PNG略大；可以对形状惊喜旋转、翻转、染色、拉伸，和共用相同形状的路径数据；支持动画，相比以前的序列帧动画资源会少很多。
+先说优点吧。VectorDrawable只需要一套尺寸的资源，但文件往往会比同内容的PNG略大；可以对形状进行旋转、翻转、染色、拉伸，和共用相同形状的路径数据；相比以前的序列帧动画，使用VectorDrawable的动画，资源会少很多。
 
-我不清楚VectorDrawable和PNG之间存在的性能差异有多大。VectorDrawable是无法向后兼容的，只有Android 5.0的设备才能使用，如果应用要兼顾旧版本，且不做两种兼容方案的话，明显VectorDrawable是不适合的。目前VectorDrawable的路径上还不支持渐变，也就是说只能做一些纯色的图形。VectorDrawable并不是可以随意放大的矢量图片，要得到一个资源的放大或缩小的版本，得需要两个VectorDrawable文件，但是它们之间可以共用path的数据。文件比PNG资源占用空间大，如果应用仅支持一个DPI，并且不考虑图标上的动画，完全可以直接用PNG图片。另外这个技术对设计师比较具有挑战，可能会影响项目的进度，建议先让开发和设计师评估下。
+我不清楚VectorDrawable和PNG之间存在的性能差异有多大。VectorDrawable是无法向后兼容的，只有Android 5.0以上的设备才能使用，如果应用要兼顾旧版本，且不做两种兼容方案的话，明显VectorDrawable是不适合的。目前VectorDrawable的路径上还不支持渐变，也就是说只能做一些纯色的图形。VectorDrawable并不是可以随意放大的矢量图片，要得到一个资源的放大或缩小的版本，得需要两个VectorDrawable文件，但是它们之间可以共用path的数据。文件比PNG资源占用空间大，如果应用仅支持一个DPI，并且不考虑图标上的动画，完全可以直接用PNG图片。另外这个技术对设计师比较具有挑战，可能会影响项目的进度，建议先让开发和设计师评估下。
 
 Google的[Material design icons][Material_design_icons]项目并没有开放相关的转换工具，却设计了包含各种格式的近千个图标，看来他们似乎不建议设计师重做其他风格图标的。
 
@@ -40,7 +40,7 @@ Illustrator的复合路径能让导出的SVG避免生成那些VectorDrawable不�
 svg2android目前已知问题如下：
 
 * 直接将SVG的尺寸数值转位DP，这样其他尺寸的源文件导出的SVG，就需要开发逐个文件修改尺寸数值；
-* 暂不支持PhotoShop导出的style与标签分离的SVG，导致PhotoShop导出的SVG使用svg2android转换都会变成黑色；
+* 暂不支持Photoshop导出的style与标签分离的SVG，导致Photoshop导出的SVG使用svg2android转换都会变成黑色；
 * 不支持将色彩和透明度转换为Android的`#AARRGGBB`记色方式；
 * 不支持批量转换；
 
@@ -48,9 +48,9 @@ svg2android目前已知问题如下：
 
 ### 使用svg2vectordrawable转换
 
-早期版本的svg2android支持不是很好，于是我开始计划写一些批量转换的脚本，刚好拿这个项目作为Node.js的练手。过了几个月终于写出最初的版本，我将它设计为Node.js命令行工具，这就是[svg2vectordrawable](https://github.com/Ashung/svg2vectordrawable)。
+早期版本的svg2android支持不是很好，于是我开始计划写一些批量转换的脚本，刚好拿这个项目作为Node.js编程的练手。过了几个月终于写出最初的版本，我将它设计为Node.js命令行工具，这就是[svg2vectordrawable](https://github.com/Ashung/svg2vectordrawable)。
 
-svg2vectordrawable解决了一些svg2android目前存在的问题，比如不同DPI设计文档的问题，PhotoShop导出SVG的样式问题，最重要的是支持批量转换，另外字符串替换机制可以删除多余标签。
+svg2vectordrawable解决了一些svg2android目前存在的问题，比如不同DPI设计文档的问题，Photoshop导出SVG的样式问题，最重要的是支持批量转换，另外字符串替换机制可以删除多余标签。
 
 svg2vectordrawable目前依然存在一些问题：
 
@@ -62,7 +62,7 @@ svg2vectordrawable目前依然存在一些问题：
 
 ##### 安装
 
-1. 安装Nodejs。最简单的方法就是从[Node.js官网][nodejs]下载二进制安装文件安装。
+1. 安装Node.js。最简单的方法就是从[Node.js官网][nodejs]下载二进制安装文件安装。
 2. 下载svg2vectordrawable的[ZIP压缩包][svg2vectordrawable-zip]并解压。
 3. 在终端输入`cd svg2vectordrawable`，转至解压后的目录，接着输入`npm install -g`命令，这会把svg2vectordrawable作为全局模块安装。Mac系统用户需要使用`sudo npm install -g`命令，随后输入帐户密码。
 4. 最后输入`s2v`，安装成功则会显示出版本和帮助信息。

@@ -64,20 +64,18 @@ Sketch导出的SVG代码冗余比较多且无法设置，而且经常增加一�
 
 Github上有一些清理Sketch SVG代码的工具，都是命令行工具或某个编程语言的模块/包，而不是Sketch插件。以下列出几个排名较高的清理工具。
 
-* [clean-sketch](https://github.com/overblog/clean-sketch)，Nodejs模块。
+* [clean-sketch](https://github.com/overblog/clean-sketch)，Node.js模块。
 * [gulp-clean-sketch](https://github.com/overblog/gulp-clean-sketch) ，clean-sketch的gulp插件。
-* [Sketch SVG cleaner](https://github.com/Warry/SketchCleaner)， Nodejs命令行工具。
+* [Sketch SVG cleaner](https://github.com/Warry/SketchCleaner)， Node.js命令行工具。
 * [clean-sketch-svg](https://github.com/aj0strow/clean-sketch-svg)， Ruby命令行工具。
 
 ---
 
 ### 批量删除多余代码
 
-[Material design icons][Material_design_icons]项目中各个分类文件夹下的"/svg/design/"目录内的SVG也是带有多余的矩形的，"/svg/production/"目录内的SVG则是删除各种多余代码并压缩成一行的SVG。
+下载[Material design icons][Material_design_icons]项目的[master.zip][material-design-icons-master-zip]后，用Illustrator打开项目中各个分类文件夹下的"/svg/design/"目录内的SVG，你会发现这些SVG都带有一些多余的矩形，而"/svg/production/"目录内的SVG则没有这种情况。
 
-下面的演示，使用Nodejs来处理Material design icons的SVG文件，假设你的项目也使用类似的目录结构，为了防止处理过的SVG覆盖原始的文件，这里将处理过的SVG保存至同目录下的"/svg/production_2"文件夹内。
-
-在Illustrator和Photoshop中作为切图边界的无填充矩形图层，在最终导出的SVG内可能会是以下几种代码。在Illustrator导出的SVG中可以查找带有`fill="none"`属性的标签，而在Photoshop使用Generate生成器导出SVG中可以查找带有`class="cls-1"`的标签，所以Photoshop中要把矩形图层放在图层组的最底下，Photoshop导出SVG按照图层从下至上的顺序添加`class="cls-n"`。
+可以使用文本编辑器打开SVG，查看其代码。在Illustrator和Photoshop中作为切图边界的无填充矩形图层，最终导出成SVG后可能会是以下几种代码。
 
 {% highlight xml %}
 <path d="M0 0h24v24H0z" fill="none"/>
@@ -86,10 +84,18 @@ Github上有一些清理Sketch SVG代码的工具，都是命令行工具或某�
 {% endhighlight %}
 _Illustrator导出的SVG中作为切图边界图层的代码，版本不同可能是三种中的其中一种。_
 
+所以在Illustrator导出的SVG中可以删除带有`fill="none"`属性的标签。
+
+Photoshop导出的SVG会按照图层从下至上的顺序添加`class="cls-n"`属性，所以在Photoshop中把矩形图层放在图层组的最底下，可以方便确定多余图层的代码特点。所以在Photoshop使用Generate生成器导出SVG中可以删除带有`class="cls-1"`属性的标签。
+
 {% highlight xml %}
 <path d="M...Z" class="cls-1"/>
 {% endhighlight %}
-_Photoshop导出SVG中最底层图层的代码，这个图层作为切图边界图层。_
+_Photoshop导出SVG中最底层图层的代码，将这个图层作为切图边界图层。_
+
+找到这个规律后就可以开始编写处理SVG的代码。这里使用Node.js语言编程，需要的Node.js运行环境，最简单的安装方法就是从[Node.js官网][nodejs]下载二进制安装文件，然后一路"确定"直到安装完成。
+
+下面的演示，使用Node.js来处理Material design icons项目的SVG文件，假设你的项目也使用类似的目录结构，为了防止处理过的SVG覆盖原始的文件，这里将处理过的SVG保存至同目录下的"/svg/production_2"文件夹内。
 
 {% highlight javascript %}
 var fs = require("fs");
@@ -145,16 +151,9 @@ for(var i = 0; i < designSVGDirs.length; i ++) {
 }
 {% endhighlight %}
 
-保存上面的代码到Material design icons文件夹根目录，并命名为"clean.js"。执行代码需要Nodejs运行环境，最简单的方法就是从[Nodejs官网][nodejs]下载二进制安装文件安装。
+保存上面的代码到Material design icons文件夹根目录，并命名为"clean.js"。
 
-打开"终端"，输入以下命令来运行"clean.js"代码。
-
-{% highlight bash %}
-cd material-design-icons
-node clean.js
-{% endhighlight %}
-
-"designSVGDirs"用来保存所有的SVG文件夹，文件夹是"clean.js"所在位置的相对路径。
+"designSVGDirs"用来记录所有的SVG文件夹，使用"clean.js"所在位置的相对路径。
 
 {% highlight javascript %}
 var designSVGDirs = [
@@ -163,7 +162,7 @@ var designSVGDirs = [
 ];
 {% endhighlight %}
 
-处理过的SVG保存在SVG统计的"production_2"目录，"production_2"是随意取的名字，可以随意更改。
+处理完的SVG保存在SVG同一级的"production_2"目录，"production_2"是随意取的名字，可以随意更改。
 
 {% highlight javascript %}
 var productionSVGDir = path.join(
@@ -171,12 +170,19 @@ var productionSVGDir = path.join(
 );
 {% endhighlight %}
 
-上面的代码用来处理Illustrator导出的SVG，如果要处理Photoshop使用Generate生成器导出SVG，需要把字符串替换的部分代码按以下方式修改。
+示例的代码用来处理Illustrator导出的SVG，如果要处理Photoshop使用Generate生成器导出SVG，需要把字符串替换部分的代码按以下方式修改。
 
 {% highlight javascript %}
 var productionSVGCode = fs.readFileSync(file)
     .toString()
     .replace(/<.*class=\"cls-1\".*\/>/g, "");
+{% endhighlight %}
+
+最后打开"终端"，输入以下命令来运行"clean.js"代码。
+
+{% highlight bash %}
+cd ~/Downloads/material-design-icons
+node clean.js
 {% endhighlight %}
 
 ---
@@ -185,22 +191,22 @@ var productionSVGCode = fs.readFileSync(file)
 
 设计软件导出的SVG都包含各种多余的代码，这会导致文件体积较大，一般最终使用的SVG都会对SVG进行优化处理。
 
-常用的SVG代码优化工具[SVG Optimizer][SVGO](简称SVGO)是一个[Nodejs][Nodejs]命令行工具。也就是说这是没有界面的，要在终端上敲代码来优化SVG，这是非常高效处理方法，但对不熟悉命令行工具的设计师来说可能会有难度，具体操作可以查阅[SVGO][SVGO]主页上的文档。
+常用的SVG代码优化工具[SVG Optimizer][SVGO](简称SVGO)是一个[Node.js][nodejs]命令行工具。也就是说这是没有界面的，要在终端上敲代码来优化SVG，这是非常高效处理方法，但对不熟悉命令行工具的设计师来说可能会有难度，具体操作可以查阅[SVGO][SVGO]主页上的文档。
 
-[svgomg][svgomg]是SVGO的Nodejs网页应用，有很多设置项，但每次只能优化一个SVG文件，如果网页速度太慢，可以下载[源码][svgomg_source]后在本地搭建。
+[svgomg][svgomg]是SVGO的Node.js网页应用，有很多设置项，但每次只能优化一个SVG文件，如果网页速度太慢，可以下载[源码][svgomg_source]后在本地搭建。
 
 [svgo-gui][svgo-gui]是SVGO的跨平台界面工具，但目前已不维护，官方推荐使用命令行或网页版本。
 
-SVGO相关的工具还有Nodejs模块版本的[imagemin-svgo][imagemin-svgo]，gulp插件版本的[gulp-svgmin][gulp-svgmin]，项目主页上都有示例代码。
+SVGO相关的工具还有Node.js模块版本的[imagemin-svgo][imagemin-svgo]，gulp插件版本的[gulp-svgmin][gulp-svgmin]，项目主页上都有示例代码。
 
 [SVGCleaner][SVGCleaner]另一个跨平台的带GUI界面的SVG优化软件，对命令行不熟悉的设计师可以选择这个软件。
 
 {% highlight bash %}
-cd material-design-icons
+cd ~/Downloads/material-design-icons
 svgo -f action/svg/design -o action/svg/optimize
 {% endhighlight %}
 
-熟悉命令行工具之后，会使用发现大部分界面工具的效率并不高，所以设计师最好花点时间熟悉下命令行工具操作方式。
+熟悉命令行工具之后，会使用发现大部分界面工具的效率并不高，建议设计师最好花点时间熟悉下命令行工具操作方式。
 
 
 [nodejs]: https://nodejs.org/
@@ -218,5 +224,6 @@ svgo -f action/svg/design -o action/svg/optimize
 [illustrator-svg-exporter]: https://github.com/iconic/illustrator-svg-exporter
 [Layer Exporter for Adobe Illustrator]: https://github.com/davidderaedt/Illustrator-Layer-Exporter
 [Material_design_icons]: http://github.com/google/material-design-icons/
+[material-design-icons-master-zip]: https://github.com/google/material-design-icons/archive/master.zip
 [SketchVectorDrawable]: https://github.com/jacobmoncur/SketchVectorDrawable
 [SVGO]: https://github.com/svg/svgo
