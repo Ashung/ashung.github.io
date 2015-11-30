@@ -64,7 +64,7 @@ $code-font: $monospace;
 // Color
 $primary-text-color: rgba(0, 0, 0, .8);
 $secondary-text-color: rgba(0, 0, 0, .6);
-$disable-text-color: rgba(0, 0, 0, .54);
+$disable-text-color: rgba(0, 0, 0, .4);
 $primary-text-color-light: rgba(255, 255, 255, 1);
 $secondary-text-color-light: rgba(255, 255, 255, .7);
 $disable-text-color-light: rgba(255, 255, 255, .3);
@@ -122,7 +122,6 @@ body {
     font: #{$base-font-size}/#{$base-line-height} $body-font;
     font-kerning: normal;
     -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
 }
 
 input, textarea {
@@ -770,6 +769,33 @@ input, textarea {
 .post-donate {
     font-size: 1.125rem;
     padding: 1rem 1rem 2rem;
+    .donate-buttons {
+        margin-top: .5em;
+        li {
+            float: left;
+            margin-right: 1em;
+            a, a:link, a:visited {
+                display: block;
+                float: left;
+                font-size: .875em;
+                height: 32px;
+                line-height: 32px;
+                padding: 0 8px;
+                background: #fff;
+                border-radius: 6px;
+                border: 2px solid #eee;
+            }
+            a:hover, a:active {
+                color: #000;
+                border-color: #eee;
+                background: #eee;
+            }
+            img {
+                float: left;
+                margin: 4px 8px 4px 0;
+            }
+        }
+    }
 }
 
 #donate-dialog-wrap {
@@ -784,7 +810,7 @@ input, textarea {
     overflow: hidden;
     background: rgba(0, 0, 0, .4);
     opacity: 0;
-    transition: all 0.3s ease-out;
+    transition: all 0.2s ease-out;
     -webkit-backdrop-filter: blur(10px);
 }
 
@@ -804,7 +830,7 @@ input, textarea {
     border-radius: 8px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
     transform: rotate(-20deg);
-    transition: all 0.3s ease-out;
+    transition: all 0.2s ease-out;
     .qrcode {
         img {
             display: block;
@@ -826,8 +852,31 @@ input, textarea {
         font-size: .875rem;
         color: $secondary-text-color;
     }
+    .paypal-logo {
+        margin-bottom: 16px;
+        img {
+            display: block;
+            margin: 16px auto;
+        }
+    }
+    .paypal-button {
+        display: block;
+        margin: 16px auto;
+        border: none;
+        padding: 16px 48px;
+        font-size: 1.2rem;
+        color: #fff;
+        background: #1F264F;
+        border-radius: 4px;
+    }
 }
 
+
+@media screen and (device-pixel-ratio: 2) {
+    body {
+        -webkit-font-smoothing: antialiased;
+    }
+}
 
 // TODO: mobile menu
 
@@ -912,6 +961,9 @@ input, textarea {
             .section-list-w {
                 .block-cont-gw .cont-head-gw .head-img-gw img {
                     border-radius: 4px;
+                }
+                .wrap-action-gw {
+                    font-size: .875em;
                 }
                 .block-title-gw ul {
                     border-color: $hair-line-color;

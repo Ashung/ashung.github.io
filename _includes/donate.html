@@ -1,0 +1,103 @@
+<div class="post-donate-wrap">
+    <div class="post-donate" id="donate">
+        <p>如果觉得这篇文章对您有用, 可通过以下方式随意打赏.</p>
+        <ul class="donate-buttons">
+            <li>
+                <a id="donate-button-wechatpay" href="#">
+                    <img src="{{ site.url }}assets/img/donate_wechat.svg" alt="微信支付">微信支付
+                </a>
+            </li>
+            <li>
+                <a id="donate-button-alipay" href="#">
+                    <img src="{{ site.url }}assets/img/donate_alipay.svg" alt="支付宝">支付宝
+                </a>
+            </li>
+            <li>
+                <a id="donate-button-paypal" href="#">
+                    <img src="{{ site.url }}assets/img/donate_paypal.svg" alt="PayPal">PayPal
+                </a>
+            </li>
+        </ul>
+        <div id="donate-modal-wechatpay" class="modal">
+            <p>您的支持将鼓励作者写作更多实用教程.</p>
+            <div class="qrcode">
+                <img src="/assets/img/wechat_rmb_2.png" alt="微信打赏2元">
+                <strong><span>&yen;</span>2.00</strong>
+            </div>
+            <p class="tips">打开微信, 点击右上角"+", 选择"扫一扫".</p>
+        </div>
+        <div id="donate-modal-alipay" class="modal">
+            <p>您的支持将鼓励作者写作更多实用教程.</p>
+            <div class="qrcode">
+                <img src="/assets/img/alipay_rmb_2.png" alt="支付宝打赏2元">
+                <strong><span>&yen;</span>2.00</strong>
+            </div>
+            <p class="tips">打开支付宝, 选择"扫一扫".</p>
+        </div>
+        <div id="donate-modal-paypal" class="modal">
+            <p>Support me write more articles.</p>
+            <p class="paypal-logo">
+                <img src="{{ site.url }}assets/img/donate_paypal.svg" alt="PayPal" width="48" height="48">
+                PayPal<br>The safer, easier way to pay online!
+            </p>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="YB3LBHPPHXM4Y">
+                <input type="hidden" name="on0" value="Donate">
+                <select name="os0" id="paypal">
+                    <option value="1 -">1 - $ 1.00 USD</option>
+                    <option value="2 -">2 - $ 2.00 USD</option>
+                    <option value="3 -">3 - $ 5.00 USD</option>
+                </select>
+                <input type="hidden" name="currency_code" value="USD">
+                <input class="paypal-button" type="submit" name="submit" value="Pay">
+            </form>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('body').append('<div id="donate-dialog-wrap"></div>')
+                    .append($('#donate-modal-wechatpay'))
+                    .append($('#donate-modal-alipay'))
+                    .append($('#donate-modal-paypal'));
+            $('#donate-button-alipay').click(function(){
+                showModal('#donate-modal-alipay');
+                return false;
+            });
+            $('#donate-button-wechatpay').click(function(){
+                showModal('#donate-modal-wechatpay');
+                return false;
+            });
+            $('#donate-button-paypal').click(function(){
+                showModal('#donate-modal-paypal');
+                return false;
+            });
+            $('#donate-dialog-wrap').click(hideModal);
+            function showModal(targetModal) {
+                $('#donate-dialog-wrap').show(0, function(){
+                    $('#donate-dialog-wrap').css('opacity', '1');
+                    $(targetModal).css({
+                        'top' : '200%'
+                    });
+                    $(targetModal).show(1, function(){
+                        $(targetModal).css({
+                            'transform' : 'rotate(0)',
+                            'top' : '50%',
+                            'opacity' : '1'
+                        });
+                    });
+                });
+            }
+            function hideModal() {
+                $('#donate-dialog-wrap').css('opacity', '0');
+                $('#donate-dialog-wrap').delay(200).hide(0);
+                $('.modal').css({
+                    'transform' : 'rotate(-20deg)',
+                    'top' : '200%',
+                    'opacity' : '0'
+                });
+                $('.modal').hide(300);
+            }
+        });
+    </script>
+</div>
