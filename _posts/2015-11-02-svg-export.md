@@ -2,12 +2,13 @@
 title: SVG 导出与优化
 excerpt: 介绍从 Illustrator、Photoshop、Sketch 导出 SVG，并优化 SVG 代码。
 category: SVG
+updated: 2015-12-24
 tags: Illustrator Photoshop Sketch SVG
 ---
 
 ### 使用 Illustrator 导出 SVG
 
-我认为 Illustrator 是目前相对较好的 SVG 设计工具，在 Illustrator 中另存为 SVG 是较常用的导出 SVG 方法，具体如何操作网上有很多资料。你可以从查看官方帮助文档[存储图稿-以 SVG 格式存储](https://helpx.adobe.com/cn/illustrator/using/saving-artwork.html)，或者[Exporting SVG for the web with Adobe Illustrator CC](http://www.adobe.com/inspire/2013/09/exporting-svg-illustrator.html)。
+Illustrator 是目前相对较好的 SVG 设计工具，在 Illustrator 中另存为 SVG 是较常用的导出 SVG 方法，具体如何操作网上有很多资料。你可以从查看官方帮助文档[存储图稿-以 SVG 格式存储](https://helpx.adobe.com/cn/illustrator/using/saving-artwork.html)，或者[Exporting SVG for the web with Adobe Illustrator CC](http://www.adobe.com/inspire/2013/09/exporting-svg-illustrator.html)。
 
 另外在 Illustrator 上直接复制选中内容，粘贴至文本编辑器，也可以得到选中内容的 SVG 代码。我在做网页用的 SVG 时就经常这么做，画个矩形作为图标的边界，把图标连同矩形一起复制，然后在粘贴到文本编辑器里，再删除矩形的代码。但这对设计师来说较复杂了，也不适合批量操作，此外这种方法无法控制路径数据的精度。
 
@@ -26,6 +27,8 @@ svgOptions.coordinatePrecision = 1;
 David Deraedt 的[Layer Exporter][Layer Exporter for Adobe Illustrator]是个拥有类似功能的 Illustrator 扩展，除了导出 SVG 外，还支持 PNG、JPG 格式，另外还提供一些简单的设置，具体使用方法可以查阅项目主页文档。
 
 [Material design icons][Material_design_icons]的 SVG 也带有多余的矩形的，应该是类似的处理方法。当图标数量巨大时，需要使用编程的方法来删除 SVG 文件内作为切图区域矩形的多余代码，除非团队里有很多人手，否则人工操作几乎不可能。Google 并没公布他们用的处理脚本。对代码恐惧，连运行代码都有难度的设计师而言，确实是很大挑战。选用画板导出方式则不需要处理这种问题，下文会介绍批量删除多余代码的方法。
+
+如果你熟悉 Illustrator 或者决定使用 Illustrator 绘制，可以看看 [Sara Soueidan](https://sarasoueidan.com/) 在她的文章 [Tips for Creating and Exporting Better SVGs for the Web](https://sarasoueidan.com/blog/svg-tips-for-designers/) 内，介绍的一些 Illustrator 创建和导出 SVG 的技巧。
 
 ##### 注意事项
 
