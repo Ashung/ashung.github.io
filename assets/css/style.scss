@@ -142,50 +142,16 @@ input, textarea {
 .topbar {
     padding: 1rem 0;
     height: 2rem;
-    &:after {
-        clear: both;
-        content: ".";
-        display: block;
-        height: 1px;
-        overflow: hidden;
-        background: $hair-line-color;
-        margin-top: -webkit-calc(3rem - 1px);
-        margin-top: calc(3rem - 1px);
-    }
+    // border-bottom: 1px solid $hair-line-color;
     .logo {
-        float: left;
-        margin-left: 1rem;
+        width: 10rem;
+        margin: auto;
+        text-align: center;
         h1 {
             font: bold 1rem/2 $sans-serif;
         }
         h2 {
             display: none;
-        }
-    }
-    .nav {
-        float: right;
-        margin-right: 1rem;
-        #icon-menu {
-            display: none;
-            width: 2rem;
-            height: 0;
-            padding-top: 2rem;
-            overflow: hidden;
-            line-height: 2;
-            background: Red;
-        }
-        #menu {
-            li {
-                display: inline-block;
-                font-family: $sans-serif;
-                text-transform: capitalize;
-                a {
-                    padding: 0 .5rem;
-                    height: 2rem;
-                    line-height: 2;
-                    display: block;
-                }
-            }
         }
     }
 }
@@ -592,97 +558,6 @@ input, textarea {
     padding: 0 1rem;
 }
 
-.resources {
-    position: relative;
-    padding: 1rem;
-    .resource-nav {
-        padding: 1em 0;
-        li {
-            display: inline;
-            a {
-                display: inline-block;
-                margin: 0 .3rem .6rem 0;
-                padding: .3rem .5rem;
-                border-radius: .2rem;
-                background: #eee;
-                color: $secondary-text-color;
-                &:hover, &:active {
-                    color: $white-color;
-                    background: $red-color;
-                }
-            }
-        }
-    }
-    h3 {
-        font-size: 1.75rem; //28
-        line-height: 3rem; //48
-        margin-bottom: 1rem;
-    }
-    .resource-list {
-        margin-bottom: 2rem;
-        li {
-            margin-bottom: 1rem;
-        }
-        .res-title {
-            font-weight: bold;
-        }
-        .res-author, .res-developer {
-            margin-left: .5rem;
-            font-size: .875rem;
-            color: $secondary-text-color;
-            a:link, a:visited {
-                color: $secondary-text-color;
-            }
-            a:hover, a:active {
-                text-decoration: underline;
-            }
-        }
-        .res-desc {
-            color: $secondary-text-color;
-            a:link, a:visited {
-                text-decoration: underline;
-            }
-        }
-
-        @mixin filetypeicon($icon) {
-            white-space: nowrap;
-            padding-right: 1.3rem;
-            background: url(#{$icon}) no-repeat 100% 50%;
-        }
-        a[href$=".pdf"] {
-            @include filetypeicon('../img/icon_pdf.svg');
-        }
-        a[href$=".zip"] {
-            @include filetypeicon('../img/icon_zip.svg');
-        }
-
-    }
-    .top {
-        position: absolute;
-        display: block;
-        opacity: 0;
-        right: 1rem;
-        top: 0;
-        margin-top: 2rem;
-        width: 4rem;
-        height: 4rem;
-        text-indent: -999px;
-        overflow: hidden;
-        background: url(../img/top.svg) no-repeat 50%, linear-gradient(#f8f8f8, #eee) no-repeat;
-        border-radius: 2rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, .2), 0 2px 2px rgba(0, 0, 0, .2);
-        &:hover, &:active {
-            box-shadow: 0 6px 12px 2px rgba(0, 0, 0, .1), 0 2px 4px 1px rgba(0, 0, 0, .1);
-        }
-    }
-    .resource-tip {
-        color: $secondary-text-color;
-        p {
-            margin-bottom: 1rem;
-        }
-    }
-}
-
 .highlight {
     font-size: .889em;
     margin-bottom: 1.5em;
@@ -881,165 +756,284 @@ input, textarea {
 
 // TODO: mobile menu
 
-@mixin changefont {
-    font-size: 1rem;
-    font-family: $serif;
-}
-.post-comments{
-    #SOHUCS {
-        padding-top: 2rem;
-        border-top: 1px solid $hair-line-color;
-        @include changefont;
-        .invalidity {
-            @include changefont;
-        }
-        #SOHU_MAIN {
-            @include changefont;
-            #powerby_sohu {
-                height: 0;
-                .section-service-w .service-wrap-w {
-                    padding: 0;
-                    a {
-                        color: rgba(0, 0, 0, 0);
-                    }
-                }
+//@mixin changefont {
+//
+//}
+.post-comments {
+    #ds-thread {
+        padding-top: 1rem;
+        #ds-reset {
+            font: 1rem/#{$base-line-height} $serif;
+            color: $primary-text-color;
+            a:link, a:visited {
+                color: $primary-text-color;
             }
-            a:link, a:hover,
-            a:hover, a:active {
-                color: $red-color;
+            .ds-meta {
+                display: none;
             }
-            #SOHU-comment-main {
-                @include changefont;
-            }
-            .section-title-w {
-                height: 1.5rem;
-                line-height: 1.5rem;
-                margin: 0 0 1rem;
+            .ds-comments-info {
+                margin: 0;
                 padding: 0;
-                .list-comment-empty-w .empty-prompt-w .prompt-null-b {
+                font-size: 1rem;
+                .ds-comments-tabs {
+                    padding: 0 0 .5rem;
+                    border-bottom: 2px solid $red-color;
+                }
+                li.ds-tab {
+                    display: block;
                     font-size: 1rem;
-                    line-height: 1.5;
-                    padding: 1rem;
-                    border-radius: 4px;
-                }
-                .title-link-w {
-                    @include changefont;
-                }
-                .title-join-w .join-wrap-w {
-                    @include changefont;
-                    strong.wrap-name-b {
-                        color: $primary-text-color;
+                    margin: 0;
+                    a.ds-current {
+                        border: 0;
+                        padding: 0;
+                        border-radius: 0;
+                        text-shadow: none;
+                        background: transparent;
+                        .ds-highlight {
+                            margin: 0;
+                            color: $primary-text-color !important;
+                        }
                     }
-                    span.wrap-join-b {
-                        display: none;
-                    }
-                    .wrap-name-w,
-                    .wrap-join-w,
-                    .join-strong-gw {
-                        @include changefont;
+                }
+                .ds-sort {
+                    display: none;
+                }
+            }
+            .ds-comments {
+                border: 0;
+                li.ds-post {
+                    border: 0;
+                    margin: 1rem 0;
+                    .ds-post-self {
+                        border: 0;
+                        padding: 0;
+                        .ds-avatar {
+                            box-shadow: none;
+                            border-radius: 25px;
+                            img {
+                                box-shadow: none;
+                                border-radius: 25px;
+                            }
+                        }
                     }
                 }
             }
-            .section-cbox-w {
-                padding-bottom: 41px;
-                .head-img-w,
-                .head-img-w img {
-                    border-radius: 4px;
-                }
-                .block-post-w {
-                    padding-left: 58px;
-                }
-                .head-gold-w a,
-                .head-gold-w a:hover,
-                .default-wrap-w .wrap-text-f,
-                .textarea-fw,
-                .relative-z-w .uploading-efw .wrapper-loading-dw .loading-btn-dw a,
-                .post-login-w ul li .login-wrap-w .wrap-name-w,
-                .post-login-w ul li .login-wrap-other-w .wrap-name-w {
-                    @include changefont;
+            .ds-comment-header {
+                margin-bottom: .5rem;
+                padding: 0;
+            }
+            .ds-comment-body {
+                p {
+                    margin: 0 0 .5rem;
+                    font: 1rem/#{$base-line-height} $serif;
                 }
             }
-            .section-list-w {
-                .block-cont-gw .cont-head-gw .head-img-gw img {
-                    border-radius: 4px;
-                }
-                .wrap-action-gw {
+            a.ds-comment-context,
+            a.ds-comment-context:link,
+            a.ds-comment-context:visited,
+            a.ds-comment-context:hover,
+            a.ds-comment-context:active {
+                margin: 0;
+                color: $secondary-text-color;
+            }
+            .ds-user-name {
+                font-size: .875em;
+            }
+            .ds-comment-footer {
+                line-height: inherit;
+                .ds-time {
                     font-size: .875em;
-                }
-                .block-title-gw ul {
-                    border-color: $hair-line-color;
-                }
-                .block-title-gw ul li .title-name-gw,
-                .wrap-user-gw .user-level-gw i,
-                .wrap-user-gw .user-time-gw,
-                .wrap-issue-gw .issue-wrap-gw,
-                .wrap-action-gw .action-click-gw .icon-name-bg,
-                .list-more-comment-w .more-wrap-w a,
-                .list-more-comment-w .more-wrap-w a em.wrap-strong-w,
-                .list-comment-close-w .close-wrap-w,
-                .build-msg-gw .user-floor-gw,
-                .wrap-build-gw .bulid-middle-hide-floor-dw a {
-                    @include changefont;
+                    color: $secondary-text-color;
+                    margin-right: 2em;
                 }
             }
-            .section-newslist-w .title-name-w,
-            .section-newslist-w .conts-col li,
-            .section-hot-news-w .hot-focus-w .focus-big-w .big-title-w .title-text-w,
-            .section-hot-news-w .news-list-w .list-title-w,
-            .section-hot-news-w .news-list-w .list-rank-w li,
-            .section-page-w .page-wrap-gw a,
-            .section-page-w .page-wrap-w a,
-            .section-page-w .page-wrap-w a,
-            .section-page-w .page-wrap-w .wrap-ellipsis-w,
-            .section-page-w .page-wrap-w .wrap-ellipsis-w i,
-            .image-footer-gw .footer-wrap-gw,
-            .share-image-w,
-            .share-image-w .image-title-gw span.title-word-gw,
-            .share-image-w .build-cont-title-gw .title-word-gw,
-            .share-image-w .section-list-w .list-block-gw .block-cont-gw .cont-msg-gw .msg-wrap-gw .wrap-user-gw .user-name-gw,
-            .share-image-w .section-list-w .list-block-gw .block-cont-gw .cont-msg-gw .msg-wrap-gw .wrap-user-gw .user-address-gw,
-            .share-image-w .section-list-w .list-block-gw .block-cont-gw .cont-msg-gw .msg-wrap-gw .wrap-user-gw span.user-floor-gw,
-            .share-image-w .section-list-w .list-block-gw .block-cont-gw .cont-msg-gw .msg-wrap-gw .wrap-issue-gw p.issue-wrap-gw {
-                @include changefont;
+            .ds-comment-actions {
+                padding-bottom: 1rem;
+                border-bottom: 1px solid $hair-line-color;
+                a, a:link, a:visited {
+                    font-size: .875em;
+                    color: $secondary-text-color;
+                }
+            }
+            .ds-toolbar {
+                display: none;
+            }
+            .ds-replybox {
+                margin: 0;
+                .ds-avatar {
+                    box-shadow: none;
+                    border-radius: 25px;
+                    img {
+                        box-shadow: none;
+                        border-radius: 25px;
+                    }
+                }
+            }
+            .ds-textarea-wrapper {
+                textarea {
+                    font: 1rem/#{$base-line-height} $serif;
+                }
+            }
+            .ds-sync {
+                display: none;
+            }
+            #ds-bubble {
+                display: none;
+            }
+            .ds-highlight {
+                color: $secondary-text-color !important;
             }
         }
     }
+
 }
-div.windows-define-dg,
-.user-login-wrapper-dw .cont-title-dw strong.title-name-dw,
-.user-login-wrapper-dw .cont-login-dw ul li .login-wrap-w .wrap-name-w,
-.user-login-wrapper-dw .cont-login-dw ul li .login-wrap-other-w .wrap-name-w,
-.user-login-wrapper-dw .cont-visitor-dw .visitor-title-dw .title-name-dw,
-.user-login-wrapper-dw .cont-visitor-dw .visitor-form-dw .form-action-dw .action-text-dfw,
-.user-login-wrapper-dw .cont-visitor-dw .cont-verify-dw .verify-name-dw,
-.user-login-wrapper-dw .cont-visitor-dw .cont-verify-dw .verify-action-dw .action-text-dfw,
-.user-login-wrapper-dw .cont-visitor-dw .cont-verify-dw .verify-action-dw .action-link-dw,
-.visitor-login-wrapper-dw .cont-title-dw .title-name-dw,
-.visitor-login-wrapper-dw .cont-form-dw .form-name-dw,
-.visitor-login-wrapper-dw .cont-form-dw .form-action-dw .action-text-dfw,
-.visitor-login-wrapper-dw .cont-verify-dw .verify-name-dw,
-.visitor-login-wrapper-dw .cont-verify-dw .verify-action-dw .action-text-dfw,
-.visitor-login-wrapper-dw .cont-verify-dw .verify-action-dw .action-link-dw,
-.bind-phone-wrapper-dw .cont-title-dw .title-name-dw,
-.bind-phone-wrapper-dw .cont-form-dw .form-name-dw,
-.bind-phone-wrapper-dw .cont-form-dw .form-action-dw .action-text-dfw,
-.bind-phone-wrapper-dw .cont-verify-dw .verify-name-dw,
-.bind-phone-wrapper-dw .cont-verify-dw .verify-action-dw .action-text-dfw,
-.bind-phone-wrapper-dw .cont-verify-dw .verify-action-dw .verify-btn-dw,
-.bind-number-wrapper-dw .cont-title-dw .title-name-dw,
-.bind-number-wrapper-dw ul li .login-wrap-w .wrap-name-w,
-.user-bind-wrapper-dw .cont-title-dw strong.title-name-dw,
-.user-bind-wrapper-dw .cont-bind-dw p.bind-word-dw,
-.user-bind-wrapper-dw .cont-bind-dw .bind-btn-wrap-dw .wrap-btn-dw a,
-.user-msg-wrapper-dw .cont-head-dw .head-box-dw .box-msg-dw .msg-name-dw,
-.user-msg-wrapper-dw .cont-head-dw .head-box-dw .box-msg-dw .user-level-gw,
-.user-msg-wrapper-dw .cont-head-dw .head-box-dw .box-msg-dw .lvBg-w,
-.user-msg-wrapper-dw .cont-head-dw .head-number-dw .number-block-dw ul li .block-sum-dw,
-.user-msg-wrapper-dw .cont-tab-dw .tab-name-dw ul li strong,
-.user-msg-wrapper-dw .area-emit-dw .wrap-issue-gw,
-.user-msg-wrapper-dw .block-cont-gw .cont-msg-gw .msg-wrap-gw .wrap-issue-gw .issue-wrap-gw,
-.user-msg-wrapper-dw .wrap-reply-gw .area-textarea-w .textarea-bf,
-.user-msg-wrapper-dw .wrapper-cont-dw .cont-level-text-w,
-.user-msg-wrapper-dw .wrapper-cont-dw .cont-level-text-w .text-head-w .head-name-w {
-    @include changefont;
-}
+//        #SOHU_MAIN {
+//            @include changefont;
+//            #powerby_sohu {
+//                height: 0;
+//                .section-service-w .service-wrap-w {
+//                    padding: 0;
+//                    a {
+//                        color: rgba(0, 0, 0, 0);
+//                    }
+//                }
+//            }
+//            a:link, a:hover,
+//            a:hover, a:active {
+//                color: $red-color;
+//            }
+//            #SOHU-comment-main {
+//                @include changefont;
+//            }
+//            .section-title-w {
+//                height: 1.5rem;
+//                line-height: 1.5rem;
+//                margin: 0 0 1rem;
+//                padding: 0;
+//                .list-comment-empty-w .empty-prompt-w .prompt-null-b {
+//                    font-size: 1rem;
+//                    line-height: 1.5;
+//                    padding: 1rem;
+//                    border-radius: 4px;
+//                }
+//                .title-link-w {
+//                    @include changefont;
+//                }
+//                .title-join-w .join-wrap-w {
+//                    @include changefont;
+//                    strong.wrap-name-b {
+//                        color: $primary-text-color;
+//                    }
+//                    span.wrap-join-b {
+//                        display: none;
+//                    }
+//                    .wrap-name-w,
+//                    .wrap-join-w,
+//                    .join-strong-gw {
+//                        @include changefont;
+//                    }
+//                }
+//            }
+//            .section-cbox-w {
+//                padding-bottom: 41px;
+//                .head-img-w,
+//                .head-img-w img {
+//                    border-radius: 4px;
+//                }
+//                .block-post-w {
+//                    padding-left: 58px;
+//                }
+//                .head-gold-w a,
+//                .head-gold-w a:hover,
+//                .default-wrap-w .wrap-text-f,
+//                .textarea-fw,
+//                .relative-z-w .uploading-efw .wrapper-loading-dw .loading-btn-dw a,
+//                .post-login-w ul li .login-wrap-w .wrap-name-w,
+//                .post-login-w ul li .login-wrap-other-w .wrap-name-w {
+//                    @include changefont;
+//                }
+//            }
+//            .section-list-w {
+//                .block-cont-gw .cont-head-gw .head-img-gw img {
+//                    border-radius: 4px;
+//                }
+//                .wrap-action-gw {
+//                    font-size: .875em;
+//                }
+//                .block-title-gw ul {
+//                    border-color: $hair-line-color;
+//                }
+//                .block-title-gw ul li .title-name-gw,
+//                .wrap-user-gw .user-level-gw i,
+//                .wrap-user-gw .user-time-gw,
+//                .wrap-issue-gw .issue-wrap-gw,
+//                .wrap-action-gw .action-click-gw .icon-name-bg,
+//                .list-more-comment-w .more-wrap-w a,
+//                .list-more-comment-w .more-wrap-w a em.wrap-strong-w,
+//                .list-comment-close-w .close-wrap-w,
+//                .build-msg-gw .user-floor-gw,
+//                .wrap-build-gw .bulid-middle-hide-floor-dw a {
+//                    @include changefont;
+//                }
+//            }
+//            .section-newslist-w .title-name-w,
+//            .section-newslist-w .conts-col li,
+//            .section-hot-news-w .hot-focus-w .focus-big-w .big-title-w .title-text-w,
+//            .section-hot-news-w .news-list-w .list-title-w,
+//            .section-hot-news-w .news-list-w .list-rank-w li,
+//            .section-page-w .page-wrap-gw a,
+//            .section-page-w .page-wrap-w a,
+//            .section-page-w .page-wrap-w a,
+//            .section-page-w .page-wrap-w .wrap-ellipsis-w,
+//            .section-page-w .page-wrap-w .wrap-ellipsis-w i,
+//            .image-footer-gw .footer-wrap-gw,
+//            .share-image-w,
+//            .share-image-w .image-title-gw span.title-word-gw,
+//            .share-image-w .build-cont-title-gw .title-word-gw,
+//            .share-image-w .section-list-w .list-block-gw .block-cont-gw .cont-msg-gw .msg-wrap-gw .wrap-user-gw .user-name-gw,
+//            .share-image-w .section-list-w .list-block-gw .block-cont-gw .cont-msg-gw .msg-wrap-gw .wrap-user-gw .user-address-gw,
+//            .share-image-w .section-list-w .list-block-gw .block-cont-gw .cont-msg-gw .msg-wrap-gw .wrap-user-gw span.user-floor-gw,
+//            .share-image-w .section-list-w .list-block-gw .block-cont-gw .cont-msg-gw .msg-wrap-gw .wrap-issue-gw p.issue-wrap-gw {
+//                @include changefont;
+//            }
+//        }
+//    }
+//}
+//div.windows-define-dg,
+//.user-login-wrapper-dw .cont-title-dw strong.title-name-dw,
+//.user-login-wrapper-dw .cont-login-dw ul li .login-wrap-w .wrap-name-w,
+//.user-login-wrapper-dw .cont-login-dw ul li .login-wrap-other-w .wrap-name-w,
+//.user-login-wrapper-dw .cont-visitor-dw .visitor-title-dw .title-name-dw,
+//.user-login-wrapper-dw .cont-visitor-dw .visitor-form-dw .form-action-dw .action-text-dfw,
+//.user-login-wrapper-dw .cont-visitor-dw .cont-verify-dw .verify-name-dw,
+//.user-login-wrapper-dw .cont-visitor-dw .cont-verify-dw .verify-action-dw .action-text-dfw,
+//.user-login-wrapper-dw .cont-visitor-dw .cont-verify-dw .verify-action-dw .action-link-dw,
+//.visitor-login-wrapper-dw .cont-title-dw .title-name-dw,
+//.visitor-login-wrapper-dw .cont-form-dw .form-name-dw,
+//.visitor-login-wrapper-dw .cont-form-dw .form-action-dw .action-text-dfw,
+//.visitor-login-wrapper-dw .cont-verify-dw .verify-name-dw,
+//.visitor-login-wrapper-dw .cont-verify-dw .verify-action-dw .action-text-dfw,
+//.visitor-login-wrapper-dw .cont-verify-dw .verify-action-dw .action-link-dw,
+//.bind-phone-wrapper-dw .cont-title-dw .title-name-dw,
+//.bind-phone-wrapper-dw .cont-form-dw .form-name-dw,
+//.bind-phone-wrapper-dw .cont-form-dw .form-action-dw .action-text-dfw,
+//.bind-phone-wrapper-dw .cont-verify-dw .verify-name-dw,
+//.bind-phone-wrapper-dw .cont-verify-dw .verify-action-dw .action-text-dfw,
+//.bind-phone-wrapper-dw .cont-verify-dw .verify-action-dw .verify-btn-dw,
+//.bind-number-wrapper-dw .cont-title-dw .title-name-dw,
+//.bind-number-wrapper-dw ul li .login-wrap-w .wrap-name-w,
+//.user-bind-wrapper-dw .cont-title-dw strong.title-name-dw,
+//.user-bind-wrapper-dw .cont-bind-dw p.bind-word-dw,
+//.user-bind-wrapper-dw .cont-bind-dw .bind-btn-wrap-dw .wrap-btn-dw a,
+//.user-msg-wrapper-dw .cont-head-dw .head-box-dw .box-msg-dw .msg-name-dw,
+//.user-msg-wrapper-dw .cont-head-dw .head-box-dw .box-msg-dw .user-level-gw,
+//.user-msg-wrapper-dw .cont-head-dw .head-box-dw .box-msg-dw .lvBg-w,
+//.user-msg-wrapper-dw .cont-head-dw .head-number-dw .number-block-dw ul li .block-sum-dw,
+//.user-msg-wrapper-dw .cont-tab-dw .tab-name-dw ul li strong,
+//.user-msg-wrapper-dw .area-emit-dw .wrap-issue-gw,
+//.user-msg-wrapper-dw .block-cont-gw .cont-msg-gw .msg-wrap-gw .wrap-issue-gw .issue-wrap-gw,
+//.user-msg-wrapper-dw .wrap-reply-gw .area-textarea-w .textarea-bf,
+//.user-msg-wrapper-dw .wrapper-cont-dw .cont-level-text-w,
+//.user-msg-wrapper-dw .wrapper-cont-dw .cont-level-text-w .text-head-w .head-name-w {
+//    @include changefont;
+//}

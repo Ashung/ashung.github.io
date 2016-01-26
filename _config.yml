@@ -1,21 +1,21 @@
 title: AW
-subtitle: Automate Workflow Stories
+subtitle: Automate Workflow
 author: Ashung Hung
 email: ashung.hung@gmail.com
 description: Automate Workflow for UI Design, UI设计自动化工作流程
 keywords: [UI, GUI, Photoshop, Illustrator, Sketch, Automate, Automation, Workflow, Interface Design, UI设计, 界面设计, 自动化, 工作流]
-baseurl: ""
-url: /
+baseurl: "/"
+url: "http://ashung.github.io"
 permalink: "/stories/:title.html"
 exclude: ["README.md"]
 lang: zh_CN
 timezone: Asia/shanghai
-paginate: 10
+paginate: 16
 paginate_path: "/stories/page:num/"
 markdown: kramdown
 kramdown:
   auto_ids: false
-  smart_quotes: apos,apos,quot,quot
+#  smart_quotes: apos,apos,quot,quot
 sass:
   style: compressed
 defaults:
@@ -42,7 +42,7 @@ defaults:
 sns:
   - title: dribbble
     url: "https://dribbble.com/ashung"
-  - title: Behance
+  - title: behance
     url: "https://behance.net/ashung"
   - title: github
     url: "https://github.com/Ashung"

@@ -48,17 +48,22 @@
 
     {% include donate.html %}
 
-    {% assign commentId = page.id | replace:  '/', '-' | remove_first: '-' %}
+    {% assign commentId = page.id | replace: '/stories/', '' %}
+    {% assign articleUrl = site.url | append: page.url %}
     {% if page.comment == true %}
     <div class="post-comments-wrap">
         <div class="post-comments">
-            <div id="SOHUCS" sid="{{ commentId }}"></div>
-            <script src="http://changyan.sohu.com/upload/changyan.js"></script>
-            <script>
-                window.changyan.api.config({
-                    appid: 'cyrVOtEMg',
-                    conf: 'prod_c6a0ab76c08ae21be1877d9daf4f93f0'
-                });
+            <div class="ds-thread" data-thread-key="{{ commentId }}" data-title="{{ page.title }}" data-url="{{ articleUrl }}"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"ashung"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0]
+                    || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
             </script>
         </div>
     </div>

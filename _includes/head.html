@@ -14,8 +14,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="HandheldFriendly" content="True">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
-<link rel="stylesheet" href="{{ "/assets/css/style.css" | prepend: site.baseurl }}">
-<script src="{{ "/assets/js/jquery-2.1.4.min.js" | prepend: site.baseurl }}"></script>
+<link rel="stylesheet" href="{{ "assets/css/style.css" | prepend: site.baseurl }}">
+<script src="{{ "assets/js/jquery-2.1.4.min.js" | prepend: site.baseurl }}"></script>
 {% if page.MathJax %}
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 {% endif %}
@@ -35,17 +35,9 @@ var _hmt = _hmt || [];
 <div class="container section-{% if include.pagename %}{{ include.pagename }}{% else %}default{% endif %}">
 <header class="topbar">
     <hgroup class="logo">
-        <a href="{{ site.url }}" rel="home">
+        <a href="{{ site.baseurl }}" title="{{ site.subtitle }}" rel="home">
             <h1>{{ site.title }}</h1>
             <h2>{{ site.subtitle }}</h2>
         </a>
     </hgroup>
-    <nav class="nav">
-        <a id="icon-menu" href="#menu">Menu</a>
-        <ul id="menu">
-            {% for page in site.pages %}{% if page.title %}
-            <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-            {% endif %}{% endfor %}
-        </ul>
-    </nav>
 </header>
