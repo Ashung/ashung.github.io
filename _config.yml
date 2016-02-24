@@ -12,6 +12,7 @@ lang: zh_CN
 timezone: Asia/shanghai
 paginate: 16
 paginate_path: "/stories/page:num/"
+gems: [jekyll-paginate]
 markdown: kramdown
 kramdown:
   auto_ids: false
@@ -32,12 +33,6 @@ defaults:
       type: "drafts"
     values:
       layout: "post"
-  -
-    scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "home"
 
 sns:
   - title: dribbble
