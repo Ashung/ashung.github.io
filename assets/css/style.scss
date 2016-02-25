@@ -454,6 +454,15 @@ input, textarea {
             padding: .5em;
             border: 1px solid #ccc;
         }
+        & + p > em, & + p > strong {
+            display: block;
+            font-weight: normal;
+            font-style: normal;
+            text-align: center;
+            color: $secondary-text-color;
+            font-size: .889em;
+            margin-top: -0.66em;
+        }
     }
     p code, li code, dl code {
         color: $secondary-text-color;

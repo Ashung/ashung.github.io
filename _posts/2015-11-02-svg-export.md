@@ -42,7 +42,7 @@ David Deraedt 的 [Layer Exporter][Layer Exporter for Adobe Illustrator] 是个�
 
 ![](../images/svg_and_android_vector_drawable/screenshot_ps.png)_使用 Photoshop 的 Generate 导出 SVG_
 
-我采用命名图层组，并在图层组内增加一个矩形图层作为切图的区域，将此图层设置为不可见，这样导出的 SVG 中不会含有矩形图层。
+我采用命名图层组，并在图层组内增加一个矩形图层作为切图的区域。矩形可以是无填充或透明的路径图层，但不可将此图层设置为不可见，这样会导致内容偏移。最终导出的 SVG 同样需要面对删除多余代码的问题。
 
 在 Photoshop CC 2015 可以使用画板导出 SVG，将画板大小作为切图区域，这样可以不需要额外图层作为边界。
 
@@ -76,7 +76,7 @@ Github 上有一些清理 Sketch SVG 代码的工具，都是命令行工具或�
 
 设计软件导出的 SVG 都包含各种多余的代码，这会导致文件体积较大，一般最终使用的 SVG 都会对 SVG 进行优化处理。
 
-常用的 SVG 代码优化工具[SVG Optimizer][SVGO](简称 SVGO)是一个[Node.js][nodejs]命令行工具。也就是说这是没有界面的，要在终端上敲代码来优化 SVG，这是非常高效处理方法，但对不熟悉命令行工具的设计师来说可能会有难度，具体操作可以查阅[SVGO][SVGO]主页上的文档。
+常用的 SVG 代码优化工具 [SVG Optimizer][SVGO] (简称 SVGO) 是一个 [Node.js][nodejs] 命令行工具。也就是说这是没有界面的，要在终端上敲代码来优化 SVG，这是非常高效处理方法，但对不熟悉命令行工具的设计师来说可能会有难度，具体操作可以查阅 [SVGO][SVGO] 主页上的文档。
 
 [svgomg][svgomg]是 SVGO 的 Node.js 网页应用，有很多设置项，但每次只能优化一个 SVG 文件，如果网页速度太慢，可以下载[源码][svgomg_source]后在本地搭建。
 
@@ -84,7 +84,9 @@ Github 上有一些清理 Sketch SVG 代码的工具，都是命令行工具或�
 
 SVGO 相关的工具还有 Node.js 模块版本的[imagemin-svgo][imagemin-svgo]，gulp 插件版本的[gulp-svgmin][gulp-svgmin]，项目主页上都有示例代码。
 
-[SVGCleaner][SVGCleaner]另一个跨平台的带 GUI 界面的 SVG 优化软件，对命令行不熟悉的设计师可以选择这个软件。
+[SVGCleaner][SVGCleaner] 另一个跨平台的带 GUI 界面的 SVG 优化软件，对命令行不熟悉的设计师可以选择这个软件。
+
+这里使用 [Material design icons][Material_design_icons] 项目的 SVG 文件作为示例，使用 SVGO 压缩只需要简单的一行命令。
 
 {% highlight bash %}
 cd ~/Downloads/material-design-icons
@@ -97,7 +99,7 @@ svgo -f action/svg/design -o action/svg/optimize
 
 ### 批量删除多余代码
 
-下载 [Material design icons][Material_design_icons] 项目的 [master.zip][material-design-icons-master-zip] 后，用 Illustrator 打开项目中各个分类文件夹下的 "/svg/design/" 目录内的 SVG，你会发现这些 SVG 都带有一些多余的矩形，而 "/svg/production/" 目录内的 SVG 则没有这种情况。
+用 Illustrator 打开 [Material design icons][Material_design_icons] 项目中各个分类文件夹下的 "/svg/design/" 目录内的 SVG，你会发现这些 SVG 都带有一些多余的矩形，而 "/svg/production/" 目录内的 SVG 则没有这种情况。
 
 可以使用文本编辑器打开 SVG，查看其代码。在 Illustrator 中作为切图边界的无填充矩形图层，最终导出成 SVG 后可能会是以下几种代码。
 
@@ -153,7 +155,7 @@ for(var i = 0; i < designSVGDirs.length; i ++) {
         // console.log(file);
         var productionSVGCode = fs.readFileSync(file)
             .toString()
-            .replace(/<.*fill=\"none\".*\/>/g, "");
+            .replace(/<[rect|path].*fill=\"none\"[^>]*\/>/g, "");
         var productionSVGDir = path.join(
                 path.dirname(designSVGDirs[i]), "production_2"
             );
@@ -181,19 +183,20 @@ var designSVGDirs = [
 
 处理完的 SVG 保存在 SVG 同一级的 "production_2" 目录， "production_2" 是随意取的名字，可以随意更改。
 
+示例的代码用来处理 Illustrator 导出的 SVG，如果要处理 Photoshop 使用 Generate 生成器导出 SVG，需要把字符串替换部分的代码按以下方式修改。你需要确认边界矩形在 SVG 代码中的 `class` 属性。
+
 {% highlight javascript %}
-var productionSVGDir = path.join(
-    path.dirname(designSVGDirs[i]), "production_2"
-);
+var productionSVGCode = fs.readFileSync(file)
+    .toString()
+    .replace(/<[rect|path].*class=\"cls-3\"[^>]*\/>/gi, "");
 {% endhighlight %}
 
-最后打开"终端"，输入以下命令来运行"clean.js"代码。
+最后打开 "终端"，输入以下命令来运行 "clean.js" 代码。
 
 {% highlight bash %}
 cd ~/Downloads/material-design-icons
 node clean.js
 {% endhighlight %}
-
 
 
 [nodejs]: https://nodejs.org/
