@@ -19,7 +19,7 @@
 {% if page.MathJax %}
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 {% endif %}
-{% unless site.host == "127.0.0.1" %}
+{% unless jekyll.environment == "debug" %}
 <script>
 var _hmt = _hmt || [];
 (function() {

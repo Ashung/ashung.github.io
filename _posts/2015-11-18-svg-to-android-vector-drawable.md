@@ -7,9 +7,7 @@ tags: Android SVG VectorDrawable
 
 ### VectorDrawable 不是 SVG
 
-在我们的开发获得 Android 5.0 源码后并决定将系统从 4.4 升级至 5.0 的那个时候，
-
-虽然 VectorDrawable 需要从 SVG 文件转换，这并不代表 VectorDrawable 是 SVG，它只是用了 SVG 的 path data 属性，并借鉴了一些东西。
+VectorDrawable 是 Android 5.0 引入的一种以代码形式的图片格式，虽然 VectorDrawable 需要从 SVG 文件转换，这并不代表 VectorDrawable 是 SVG，它只是用了 SVG 的 path data 属性，并借鉴了一些东西。
 
 ### VectorDrawable 优劣
 
@@ -136,9 +134,7 @@ _clip-path 标签属性_
 svg2android 目前已知问题如下：
 
 * 直接将 SVG 的尺寸数值转位 DP，这样其他尺寸的源文件导出的 SVG，就需要开发逐个文件修改尺寸数值；
-* 暂不支持 Photoshop 导出的 style 与标签分离的 SVG，导致 Photoshop 导出的 SVG 使用 svg2android 转换都会变成黑色；
-* 不支持将色彩和透明度转换为 Android 的 `#AARRGGBB` 记色方式；
-* 不支持批量转换；
+* 暂不支持将色彩和透明度转换为 Android 的 `#AARRGGBB` 记色方式；
 
 尽管 svg2android 还存在一些问题，作者也在尽快处理用户反馈的问题，svg2android 可以说是目前转换工具上最简单易用的。
 
@@ -146,9 +142,9 @@ svg2android 目前已知问题如下：
 
 ### 使用 svg2vectordrawable 转换
 
-早期版本的 svg2android 支持不是很好，于是我开始计划写一些批量转换的脚本，刚好拿这个项目作为 Node.js 编程的练手。过了几个月终于写出最初的版本，我将它设计为 Node.js 命令行工具，这就是 [svg2vectordrawable](https://github.com/Ashung/svg2vectordrawable)。
+早期转换工具支持不多而且支持较差，于是我开始计划写一些批量转换的脚本，刚好拿这个项目作为 Node.js 编程的练手。过了几个月终于写出最初的版本，我将它设计为 Node.js 命令行工具，这就是 [svg2vectordrawable](https://github.com/Ashung/svg2vectordrawable)。
 
-svg2vectordrawable 解决了一些 svg2android 目前存在的问题，比如不同 DPI 设计文档的问题，Photoshop 导出 SVG 的样式问题，最重要的是支持批量转换，另外字符串替换机制可以删除多余标签。
+svg2vectordrawable 支持批量转换，可以处理不同 DPI 设计文档，另外引入字符串替换机制可以删除多余标签。
 
 svg2vectordrawable 目前依然存在一些问题：
 
@@ -177,7 +173,7 @@ _作为全局模块安装，程序会自动安装依赖模块。_
 $ s2v icon.svg icon.xml xhdpi "replace(/<rect\s+width=\"\d+\"\s+height=\"d+\"\/>/g,"")"  
 {% endhighlight %}
 
-在终端熟人 "s2v" 之后的第一个参数表示需要转换的内容(参数间使用空格分隔)，可以是一个 SVG 文件或一个文件夹，当第一个参数为文件夹时，将会转换文件夹内的 SVG 文件。
+在终端输入 "s2v" 之后的第一个参数表示需要转换的内容(参数间使用空格分隔)，可以是一个 SVG 文件或一个文件夹，当第一个参数为文件夹时，将会转换文件夹内的 SVG 文件。
 
 第二个参数表示需要转换后 XML 保存的路径，支持输入 SVG 文件或文件夹地址，当第一个参数为文件夹时，第二个参数不能是 SVG 文件。
 
@@ -189,19 +185,19 @@ $ s2v icon.svg icon.xml xhdpi "replace(/<rect\s+width=\"\d+\"\s+height=\"d+\"\/>
 
 我在一个可选参数上引入一个 JavaScript 语句，这样我就可以使用正则表达式替换 SVG 文件的内容。关于正则表达式的写法请自学或者请教比较有经验的程序员。
 
-用于 Illustrator 生成的 SVG，删除带有`fill="none"`属性的"path"标签。
+用于 Illustrator 生成的 SVG，删除带有 `fill="none"` 属性的 "path" 标签。
 
 {% highlight bash %}
 $ s2v ai_svg ai_xml "replace(/<path.*fill=\"none\"[^>]*\/>/gi,'')"
 {% endhighlight %}
 
-用于 Photoshop 生成的 SVG，删除带有 `class="cls-1"` 属性的"path"标签。
+用于 Photoshop 生成的 SVG，删除带有 `class="cls-1"` 属性的 "path" 标签。
 
 {% highlight bash %}
 $ s2v ps_svg ps_xml "replace(/<g[^>]*>/gi,'').replace(/<\/g>/gi,'').replace(/<path.*class=\"cls-1\"[^>]*\/>/gi,'')"
 {% endhighlight %}
 
-用于 Sketch 生成的 SVG，删除带有某个颜色填充"path"标签及多余"g"标签。
+用于 Sketch 生成的 SVG，删除带有某个颜色填充 "path" 标签及多余 "g" 标签。
 
 {% highlight bash %}
 $ s2v sketch_svg sketch_xml "replace(/<g[^>]*>/gi,'').replace(/<\/g>/gi,'').replace(/<path.*fill=\"#FF0000\"[^>]*><\/path>/gi,'')"

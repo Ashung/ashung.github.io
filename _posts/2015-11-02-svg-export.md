@@ -78,9 +78,9 @@ Github 上有一些清理 Sketch SVG 代码的工具，都是命令行工具或�
 
 常用的 SVG 代码优化工具 [SVG Optimizer][SVGO] (简称 SVGO) 是一个 [Node.js][nodejs] 命令行工具。也就是说这是没有界面的，要在终端上敲代码来优化 SVG，这是非常高效处理方法，但对不熟悉命令行工具的设计师来说可能会有难度，具体操作可以查阅 [SVGO][SVGO] 主页上的文档。
 
-[svgomg][svgomg]是 SVGO 的 Node.js 网页应用，有很多设置项，但每次只能优化一个 SVG 文件，如果网页速度太慢，可以下载[源码][svgomg_source]后在本地搭建。
+[svgomg][svgomg] 是 SVGO 的 Node.js 网页应用，有很多设置项，但每次只能优化一个 SVG 文件，如果网页速度太慢，可以下载[源码][svgomg_source]后在本地搭建。
 
-[svgo-gui][svgo-gui]是 SVGO 的跨平台界面工具，但目前已不维护，官方推荐使用命令行或网页版本。
+[svgo-gui][svgo-gui] 是 SVGO 的跨平台界面工具，但目前已不维护，官方推荐使用命令行或网页版本。
 
 SVGO 相关的工具还有 Node.js 模块版本的[imagemin-svgo][imagemin-svgo]，gulp 插件版本的[gulp-svgmin][gulp-svgmin]，项目主页上都有示例代码。
 
@@ -155,7 +155,7 @@ for(var i = 0; i < designSVGDirs.length; i ++) {
         // console.log(file);
         var productionSVGCode = fs.readFileSync(file)
             .toString()
-            .replace(/<[rect|path].*fill=\"none\"[^>]*\/>/g, "");
+            .replace(/<[rect|path].*fill=\"none\".*\/>/g, "");
         var productionSVGDir = path.join(
                 path.dirname(designSVGDirs[i]), "production_2"
             );
