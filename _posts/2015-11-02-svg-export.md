@@ -76,7 +76,7 @@ Github 上有一些清理 Sketch SVG 代码的工具，都是命令行工具或�
 
 设计软件导出的 SVG 都包含各种多余的代码，这会导致文件体积较大，一般最终使用的 SVG 都会对 SVG 进行优化处理。
 
-常用的 SVG 代码优化工具 [SVG Optimizer][SVGO] (简称 SVGO) 是一个 [Node.js][nodejs] 命令行工具。也就是说这是没有界面的，要在终端上敲代码来优化 SVG，这是非常高效处理方法，但对不熟悉命令行工具的设计师来说可能会有难度，具体操作可以查阅 [SVGO][SVGO] 主页上的文档。
+常用的 SVG 代码优化工具 [SVG Optimizer][SVGO] (简称 SVGO) 是一个 [Node.js][nodejs] 命令行工具。也就是说这是没有界面的，要在终端上敲代码来优化 SVG，这是非常高效处理方法，但对不熟悉命令行工具的设计师来说可能会有难度。熟悉命令行工具之后，会使用发现大部分界面工具的效率并不高，建议设计师最好花点时间熟悉下命令行工具操作方式。
 
 [svgomg][svgomg] 是 SVGO 的 Node.js 网页应用，有很多设置项，但每次只能优化一个 SVG 文件，如果网页速度太慢，可以下载[源码][svgomg_source]后在本地搭建。
 
@@ -86,14 +86,32 @@ SVGO 相关的工具还有 Node.js 模块版本的[imagemin-svgo][imagemin-svgo]
 
 [SVGCleaner][SVGCleaner] 另一个跨平台的带 GUI 界面的 SVG 优化软件，对命令行不熟悉的设计师可以选择这个软件。
 
-这里使用 [Material design icons][Material_design_icons] 项目的 SVG 文件作为示例，使用 SVGO 压缩只需要简单的一行命令。
+这里使用 [Material design icons][Material_design_icons] 项目的 SVG 文件作为示例，使用 SVGO 压缩一个文件内的 SVG 文件只需要简单的一行命令。
 
 {% highlight bash %}
 cd ~/Downloads/material-design-icons
 svgo -f action/svg/design -o action/svg/optimize
 {% endhighlight %}
 
-熟悉命令行工具之后，会使用发现大部分界面工具的效率并不高，建议设计师最好花点时间熟悉下命令行工具操作方式。
+不指定输出目录的时候，压缩后的文件将覆盖原始 SVG 文件。
+
+{% highlight bash %}
+svgo -f action/svg/design
+{% endhighlight %}
+
+压缩单个 SVG 则使用以下命令，同样将不指定输出文件路径时，压缩后的文件将覆盖原始 SVG 文件。
+
+{% highlight bash %}
+svgo action/svg/design/ic_accessible_24px.svg action/svg/optimize/ic_accessible_24px.svg
+{% endhighlight %}
+
+在命令后加 `-p 1` 表示将代码中的小数精度修改为 1，默认精度为 3。
+
+{% highlight bash %}
+svgo -f action/svg/design -o action/svg/optimize -p 1
+{% endhighlight %}
+
+更多复杂的用法可以参考 [SVG Optimizer][SVGO] 主页的文档。
 
 ---
 
