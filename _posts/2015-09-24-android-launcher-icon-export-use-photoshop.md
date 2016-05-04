@@ -1,60 +1,55 @@
 ---
-title:  Android 应用启动图标快速导出方法 (Photoshop 篇 )
+title:  Android 应用启动图标快速导出方法 (Photoshop 篇)
 excerpt: 使用 Photoshop 设计能够快速导出资源的应用启动图标模版。
 updated:
 category: Photoshop
-tags: Android  Photoshop Generator icon psd
+tags: Android Photoshop Generator icon
 ---
 
 ### 图标尺寸
 
-国内多数设计师在设计 Android 应用启动图标时，并不会严格遵循 [Material Design 的图标规范 ][google_design_icon] ([中文版本][google_design_icon_chinese])，他们更在意图标的尺寸，至于命名规则和文件夹结构大多设计师是不清楚的。为了提高效率设计师提供给开发人员的资源，应该尽量是符合开发需要可以直接使用的。
+国内多数设计师在设计 Android 应用启动图标时，并不会遵循 [Material Design 的图标规范](http://www.google.com/design/spec/style/icons.html#icons-product-icons)  ([中文版本](http://wiki.jikexueyuan.com/project/material-design/style/icons.html)，很多改了 Android 系统界面的手机公司甚至连图标尺寸都与规范不同。
 
-在用 Android Studio 建立一个 Demo 项目后，开发工具会帮助开发者初始化一个基础 Android 应用需要的图标资源，我将 Demo 项目内的图标尺寸、位置、命名等信息，整理出了下表。这些信息也可以从网上找到。ADT 建立的项目默认则将图标放在以 "drawable-" 为前缀的文件夹下。
+下表是 Android 应用图标的标准尺寸和官方建议的命名，这些尺寸设计师应当尽量提供完整。但设计时并不需要绘制全部尺寸，而只需要按照规范中绘制 192px 的图标即可。
 
-图标尺寸 (px) | 图标在软件项目中的位置和命名。
---- | ---
-48 | res/mipmap-mdpi/ic_launcher.png
-72 | res/mipmap-hdpi/ic_launcher.png
-96 | res/mipmap-xhdpi/ic_launcher.png
-144 | res/mipmap-xxhdpi/ic_launcher.png
-192 | res/mipmap-xxxhdpi/ic_launcher.png
-512 | res/ic_launcher-web.png
-
-以上这些尺寸资源建议尽量全部提供，但设计时只需要按照规范中提到的规则，设计 192px 的图标即可。
+| 图标尺寸 (px) | 位置及命名                              | Density     |
+| --------- | ---------------------------------- | ----------- |
+| 48        | res/mipmap-mdpi/ic_launcher.png    | MDPI        |
+| 72        | res/mipmap-hdpi/ic_launcher.png    | HDPI        |
+| 96        | res/mipmap-xhdpi/ic_launcher.png   | XHDPI       |
+| 144       | res/mipmap-xxhdpi/ic_launcher.png  | XXHDPI      |
+| 192       | res/mipmap-xxxhdpi/ic_launcher.png | XXXHDPI     |
+| 512       | res/ic_launcher-web.png            | Google Play |
 
 ---
 
 ### Adobe Generator
 
-我用了 Generator 的一个特性快速导出资产，这需要在 Photoshop CC 2014 及之后的版本中才可以使用。激活 Generator 功能需要在首选项 "Prferences" > "Plug-ins" > "Generator" 对话框中勾选 "Enable Generator" 选项。基础的 Generator 用法参考 [Photoshop Help /
-Generate image assets from layers][generate-assets-layers]（中文版本，[Photoshop 帮助 / 从图层生成图像资源 ][generate-assets-layers-chinese]）。
+以前要在 Photoshop 中将内容生成多个尺寸，而不借助脚本或插件，是件非常繁琐的事情。在 Photoshop CC 2014 及之后的版本中增加了 Generator 功能，让处理这类事情变得非常简单和快速。
 
-另外图标的 PSD 文档也需要满足针对 Generator 优化的 2 点小要求：
+该功能的菜单在 "File / 文件" > "Generate / 生成" 打开 "Image Assets ／图片资源"。如果找不到该菜单，请到 "Prferences / 首选项" > "Plug-ins / 插件" > "Generator / 生成器" 对话框中，勾选 "Enable Generator" 选项以激活 Generator 功能。
+
+基础的 Generator 用法请参考 [Photoshop Help / Generate image assets from layers](https://helpx.adobe.com/photoshop/using/generate-assets-layers.html) (中文版本，[Photoshop 帮助 / 从图层生成图像资源](https://helpx.adobe.com/cn/photoshop/using/generate-assets-layers.html))。帮助文档可能会更新不及时，若需要更详细的文档以及更高级的功能，可用参考 Generator 的 [Wiki](https://github.com/adobe-photoshop/generator-assets/wiki) 页面。
+
+另外图标的 PSD 文档也需要针对 Generator 做以下几点优化。
 
 1. 将图标内容的所有图层组成一个分组，命名为 "ic_launcher.png";
 2. 为分组添加一个 192x192px 的矩形位图蒙板，蒙板选区的位置即是图标资源的边界区域。
+3. 确保图层在缩小图像尺寸后效果不会太差。
 
-完成以上的所有要求之后，在图标的 PSD 文档中，新建一个普通图层，将图层名修改为以下内容，这段语句定义资源导出时的尺寸、存储路径和文件名后缀等信息。
+完成以上的所有要求之后，在图标的 PSD 文档中，新建一个普通图层，将图层名修改为以下内容，这段文字定义了资源导出时的尺寸、存储路径和文件名后缀等信息。
 
-~~~
+```
 default 48x48 res/mipmap-mdpi/, 72x72 res/mipmap-hdpi/,
 96x96 res/mipmap-xhdpi/, 144x144 res/mipmap-xxhdpi/,
 192x192 res/mipmap-xxxhdpi/, 512x512 res/-web
-~~~
+```
 
-以 "default" 关键字加空格开头，后面接尺寸标识符，例如 `48x48` 或 `200%`,  随后增加一个空格紧接文件夹与文件后缀标识符，`/` 前为文件夹，`/` 后为文件名后缀，例如 `200% ios/@2x`，文件夹与文件后缀标识符为可选项，多项配置使用 `,` 或 `+` 隔开。更多的 Generator 图层命名规则，查阅官方 [Generate-Web-Assets-Functional-Spec](
-https://github.com/adobe-photoshop/generator-assets/wiki/Generate-Web-Assets-Functional-Spec)。
+以 "default" 关键字加空格开头，后面接尺寸标识符，例如 `48x48` 或 `200%`,  随后增加一个空格紧接文件夹与文件后缀标识符，`/` 前为文件夹，`/` 后为文件名后缀，例如 `200% ios/@2x`，文件夹与文件后缀标识符为可选项，多项配置使用 `,` 或 `+` 隔开。更多的 Generator 图层命名规则，请查阅官方文档 [Generate Web Assets Functional Spec](https://github.com/adobe-photoshop/generator-assets/wiki/Generate-Web-Assets-Functional-Spec)。
 {: .tips }
 
-最后保存 PSD 文档，使用 "File" > "Generate" 打开 "Image Assets"。此时所有所需资源将会被存到 PSD 文档同级的 "[psd 文件名]-assets" 文件内。资源生成完之后建议关闭 "Image Assets"。
+![](../images/android_launcher_icon_export_use_photoshop/andriod_launcher_icon_psd.png)
 
-[下载 Android 应用启动图标 PSD 模版][psd]
+最后保存 PSD 文档，使用 "File / 文件" > "Generate / 生成" 打开 "Image Assets ／图片资源"。此时所有所需资源将会被存到 PSD 文档同级的 "<psd 文件名>-assets" 文件内。
 
-[google_design_icon]: http://www.google.com/design/spec/style/icons.html#icons-product-icons
-[google_design_icon_chinese]: http://wiki.jikexueyuan.com/project/material-design/style/icons.html
-[psd]: /images/android_launcher_icon_export_use_photoshop/android_icon_template.psd
-[generate-assets-layers]: https://helpx.adobe.com/photoshop/using/generate-assets-layers.html
-[generate-assets-layers-chinese]: https://helpx.adobe.com/cn/photoshop/using/generate-assets-layers.html
-
-*[ADT]: Android Developer Tools
+此功能会实时监视 PSD 文档中图层内容，一旦内容发生变化，便会重新导出资源。如果电脑配置较低，或者文档太大，可能会卡顿的现象，所以建议平时关闭此功能，只在需要导出资源时才打开。另外当资源导出完成后资源生成完，且检查无误后，建议将资源复制到项目文件内，防止本来正确的资源被无意的修改。
