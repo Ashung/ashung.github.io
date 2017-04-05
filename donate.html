@@ -1,0 +1,177 @@
+---
+---
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+<head>
+<meta charset="utf-8">
+<title>Donate</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
+<script src="{{ "assets/js/jquery-2.1.4.min.js" | prepend: site.baseurl }}"></script>
+<link rel="stylesheet" href="{{ "assets/css/style.css" | prepend: site.baseurl }}">
+{% unless jekyll.environment == "debug" %}
+<script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?776d4b84501659ee9df066260e5bd1a0";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+{% endunless %}
+<style>
+.footer { text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+<!-- <header class="topbar">
+    <hgroup class="logo">
+        <a href="{{ site.baseurl }}" title="{{ site.subtitle }}" rel="home">
+            <h1>{{ site.title }}</h1>
+            <h2>{{ site.subtitle }}</h2>
+        </a>
+    </hgroup>
+</header> -->
+
+<div class="main">
+
+
+
+
+
+
+        <div class="post-donate" id="donate">
+            <p>DONATE!</p>
+            <ul class="donate-buttons">
+                <li>
+                    <a id="donate-button-wechatpay" href="#">
+                        <img src="/assets/img/donate_wechat.svg" width="48" height="48" alt="微信支付">微信支付
+                    </a>
+                </li>
+                <li>
+                    <a id="donate-button-alipay" href="#">
+                        <img src="/assets/img/donate_alipay.svg" width="48" height="48" alt="支付宝">支付宝
+                    </a>
+                </li>
+                <li>
+                    <a id="donate-button-paypal" href="#">
+                        <img src="/assets/img/donate_paypal.svg" width="48" height="48" alt="PayPal">PayPal
+                    </a>
+                </li>
+            </ul>
+            <div id="donate-modal-wechatpay" class="modal">
+                <p>您的支持将鼓励作者写作更多实用教程.</p>
+                <div class="qrcode">
+                    <img src="/assets/img/donate_wechat_rmb_10.png" alt="微信打赏 10 元">
+                    <strong><span>&yen;</span>10.00</strong>
+                </div>
+                <p class="tips">打开微信, 点击右上角"+", 选择"扫一扫".</p>
+            </div>
+            <div id="donate-modal-alipay" class="modal">
+                <p>您的支持将鼓励作者写作更多实用教程.</p>
+                <div class="qrcode">
+                    <img src="/assets/img/donate_alipay_rmb_10.png" alt="支付宝打赏 10 元">
+                    <strong><span>&yen;</span>10.00</strong>
+                </div>
+                <p class="tips">打开支付宝, 选择"扫一扫".</p>
+            </div>
+            <div id="donate-modal-paypal" class="modal">
+                <p>Support me write more articles.</p>
+                <p class="paypal-logo">
+                    <img src="/assets/img/donate_paypal.svg" alt="PayPal" width="48" height="48">
+                    PayPal<br>The safer, easier way to pay online!
+                </p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="YB3LBHPPHXM4Y">
+                    <input type="hidden" name="on0" value="Donate">
+                    <select name="os0" id="paypal">
+                        <option value="1 -">1 - $ 1.00 USD</option>
+                        <option value="2 -">2 - $ 2.00 USD</option>
+                        <option value="3 -">3 - $ 5.00 USD</option>
+                    </select>
+                    <input type="hidden" name="currency_code" value="USD">
+                    <input class="paypal-button" type="submit" name="submit" value="Pay">
+                </form>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function(){
+                $('body').append('<div id="donate-dialog-wrap"></div>')
+                        .append($('#donate-modal-wechatpay'))
+                        .append($('#donate-modal-alipay'))
+                        .append($('#donate-modal-paypal'));
+                $('#donate-button-alipay').click(function(){
+                    showModal('#donate-modal-alipay');
+                    return false;
+                });
+                $('#donate-button-wechatpay').click(function(){
+                    showModal('#donate-modal-wechatpay');
+                    return false;
+                });
+                $('#donate-button-paypal').click(function(){
+                    showModal('#donate-modal-paypal');
+                    return false;
+                });
+                $('#donate-dialog-wrap').click(hideModal);
+                function showModal(targetModal) {
+                    $('#donate-dialog-wrap').show(0, function(){
+                        $('#donate-dialog-wrap').css('opacity', '1');
+                        $(targetModal).css({
+                            'top' : '200%'
+                        });
+                        $(targetModal).show(1, function(){
+                            $(targetModal).css({
+                                'transform' : 'rotate(0)',
+                                'top' : '50%',
+                                'opacity' : '1'
+                            });
+                        });
+                    });
+                }
+                function hideModal() {
+                    $('#donate-dialog-wrap').css('opacity', '0');
+                    $('#donate-dialog-wrap').delay(200).hide(0);
+                    $('.modal').css({
+                        'transform' : 'rotate(-20deg)',
+                        'top' : '200%',
+                        'opacity' : '0'
+                    });
+                    $('.modal').hide(300);
+                }
+            });
+        </script>
+
+
+
+</div>
+
+<footer class="footer">
+    <p>You can find me at... </p>
+    <ul class="social-list">
+        {% for website in site.sns %}
+        <li>
+            <a rel="me" href="{{ website["url"] }}">
+                <span class="social-icon ic-{{ website["title"] }}">@</span>
+                <span class="social-text">{{ website["title"] }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</footer>
+</div>
+{% unless jekyll.environment == "debug" %}
+{% comment %} Google Analytics {% endcomment %}
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-68708846-1', 'auto');
+    ga('send', 'pageview');
+</script>
+{% endunless %}
+
+</body>
+</html>

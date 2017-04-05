@@ -37,9 +37,9 @@ defaults:
 sns:
   - title: dribbble
     url: "https://dribbble.com/ashung"
-  - title: behance
+  - title: Behance
     url: "https://behance.net/ashung"
-  - title: github
+  - title: GitHub
     url: "https://github.com/Ashung"
-  - title: weibo
+  - title: Weibo
     url: "http://weibo.com/ashung"

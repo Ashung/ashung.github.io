@@ -264,19 +264,19 @@ input, textarea {
         .ic-dribbble {
             background-position: 0 0;
         }
-        .ic-behance {
+        .ic-Behance {
             width: 30px;
             background-position: 0 -96px;
         }
-        .ic-github {
+        .ic-GitHub {
             background-position: 0 -48px;
         }
-        .ic-weibo {
+        .ic-Weibo {
             width: 28px;
             background-position: 0 -144px;
         }
         li {
-            float: left;
+            display: inline-block;
             a {
                 float: left;
                 width: 3.5rem;
@@ -296,13 +296,13 @@ input, textarea {
                     .ic-dribbble {
                         background-position: 0 -24px;
                     }
-                    .ic-behance {
+                    .ic-Behance {
                         background-position: 0 -120px;
                     }
-                    .ic-github {
+                    .ic-GitHub {
                         background-position: 0 -72px;
                     }
-                    .ic-weibo {
+                    .ic-Weibo {
                         background-position: 0 -168px;
                     }
                 }
