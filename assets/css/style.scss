@@ -49,8 +49,8 @@
     url(../font/FiraMono-Bold.ttf) format('truetype');
 }
 
-$cjk-font: "PingFang SC", "STHeiti", "Microsoft Yahei";
-$serif: Merriweather, Georgia,$cjk-font, serif;
+$cjk-font: "PingFang SC", "Microsoft Yahei";
+$serif: Merriweather, Georgia, $cjk-font, serif;
 $sans-serif: "Merriweather Sans", Helvetica, Arial, $cjk-font, sans-serif;
 $monospace: FiraMono, Menlo, Consolos, $cjk-font, monospace;
 $base-font-family: $serif;
@@ -72,7 +72,7 @@ $link-text-color: $primary-text-color;
 $hair-line-color: rgba(0, 0, 0, .15);
 $hair-line-color-dark: rgba(0, 0, 0, .25);
 $hair-line-color-light: rgba(0, 0, 0, .05);
-$background-color: #fff;
+$background-color: #fafafa;
 $highlight-color: #ffb;
 $white-color: #fff;
 $red-color: #f44336;
@@ -116,6 +116,9 @@ a:link, a:visited {
     text-decoration: none;
 }
 
+html {
+    background: $white-color;
+}
 body {
     color: $primary-text-color;
     background-color: $background-color;
@@ -142,6 +145,8 @@ input, textarea {
 .topbar {
     padding: 1rem 0;
     height: 2rem;
+    background: $white-color;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.15);
     .logo {
         a {
             display: block;
@@ -225,7 +230,8 @@ input, textarea {
 }
 
 .footer {
-    margin: 2rem auto;
+    margin: 2rem auto 0;
+    padding-bottom: 2rem;
     max-width: $max-content-width;
     color: $secondary-text-color;
     font-size: .875rem;
@@ -244,6 +250,7 @@ input, textarea {
     .social-list {
         padding: 2rem 1rem 1rem;
         overflow: hidden;
+        text-align: center;
         .social-icon {
             display: block;
             width: 24px;
@@ -517,25 +524,24 @@ input, textarea {
     a.reversefootnote:link, a.reversefootnote:visited {
         color: inherit;
     }
-    .footnotes {
-        color: $secondary-text-color;
-        font-size: .889em;
-        line-height: 1.5;
-        margin-top: 2em;
-        padding: 1em 0 0;
-        //border-top: 1px solid $hair-line-color-light;
-        li {
-            margin-bottom: 1em;
-        }
-        p {
-            margin-bottom: 0;
-        }
-        &:link, &:visited {
-            color: inherit;
-            text-decoration: none;
-        }
-    }
-    .tips {
+	.footnotes {
+	    color: $secondary-text-color;
+	    font-size: .889em;
+	    line-height: 1.5;
+	    margin-top: 2em;
+	    padding: 1em 0 0;
+	    li {
+	        margin-bottom: 1em;
+	    }
+	    p {
+	        margin-bottom: 0;
+	    }
+	    &:link, &:visited {
+	        color: inherit;
+	        text-decoration: none;
+	    }
+	}
+	.tips {
         padding: .5em 0 .5em 2em;
         color: $secondary-text-color;
     }
@@ -780,7 +786,7 @@ input, textarea {
                 font-size: .875em;
                 vertical-align: super;
             }
-            .ds-meta {
+            .ds-meta, .ds-login-buttons {
                 display: none;
             }
             .ds-comments-info {
