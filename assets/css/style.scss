@@ -479,16 +479,16 @@ input, textarea {
         }
     }
     blockquote {
-        margin-left: -.889em;
-        padding-left: .667em;
-        border-left: .222em solid #eee;
+        padding-left: 20px;
+        border-left: 4px solid #eee;
+        font-style: italic;
     }
     pre {
         font-size: 1em;
         line-height: 1.5;
         code {
             display: block;
-            background: #f5f5f5;
+            background: #f0f0f0;
             border-radius: 4px;
             padding: 1em;
             overflow: scroll;
@@ -500,6 +500,7 @@ input, textarea {
         border-radius: 4px;
         max-width: $max-content-width - 40;
         max-width: 100%;
+        border: 1px solid rgba(0, 0, 0, .1);
         & + em,  & + strong {
             display: block;
             font-weight: normal;
