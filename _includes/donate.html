@@ -1,7 +1,7 @@
 {% if page.date %}
 <div class="post-donate-wrap">
     <div class="post-donate" id="donate">
-        <p>如果觉得这篇文章对您有用, 可通过以下方式随意打赏.</p>
+        <p>如果这篇文章对您有用，可通过以下方式随意打赏。</p>
         <ul class="donate-buttons">
             <li>
                 <a id="donate-button-wechatpay" href="#">
@@ -20,39 +20,32 @@
             </li>
         </ul>
         <div id="donate-modal-wechatpay" class="modal">
-            <p>您的支持将鼓励作者写作更多实用教程.</p>
+            <p>您的支持将鼓励作者写作更多实用教程。</p>
             <div class="qrcode">
                 <img src="/assets/img/wechat_rmb_2.png" alt="微信打赏2元">
                 <strong><span>&yen;</span>2.00</strong>
             </div>
-            <p class="tips">打开微信, 点击右上角"+", 选择"扫一扫".</p>
+            <p class="tips">打开微信，点击右上角"+"，选择"扫一扫"。</p>
         </div>
         <div id="donate-modal-alipay" class="modal">
-            <p>您的支持将鼓励作者写作更多实用教程.</p>
+            <p>您的支持将鼓励作者写作更多实用教程。</p>
             <div class="qrcode">
                 <img src="/assets/img/alipay_rmb_2.png" alt="支付宝打赏2元">
                 <strong><span>&yen;</span>2.00</strong>
             </div>
-            <p class="tips">打开支付宝, 选择"扫一扫".</p>
+            <p class="tips">打开支付宝，选择"扫一扫"。</p>
         </div>
         <div id="donate-modal-paypal" class="modal">
-            <p>Support me write more articles.</p>
             <p class="paypal-logo">
                 <img src="/assets/img/donate_paypal.svg" alt="PayPal" width="48" height="48">
-                PayPal<br>The safer, easier way to pay online!
+                <strong>PayPal</strong>
             </p>
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="YB3LBHPPHXM4Y">
-                <input type="hidden" name="on0" value="Donate">
-                <select name="os0" id="paypal">
-                    <option value="1 -">1 - $ 1.00 USD</option>
-                    <option value="2 -">2 - $ 2.00 USD</option>
-                    <option value="3 -">3 - $ 5.00 USD</option>
-                </select>
-                <input type="hidden" name="currency_code" value="USD">
-                <input class="paypal-button" type="submit" name="submit" value="Pay">
-            </form>
+            <p>Support me write more articles.</p>
+            <p>
+                <a class="paypal-button" href="https://www.paypal.me/ashung/1"><strong>$ 1.00</strong></a>
+                <a class="paypal-button" href="https://www.paypal.me/ashung/2"><strong>$ 2.00</strong></a>
+                <a class="paypal-button" href="https://www.paypal.me/ashung/3"><strong>$ 3.00</strong></a>
+            </p>
         </div>
     </div>
     <script>

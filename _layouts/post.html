@@ -7,7 +7,7 @@
                 {% if page.author %}<p class="post-author">作者 {{ page.author }}.</p>{% endif %}
                 {% if page.date %}
                 <p class="post-date">
-                    发表于<time class="post-publish" datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%Y年%m月%-d日" }}</time>{% if page.updated %},
+                    发布于<time class="post-publish" datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%Y年%m月%-d日" }}</time>{% if page.updated %},
                     最后修订于<time class="post-updated" datetime="{{ page.updated | date: "%Y-%m-%d" }}">{{ page.updated | date: "%Y年%m月%-d日" }}</time>{% endif %}.
                 </p>
                 {% endif %}
@@ -23,51 +23,23 @@
         </header>
         <div class="post-content-wrap">
             <div class="post-content">
-                {% unless site.host == "127.0.0.1" %}
-                {% if page.draft %}
-                <p>下期预告，敬请关注.</p>
-                {% else %}
                 {{ content }}
-                {% endif %}
-                {% else %}
-                {{ content }}
-                {% endunless %}
             </div>
-            {% if page.date %}
-            <ul class="post-related">
-                {% if page.next %}
-                <li>新篇: <a class="post-newer" href="{{ page.next.url }}">{{ page.next.title }}</a></li>
-                {% endif %}
-                {% if page.previous %}
-                <li>旧作: <a class="post-older" href="{{ page.previous.url }}">{{ page.previous.title }}</a></li>
-                {% endif %}
-            </ul>
+            {% if page.elsewhere %}
+            <div class="post-elsewhere">
+                <p>此文章发布在以下网站，如有问题可前往评论。</p>
+                <ul>
+                    {% for link in page.elsewhere %}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
             {% endif %}
         </div>
     </article>
 
     {% include donate.html %}
 
-    {% assign commentId = page.id | replace: '/stories/', '' %}
-    {% assign articleUrl = site.url | append: page.url %}
-    {% if page.comment == true %}
-    <div class="post-comments-wrap">
-        <div class="post-comments">
-            <div class="ds-thread" data-thread-key="{{ commentId }}" data-title="{{ page.title }}" data-url="{{ articleUrl }}"></div>
-            <script type="text/javascript">
-                var duoshuoQuery = {short_name:"ashung"};
-                (function() {
-                    var ds = document.createElement('script');
-                    ds.type = 'text/javascript';ds.async = true;
-                    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-                    ds.charset = 'UTF-8';
-                    (document.getElementsByTagName('head')[0]
-                    || document.getElementsByTagName('body')[0]).appendChild(ds);
-                })();
-            </script>
-        </div>
-    </div>
-    {% endif %}
 </div>
 
 {% include footer.html %}
