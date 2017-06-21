@@ -1,9 +1,8 @@
-title: AW
-subtitle: Automate Workflow
+title: Design + Code + Sketch
 author: Ashung Hung
 email: ashung.hung@gmail.com
 description: Automate Workflow for UI Design, UI设计自动化工作流程
-keywords: [UI, GUI, Photoshop, Illustrator, Sketch, Automate, Automation, Workflow, Interface Design, UI设计, 界面设计, 自动化, 工作流]
+keywords: [Sketch, Automation, Workflow, Interface Design, UI设计, 界面设计, 自动化, 工作流]
 baseurl: "/"
 url: "http://ashung.github.io"
 permalink: "/stories/:title.html"
