@@ -7,8 +7,7 @@
                 {% if page.author %}<p class="post-author">作者 {{ page.author }}.</p>{% endif %}
                 {% if page.date %}
                 <p class="post-date">
-                    发布于<time class="post-publish" datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%Y年%m月%-d日" }}</time>{% if page.updated %},
-                    最后修订于<time class="post-updated" datetime="{{ page.updated | date: "%Y-%m-%d" }}">{{ page.updated | date: "%Y年%m月%-d日" }}</time>{% endif %}.
+                    发布于<time class="post-publish" datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%Y年%m月%-d日" }}</time>{% if page.updated %}，最后修订于<time class="post-updated" datetime="{{ page.updated | date: "%Y-%m-%d" }}">{{ page.updated | date: "%Y年%m月%-d日" }}</time>{% endif %}。
                 </p>
                 {% endif %}
                 {% assign tagCount = page.tags | size %}

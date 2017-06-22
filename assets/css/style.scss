@@ -125,7 +125,7 @@ input, textarea {
         margin: auto;
         max-width: $max-content-width;
         h1 {
-            font-size: 1.3rem;
+            font-size: 1rem;
             line-height: 2rem;
             font-weight: normal;
             margin: 0;
@@ -368,27 +368,27 @@ input, textarea {
         line-height: 1.273; // 56px
         margin-bottom: .545em; // 24px
     }
+    //h2 {
+    //    font-size: 2em; // 36px
+    //    line-height: 1.556; // 56px
+    //    margin-bottom: .667em; // 24px
+    //}
     h2 {
-        font-size: 2em; // 36px
-        line-height: 1.556; // 56px
-        margin-bottom: .667em; // 24px
-    }
-    h3 {
         font-size: 1.556em; // 28px
         line-height: 1.714; // 48px
         margin-bottom: .857em; // 24px
     }
-    h4 {
+    h3 {
         font-size: 1.333em; // 24px
         line-height: 1.667; // 40px
         margin-bottom: 1em; // 24px
     }
-    h5 {
+    h4 {
         font-size: 1.111em; // 20px
         line-height: 1.600; // 32px
         margin-bottom: 1.2em; // 24px
     }
-    h6 {
+    h5, h6 {
         font-size: 1em; // 18px
         margin-bottom: 1.333em; // 24px
     }
