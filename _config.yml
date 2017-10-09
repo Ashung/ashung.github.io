@@ -9,8 +9,8 @@ permalink: "/stories/:title.html"
 exclude: ["README.md"]
 lang: zh_CN
 timezone: Asia/shanghai
-paginate: 16
-paginate_path: "/stories/page:num/"
+paginate: 100
+paginate_path: "/posts/page:num/"
 gems: [jekyll-paginate]
 markdown: kramdown
 kramdown:

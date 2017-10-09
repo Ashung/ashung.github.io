@@ -9,7 +9,7 @@ tags: Photoshop Android Script
 
 2014 年初夏，我到了一家手机公司做界面设计工作，Android 应用切图成了日常工作，这时手机屏幕比以前更多了，那种重复的操作无趣而且耗时，于是决定自己动手写一些工具。
 
-您可以在 [GUI Automation Toolbox](https://github.com/Ashung/GUI_Automation_Toolbox) 找到文章内的相关资源，但此项目已不在维护。
+您可以在 [GUI Automation Toolbox](https://github.com/Ashung/GUI_Automation_Toolbox) 找到文章内的相关资源，但此项目已不再维护。
 
 ----
 
