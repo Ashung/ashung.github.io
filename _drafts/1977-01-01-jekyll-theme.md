@@ -3,7 +3,8 @@ title:  "Jekyll Theme Design"
 excerpt: A short excerpt ...
 updated: 1977-01-02
 category: jekyll
-MathJax: true
+mathjax: true
+mermaid: true
 comment: false
 tags: theme jekyll template blog
 ---
@@ -23,7 +24,7 @@ tags: theme jekyll template blog
 
 ###### Markdown h6
 
-A simple Jekyll Theme. 
+A simple Jekyll Theme.
 
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
@@ -77,15 +78,15 @@ sudo gem install jekyll
 {% endhighlight %}
 
 
-### Table 
+### Table
 
-Table | Table | Table 
-Table | Table | Table 
+Table | Table | Table
+Table | Table | Table
 
-Table | Table | Table 
-:-- | :--: | --: 
-Table | Table | Table 
-Table | Table | Table 
+Table | Table | Table
+:-- | :--: | --:
+Table | Table | Table
+Table | Table | Table
 
 |---
 | Default aligned | Left aligned | Center aligned | Right aligned
@@ -101,7 +102,7 @@ Table | Table | Table
 
 ### Math Blocks
 
-MathJax is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers. 
+MathJax is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers.
 [MathJax Documentation](http://docs.mathjax.org/en/latest/index.html)
 
 $$
@@ -170,7 +171,7 @@ This is inline style.
 
 ### Blockquotes
 
-> Design is not just what it looks like and feels like, design is how it works. 
+> Design is not just what it looks like and feels like, design is how it works.
 > – Steve Jobs [^Steve_Jobs]
 
 [^Steve_Jobs]: Steve Jobs
@@ -182,3 +183,10 @@ This is inline style.
 [kramdown systax]: http://kramdown.gettalong.org/syntax.html "kramdown systax"
 
 *[HTML]: Hyper Text Markup Language
+
+<div class="mermaid">
+graph LR
+    A --- B
+    B-->C[fa:fa-ban forbidden]
+    B-->D(fa:fa-spinner);
+</div>

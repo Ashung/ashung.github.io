@@ -293,18 +293,6 @@ input, textarea {
     font-family: $sans-serif;
     text-align: center;
     text-transform: uppercase;
-    .status-code {
-        position: relative;
-        z-index: 3;
-        display: block;
-        margin: 0 auto 2rem;
-        width: 8rem;
-        height: 8rem;
-        font-size: 2.5rem;
-        line-height: 8rem;
-        color: #fff;
-        background: #CCC;
-    }
 }
 
 .post {
@@ -460,6 +448,7 @@ input, textarea {
     }
     pre {
         line-height: 1.5;
+        font-size: .889em;
         code {
             display: block;
             background: #f0f0f0;
@@ -553,7 +542,6 @@ input, textarea {
 }
 
 .highlight {
-    font-size: .889em;
     margin-bottom: 1.5em;
     word-wrap: normal;
     word-break: normal;
@@ -766,150 +754,29 @@ input, textarea {
         -webkit-font-smoothing: antialiased;
     }
 }
-//
-//.post-comments {
-//    #ds-thread {
-//        padding-top: 1rem;
-//        #ds-reset {
-//            font: 1rem/#{$base-line-height} $serif;
-//            color: $primary-text-color;
-//            a:link, a:visited {
-//                color: $primary-text-color;
-//            }
-//            sub {
-//                font-size: .875em;
-//                vertical-align: sub;
-//            }
-//            sup {
-//                font-size: .875em;
-//                vertical-align: super;
-//            }
-//            .ds-meta, .ds-login-buttons {
-//                display: none;
-//            }
-//            .ds-comments-info {
-//                margin: 0 0 1em;
-//                padding: 0;
-//                font-size: 1rem;
-//                .ds-comments-tabs {
-//                    padding: 0 0 .5rem;
-//                    border-bottom: 2px solid $red-color;
-//                }
-//                li.ds-tab {
-//                    display: block;
-//                    font-size: 1rem;
-//                    margin: 0;
-//                    a.ds-current {
-//                        border: 0;
-//                        padding: 0;
-//                        border-radius: 0;
-//                        text-shadow: none;
-//                        background: transparent;
-//                        .ds-highlight {
-//                            margin: 0;
-//                            color: $primary-text-color !important;
-//                        }
-//                    }
-//                }
-//                .ds-sort {
-//                    display: none;
-//                }
-//            }
-//            .ds-comments {
-//                border: 0;
-//                li.ds-post {
-//                    border: 0;
-//                    margin: 1rem 0;
-//                    .ds-post-self {
-//                        border: 0;
-//                        padding: 0;
-//                        .ds-avatar {
-//                            box-shadow: none;
-//                            border-radius: 25px;
-//                            img {
-//                                box-shadow: none;
-//                                border-radius: 25px;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            .ds-comment-header {
-//                margin-bottom: .5rem;
-//                padding: 0;
-//            }
-//            .ds-comment-body {
-//                p {
-//                    margin: 0 0 .5rem;
-//                    font: 1rem/#{$base-line-height} $serif;
-//                }
-//                code {
-//                    display: inline;
-//                    font-size: 1em;
-//                    font-family: $monospace;
-//                    margin: 0;
-//                    padding: 0 .5em;
-//                    background-color: transparent;
-//                    border: 0;
-//                    border-radius: 0;
-//                    color: $secondary-text-color;
-//                }
-//            }
-//            a.ds-comment-context,
-//            a.ds-comment-context:link,
-//            a.ds-comment-context:visited,
-//            a.ds-comment-context:hover,
-//            a.ds-comment-context:active {
-//                margin: 0;
-//                color: $secondary-text-color;
-//            }
-//            .ds-user-name {
-//                font-size: .875em;
-//            }
-//            .ds-comment-footer {
-//                line-height: inherit;
-//                .ds-time {
-//                    font-size: .875em;
-//                    color: $secondary-text-color;
-//                    margin-right: 2em;
-//                }
-//            }
-//            .ds-comment-actions {
-//                padding-bottom: 1rem;
-//                border-bottom: 1px solid $hair-line-color;
-//                a, a:link, a:visited {
-//                    font-size: .875em;
-//                    color: $secondary-text-color;
-//                }
-//            }
-//            .ds-toolbar {
-//                display: none;
-//            }
-//            .ds-replybox {
-//                margin: 0;
-//                .ds-avatar {
-//                    box-shadow: none;
-//                    border-radius: 25px;
-//                    img {
-//                        box-shadow: none;
-//                        border-radius: 25px;
-//                    }
-//                }
-//            }
-//            .ds-textarea-wrapper {
-//                textarea {
-//                    font: 1rem/#{$base-line-height} $serif;
-//                }
-//            }
-//            .ds-sync {
-//                display: none;
-//            }
-//            #ds-bubble {
-//                display: none;
-//            }
-//            .ds-highlight {
-//                color: $secondary-text-color !important;
-//            }
-//        }
-//    }
-//}
+
+// mermaid
+.language-mermaid, .mermaid {
+    background: $background-color !important;
+    padding: 0 !important;
+    .node rect, .node circle, .node ellipse, .node polygon, .cluster rect,
+    .labelBox, rect.actor, .loopLine {
+        fill: #FFF !important;
+        stroke: #444 !important;
+        stroke-width: 2 !important;
+    }
+    .edgePath .path, .cluster rect, .messageLine0, .messageLine1, .actor {
+        stroke-width: 2;
+    }
+    span.edgeLabel {
+        color: #666;
+        background: $background-color;
+    }
+    .cluster text {
+        padding-top: 10px;
+    }
+    .noteText {
+        color: $secondary-text-color;
+        font-family: $serif;
+    }
+}

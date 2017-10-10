@@ -32,5 +32,13 @@
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 {% endif %}
 
+{% if page.mermaid %}
+<script src="/assets/js/mermaid.min.js"></script>
+<script>
+mermaid.initialize({startOnLoad:true});
+mermaid.init(undefined, ".language-mermaid");
+</script>
+{% endif %}
+
 </body>
 </html>

@@ -1,11 +1,36 @@
 ---
-title: Sketch 开放格式
-excerpt: 在 Git 中使用 Sketch 开放格式。
-updated: 
+title: Sketch 开放格式及其应用
+excerpt: 在实际工作中使用 Sketch 开放格式。
+updated:
+mermaid: true
 tags: Sketch Git
 ---
 
 
+
+## zip 与 unzip 命令
+
+查看 Sketch 文件内部的文件结构。
+
+```bash
+unzip -v file.sketch
+```
+
+查看或导出 Sketch 文件内部的某一文件。
+
+```bash
+unzip -p file.sketch document.json
+unzip -p file.sketch document.json | python -m json.tool
+```
+
+```bash
+unzip -p file.sketch document.json > document.json
+unzip -p file.sketch document.json | python -m json.tool > document.json
+```
+
+
+
+Shell 解压和打包 Sketch 文件，
 
 ```shell
 #!/usr/bin/env bash
@@ -31,7 +56,7 @@ do
         jsons=($(find . -name "*.json"))
         for ((i=0; i<${#jsons[@]}; i++))
         do
-            python -m json.tool ${jsons[$i]}  > temp && mv temp ${jsons[$i]} 
+            python -m json.tool ${jsons[$i]}  > temp && mv temp ${jsons[$i]}
         done
     fi
 
@@ -53,6 +78,9 @@ done
 
 git hook `pre-commit`
 
-```shell
-
+```mermaid
+graph LR
+    A --- B
+    B-->C[fa:fa-ban forbidden]
+    B-->D(fa:fa-spinner);
 ```
