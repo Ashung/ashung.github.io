@@ -48,7 +48,7 @@ tags: Photoshop Android Script
 ### 图像压缩与格式转换
 
 - [ImageOptim](https://imageoptim.com/) 图像压缩 (M)，[imagemin](https://github.com/imagemin/imagemin-app) (M W L)
-- 有损 PNG 压缩 [Pngyu](http://nukesaq88.github.io/Pngyu/)、 [ImageAlpha](https://pngmini.com/)
+- 有损 PNG 压缩 [Pngyu](http://nukesaq88.github.io/Pngyu/)
 - [XnConvert](http://www.xnview.com/en/xnconvert/) 图像格式转换 (M W L)
 - [HandBrake](https://handbrake.fr/) 视频转码、视频压缩 (M W L)
 
@@ -90,29 +90,30 @@ tags: Photoshop Android Script
 
 ## 界面设计软件自动化编程
 
-### Adobe 软件脚本编程
-
-- [Photoshop Scripting](http://www.adobe.com/devnet/photoshop/scripting.html) Photoshop 脚本编程
-- [Illustrator Scripting](http://www.adobe.com/devnet/illustrator/scripting.html) Illustrator 脚本编程
-- [ScriptUI for dummies](http://www.kahrel.plus.com/indesign/scriptui.html)  by Peter Kahrel. ScriptUI 教程.
-- [xtools 2.2](http://sourceforge.net/projects/ps-scripts/files/xtools/v2.2/)  Photoshop 脚本开发工具
-- [Creative Cloud Extension Builder for Brackets](http://davidderaedt.github.io/CC-Extension-Builder-for-Brackets/)  Brackets插件, 非官方的扩展开发工具
-- [HTML panal 系列教程](http://www.davidebarranca.com/category/code/html-panels/) by Davide Barranca
-
 ### Sketch 插件开发
 
 - [Sketch Developer](http://developer.sketchapp.com/)  官方插件开发文档
-- [Sketch Plugin Directory](https://github.com/sketchplugins/plugin-directory)  官方插件目录, 收集各种托管在 GitHub 的开源 Sketch 插件
 - [Sketch Headers](https://github.com/abynim/Sketch-Headers) Headers from Sketch app exported using class-dump
+- [Sketch Plugin Directory](https://github.com/sketchplugins/plugin-directory)  官方插件目录, 收集各种托管在 GitHub 的开源 Sketch 插件
+- [sketchplugins.com](http://sketchplugins.com/) Sketch 官方开发者论坛
+
+### Adobe 软件脚本编程
+
+- Photoshop 脚本编程 [Photoshop Scripting 官方文档](http://www.adobe.com/devnet/photoshop/scripting.html), [xtools 2.2](http://sourceforge.net/projects/ps-scripts/files/xtools/v2.2/)  Photoshop 脚本开发工具
+- Illustrator 脚本编程 [Illustrator Scripting 官方文档](http://www.adobe.com/devnet/illustrator/scripting.html)
+- After Effects 脚本编程 [aescripts + aeplugins](https://aescripts.com/), [After Effects Scripting Guide](http://docs.aenhancers.com/)
+- [ScriptUI for dummies](http://www.kahrel.plus.com/indesign/scriptui.html)  by Peter Kahrel. ScriptUI 教程.
+- [Creative Cloud Extension Builder for Brackets](http://davidderaedt.github.io/CC-Extension-Builder-for-Brackets/)  Brackets插件, 非官方的扩展开发工具
+- [HTML panal 系列教程](http://www.davidebarranca.com/category/code/html-panels/) by Davide Barranca
+
+
 
 ## 系统自动化编程
 
 ### Shell 编程
 
 - [Shell Scripting Primer](https://developer.apple.com/library/mac/documentation/OpenSource/Conceptual/ShellScripting/shell_scripts/shell_scripts.html) by Apple
-- [Linux Shell Scripting Tutorial](https://bash.cyberciti.biz/guide/Main_Page)
-- [Unix Shell](http://www.tutorialspoint.com/unix/unix-shell.htm)
-- [Advanced Bash-Scripting Guide - An in-depth exploration of the art of shell scripting](http://tldp.org/LDP/abs/html/) by Mendel Cooper
+- https://devhints.io/bash
 
 
 > 括号内的 M 表示改软件可在 macOS 上运行, W 表示 Windows, 而 L 表示 Linux.
