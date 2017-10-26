@@ -1,12 +1,12 @@
 ---
-title: Sketch 开放格式及其应用
+title: （WIP）Sketch 开放格式及其应用
 excerpt: 在实际工作中使用 Sketch 开放格式。
 updated:
 mermaid: true
 tags: Sketch Git
 ---
 
-
+# Sketch 开放格式及其应用
 
 ## zip 与 unzip 命令
 
@@ -28,7 +28,11 @@ unzip -p file.sketch document.json > document.json
 unzip -p file.sketch document.json | python -m json.tool > document.json
 ```
 
+## Sketch 文档的版本兼容性
 
+## 文件图片压缩
+
+## 在 Git 中使用原始的 JSON
 
 Shell 解压和打包 Sketch 文件，
 
@@ -78,9 +82,3 @@ done
 
 git hook `pre-commit`
 
-```mermaid
-graph LR
-    A --- B
-    B-->C[fa:fa-ban forbidden]
-    B-->D(fa:fa-spinner);
-```

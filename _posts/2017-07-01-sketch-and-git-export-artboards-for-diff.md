@@ -1,6 +1,6 @@
 ---
 title: Sketch + Git — 创造直观的修改记录
-excerpt: 制作插件为 Sketch 文件生成用于比对的文件。
+excerpt: 制作插件为 Sketch 文件生成组件预览图，用于 Github 或 GitLab 上显示文件修改比对。
 updated: 2017-07-03
 tags: Sketch Git Sketch-Plugin
 ---
