@@ -28,6 +28,14 @@ unzip -p file.sketch document.json > document.json
 unzip -p file.sketch document.json | python -m json.tool > document.json
 ```
 
+```
+unzip -p file.sketch document.json
+```
+
+
+
+
+
 ## Sketch 文档的版本兼容性
 
 ## 文件图片压缩

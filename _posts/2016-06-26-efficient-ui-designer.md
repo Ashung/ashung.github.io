@@ -1,11 +1,9 @@
 ---
-title: （WIP）UI 设计师
+title: （WIP）成为高效的 UI 设计师
 excerpt: 资源。
 updated: 2017-06-22 13:23
 tags: Photoshop Android Script
 ---
-
-# 未完成
 
 ## 团队
 
@@ -22,6 +20,8 @@ tags: Photoshop Android Script
 
 生成网页形式的文档，适用于内部设计规范，技术文档等等。需要基础命令行操作知识，网站部署知识，以及熟悉 Markdown 语法。
 
+https://www.staticgen.com/
+
 #### 静态站点生成器
 
 - [Jekyll](http://jekyllrb.com/) Github Pages 所使用的静态网站生成程序。
@@ -32,30 +32,11 @@ tags: Photoshop Android Script
 - [Raneto](http://raneto.com/)
 - [Kirby](https://getkirby.com/)
 
-## 设计师工具
+## 命令行工具与 Shell 编程
 
-### Mac
+### 终端增强
 
-- [Quick Look plugins](https://github.com/sindresorhus/quick-look-plugins)
-- oh-my-zsh
-
-### 效率
-
-- [SourceTree](https://www.sourcetreeapp.com/) Git 客户端界面工具。 (M W)
-- [Iconjar](http://geticonjar.com/) 图标及图标字体管理软件。(M)
-- [svgsus](http://www.svgs.us/) SVG 文件管理程序。(M)
-
-### 图像压缩与格式转换
-
-- [ImageOptim](https://imageoptim.com/) 图像压缩 (M)，[imagemin](https://github.com/imagemin/imagemin-app) (M W L)
-- 有损 PNG 压缩 [Pngyu](http://nukesaq88.github.io/Pngyu/)
-- [XnConvert](http://www.xnview.com/en/xnconvert/) 图像格式转换 (M W L)
-- [HandBrake](https://handbrake.fr/) 视频转码、视频压缩 (M W L)
-
-### 开发相关
-
-- [Atom](https://atom.io/) 编辑器
-- [Dash](https://kapeli.com/dash)  (M), [Zeal](https://zealdocs.org/) (W) 编程语言参考文档。
+oh-my-zsh
 
 ### 命令行工具
 
@@ -67,15 +48,60 @@ tags: Photoshop Android Script
 - [pngquant](https://pngquant.org/) 有损 PNG 压缩
 - [FFmpeg](http://ffmpeg.org/) 视频工具
 - [Gifsicle](http://www.lcdf.org/gifsicle/) Gif 工具
-- [SVGO](https://github.com/svg/svgo) SVG 优化工具 (Node.js)
-- [CairoSVG](http://cairosvg.org/) SVG 转 PNG, PDF, PostScript 工具 (Python)
-- [ImageMagick](http://www.imagemagick.org/), [GraphicsMagick](http://www.graphicsmagick.org/)  图片处理与格式转换
-- [AutoTrace](http://autotrace.sourceforge.net/) 位图转矢量, [Potrace](http://potrace.sourceforge.net) 位图转矢量, 仅支持单色
+- [SVGO](https://github.com/svg/svgo) SVG 优化工具
+- [CairoSVG](http://cairosvg.org/) SVG 转 PNG, PDF, PostScript 工具
+- [ImageMagick](http://www.imagemagick.org/) 图片处理与格式转换
+- [AutoTrace](http://autotrace.sourceforge.net/) 位图转矢量
+- [Potrace](http://potrace.sourceforge.net) 位图转矢量, 仅支持单色
 
 
-
-- [Go2Shell](http://zipzapmac.com/Go2Shell)
 - [Command Pad](https://github.com/supnate/command-pad)
+
+- ### 
+
+  - [ImageOptim](https://imageoptim.com/) 图像压缩 (M)
+  - [XnConvert](http://www.xnview.com/en/xnconvert/) 图像格式转换 (M W L)
+  - [HandBrake](https://handbrake.fr/) 视频转码、视频压缩 (M W L)
+
+### Shell 编程
+
+- [Shell Scripting Primer](https://developer.apple.com/library/mac/documentation/OpenSource/Conceptual/ShellScripting/shell_scripts/shell_scripts.html) by Apple
+- https://devhints.io/bash
+
+
+
+## 界面设计软件自动化编程
+
+### Sketch 插件开发
+
+- [Sketch Developer](http://developer.sketchapp.com/)  官方插件开发文档
+- [Sketch Headers](https://github.com/abynim/Sketch-Headers) Headers from Sketch app exported using class-dump
+- [Sketch Plugin Directory](https://github.com/sketchplugins/plugin-directory)  官方插件目录, 收集各种托管在 GitHub 的开源 Sketch 插件
+- [sketchplugins.com](http://sketchplugins.com/) Sketch 官方开发者论坛
+
+
+
+https://github.com/turbobabr/Sketch-Plugins-Cookbook
+
+https://medium.com/sketch-app-sources/sketch-plugin-snippets-for-plugin-developers-e9e1d2ab6827
+
+http://qiita.com/littlebusters/items/b919693f4f3d4c183ce0
+
+
+
+
+
+### Adobe 软件脚本编程
+
+- Photoshop 脚本编程 [Photoshop Scripting 官方文档](http://www.adobe.com/devnet/photoshop/scripting.html), [xtools 2.2](http://sourceforge.net/projects/ps-scripts/files/xtools/v2.2/)  Photoshop 脚本开发工具
+- Illustrator 脚本编程 [Illustrator Scripting 官方文档](http://www.adobe.com/devnet/illustrator/scripting.html)
+- After Effects 脚本编程 [aescripts + aeplugins](https://aescripts.com/), [After Effects Scripting Guide](http://docs.aenhancers.com/)
+- [ScriptUI for dummies](http://www.kahrel.plus.com/indesign/scriptui.html)  by Peter Kahrel. ScriptUI 教程.
+- [Creative Cloud Extension Builder for Brackets](http://davidderaedt.github.io/CC-Extension-Builder-for-Brackets/)  Brackets插件, 非官方的扩展开发工具
+- [HTML panal 系列教程](http://www.davidebarranca.com/category/code/html-panels/) by Davide Barranca
+
+
+> 括号内的 M 表示改软件可在 macOS 上运行, W 表示 Windows, 而 L 表示 Linux.
 
 ### 包、模块
 
@@ -88,32 +114,3 @@ tags: Photoshop Android Script
 - [imagetracerjs](https://github.com/jankovicsandras/imagetracerjs) 位图转矢量 (Node.js)
 - [SVG font dumper](https://github.com/fontello/svg-font-dump) SVG 字体转为多个 SVG 图片 (Node.js)
 
-## 界面设计软件自动化编程
-
-### Sketch 插件开发
-
-- [Sketch Developer](http://developer.sketchapp.com/)  官方插件开发文档
-- [Sketch Headers](https://github.com/abynim/Sketch-Headers) Headers from Sketch app exported using class-dump
-- [Sketch Plugin Directory](https://github.com/sketchplugins/plugin-directory)  官方插件目录, 收集各种托管在 GitHub 的开源 Sketch 插件
-- [sketchplugins.com](http://sketchplugins.com/) Sketch 官方开发者论坛
-
-### Adobe 软件脚本编程
-
-- Photoshop 脚本编程 [Photoshop Scripting 官方文档](http://www.adobe.com/devnet/photoshop/scripting.html), [xtools 2.2](http://sourceforge.net/projects/ps-scripts/files/xtools/v2.2/)  Photoshop 脚本开发工具
-- Illustrator 脚本编程 [Illustrator Scripting 官方文档](http://www.adobe.com/devnet/illustrator/scripting.html)
-- After Effects 脚本编程 [aescripts + aeplugins](https://aescripts.com/), [After Effects Scripting Guide](http://docs.aenhancers.com/)
-- [ScriptUI for dummies](http://www.kahrel.plus.com/indesign/scriptui.html)  by Peter Kahrel. ScriptUI 教程.
-- [Creative Cloud Extension Builder for Brackets](http://davidderaedt.github.io/CC-Extension-Builder-for-Brackets/)  Brackets插件, 非官方的扩展开发工具
-- [HTML panal 系列教程](http://www.davidebarranca.com/category/code/html-panels/) by Davide Barranca
-
-
-
-## 系统自动化编程
-
-### Shell 编程
-
-- [Shell Scripting Primer](https://developer.apple.com/library/mac/documentation/OpenSource/Conceptual/ShellScripting/shell_scripts/shell_scripts.html) by Apple
-- https://devhints.io/bash
-
-
-> 括号内的 M 表示改软件可在 macOS 上运行, W 表示 Windows, 而 L 表示 Linux.
