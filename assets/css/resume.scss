@@ -1,0 +1,107 @@
+---
+---
+$header-font: sans-serif;
+$body-font: "Merriweather", "Noto Serif CJK SC", serif;
+
+$header-text-size: 20px;
+$body-text-size: 16px;
+$header-text-size-print: 15pt;
+$body-text-size-print: 10pt;
+
+$primary-text-color: #000;
+$secondary-text-color: #999;
+$link-text-color: #F60;
+
+@mixin icon-phone {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA0YzAgOS4zNiA3LjYgMTYuOTUgMTcgMTdoMXYtNmgtNWwtMi41IDIuNWExNS4xIDE1LjEgMCAwIDEtNy03TDkgOFYzSDN2MXoiLz48L3N2Zz4=");
+}
+
+@mixin icon-mail {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMiA0aDIwdjE2SDJWNHptMiAydjEyaDE2VjZINHptMCAwbDggNiA4LTZ2Mi41bC04IDYtOC02VjZ6Ii8+PC9zdmc+");
+}
+
+
+@mixin icon-location {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNi4wNSAxMi43YTcgNyAwIDEgMSAxMS45Ni0wLjFsLTYgMTAuNC01Ljk2LTEwLjN6TTEyIDExLjVhMi41IDIuNSAwIDEgMCAwLTUgMi41IDIuNSAwIDAgMCAwIDV6Ii8+PC9zdmc+");
+}
+
+
+@font-face {
+    font-family: Merriweather;
+    font-weight: normal;
+    src: local('Merriweather Light'), url(../font/Merriweather-Light.ttf) format('truetype');
+}
+
+body, p, ul, h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 100px;
+    font: #{$body-text-size}/1.6 $body-font;
+}
+ul {
+    list-style: none;
+}
+
+h3 {
+    margin: 1em 0;
+    font: bold #{$header-text-size}/1.6 $body-font;
+}
+
+header {
+    li {
+        padding-left: 24px;
+        background-repeat: no-repeat;
+        background-position: 0 50%;
+
+        &.ic-mail {
+            @include icon-mail;
+        }
+        &.ic-phone {
+            @include icon-phone;
+        }
+        &.ic-location {
+            @include icon-location;
+        }
+    }
+}
+
+.list {
+    li {
+        padding-left: 0;
+        list-style-position: inside;
+        list-style-type: disc;
+    }
+    & + .list {
+        margin-top: 0.5em;
+        padding-top: 0.5em;
+        border-top: 1px solid #eee;
+    }
+    .date {
+        color: $secondary-text-color;
+    }
+}
+
+.summary {
+    p {
+        text-indent: 2em;
+    }
+}
+
+
+
+
+
+
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        font: #{$body-text-size-print}/1.5 $body-font;
+    }
+    a::after {
+        content: " (" attr(href) ")";
+        color: $secondary-text-color;
+    }
+}

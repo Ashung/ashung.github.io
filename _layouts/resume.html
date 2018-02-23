@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Resume</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
+<link rel="stylesheet" href="{{ "assets/css/resume.css" | prepend: site.baseurl }}">
+</head>
+<body>
+
+<header>
+    <h1>{{ page.profile.name }}</h1>
+    <h2>{{ page.profile.title }}</h2>
+    <ul>
+        <li class="ic-phone">{{ page.profile.phone }}</li>
+        <li class="ic-mail">{{ page.profile.email }}</li>
+        <li class="ic-location">{{ page.profile.location }}</li>
+    </ul>
+</header>
+
+<section class="summary">
+<h3>summary</h3>
+{{ content }}
+</section>
+
+<section class="experience">
+<h3>XX</h3>
+{% for item in page.experience %}
+<div class="list">
+    <p class="date">{{ item.from }} - {{ item.to }}</p>
+    <p>{{ item.title }}</p>
+    <p>{{ item.company }} {% if item.url %}<a href="{{ item.url }}">x</a>{% endif %}</p>
+    {% if item.content %}
+    <ul>
+    {% for work in item.content %}
+        <li>{{ work }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endfor %}
+</section>
+
+<section class="list education">
+<h3>EEE</h3>
+{% for item in page.education %}
+<div class="list">
+    <p class="date">{{ item.from }} - {{ item.to }}</p>
+    <p>{{ item.title }}</p>
+    <p>{{ item.school }}</p>
+</div>
+{% endfor %}
+</section>
+
+</body>
+</html>
