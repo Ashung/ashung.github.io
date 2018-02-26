@@ -3,9 +3,11 @@
 $header-font: sans-serif;
 $body-font: "Merriweather", "Noto Serif CJK SC", serif;
 
+$title-text-size: 28px;
 $header-text-size: 20px;
 $body-text-size: 16px;
-$header-text-size-print: 15pt;
+$title-text-size-print: 15pt;
+$header-text-size-print: 12pt;
 $body-text-size-print: 10pt;
 
 $primary-text-color: #000;
@@ -40,34 +42,73 @@ body {
     margin: 100px;
     font: #{$body-text-size}/1.6 $body-font;
 }
-ul {
-    list-style: none;
+// ul {
+//     padding-left: 1.5em;
+// }
+a:link, a:visited {
+    color: $link-text-color;
+    text-decoration: none;
+    border-bottom: 1px dotted;
+}
+a:hover, a:active {
+    border-bottom-style: solid;
 }
 
 h3 {
-    margin: 1em 0;
+    margin: 0.5em 0;
     font: bold #{$header-text-size}/1.6 $body-font;
 }
 
-header {
-    li {
-        padding-left: 24px;
-        background-repeat: no-repeat;
-        background-position: 0 50%;
-
-        &.ic-mail {
-            @include icon-mail;
+.profile {
+    overflow: hidden;
+    padding-bottom: 1em;
+    border-bottom: 2px solid #eee;
+    .name {
+        h1, h2 {
+            font-size: $title-text-size;
+            display: inline;
         }
-        &.ic-phone {
-            @include icon-phone;
-        }
-        &.ic-location {
-            @include icon-location;
+        h2 {
+            font-size: $title-text-size - 4px;
+            font-weight: normal;
+            color: $secondary-text-color;
+            margin-left: 0.5em;
         }
     }
+    .contacts {
+        padding: 0;
+        li {
+            float: left;
+            // width: 200px;
+            list-style: none;
+            margin-right: 3em;
+            padding-left: 20px;
+            background-repeat: no-repeat;
+            background-position: 0 50%;
+
+            &.ic-mail {
+                @include icon-mail;
+            }
+            &.ic-phone {
+                @include icon-phone;
+            }
+            &.ic-location {
+                @include icon-location;
+            }
+        }
+    }
+
 }
 
 .list {
+    padding-left: 12em;
+    .date {
+        float: left;
+        width: 12em;
+        margin-left: -12em;
+        color: $secondary-text-color;
+        letter-spacing: -0.05em;
+    }
     li {
         padding-left: 0;
         list-style-position: inside;
@@ -78,14 +119,18 @@ header {
         padding-top: 0.5em;
         border-top: 1px solid #eee;
     }
-    .date {
-        color: $secondary-text-color;
+    .content {
+        margin-top: 1em;
+    }
+    .title {
+        margin-left: 1em;
     }
 }
 
 .summary {
     p {
         text-indent: 2em;
+        margin-bottom: 1ex;
     }
 }
 
@@ -99,6 +144,10 @@ header {
         margin: 0;
         padding: 0;
         font: #{$body-text-size-print}/1.5 $body-font;
+    }
+    a:link, a:visited {
+        color: inherit;
+        border: none;
     }
     a::after {
         content: " (" attr(href) ")";

@@ -8,49 +8,68 @@
 </head>
 <body>
 
-<header>
-    <h1>{{ page.profile.name }}</h1>
-    <h2>{{ page.profile.title }}</h2>
-    <ul>
-        <li class="ic-phone">{{ page.profile.phone }}</li>
-        <li class="ic-mail">{{ page.profile.email }}</li>
-        <li class="ic-location">{{ page.profile.location }}</li>
+<!-- <header class="profile">
+    <div class="name">
+        <h1>{{ page.profile.name }}</h1>
+        <h2>{{ page.profile.title }}</h2>
+    </div>
+    <ul class="contacts">
+        <li class="ic-phone">电话: {{ page.profile.phone }}</li>
+        <li class="ic-mail">邮箱: {{ page.profile.email }}</li>
+        <li class="ic-wechat">微信: {{ page.profile.wechat }}</li>
     </ul>
-</header>
+</header> -->
 
-<section class="summary">
-<h3>summary</h3>
+<!--
+<li class="ic-location">{{ page.profile.location }}</li> -->
+
+<!-- <section class="summary">
+<h3>个人简介</h3>
 {{ content }}
-</section>
+</section> -->
 
-<section class="experience">
-<h3>XX</h3>
+<!-- <section class="design">
+<h3>设计作品</h3>
+<ul>
+{% for item in page.design %}
+    <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+{% endfor %}
+</ul>
+</section> -->
+
+<!-- <section class="design">
+<h3>开源项目</h3>
+<ul>
+{% for item in page.code %}
+    <li><a href="{{ item.url }}">{{ item.title }}</a> {{ item.desction }}</li>
+{% endfor %}
+</ul>
+</section> -->
+
+<!-- <section class="experience">
+<h3>工作经历</h3>
 {% for item in page.experience %}
 <div class="list">
     <p class="date">{{ item.from }} - {{ item.to }}</p>
-    <p>{{ item.title }}</p>
-    <p>{{ item.company }} {% if item.url %}<a href="{{ item.url }}">x</a>{% endif %}</p>
+    <p>{{ item.company }} <span class="title">{{ item.title }}</span></p>
     {% if item.content %}
-    <ul>
-    {% for work in item.content %}
-        <li>{{ work }}</li>
-    {% endfor %}
-    </ul>
+    <div class="content">
+        {{ item.content }}
+    </div>
     {% endif %}
 </div>
 {% endfor %}
-</section>
+</section> -->
 
-<section class="list education">
-<h3>EEE</h3>
+<!-- <section class="education">
+<h3>教育经历</h3>
 {% for item in page.education %}
 <div class="list">
     <p class="date">{{ item.from }} - {{ item.to }}</p>
-    <p>{{ item.title }}</p>
-    <p>{{ item.school }}</p>
+    <p>{{ item.school }} <span class="title">{{ item.title }}</span></p>
 </div>
 {% endfor %}
-</section>
+</section> -->
 
 </body>
 </html>
