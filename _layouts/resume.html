@@ -20,9 +20,6 @@
     </ul>
 </header> -->
 
-<!--
-<li class="ic-location">{{ page.profile.location }}</li> -->
-
 <!-- <section class="summary">
 <h3>个人简介</h3>
 {{ content }}
@@ -46,12 +43,12 @@
 </ul>
 </section> -->
 
-<!-- <section class="experience">
+<section class="experience">
 <h3>工作经历</h3>
 {% for item in page.experience %}
 <div class="list">
     <p class="date">{{ item.from }} - {{ item.to }}</p>
-    <p>{{ item.company }} <span class="title">{{ item.title }}</span></p>
+    <p><strong>{{ item.company }}</strong> <span class="title">{{ item.title }}</span></p>
     {% if item.content %}
     <div class="content">
         {{ item.content }}
@@ -59,7 +56,7 @@
     {% endif %}
 </div>
 {% endfor %}
-</section> -->
+</section>
 
 <!-- <section class="education">
 <h3>教育经历</h3>

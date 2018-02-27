@@ -1,9 +1,9 @@
 ---
 layout: resume
 profile:
-    name: Name
-    title: Title
-    email: e
+    name: 洪斯胜
+    title: UI 设计师
+    email: ashung.hung@foxmail.com
     phone: 13666092891
     wechat: Ashung
     location: 深圳
@@ -40,26 +40,40 @@ code:
 
 experience:
     -
-        title: Title
-        company: company company
+        title: 高级 UI 设计师
+        company: 奇酷软件(深圳)有限公司
         content: |-
-            <p>blabab llabab laba balblalba lblaba balblabl bal
+            <p>(360 OS)blabab llabab laba balblalba lblaba balblabl bal</p>
             <ul>
-            <li>Add Remove / Select Transparency Layers.</li>
-            <li>Add Pick Color and Copy the HEX Code.</li>
-            <li>Fix #51 Sketch Runner can't show symbol menu.</li>
-            <li>Fix auto slice bugs.</li>
-            <li>Fix select all instances of imported symbol bugs.</li>
+            <li>参与 OS 前期设计方向的推导和后期的界面设计，参与桌面应用和主题图标设计；主要负责系统图标规范和设计；负责部分主题市场的主题设计。</li>
+            <li>管理和维护 360OS 内研和对外的定制系统资源，制定相关文档，指导外部手机厂商设计师独立定制系统主题。</li>
+            <li>在团队中推动和指导 Sketch 新设计工具的使用，改善工作流程，及提供 Android 相关的技术指导。</li>
             </ul>
         from: 2015/04
-        to: 2018/04
+        to:
     -
-        title: t
-        company: cc
-        content:
-            - www
-        from: 2015/04
-        to: 2018/04
+        title: 高级 UI 设计师
+        company: 宇龙计算机通信科技(深圳)有限公司
+        content: |-
+            <p>(酷派)</p>
+            <ul>
+            <li>参与 CoolUI 6 设计方向推导和界面设计；主要负责桌面界面设计和迭代；主要负责 CoolUI 5.7 - 6 的默认桌面图标设计。</li>
+            <li>维护和管理系统内置主题资源。</li>
+            </ul>
+        from: 2014/04
+        to: 2015/04
+    -
+        title: UI 设计师
+        company: 深圳朵唯志远科技有限公司
+        content: |-
+            <p>朵唯</p>
+            <ul>
+            <li>负责项目的前期风格探索及提案，包括锁屏、主题图标、小部件和壁纸的设计。</li>
+            <li>负责 Android 系统中内置应用的界面设计。</li>
+            </ul>
+        from: 2013/05
+        to: 2014/04
+
 
 education:
     -
