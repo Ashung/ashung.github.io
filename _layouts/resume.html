@@ -48,7 +48,8 @@
 {% for item in page.experience %}
 <div class="list">
     <p class="date">{{ item.from }} - {{ item.to }}</p>
-    <p><strong>{{ item.company }}</strong> <span class="title">{{ item.title }}</span></p>
+    <p><strong>{{ item.company }}</strong></p>
+    <p>{{ item.title }}</p>
     {% if item.content %}
     <div class="content">
         {{ item.content }}
