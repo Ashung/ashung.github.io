@@ -41,9 +41,7 @@ body {
     margin: 100px;
     font: #{$body-text-size}/1.6 $body-font;
 }
-// ul {
-//     padding-left: 1.5em;
-// }
+
 a:link, a:visited {
     color: $link-text-color;
     text-decoration: none;
@@ -98,18 +96,23 @@ h3 {
 
 }
 
+.design, .codeporject {
+    ul {
+        margin-left: 2em;
+    }
+}
+
 .list {
-    padding-left: 12em;
+    padding-left: 10em;
     .date {
         float: left;
-        width: 12em;
-        margin-left: -12em;
+        width: 10em;
+        margin-left: -10em;
         color: $secondary-text-color;
         letter-spacing: -0.05em;
     }
     li {
         padding-left: 0;
-        list-style-position: inside;
         list-style-type: disc;
     }
     & + .list {
@@ -119,16 +122,23 @@ h3 {
     }
     .content {
         margin-top: 0.5em;
-    }
-    .title {
-        margin-left: 1em;
+        p {
+            text-indent: 2em;
+            margin: 0.5em 0;
+        }
+        ul {
+            margin: 0.5em 0 0.5em 2em;
+        }
     }
 }
 
 .summary {
     p {
         text-indent: 2em;
-        margin-bottom: 1ex;
+        margin: 1ex 0;
+    }
+    ul {
+        margin: 1ex 0 1ex 2em;
     }
 }
 
