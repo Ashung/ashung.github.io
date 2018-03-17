@@ -49,7 +49,7 @@ $link-text-color: $primary-text-color;
 $hair-line-color: rgba(0, 0, 0, .15);
 $hair-line-color-dark: rgba(0, 0, 0, .25);
 $hair-line-color-light: rgba(0, 0, 0, .05);
-$background-color: #fafafa;
+$background-color: #fff;
 $highlight-color: #ffb;
 $white-color: #fff;
 $red-color: #f44336;
@@ -778,5 +778,57 @@ input, textarea {
     .noteText {
         color: $secondary-text-color;
         font-family: $serif;
+    }
+}
+
+
+/////////////////////////////////
+
+$sidebar-width: 300px;
+$sidebar-background: #eee;
+
+
+.section-book {
+    .topbar, .footer {
+        display: none;
+    }
+}
+
+.layout-book {
+    .book-content {
+        margin-left: $sidebar-width;
+        max-width: $max-content-width;
+        .post-header {
+            display: none;
+        }
+        article {
+            padding: 0 1rem;
+        }
+    }
+
+    .book-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: $sidebar-width;
+        box-sizing: border-box;
+        padding: 32px;
+        // border-right: 1px solid;
+        overflow-y: scroll;
+        background: #fff;
+        // font-size: 0.875rem;
+        font-family: $sans-serif;
+        .book-title {
+            margin: 2rem;
+        }
+        .book-menu {
+            ul:first-child > li + li {
+                margin-top: 1rem;
+            }
+            li ul {
+                margin-left: 1rem;
+            }
+        }
     }
 }

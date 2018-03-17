@@ -6,7 +6,7 @@ keywords: [Sketch, Automation, Workflow, Interface Design, UI设计, 界面设�
 baseurl: "/"
 url: "https://ashung.github.io"
 permalink: "/posts/:title.html"
-exclude: ["README.md"]
+exclude: ["README.md", "node_modules/*", "package.json", "toPDF.js"]
 lang: zh_CN
 timezone: Asia/shanghai
 paginate: 100
@@ -22,16 +22,26 @@ defaults:
   -
     scope:
       path: ""
-      type: "posts"
+      type: posts
     values:
-      layout: "post"
+      layout: post
       comment: true
   -
     scope:
       path: ""
-      type: "drafts"
+      type: drafts
     values:
-      layout: "post"
+      layout: post
+  - scope:
+      path: ""
+      type: book
+    values:
+      layout: book
+
+collections:
+  book:
+    output: true
+    permalink: /:collection/:path
 
 sns:
   - title: dribbble
