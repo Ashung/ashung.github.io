@@ -27,7 +27,6 @@ $link-text-color: #09F;
     background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNiAxOWgxNlYzSDJ2MjBsNC00eiIvPjwvc3ZnPg==");
 }
 
-
 @font-face {
     font-family: Merriweather;
     font-weight: normal;
@@ -82,7 +81,6 @@ h3 {
             padding-left: 20px;
             background-repeat: no-repeat;
             background-position: 0 50%;
-
             &.ic-mail {
                 @include icon-mail;
             }
@@ -149,10 +147,22 @@ section {
     }
 }
 
-
-
-
-
+.download {
+    position: absolute;
+    padding: 50px 100px;
+    top: 0;
+    right: 0;
+    font-family: "SF UI Text", Helvetica, Arial, sans-serif;
+    a:link, a:visited {
+        padding: 0.5em;
+        border: 2px solid $link-text-color;
+        border-radius: 4px;
+    }
+    a:hover, a:active {
+        color: #fff;
+        background: $link-text-color;
+    }
+}
 
 @media print {
     body {
@@ -161,11 +171,13 @@ section {
         font: #{$body-text-size-print}/1.5 $body-font;
     }
     a:link, a:visited {
-        color: inherit;
         border: none;
     }
     a::after {
         content: " (" attr(href) ")";
         color: $secondary-text-color;
+    }
+    .download, footer {
+        display: none;
     }
 }
