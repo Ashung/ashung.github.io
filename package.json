@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/Ashung/ashung.github.io#readme",
   "dependencies": {
-    "puppeteer": "^1.1.0"
+    "puppeteer": "^1.1.1"
   }
 }

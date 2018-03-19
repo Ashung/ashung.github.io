@@ -1,5 +1,6 @@
 ---
 ---
+
 $header-font: sans-serif;
 $body-font: "Merriweather", "Noto Serif CJK SC", serif;
 
@@ -12,7 +13,7 @@ $body-text-size-print: 10pt;
 
 $primary-text-color: #000;
 $secondary-text-color: #999;
-$link-text-color: #F60;
+$link-text-color: #09F;
 
 @mixin icon-phone {
     background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA0YzAgOS4zNiA3LjYgMTYuOTUgMTcgMTdoMXYtNmgtNWwtMi41IDIuNWExNS4xIDE1LjEgMCAwIDEtNy03TDkgOFYzSDN2MXoiLz48L3N2Zz4=");
@@ -58,7 +59,7 @@ h3 {
 
 .profile {
     overflow: hidden;
-    padding-bottom: 1em;
+    padding-bottom: 2em;
     border-bottom: 2px solid #eee;
     .name {
         h1, h2 {
@@ -93,12 +94,18 @@ h3 {
             }
         }
     }
+}
 
+section {
+    margin: 2em 0;
 }
 
 .design, .codeporject {
     ul {
         margin-left: 2em;
+    }
+    li {
+        margin-bottom: 0.5em;
     }
 }
 

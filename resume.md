@@ -20,7 +20,7 @@ code:
     -
         title: Automate Sketch
         url: https://github.com/Ashung/Automate-Sketch
-        desction: Sketch 插件集合，旨在让日常工作更高效和弥补一些默认缺少的高级功能。在国外设计师中有较高使用率，并且经常在一些专业文章上被提及，特别是在组件或库相关的文章上。
+        desction: Sketch 插件集合，目的在让日常工作更高效和弥补一些默认缺少的高级功能，同时又不需要为某个特殊功能寻找插件。在国外设计师中有较高使用率，并且经常在一些专业文章上被提及。特别是在组件和库的管理、图层操作和文件整理上，提供了很多非常强大而实用的功能。
     -
         title: Android Res Export
         url: https://github.com/Ashung/Android_Res_Export
@@ -28,15 +28,15 @@ code:
     -
         title: Swatches
         url: https://github.com/Ashung/Sketch_Swatches
-        desction: Sketch 色版插件，集成 Google Material、Apple 之类的不同设计系统和各种专业印刷色版，为设计师提供配色依据。
+        desction: Sketch 色版插件，预置集成 Google Material、Apple 之类的不同设计系统和各种专业印刷色版，为设计师提供配色灵感和依据。
     -
         title: HSL Color Picker
         url: https://github.com/Ashung/HSL_Color_Picker
-        desction: HSL 色彩模式调色版的 Sketch 插件。
+        desction: 提供 HSL 色彩模式调色版的 Sketch 插件。
     -
         title: svg2vectordrawable
         url: https://www.npmjs.com/package/svg2vectordrawable
-        desction: 用于批量将 SVG 文件转为 Android 矢量资源的 Node.js 模块和命令行工具。
+        desction: 用于将 SVG 文件转为 Android 矢量资源的 Node.js 模块，也可作为命令行工具使用。
 
 experience:
     -
@@ -99,17 +99,19 @@ education:
 
 - 最高学历：艺术设计本科
 - 工作年限：10 年
-- 期望职位：高级 UI 设计师 / UI 工程师
+- 期望职位：高级 UI 设计师、UI 开发工程师、DesignOps
 - 期望城市：深圳
 
-经常关注设计趋势和行业动态，精通 Photoshop、Illustrator 和 Sketch 等界面设计软件，不断学习和尝试各种前沿新技术和设计工具，对设计原理、交互理论和计算机科学等知识有较深入的理解。在设计系统搭建和维护、设计流程自动化、提高团队效率方面有独特的见解和丰富经验，乐于分享自己独特的见解和知识。
+经常关注设计趋势和行业动态，精通 Photoshop、Illustrator 和 Sketch 等界面设计软件，对新事物保持好奇心，不断学习和尝试各种前沿新技术和设计工具，对设计原理、交互设计理论和计算机科学等知识也有所了解。在设计系统搭建、设计流程自动化、提高团队效率方面有独特的见解和丰富经验，乐于分享自己的见解和知识。
 
-熟悉 Android / iOS 移动平台应用界面设计和规范。尤其在 Android 平台的系统界面定制及应用设计，资源输出和优化，不同设备的资源适配等方面有丰富经验，能够编写 Android 平台上的 XML 图像资源代码。在 macOS / Windows 等 PC 端或 Electron 等基于浏览器内核的应用界面设计上也所涉及。
+熟悉 Android、iOS 移动平台界面设计和规范。目前在手机公司工作多年，尤其熟悉 Android 平台特性，在系统界面定制，资源输出和优化，多设备适配等方面有丰富经验，能够编写 Android 平台上的基于 XML 的图像资源和布局代码。这种优势
 
-熟悉 Web 端界面设计，擅长应用程序型、工具效率型、后台管理界面设计等。熟悉 HTML、CSS / SCSS、JavasSript 编程等前端技术和自动构建流程，有大型网站 CSS 开发经验。
+在 macOS、Windows 等桌面端或 Electron 等基于浏览器引擎的应用界面设计上也所涉及。
 
-熟悉 Sketch 及其插件开发，已发布多个开源插件，并且在业内拥有较好的反响。在实际工作中，能够处理团队中遇到的各种疑难杂症，能够为日常工作或特殊业务开发相应的 Sketch 插件，从而提高团队整体工作效率。在日常工作中，也会使用 Node.js、Bash Shell、Python 等编程语言开发设计工具或自动化处理设计工作。
+熟悉 Web 端界面设计，擅长应用程序、工具效率、后台管理等类型的界面设计等。熟悉 HTML、CSS (SCSS, LESS)、JavasScript 编程等前端技术和 gulp 等自动构建程序，有大型网站 CSS 开发经验。
 
-熟悉 Git 版本控制系统、GitHub / GitLab 等程序及其相关工作方式和自动化流程。
+熟悉 Sketch 及其插件开发，已发布多个开源插件，并且在业内拥有较好的反响。在实际工作中，能够处理团队中遇到的各种疑难杂症，能够为日常工作或特殊业务开发相应的 Sketch 插件。在日常工作中，也会使用 Node.js、Bash Shell、Python 等编程语言开发设计工具或自动化处理设计工作。，可以帮助改进工作流程，提高团队整体效率，特别是在设计和维护大型系统或
+
+熟悉 Git、SVN 等版本控制系统以及 GitHub、GitLab 等程序的工作方式和自动化流程。
 
 http://daxue.qq.com/content/special/id/82
