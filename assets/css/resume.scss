@@ -164,6 +164,26 @@ section {
     }
 }
 
+@media screen and (max-width: 420px) {
+    body {
+        margin: 100px 16px;
+    }
+    .download {
+        padding: 50px 16px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .list {
+        padding-left: 0;
+        .date {
+            float: none;
+            width: 0 0 1em;
+            margin-left: 0;
+        }
+    }
+}
+
 @media print {
     body {
         margin: 0;
