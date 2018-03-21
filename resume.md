@@ -85,13 +85,19 @@ experience:
             </ul>
         from: 2008/01
         to: 2013/04
+    -
+        title: 网页设计 / 页面制作
+        company: 厦门读客网
+        content: 负责电子杂志门户网站部分网页的设计和页面制作。
+        from: 2006/12
+        to: 2007/12
 
 education:
     -
         title: 艺术设计本科
         school: 井冈山学院(今井冈山大学)艺术学院
         from: 2002/09
-        to: 2006/09
+        to: 2006/07
 
 ---
 

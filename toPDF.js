@@ -12,7 +12,7 @@ const puppeteer = require("puppeteer");
         path: "resume.pdf",
         format: "A4",
         margin: {
-            top: "2cm",
+            top: "1cm",
             right: "1cm",
             bottom: "1cm",
             left: "1cm"
