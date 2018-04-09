@@ -147,7 +147,7 @@ Sketch 官方提供了两个示例文档。
 
 使用版本控制系统同步库文件，需要搭建一个版本控制系统服务器，这个公司的开发同事可能已经搭建好了，另外要求团队中的设计师要比较了解版本控制系统客户端的操作。虽然技术要求较高，但是可以很好的解决权限控制、保密性、版本管理等问题。
 
-在小型团队或者开放的团队中，一些免费的 Git 服务也可以考虑，例如 [GitHub](https://github.com/)、[GitLab](https://gitlab.com/) 或 [BitBucket](https://bitbucket.org/)。利用这些 Web 端管理程序，还附带一些文档管理、分支管理和问题跟踪等功能，有些甚至可以处理一些自动化任务。设计使用例如 [Cornerstone](https://cornerstone.assembla.com/)（SVN）、[Versions](https://versionsapp.com/)（SVN）、[Sourcetree](https://www.sourcetreeapp.com/)（Git）、[Tower](https://www.git-tower.com/)（Git） 等客户端来接收更新提醒。
+在小型团队或者开放的团队中，一些免费的 Git 服务也可以考虑，例如 [GitHub](https://github.com/)、[GitLab](https://gitlab.com/) 或 [BitBucket](https://bitbucket.org/)。设计师使用例如 [Cornerstone](https://cornerstone.assembla.com/)（SVN）、[Versions](https://versionsapp.com/)（SVN）、[Sourcetree](https://www.sourcetreeapp.com/)（Git）、[Tower](https://www.git-tower.com/)（Git）等客户端来接收更新提醒，库管理者也使用客户端上传文件，并在 Web 端控制权限。Web 端管理程序，还附带一些文档管理、分支管理和问题跟踪等功能，有些甚至可以处理一些自动化任务。
 
 #### 自托管同步
 
@@ -157,7 +157,17 @@ Sketch 官方提供了两个示例文档。
 
 ### 从库同步图层和文本样式
 
-TODO
+就目前的 Sketch 界面中只显示出库文档的内部组件，有些保存在库文档的资源，例如图层样式、文本样式，甚至色彩、渐变和图片填充，需要依靠插件同步至新文档。
+
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件包含从任意 Sketch 文件或库倒入文档资源和样式的功能。色彩、渐变和图片填充等文档资源是根据内容添加的不会导致列表重复，而样式则更加对象的 ID，同 ID 项的样式属性会被更新。
+
+相关的功能如下：
+
+- Style - Import Document Assets from Sketch File，从 Sketch 文件导入色彩、渐变及图片填充等资源。
+- Style - Import Text Styles from Sketch File，从 Sketch 文件导入文本样式。
+- Style - Import Layer Styles from Sketch File，从 Sketch 文件导入图层样式。
+- Library - Import Document Assets from Library，从库导入色彩、渐变及图片填充等资源。
+- Library - Import Styles from Library，从库导入文本和图层样式。
 
 ----
 
