@@ -1,6 +1,6 @@
 ---
-title: （WIP）揭秘 Sketch 库
-excerpt: 深入讲述 Sketch 库在团队使用中的各种问题。
+title: 揭秘 Sketch 库 -- 1
+excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，Part 1 介绍基础概念和库的托管方案。
 updated: 2018-04-08
 ---
 
@@ -94,9 +94,7 @@ updated: 2018-04-08
 
 团队协作中，库管理者需要把库文件分发给其他设计师，设计师需要把库文件都加入库面板，有时还需要设计师配置一些基础设施，比如安装某些 Sketch 插件、字体或者某些第三方工具。之后库管理者需要有一个机制来通知设计师更新库文件或自动同步。
 
-有些方案中，为了防止设计师无意中修改库文件，尽量要求所有设计师关闭 Sketch 的自动保存功能。
-
-以下列出一些从低级到高级的方案，可以根据自身团队的情况选择合适的方案。
+以下列出一些从低级到高级的方案，可以根据自身团队的情况选择合适的方案。对库由专人管理的团队，为了防止设计师无意中修改库文件，尽量要求所有设计师关闭 Sketch 的自动保存功能。如果库需要接受多人协作，则要选择版本控制系统方案。
 
 #### 人工同步
 
@@ -143,11 +141,19 @@ Sketch 官方提供了两个示例文档。
 - [Elements UI Kit](https://sketchapp.com/elements) [添加到库](sketch://add-library/cloud/MyY5w)
 - [macOS UI Library](https://sketchapp.com/libraries/mac) [添加到库](sketch://add-library/cloud/VEp78)
 
+#### 使用 Abstract
+
+[Abstract](https://www.goabstract.com/) 目前仅支持 Sketch 文件的版本控制，他包装了一些 Git 版本控制系统的概念和流程，提供了一套设计师友好的文件更新记录、分支、合并等功能，采用这个方案需要所有团队成员都依赖于 Abstract 平台，并且有一套特殊的工作方式，需要付费才能开通团队协作功能，另外目前此应用不是很稳定。
+
+类似的服务还有 [Kactus](https://kactus.io/) 和 [Plant](https://plantapp.io/)，通常都是需要付费的。
+
 #### 使用版本控制系统同步
 
-使用版本控制系统同步库文件，需要搭建一个版本控制系统服务器，这个公司的开发同事可能已经搭建好了，另外要求团队中的设计师要比较了解版本控制系统客户端的操作。虽然技术要求较高，但是可以很好的解决权限控制、保密性、版本管理等问题。
+使用版本控制系统同步库文件，需要搭建一个版本控制系统服务器，这个有些公司的可能已经搭建好了，有些则付费使用一些在线服务。另外要求团队中的设计师要比较了解版本控制系统客户端的操作。虽然技术要求较高，但是可以很好的解决权限控制、保密性、版本管理等问题。
 
-在小型团队或者开放的团队中，一些免费的 Git 服务也可以考虑，例如 [GitHub](https://github.com/)、[GitLab](https://gitlab.com/) 或 [BitBucket](https://bitbucket.org/)。设计师使用例如 [Cornerstone](https://cornerstone.assembla.com/)（SVN）、[Versions](https://versionsapp.com/)（SVN）、[Sourcetree](https://www.sourcetreeapp.com/)（Git）、[Tower](https://www.git-tower.com/)（Git）等客户端来接收更新提醒，库管理者也使用客户端上传文件，并在 Web 端控制权限。Web 端管理程序，还附带一些文档管理、分支管理和问题跟踪等功能，有些甚至可以处理一些自动化任务。
+在小型团队或者开放的团队中，一些免费的 Git 服务也可以考虑，例如 [GitHub](https://github.com/)、[GitLab](https://gitlab.com/) 或 [BitBucket](https://bitbucket.org/)。这些对开放项目没有空间和团队限制，GitLab 和 BitBucket 的免费用户可以使用 5 人的团队，设计师使用例如 [Cornerstone](https://cornerstone.assembla.com/)（SVN）、[Versions](https://versionsapp.com/)（SVN）、[Sourcetree](https://www.sourcetreeapp.com/)（Git）、[Tower](https://www.git-tower.com/)（Git）等客户端来接收更新提醒，库管理者也使用客户端上传文件，并在 Web 端控制权限。Web 端管理程序，还附带一些文档管理、分支管理和问题跟踪等功能，有些甚至可以处理一些自动化任务。
+
+利用 GitHub 或 GitLab 等常见的版本控制平台，通过脚本分解 Sketch 文件，按照特定的 Git Flow 工作，手工编辑 JSON 的方式也可以合并文件或解决冲突，只是对库管理者技术要求较高。
 
 #### 自托管同步
 
@@ -169,72 +175,4 @@ Sketch 官方提供了两个示例文档。
 - Library - Import Document Assets from Library，从库导入色彩、渐变及图片填充等资源。
 - Library - Import Styles from Library，从库导入文本和图层样式。
 
-----
 
-## 库文件维护
-
-### 组件命名建议
-
-TODO
-
-Overrides 标签命名
-
-### 库文件性能
-
-TODO
-
-https://sketchapp.com/docs/other/performance/
-
-### 在本页创建组件及组件分页
-
-TODO
-
-### 避免组件更新 Overrides 丢失
-
-TODO
-
-### 避免引入无关的外部组件
-
-TODO
-
-### 使用位图填充替代位图图层
-
-TODO
-
-### 库文件拆分与合并
-
-组件 ID
-
-TODO
-
-### 防止修改库
-
-TODO
-
-### 建立模版文件
-
-----
-
-## 高级话题
-
-下文的高级话题部分会给出一些问题的解决方案，但是并非每个设计团队都有 Sketch 插件开发人员处理一些极端情况，此处列出一些库管理者应该注意的事项，可以尽量避免出现难处理的问题。
-
-### 修改库 ID 冲突
-
-TODO
-
-### 修复损坏组件
-
-TODO
-
-### 查找和修复坏链库组件
-
-TODO
-
-### 使用插件同步库
-
-TODO
-
-### 动态加载库
-
-TODO
