@@ -1,6 +1,6 @@
 ---
-title: 揭秘 Sketch 库 -- 1
-excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，Part 1 介绍基础概念和库的托管方案。
+title: Sketch 库揭秘（上）
+excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，上部介绍基础概念和库的托管方案。
 updated: 2018-04-08
 ---
 
@@ -9,6 +9,8 @@ updated: 2018-04-08
 越来越多的设计师和团队使用 Sketch 作为主要的设计工具，得益于众多插件和第三方应用，即使在没有技术支持的情况下也能解决一些常见问题。然而每次引入大功能时，也会带来很多坑。事实上有些 UI 设计团队的领导，是不太注重方法和流程的，这种团队选择 Sketch 大多是为了更快速出图，在这样的团队中设计师就要艰辛地踩各种坑。
 
 作为一个写 Sketch 插件的设计师，非常能理解这些问题给团队效率带来的影响。在 Sketch 47 刚发布时，我便开始在我的 [Automate](https://github.com/Ashung/Automate-Sketch) 插件中增加一些库相关的功能，久而久之便对库有了比较深入的了解。这篇文章主要介绍高级的信息，可以帮助设计团队更好的使用 Sketch 库，并解决一些复杂问题。如果需要基础教程，请查阅[官方文档](https://sketchapp.com/docs/libraries/)或其他网上的一些文章。
+
+这一系列的文章分为上中下三部分，上部主要介绍基础概念和库的托管方案；中部主要针对库管理者，内容包括组件命名、库维护等；下部则是针对团队中相对高级的库管理者，使用脚本解决一些复杂问题。
 
 ## 基础概念
 
@@ -167,7 +169,7 @@ Sketch 官方提供了两个示例文档。
 
 [Automate](https://github.com/Ashung/Automate-Sketch) 插件包含从任意 Sketch 文件或库倒入文档资源和样式的功能。色彩、渐变和图片填充等文档资源是根据内容添加的不会导致列表重复，而样式则更加对象的 ID，同 ID 项的样式属性会被更新。
 
-相关的功能如下：
+Automate 插件样式相关的功能如下：
 
 - Style - Import Document Assets from Sketch File，从 Sketch 文件导入色彩、渐变及图片填充等资源。
 - Style - Import Text Styles from Sketch File，从 Sketch 文件导入文本样式。

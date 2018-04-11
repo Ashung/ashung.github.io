@@ -338,29 +338,26 @@ input, textarea {
 }
 
 .post-content {
-    font-size: 1.25rem; // 20px
+    font-size: 1rem;
     line-height: 1.8; // 36px
     padding: 1rem 1rem 2rem;
     a:link, a:visited {
         color: $link-text-color;
-        background-image: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,.5) 50%);
+        background-image: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,.3) 50%);
         background-repeat: repeat-x;
         background-size: 2px 2px;
         background-position: 0 100%;
+        padding: 2px 0;
     }
     a:hover, a:active {
         text-decoration: none;
+        background-image: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,.8) 50%);
     }
     h1 {
         font-size: 2.445em; // 44px
         line-height: 1.273; // 56px
         margin-bottom: .545em; // 24px
     }
-    //h2 {
-    //    font-size: 2em; // 36px
-    //    line-height: 1.556; // 56px
-    //    margin-bottom: .667em; // 24px
-    //}
     h2 {
         font-size: 1.556em; // 28px
         line-height: 1.714; // 48px
@@ -382,6 +379,9 @@ input, textarea {
     }
     p, blockquote, ul, ol, dl {
         margin-bottom: 1.333em;
+    }
+    p {
+        text-indent: 2em;
     }
     ul, ol {
         padding-left: 1.5em;
@@ -463,7 +463,6 @@ input, textarea {
         border-radius: 4px;
         max-width: $max-content-width - 40;
         max-width: 100%;
-        border: 1px solid rgba(0, 0, 0, .1);
         & + em,  & + strong {
             display: block;
             font-weight: normal;
