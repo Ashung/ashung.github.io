@@ -6,15 +6,13 @@ updated: 2018-04-10
 
 这一部分主要是针对设计团队中库管理者或设计系统维护者，介绍一些库组件命名经验和库文件管理等，
 
-## 组件命名和管理建议
+## 组件命名建议
 
-### 命名建议
-
-#### 组件命名
+### 组件命名
 
 库文件会分发给团队内部设计师，甚至是外部设计师，所以库组件的分组结构需要尽量清晰。
 
-组件名称使用 “/” 符号分组，建议分组在 1 - 3 组之间，“/” 前后加入一个空格，名称使用 Title Case 方式命名，如果你的组件跟某个界面框架相应，也可以根据这个界面框架的模版名称命名。
+组件名称使用 “/” 符号分组，建议分组在 1 - 3 之间，“/” 前后加入一个空格，名称使用 Title Case 方式命名，如果你的组件跟某个界面框架相应，也可以根据这个界面框架的模版名称命名。
 
 第一组名称可以根据 Atomic Design 的理论命名。例如 Atoms、Molecules、Organisms、Templates、Pages 或 Components、Patterns 之类。第二组名称使用元素的标准名称，这个可以参考各 Web 前端框架、iOS 和 Android 等平台对控件的命名。例如 Navigation Bar、Status Bar、Toolbar。第三组名称则表示元素的不同属性或者状态，例如尺寸、浅色主题和深色主题，聚焦状态和禁用状态，正确、错误和警告状态等等。例如 Button Default、Button Primary。通常第二、三组可能会有多个子类，因为 Sketch 会以字母顺序排列，所以通常将主类的名前置，而将表示状态等词后置，这样菜单中就会显示更清晰，例如 Input / Text Disable 和 Input / Password Disable。
 
@@ -24,25 +22,53 @@ updated: 2018-04-10
 
 Sketch Runner 在搜索组件时，可以设置忽略名称带有某个特定前缀和后缀的组件。通常把一些不会在设计中独立使用的组件，图层命名使用 “_” 开头。 在库中那些有异议或未确定的组件，建议在图层命名结尾加 “!” 符号。 
 
+现在有很多设计系统包含 Sketch 的 UIKit，可以从这些文件上学习他们是如果管理库组件的，最后还是要根据团队的业务、技术水平和文化等因素，结合自己的思考，制定一套适合团队的管理规范。
+
+我的 [Design System](https://github.com/Ashung/design-systems) 插件，类似一个书签，可以快捷的打开各个主要设计系统的主页和 Sketch 资源下载页面。
+
+### 样式命名
+
+图层样式和文本样式的命名，尽量根据 Web前端框架、iOS 和 Android 等平台的规范，如果自己有一套规则，也需要合理的命名。样式命名建议分组在 1 - 2 之间，可参考组件命名规则。样式的命名也可以使用 “_” 开头来表示一些不会在设计中独立使用的样式。
+
+### Overrides 标签命名
+
+Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Overrides 中个项的含义，回出现 Overrides 面板上的图层，例如文本图层、位图图层、位图填充图层、组件实例图层和热区图层等，都尽量需要改成合理的名称，例如统一改成 Text、Image、Icon 等等之类的词汇，有些设计也使用 Emoji 加文字的方式来命名 Overrides 标签。
+
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Rename Instances” 可以把选中的组件实例图层，改成原组件母版的最后一组名称。
+
+----
+
+## 组件管理
+
+### 组件排列与分页
+
+组件的排列，其实也就是对画板的排列。建议将同类的组件排列在一起，或者分到同一个分页内，而不要直接使用默认的水平排列方式。
+
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Arrange” 组下的很多功能，可以帮助你快速的排列各种元素，例如对换位置（Change Places Between Two Layers）、水平或垂直排列（Tile Objects by Position X/Y）、排列对象（Tile Objects）、根据位置对齐排列（Arrange Objects），这些都可以通过设置间距快速排列画板，“Tile Objects” 还加入按名称排序选项。“Order Layers By Name” 和 “Reverse Layer Order” 可以对图层列表按名称排序和反向。
+
+![](../images/sketch-library-secrets/automate_arrange_menu.png)
+
+组件的分页不能使用剪切粘贴组件母版这种操作，如果一个组件可以确定没有被使用，那么统一文档内组件母版的剪切粘贴是可以的，这个操作不会导致组件 ID 改变，如果组件被使用，会导致该组件的实例变成组。从不同文档间的组件母版复制相对较安全些，如果 ID 相同新的组件母版的 Symbol ID 会被重建，如果包含内嵌的组件，则会产生相应的母版。
+
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Move Symbol Masters to Another Page” 可以将选中的组件母版移动到指定的页面。
+
+### 原地创建组件母版
+
+默认的创建组件会产生一个组件实例和组件母版，组件母版可以选择是否发送到组件分页。在库文件上直接将图层原地变成组件母版是最强烈的需求。
+
+不借助插件的话，可以先从图层创建画板，快捷操作是选择图层，按插入画板快捷键 “A”，从属性面板上方选择 “New from Selection” 直接从选择的图层创建画板，然后执行 “Create Symbol” 操作，这样组件母版就直接原位置。
+
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Selection to Symbol Masters” 会将选中的图层直接原地转为组件母版，如果需要转为一个组件母版需求先组合。
+
+### 色版组件
 
 
-#### 样式命名
 
-文本
+----
 
-#### Overrides 标签命名
+## 样式管理
 
-### 组件整理
-
-#### 排列
-
-#### 在本页创建组件
-
-#### 色版组件
-
-#### 组件分页
-
-xx
+### 更新样式和差异
 
 ----
 
@@ -86,35 +112,31 @@ TODO
 
 ## 附：插件推荐
 
-### 综合
+#### 综合类
 
-- [Sketch Runner](http://sketchrunner.com/)
-- [Automate](https://github.com/Ashung/Automate-Sketch) 
-- [Sketch Select](https://github.com/canisminor1990/sketch-select)
+- [Sketch Runner](http://sketchrunner.com/) 运行插件、搜索组件、安装插件等功能
+- [Automate](https://github.com/Ashung/Automate-Sketch) 插件包含多种功能
+- [Sketch Select](https://github.com/canisminor1990/sketch-select) 图层选择插件
+- [Rename It](http://rodi01.github.io/RenameIt/) 图层命名插件
 
-### 图层命名
+#### 库和组件管理
 
-- [Rename It](http://rodi01.github.io/RenameIt/)
-- [Sketch Name Organizer](https://github.com/canisminor1990/sketch-name-organizer)
+- [Library Symbol Replacer](https://github.com/zeroheight/library-symbol-replacer)，[Move to library](https://github.com/ahmedmigo/Move-to-library-sketchplugin) 内部组件转为库组件
+- [Symbol Swapper](https://github.com/sonburn/symbol-swapper) 组件替换
+- [Symbol Organizer](https://github.com/sonburn/symbol-organizer) 组件管理，主要用于排列组件
+- [Merge duplicate symbols](https://github.com/oodesign/merge-duplicate-symbols) 合并同名组件
+- [Sketch Symbols Manager Plugin](https://gumroad.com/l/sketch-symbols-manager) 付费插件，组件命名管理
 
-### 库和组件管理
+#### 样式管理
 
-- [Library Symbol Replacer](https://github.com/zeroheight/library-symbol-replacer)
-- [Symbol Swapper](https://github.com/sonburn/symbol-swapper)
-- [Move to library](https://github.com/ahmedmigo/Move-to-library-sketchplugin)
-- https://github.com/sonburn/symbol-organizer
-- https://github.com/oodesign/merge-duplicate-symbols 
-- [Sketch Symbols Manager Plugin](https://gumroad.com/l/sketch-symbols-manager) 付费
+- [Sketch Style Libraries](https://github.com/sigtm/sketch-style-libraries) 从库同步样式
+- [Sketch Text Styles Manager](https://gumroad.com/l/sketch-text-styles-manager) 付费插件，样式命名管理
 
-### 样式管理
+#### 其他
 
-- [Sketch Style Libraries](https://github.com/sigtm/sketch-style-libraries)
-- [Sketch Text Styles Manager](https://gumroad.com/l/sketch-text-styles-manager)
-
-### 其他
-
-- [Sketch Icons](https://github.com/AMoreaux/Sketch-Icons)
-- https://github.com/sonburn/symbol-instance-sheet
+- [Sketch Icons](https://github.com/AMoreaux/Sketch-Icons) 从 SVG 文件创建 Icon 库
+- [Symbol Instance Sheet](https://github.com/sonburn/symbol-instance-sheet) 创建组件列表
+- [Design System](https://github.com/Ashung/design-systems) 插件，设计系统收藏夹
 
 ----
 
