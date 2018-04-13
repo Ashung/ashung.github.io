@@ -145,7 +145,7 @@ Sketch 官方提供了两个示例文档。
 
 #### 使用 Abstract
 
-[Abstract](https://www.goabstract.com/) 目前仅支持 Sketch 文件的版本控制，他包装了一些 Git 版本控制系统的概念和流程，提供了一套设计师友好的文件更新记录、分支、合并等功能，采用这个方案需要所有团队成员都依赖于 Abstract 平台，并且有一套特殊的工作方式，需要付费才能开通团队协作功能，另外目前此应用不是很稳定。
+[Abstract](https://www.goabstract.com/) 目前仅支持 Sketch 文件的版本控制，他包装了一些 Git 版本控制系统的概念和流程，提供了一套设计师友好的文件更新记录、分支、合并等功能，采用这个方案需要所有团队成员都依赖于 Abstract 平台，并且有一套特殊的工作方式，需要付费才能开通团队协作功能。
 
 类似的服务还有 [Kactus](https://kactus.io/) 和 [Plant](https://plantapp.io/)，通常都是需要付费的。
 

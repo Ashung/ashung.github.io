@@ -4,7 +4,7 @@ excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，中部针对
 updated: 2018-04-10
 ---
 
-这一部分主要是针对设计团队中库管理者或设计系统维护者，介绍一些库组件命名经验和库文件管理等，
+这一部分主要是针对设计团队中库管理者或设计系统维护者，介绍一些库组件命名建议、组件管理、样式管理和库文件管理方面的信息。
 
 ## 组件命名建议
 
@@ -60,15 +60,37 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Selection to Symbol Masters” 会将选中的图层直接原地转为组件母版，如果需要转为一个组件母版需求先组合。
 
-### 色版组件
+### 色版组件的应用
 
+有一种常见的做法，可以让一些按钮组件或图标组件快速改变颜色，就是在图标或按钮的组件母版上，把内容图层作为蒙板，并增加一层颜色组件。由于 Overrides 中组件的菜单会显示相同尺寸的组件，所以色版组件的尺寸尽量要特殊化，通常采用一般组件不会出现的小尺寸，例如 8x8 或 10x10。
 
+![](../images/sketch-library-secrets/color_symbol.png)
+
+在使用这种色版组件时，可以直接拉大至覆盖整个内容，巧妙的使用这种组合，可以让组件快速的调整内容的颜色。
+
+![](../images/sketch-library-secrets/color_symbol_for_icons.png)
+
+### 组件更新丢失 Overrides 问题
+
+由于组件母版内某些会出现在 Overrides 上的图层 ID 方式变化，导致用户更新组件时会丢失 Overrides 数据，此问题已在 Sketch 50 之后的版本中被解决。旧版本请注意不要替换组件内原有的文本图层、位图图层、组件和带位图填充形状。
 
 ----
 
 ## 样式管理
 
-### 更新样式和差异
+### 创建公共样式
+
+就文本样式而言，设计规范通常会制定类似 Title、Headline、Body 之类的公共样式，在不同的场景下这些样式字体相关的设置是不变的，但可能会改变颜色，例如受应用本身的主题影响，某些文字颜色会随之改变，所以文本样式一般不考虑特殊颜色。
+
+图层样式也有类似问题，所以通常只创建公共的部分，例如不同层次的投影、固定的叠加效果、背景模糊效果等等。
+
+### 保持差异和更新样式
+
+如果采用上述的方法创建样式，使用了样式并调整过颜色的图层，就会图层样式与共享样式不匹配，属性面板上的样式名会变为斜体，并带有 “*” 号和同步图标，这时需要非常谨慎，不可以点击同步图标。
+
+保存完整样式的好处是该一处，所有内容都一起修改，但是也会带来管理麻烦。而这种保存图层应用样式，并与公关样式保持差异的做法，最困难的问题就是如何更新共享样式并只把部分属性同步给其他图层。
+
+TODO
 
 ----
 
@@ -76,37 +98,15 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 ### 控制页面内画板数量
 
-TODO
-
-https://sketchapp.com/docs/other/performance/
-
-
-
-TODO
-
-### 避免引入无关的外部组件
-
-TODO
+[官方文档](https://sketchapp.com/docs/other/performance/)中提到几点文件性能优化建议，一，避免使用过多大图；二，避免使用过多模糊效果；三，避免使用过多投影；四，适当分页，避免页面内过多画板；五，避免形状图层的路径节点过多。如果整个设计系统所需要的元素都保存在一个库文件内，那就需要尽量考虑文件的性能，尤其需要控制页面内画板的数量。使用上文提到的插件和方法，可以很方便的对组件分页。
 
 ### 库文件拆分与合并
 
-组件 ID
+当整个设计系统的库比较庞大时，可以考虑拆分成多个文件，通常情况下 UI 元素和图标分成两个库文件，或者不同平台的 UI 元素也分拆分成多个文件。
 
-TODO
+复制粘贴就可以处理库拆分或合并，上文已经提到，新加入的组件母版如果 Symbol ID 已存在，该组件母版的 Symbol ID 会被重建，由于 Symbol ID 在界面上不可见，管理组件建议每个组件都有唯一的命名。主要是嵌套组件可能会出现重复，可以使用 [Merge duplicate symbols](https://github.com/oodesign/merge-duplicate-symbols) 插件合并同名组件。
 
-## 避免冲突
-
-### 避免组件更新 Overrides 丢失
-
-TODO
-
-### 使用位图填充替代位图图层
-
-TODO
-
-### 防止修改库
-
-TODO
+如果整个系统被拆分成多个库组成，他们之间的组件是可以以库组件形式插入的，外部组件不会出现在插入组件菜单中，所以尽量避免插入与整个系统无关的库组件。
 
 ----
 
@@ -118,6 +118,9 @@ TODO
 - [Automate](https://github.com/Ashung/Automate-Sketch) 插件包含多种功能
 - [Sketch Select](https://github.com/canisminor1990/sketch-select) 图层选择插件
 - [Rename It](http://rodi01.github.io/RenameIt/) 图层命名插件
+- [Sketch Icons](https://github.com/AMoreaux/Sketch-Icons) 从 SVG 文件创建 Icon 库
+- [Symbol Instance Sheet](https://github.com/sonburn/symbol-instance-sheet) 创建组件列表
+- [Design System](https://github.com/Ashung/design-systems) 插件，设计系统收藏夹
 
 #### 库和组件管理
 
@@ -131,35 +134,3 @@ TODO
 
 - [Sketch Style Libraries](https://github.com/sigtm/sketch-style-libraries) 从库同步样式
 - [Sketch Text Styles Manager](https://gumroad.com/l/sketch-text-styles-manager) 付费插件，样式命名管理
-
-#### 其他
-
-- [Sketch Icons](https://github.com/AMoreaux/Sketch-Icons) 从 SVG 文件创建 Icon 库
-- [Symbol Instance Sheet](https://github.com/sonburn/symbol-instance-sheet) 创建组件列表
-- [Design System](https://github.com/Ashung/design-systems) 插件，设计系统收藏夹
-
-----
-
-## 高级话题
-
-下文的高级话题部分会给出一些问题的解决方案，但是并非每个设计团队都有 Sketch 插件开发人员处理一些极端情况，此处列出一些库管理者应该注意的事项，可以尽量避免出现难处理的问题。
-
-### 修改库 ID 冲突
-
-TODO
-
-### 修复损坏组件
-
-TODO
-
-### 查找和修复坏链库组件
-
-TODO
-
-### 使用插件同步库
-
-TODO
-
-### 动态加载库
-
-TODO
