@@ -48,7 +48,7 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 ![](../images/sketch-library-secrets/automate_arrange_menu.png)
 
-组件的分页不能使用剪切粘贴组件母版这种操作，如果一个组件可以确定没有被使用，那么统一文档内组件母版的剪切粘贴是可以的，这个操作不会导致组件 ID 改变，如果组件被使用，会导致该组件的实例变成组。从不同文档间的组件母版复制相对较安全些，如果 ID 相同新的组件母版的 Symbol ID 会被重建，如果包含内嵌的组件，则会产生相应的母版。
+组件的分页不建议使用剪切粘贴组件母版这种操作，如果一个组件可以确定没有被使用，那么同一文档内组件母版的剪切粘贴是可以的，这个操作不会导致组件 ID 改变，如果组件被使用，会导致该组件的实例变成组。从不同文档间的组件母版复制相对较安全些，如果 ID 相同新的组件母版的 Symbol ID 会被重建，如果包含内嵌的组件，则会产生相应的母版。
 
 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Move Symbol Masters to Another Page” 可以将选中的组件母版移动到指定的页面。
 
@@ -66,7 +66,7 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 ![](../images/sketch-library-secrets/color_symbol.png)
 
-在使用这种色版组件时，可以直接拉大至覆盖整个内容，巧妙的使用这种组合，可以让组件快速的调整内容的颜色。
+在使用这种色版组件时，可以直接拉大至覆盖整个内容，巧妙的使用这种组合，可以让同一个组件快速调整内容和颜色。
 
 ![](../images/sketch-library-secrets/color_symbol_for_icons.png)
 
@@ -107,6 +107,18 @@ TODO
 复制粘贴就可以处理库拆分或合并，上文已经提到，新加入的组件母版如果 Symbol ID 已存在，该组件母版的 Symbol ID 会被重建，由于 Symbol ID 在界面上不可见，管理组件建议每个组件都有唯一的命名。主要是嵌套组件可能会出现重复，可以使用 [Merge duplicate symbols](https://github.com/oodesign/merge-duplicate-symbols) 插件合并同名组件。
 
 如果整个系统被拆分成多个库组成，他们之间的组件是可以以库组件形式插入的，外部组件不会出现在插入组件菜单中，所以尽量避免插入与整个系统无关的库组件。
+
+## 测试
+
+
+
+### 修改库 ID 冲突
+
+TODO
+
+### 查找和修复坏链库组件
+
+TODO
 
 ----
 
