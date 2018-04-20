@@ -110,7 +110,7 @@ macOS 可以连接到一些特殊服务器和共享电脑，例如 Windows / mac
 
 使用这种方案来同步，没有把库文件分发给所有设计，实际上所有的设计师是从同一个共享磁盘目录载入库文件的。这种方案库文件名称必须是固定的，可以通过手动或自动备份的方法记录版本。共享磁盘和 FTP 可以设置权限，这样可以避免设计师修改库文件，其他类型服务可能要考虑其他用户写入权限问题。
 
-设计师通过 Finder 的菜单 “前往” - “链接服务器...”，挂载磁盘或链接服务器，不同类型服务的地址，请参考 [Apple 官方支持文档](https://support.apple.com/kb/PH25344?locale=zh_CN&viewlocale=zh_CN)。
+设计师和库管理者通过 Finder 的菜单 “前往” - “链接服务器...”，挂载磁盘或链接服务器，不同类型服务的地址，请参考 [Apple 官方支持文档](https://support.apple.com/kb/PH25344?locale=zh_CN&viewlocale=zh_CN)。
 
 ![](../images/sketch-library-secrets/mac_connect_to_servers_1.png)
 
@@ -122,13 +122,13 @@ macOS 可以连接到一些特殊服务器和共享电脑，例如 Windows / mac
 
 ![](../images/sketch-library-secrets/mac_automonut.png)
 
-此方案需要注意，写入权限问题、版本管理和备份等。
+库管理者将库文件放到网络文件夹中，设计师会立即收到更新，此方案需要注意，权限问题、版本管理和备份等。
 
 #### 使用云盘同步
 
 使用云盘同步需要考虑网络问题，是否可以文件共享，是否有客户端或系统集成的文件同步，是否有权限控制等等。如果处于保密考虑，则可能需要在内网自己搭建例如 [ownCloud](https://owncloud.org/) 的云盘程序。某些云盘服务提供 WebDAV 功能，则可以使用上一种方案。
 
-此方案也需要注意版本管理和备份等问题。
+此方案也需要注意权限问题、版本管理和备份等问题。
 
 #### 使用 Sketch Cloud 同步
 
@@ -145,9 +145,7 @@ Sketch 官方提供了两个示例文档。
 
 #### 使用 Abstract
 
-[Abstract](https://www.goabstract.com/) 目前仅支持 Sketch 文件的版本控制，他包装了一些 Git 版本控制系统的概念和流程，提供了一套设计师友好的文件更新记录、分支、合并等功能，采用这个方案需要所有团队成员都依赖于 Abstract 平台，并且有一套特殊的工作方式，需要付费才能开通团队协作功能。
-
-类似的服务还有 [Kactus](https://kactus.io/) 和 [Plant](https://plantapp.io/)，通常都是需要付费的。
+[Abstract](https://www.goabstract.com/) 目前仅支持 Sketch 文件的版本控制，他包装了一些 Git 版本控制系统的概念和流程，提供了一套设计师友好的文件更新记录、分支、合并等功能，采用这个方案需要所有团队成员都依赖于 Abstract 平台，并且有一套特殊的工作方式，需要付费才能开通团队协作功能。类似的服务还有 [Kactus](https://kactus.io/) 和 [Plant](https://plantapp.io/)，通常都是需要付费的，这种方案适合需要多人共同管理库文件的情况。
 
 #### 使用版本控制系统同步
 
