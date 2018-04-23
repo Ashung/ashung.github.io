@@ -1,5 +1,5 @@
 ---
-title: Sketch 库揭秘（上）
+title: 深入理解 Sketch 库（上）
 excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，上部介绍基础概念和库的托管方案。
 updated: 2018-04-08
 ---
@@ -20,11 +20,11 @@ updated: 2018-04-08
 
 有时模版特指被加入到菜单 “New From Template” 下或显示在 Welcome 界面上的那些文件。可以使用 “Save as Template...” 菜单或者直接将文件复制到 “~/Library/Application Support/com.bohemiancoding.sketch3/Templates” 文件夹内。
 
-![](../images/sketch-library-secrets/welcome_templates.png)
+![](../images/deep-into-sketch-library/welcome_templates.png)
 
 库则是指被添加到 “Preferences - Libraries” 面板下的那些文件，它们没有统一保存的地方。
 
-![](../images/sketch-library-secrets/libraries_preferences.png)
+![](../images/deep-into-sketch-library/libraries_preferences.png)
 
 在没有引人库功能时，设计团队使用模版文件来协作，但 Sketch 并未提供一种文档内容更新机制，只能依赖一些插件将文档通过组件名称匹配来替换成另一个文件的组件，但这对组件图层命名要求严格，也没有可视化对比。库功能解决了这种公共内容更新或替换的需求，这一点在团队协作中非常重要。
 
@@ -42,17 +42,17 @@ updated: 2018-04-08
 
 这三种库在使用上并没有非常大的差别，只是添加方式不同。来自内置库和远程库的组件，使用者无法在库中修改，双击这种组件时只有一个选项 “Unlink from Library”。
 
-![](../images/sketch-library-secrets/edit_internal_library_symbol.png)
+![](../images/deep-into-sketch-library/edit_internal_library_symbol.png)
 
 而来自用户库的组件，则有两个选项 “Unlink from Library” 和 “Open in Original Document”。可以这么理解远程库适合集中管理的库，用户无法修改而统一由管理者修改，而用户库则适合需要协作修改的库，实际上用户可以操作的只有用户库和远程库两种，下文会详细说明这两种类型的库如何同步。
 
-![](../images/sketch-library-secrets/edit_user_library_symbol.png)
+![](../images/deep-into-sketch-library/edit_user_library_symbol.png)
 
 ### 组件实例、组件母版与库组件
 
 **组件母版**（Symbol Master）是一种特殊画板，能够引出另一个分身称为**组件实例**（Symbol Instance），分身只有单一的图层，但可能会有不同外观。组件实例在图层面板有两种图标，旋转箭头图标表示文档内的实例，而索链图标则表示来着库的实例，这种来自库的实例无法在当前文档修改母版，很多情况就称为**库组件**（Library Symbol）。
 
-![](../images/sketch-library-secrets/symbols_categories.png)
+![](../images/deep-into-sketch-library/symbols_categories.png)
 
 为了区别文档上的组件母版和库组件，文档上所有的组件母版集合称为**内部组件**（Local Symbols），文档上所有库组件的集合通常叫**外部组件**（Foreign Symbols）或**导入的组件**（Imported Symbols）。
 
@@ -90,7 +90,7 @@ updated: 2018-04-08
 
 即非同 ID 也非同名的情况，就没法批量处理了，可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Symbol - Replace Symbol with Library Symbol” 功能逐个替换。
 
-![](../images/sketch-library-secrets/replace_symbol_with_library_symbol.png)
+![](../images/deep-into-sketch-library/replace_symbol_with_library_symbol.png)
 
 ### 库的托管方案
 
@@ -112,15 +112,15 @@ macOS 可以连接到一些特殊服务器和共享电脑，例如 Windows / mac
 
 设计师和库管理者通过 Finder 的菜单 “前往” - “链接服务器...”，挂载磁盘或链接服务器，不同类型服务的地址，请参考 [Apple 官方支持文档](https://support.apple.com/kb/PH25344?locale=zh_CN&viewlocale=zh_CN)。
 
-![](../images/sketch-library-secrets/mac_connect_to_servers_1.png)
+![](../images/deep-into-sketch-library/mac_connect_to_servers_1.png)
 
 要解决每次开机手动链接服务器的问题，可以设置开机自动链接。这个设置需要在链接服务器时，勾选 “在我的钥匙串记住此密码”。
 
-![](../images/sketch-library-secrets/mac_connect_to_servers_2.png)
+![](../images/deep-into-sketch-library/mac_connect_to_servers_2.png)
 
 然后在 “系统便好设置” - “用户与群组” ，选择当前用户的 “登录项”，并将相应的网络硬盘加入列表中并保持选中。
 
-![](../images/sketch-library-secrets/mac_automonut.png)
+![](../images/deep-into-sketch-library/mac_automonut.png)
 
 库管理者将库文件放到网络文件夹中，设计师会立即收到更新，此方案需要注意，权限问题、版本管理和备份等。
 
@@ -157,9 +157,13 @@ Sketch 官方提供了两个示例文档。
 
 #### 自托管同步
 
-官方工作人员称此功能尚未完善和对外开放。
+官方工作人员称此功能尚未完善和对外开放。目前从 [Apple UI Design Resources](https://developer.apple.com/design/resources/) 下载的 Sketch 文件就是链接至 Apple 官方自托管的库，需要从库面板下载内置的 Apple iOS UI。库更新由 Apple 官方维护，使用者可以自动接收到更新。
 
-目前从 [Apple UI Design Resources](https://developer.apple.com/design/resources/) 下载的 Sketch 文件就是链接至 Apple 官方自托管的库，需要从库面板下载内置的 Apple iOS UI。库更新由 Apple 官方维护，使用者可以自动接收到更新。
+#### 使用 Sketch 插件同步
+
+Sketch 插件有后台下载和提示更新功能，如果将所有的库文件一起打包到 Sketch 插件内，也可以做到通过插件的更新机制来同步库文件。
+
+这种方案缺点是对技术要求较高，优点是插件可以集成一些针对团队业务特殊需求或是脚手架的功能，用来提高整体的工作效率。
 
 ### 从库同步图层和文本样式
 

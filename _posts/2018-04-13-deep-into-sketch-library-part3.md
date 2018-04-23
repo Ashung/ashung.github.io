@@ -1,5 +1,5 @@
 ---
-title: （WIP）Sketch 库揭秘（下）
+title: （WIP）深入理解 Sketch 库（下）
 excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，中部针对库管理者介绍库文件维护。
 updated: 2018-04-10
 ---

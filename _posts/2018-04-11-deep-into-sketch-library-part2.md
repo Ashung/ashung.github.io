@@ -1,5 +1,5 @@
 ---
-title: （WIP）Sketch 库揭秘（中）
+title: （WIP）深入理解 Sketch 库（中）
 excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，中部针对库管理者介绍库文件维护。
 updated: 2018-04-10
 ---
@@ -44,7 +44,7 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Arrange” 组下的很多功能，可以帮助你快速的排列各种元素，例如对换位置（Change Places Between Two Layers）、水平或垂直排列（Tile Objects by Position X/Y）、排列对象（Tile Objects）、根据位置对齐排列（Arrange Objects），这些都可以通过设置间距快速排列画板，“Tile Objects” 还加入按名称排序选项。“Order Layers By Name” 和 “Reverse Layer Order” 可以对图层列表按名称排序和反向。
 
-![](../images/sketch-library-secrets/automate_arrange_menu.png)
+![](../images/deep-into-sketch-library/automate_arrange_menu.png)
 
 组件的分页不建议使用剪切粘贴组件母版这种操作，如果一个组件可以确定没有被使用，那么同一文档内组件母版的剪切粘贴是可以的，这个操作不会导致组件 ID 改变，如果组件被使用，会导致该组件的实例变成组。从不同文档间的组件母版复制相对较安全些，如果 ID 相同新的组件母版的 Symbol ID 会被重建，如果包含内嵌的组件，则会产生相应的母版。
 
@@ -62,11 +62,11 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 有一种常见的做法，可以让一些按钮组件或图标组件快速改变颜色，就是在图标或按钮的组件母版上，把内容图层作为蒙板，并增加一层颜色组件。由于 Overrides 中组件的菜单会显示相同尺寸的组件，所以色版组件的尺寸尽量要特殊化，通常采用一般组件不会出现的小尺寸，例如 8x8 或 10x10。
 
-![](../images/sketch-library-secrets/color_symbol.png)
+![](../images/deep-into-sketch-library/color_symbol.png)
 
 在使用这种色版组件时，可以直接拉大至覆盖整个内容，巧妙的使用这种组合，可以让同一个组件快速调整内容和颜色。
 
-![](../images/sketch-library-secrets/color_symbol_for_icons.png)
+![](../images/deep-into-sketch-library/color_symbol_for_icons.png)
 
 ### 组件更新丢失 Overrides 问题
 
@@ -86,7 +86,7 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 如果采用上述的方法创建样式，使用了样式并调整过颜色的图层，就会图层样式与共享样式不匹配，属性面板上的样式名会变为斜体，并带有 “*” 号和同步图标，这时需要非常谨慎，不可以点击同步图标。
 
-保存完整样式的好处是该一处，所有内容都一起修改，但是也会带来管理麻烦。而这种保存图层应用样式，并与公关样式保持差异的做法，最困难的问题就是如何更新共享样式并只把部分属性同步给其他图层。
+保存完整样式的好处是改一处，所有内容都一起修改，但是也会因为场景太多带来管理麻烦。而这种让图层样式与公共样式保持差异的做法，最困难的问题就是如何更新共享样式并只把部分属性同步给其他图层。
 
 TODO
 
@@ -106,9 +106,15 @@ TODO
 
 如果整个系统被拆分成多个库组成，他们之间的组件是可以以库组件形式插入的，外部组件不会出现在插入组件菜单中，所以尽量避免插入与整个系统无关的库组件。
 
-## 测试
+### 图标库优化
+
+
+
+## 库测试
 
 ### 创建模版或批量插入组件实例
+
+
 
 ### 修改库 ID 冲突
 
@@ -149,4 +155,38 @@ TODO
 
 #### Android 
 
+名称来源 Android Studio 3.1
+
+**Text**
+
+TextView, Plain Text, Password,E-mail, Phone, Postal Address, Multiline Text, Time, Date, Number, AutoCompleteTextView, MultiAutoCompleteTextView, CheckedTextView, TextInputLayout.
+
+**Buttons**
+
+Button, ImageButton, CheckBox, RadioGroup, RadioButton, ToggleButton, Switch, FloatingActionButton.
+
+**Widgets**
+
+View, ImageView, WebView, VideoView, CalendarView, ProgressBar, SeekBar, RatingBar, SearchBar, TextureView, SurfaceView, Horizontal / Vertical Divider.
+
+**Layouts**
+
+ConstraintLayout, Guideline, LinearLayout, FrameLayout, TableLayout, TableRow, Space.
+
+**Containers**
+
+Spinner, RecyclerView, ScrollView, HorizontalScrollView, NestedScrollView, ViewPager, CardView, Tabs, AppBarLayout, NavigationView, BottonNavigationView, Toolbar, TabLayout, TabItem, ViewStub.
+
+**Google**
+
+AdView, MapView
+
+**Legacy**
+
+GridLayout, ListView, TabHost, RelativeLayout, GridView.
+
 #### iOS
+
+名称来源 Xcode 9.2
+
+View Controller, Navigation Controller, Table View Controller, Collection View Controller, Tab Bar Controller, Split View Controller, Page View Controller, GLKit View Controller, AVKit Player View Controller, Object, Label, Button, Segmented Control, Text Field, Slider, Switch, Activity Indicator View, Progress View, Page Control, Stepper, Horizontal Stack View, Vertical Stack View, Table View, Table View Cell, Image View, Collection View, Collection View Cell, Collection Reusable View, Text View, Scroll View, Date Picker, Picker View, Navigation Bar, Navigation Item, Toolbar, Bar Button Item, Tab Bar, Tab Bar Item, Search Bar.
