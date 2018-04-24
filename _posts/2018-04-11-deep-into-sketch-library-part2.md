@@ -108,7 +108,9 @@ TODO
 
 ### 图标库优化
 
+以往的经验几百的图标在画布中直接使用分组和使用 Symbol Master 的性能差异较大，能感受到视图移动的卡顿。所以图标数量较大时，可以考虑画完在转换为 Symbol 并发送的 Symbol 页面。
 
+也可以使用 Sketch 脚本生成图标的库文件，如果使图标组件已被使用，要防止更新错误，需要考虑为每个图标都固定 Symbol ID。如果图标组件未被使用，[Sketch Icons](https://github.com/AMoreaux/Sketch-Icons) 插件从 SVG 文件快速创建一个可以修改颜色的 Icon 库。
 
 ## 库测试
 

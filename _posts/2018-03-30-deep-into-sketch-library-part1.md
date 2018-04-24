@@ -88,9 +88,11 @@ updated: 2018-04-08
 - [Symbol Swapper](https://github.com/sonburn/symbol-swapper)
 - [Move to library](https://github.com/ahmedmigo/Move-to-library-sketchplugin)
 
-即非同 ID 也非同名的情况，就没法批量处理了，可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Symbol - Replace Symbol with Library Symbol” 功能逐个替换。
+即非同 ID 也非同名的情况，就没法批量处理了，可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Symbol - Replace Symbol with Library Symbol” 功能逐个替换，在替换的列表中，会把相同尺寸或 ID 的组件前置。
 
 ![](../images/deep-into-sketch-library/replace_symbol_with_library_symbol.png)
+
+如果库组件已经做了较大改变，根据 ID 或名称已经无法达到理想效果，可以在组件右键菜单中选择合适的库组件替换，最后再使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Symbol - Remove Unused Symbols” 删除多余的组件。
 
 ### 库的托管方案
 
@@ -126,7 +128,7 @@ macOS 可以连接到一些特殊服务器和共享电脑，例如 Windows / mac
 
 #### 使用云盘同步
 
-使用云盘同步需要考虑网络问题，是否可以文件共享，是否有客户端或系统集成的文件同步，是否有权限控制等等。如果处于保密考虑，则可能需要在内网自己搭建例如 [ownCloud](https://owncloud.org/) 的云盘程序。某些云盘服务提供 WebDAV 功能，则可以使用上一种方案。
+使用类似 iCloud Drive，Google Drive，Dropbox 等云盘同步，这个方案需要考虑改服务的网络问题，是否可以文件共享，是否有客户端或系统集成的文件同步，是否有权限控制等等，最重要的是文件需要同步到本地。如果处于保密考虑，则可能需要在内网自己搭建例如 [ownCloud](https://owncloud.org/) / [NextCloud](https://nextcloud.com/) 之类的云盘程序。某些云盘服务提供 WebDAV 功能，则可以使用上一种方案。
 
 此方案也需要注意权限问题、版本管理和备份等问题。
 
@@ -164,6 +166,21 @@ Sketch 官方提供了两个示例文档。
 Sketch 插件有后台下载和提示更新功能，如果将所有的库文件一起打包到 Sketch 插件内，也可以做到通过插件的更新机制来同步库文件。
 
 这种方案缺点是对技术要求较高，优点是插件可以集成一些针对团队业务特殊需求或是脚手架的功能，用来提高整体的工作效率。
+
+#### 方案对比
+
+| 方案                             | 服务器要求                           | 设计师                                                       | 链接方式     |
+| -------------------------------- | ------------------------------------ | ------------------------------------------------------------ | ------------ |
+| SMB, CIFS, NFS, FTP              | NAS / Windows / macOS / Linux 服务器 | 库管理员上传服务器，其他设计师需要保存长期链接。             | Finder       |
+| WebDAV                           | Windows / Linux 服务器               | 库管理员上传服务器，其他设计师需要保存长期链接。             | Finder       |
+| 开源网盘程序 OwnCloud, NextCloud | Linux 服务器                         | 库管理员上传，并共享给其他设计师。                           | 客户端       |
+| iCloud Drive                     | 无                                   | 库管理员上传，通过 Apple ID 共享给其他设计师。               | Finder       |
+| Sketch Cloud                     | 无                                   | 库管理员上传，并共享给其他设计师。                           | 无           |
+| Abstract                         | 无                                   | 必须使用Abstract。                                           | 无           |
+| 内部 SVN                         | Windows / Linux 服务器               | 有服务器管理设置权限，库管理员上传，其他设计师使用 SVN 客户端下载。 | SVN 客户端   |
+| 免费版 GitLab, BitBucket         | Linux 服务器                         | 创建库管理员和设计师两个账户，在 Web 端设置成员权限，库管理员上传，其他设计师使用 Git 客户端下载。 | Git 客户端   |
+| 内部自己搭建的 GitLab，Gogs 等   | Linux 服务器                         | 库管理员上传，其他设计师使用 Git 客户端下载。                | Git 客户端   |
+| sparkleshare + Git               | 利用在线服务或自己搭建               | 创建库管理员和设计师两个账户，并设置权限，操作类似网盘。     | sparkleshare |
 
 ### 从库同步图层和文本样式
 
