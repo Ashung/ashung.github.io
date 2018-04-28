@@ -42,6 +42,8 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 组件的排列，其实也就是对画板的排列。建议将同类的组件排列在一起，或者分到同一个分页内，而不要直接使用默认的水平排列方式。
 
+[Symbol Organizer](https://github.com/sonburn/symbol-organizer) 组件管理插件，可以将组件组件按名称分组，水平或垂直排列。
+
 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Arrange” 组下的很多功能，可以帮助你快速的排列各种元素，例如对换位置（Change Places Between Two Layers）、水平或垂直排列（Tile Objects by Position X/Y）、排列对象（Tile Objects）、根据位置对齐排列（Arrange Objects），这些都可以通过设置间距快速排列画板，“Tile Objects” 还加入按名称排序选项。“Order Layers By Name” 和 “Reverse Layer Order” 可以对图层列表按名称排序和反向。
 
 ![](../images/deep-into-sketch-library/automate_arrange_menu.png)
@@ -58,9 +60,11 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Selection to Symbol Masters” 会将选中的图层直接原地转为组件母版，如果需要转为一个组件母版需求先组合。
 
-### 色版组件的应用
+### 将不独立使用的组件尺寸特殊化
 
-有一种常见的做法，可以让一些按钮组件或图标组件快速改变颜色，就是在图标或按钮的组件母版上，把内容图层作为蒙板，并增加一层颜色组件。由于 Overrides 中组件的菜单会显示相同尺寸的组件，所以色版组件的尺寸尽量要特殊化，通常采用一般组件不会出现的小尺寸，例如 8x8 或 10x10。
+Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望让选择项中不出现其他不相关的组件，可以将某些不会独立使用的组件的尺寸特殊化，再利用组件的 Resizing 功能调整至合适尺寸。
+
+有一种常见的示例是让一些按钮组件或图标组件支持通过 Overrides 选择项快速改变颜色，就是在图标或按钮的组件母版上，把内容图层作为蒙板，并增加一层颜色组件。色版组件采用一般组件不会出现的较小尺寸，例如 8x8 或 10x10。
 
 ![](../images/deep-into-sketch-library/color_symbol.png)
 
