@@ -14,7 +14,7 @@ updated: 2018-04-10
 
 第一组名称可以根据 Atomic Design 的理论命名。例如 Atoms、Molecules、Organisms、Templates、Pages 或 Components、Patterns 之类。第二组名称使用元素的标准名称，这个可以参考各 Web 前端框架、iOS 和 Android 等平台对控件的命名。例如 Navigation Bar、Status Bar、Toolbar。第三组名称则表示元素的不同属性或者状态，例如尺寸、浅色主题和深色主题，聚焦状态和禁用状态，正确、错误和警告状态等等。例如 Button Default、Button Primary。通常第二、三组可能会有多个子类，因为 Sketch 会以字母顺序排列，所以通常将主类的名前置，而将表示状态等词后置，这样菜单中就会显示更清晰，例如 Input / Text Disable 和 Input / Password Disable。
 
-目前设计师可以使用 [Sketch Runner](http://sketchrunner.com/) 插件的 Insert 功能，搜索并插入所有库中的组件，但目前该插件暂不支持中文，所以建议组件命名统一采用英文，并且与相应的框架或平台的规范名称一致。
+目前设计师可以使用 [Sketch Runner](http://sketchrunner.com/) 插件的 Insert 功能，搜索并插入所有库中的组件，但目前该插件中文搜索结果非常差，所以建议组件命名统一采用英文，并且与相应的框架或平台的规范名称一致。
 
 如果可能会导出组件，组件命名就尽量不要包含可以用于文件名的特殊符号，和大小写敏感问题，例如 macOS 文件名不能包含 “:”，Windows 不能包含 “\\:*?<>\|” 等字符。另外在 macOS 和 Linux 中文件名以点开头的文件会被隐藏，所以组件的类中不要以点开头。
 
@@ -76,6 +76,8 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 
 由于组件母版内某些会出现在 Overrides 上的图层 ID 方式变化，导致用户更新组件时会丢失 Overrides 数据，此问题已在 Sketch 50 之后的版本中被解决，这个版本会因为图层名称和类型相同而导致 Overrides 数据替换时内容张冠李戴，可以通过修改不同图层名避免。旧版本请注意不要替换组件内原有的文本图层、位图图层、组件和带位图填充形状。
 
+在 Sketch 50.x 版本上，发现修改某个嵌套在某个 Symbol Master 内的组件的 Overrides，会导致使用该 Symbol Master 的文档更新后相应的 Overrides 项被复原。所以建议养成一个习惯，不要修改 Symbol Master 内嵌套组件的 Overrides。 
+
 ----
 
 ## 样式管理
@@ -92,7 +94,9 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 
 保存完整样式的好处是改一处，所有内容都一起修改，但是也会因为场景太多带来管理麻烦。而这种让图层样式与公共样式保持差异的做法，最困难的问题就是如何更新共享样式并只把部分属性同步给其他图层。
 
-TODO
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Style” 组下的一些功能，可以让你先复制图层样式，再根据样式选择图层，然后将各种样式应用到图层上。
+
+![](../images/deep-into-sketch-library/automate_style_menu.png)
 
 ----
 
@@ -110,9 +114,11 @@ TODO
 
 如果整个系统被拆分成多个库组成，他们之间的组件是可以以库组件形式插入的，外部组件不会出现在插入组件菜单中，所以尽量避免插入与整个系统无关的库组件。
 
+将一些需要导出资源的内容，例如图标、插画等，独立一个库文件是一种比较明智的做法，这样可以利用各种方式快速导出资源，而排除其他内容干扰。
+
 ### 图标库优化
 
-以往的经验几百的图标在画布中直接使用分组和使用 Symbol Master 的性能差异较大，能感受到视图移动的卡顿。所以图标数量较大时，可以考虑画完在转换为 Symbol 并发送的 Symbol 页面。
+以往的经验几百个图标在画布中直接使用分组和使用 Symbol Master 的性能差异较大，能感受到视图移动的卡顿。所以图标数量较大时，可以考虑画完在转换为 Symbol 并发送的 Symbol 页面。
 
 也可以使用 Sketch 脚本生成图标的库文件，如果使图标组件已被使用，要防止更新错误，需要考虑为每个图标都固定 Symbol ID。如果图标组件未被使用，[Sketch Icons](https://github.com/AMoreaux/Sketch-Icons) 插件从 SVG 文件快速创建一个可以修改颜色的 Icon 库。
 
