@@ -1,10 +1,10 @@
 ---
-title: （WIP）深入理解 Sketch 库（中）
+title: 深入理解 Sketch 库（中）
 excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，中部针对库管理者介绍库文件维护。
-updated: 2018-04-10
+updated: 2018-06-22
 ---
 
-这一部分主要是针对设计团队中库管理者或设计系统维护者，介绍一些库组件命名建议、组件管理、样式管理和库文件管理方面的信息。
+这一部分主要是针对设计团队中库管理者或设计系统维护者，介绍一些库组件命名建议、组件管理、样式管理和库文件管理方面的信息，读者只需要有这方法管理经验，不需要一些编程开发的经验。
 
 ## 组件命名建议
 
@@ -126,15 +126,27 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 
 ### 创建模版或批量插入组件实例
 
+使用库创建模版除了展示实际使用的示例，也可以测试其他设计师在更新库是否会发生错误。
 
+[Symbol Instance Sheet](https://github.com/sonburn/symbol-instance-sheet) 插件可以批量插入某个库内的所有组件，特别适合图标库。
 
 ### 修改库 ID 冲突
 
-TODO
+库 ID 即 Sketch 文档的 document ID，如果不通过 Sketch 新建文档，而是直接复制 Sketch 文档，他们就会具有相同的文档 ID，库面板中存在相同 ID 的库，并且库中有相同 ID 的组件，会导致更新到错误的内容。
+
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Library” 组下的 “Fit Library ID Conflict”，在库面板列表包含相同 ID 库的时候，会显示所有 ID 冲突的库，然后根据情况改变库的 ID。
+
+![](../images/deep-into-sketch-library/automate_fix_library_id_conflic.png)
 
 ### 查找和修复坏链库组件
 
-TODO
+使用了被更改 ID 的库内的组件，或者丢失库的组件，会导致组件无法更新，如果确定这些组件同属于一个库，并且明确这个库已更换为另一库，可以使用 [Symbol Swapper](https://github.com/sonburn/symbol-swapper) 插件内的 Symbol Swap Libraries 功能，该功能可以把组件的库更换成另一个库。
+
+![](https://raw.githubusercontent.com/sonburn/symbol-swapper/master/Screenshots/Library%20Swapper.png)
+
+如果不是统一替换某个库，而是查找每个组件的链接状态，或者针对某个组件更改链接的库，则可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Library” 组下的 “Imported Symbols Link Mange” 功能，该功能可以只显示库不存在的组件，并且可以在更改链接的库时，检测库内是否包含该元素，实际上为相同 Symbol ID 的组件，如果内容不同则会提升组件更新。
+
+![](../images/deep-into-sketch-library/automate_imported_symbols_link_manage.png)
 
 ----
 
@@ -169,33 +181,19 @@ TODO
 
 名称来源 Android Studio 3.1
 
-**Text**
+**Text**: TextView, Plain Text, Password,E-mail, Phone, Postal Address, Multiline Text, Time, Date, Number, AutoCompleteTextView, MultiAutoCompleteTextView, CheckedTextView, TextInputLayout.
 
-TextView, Plain Text, Password,E-mail, Phone, Postal Address, Multiline Text, Time, Date, Number, AutoCompleteTextView, MultiAutoCompleteTextView, CheckedTextView, TextInputLayout.
+**Buttons**: Button, ImageButton, CheckBox, RadioGroup, RadioButton, ToggleButton, Switch, FloatingActionButton.
 
-**Buttons**
+**Widgets**: View, ImageView, WebView, VideoView, CalendarView, ProgressBar, SeekBar, RatingBar, SearchBar, TextureView, SurfaceView, Horizontal / Vertical Divider.
 
-Button, ImageButton, CheckBox, RadioGroup, RadioButton, ToggleButton, Switch, FloatingActionButton.
+**Layouts**: ConstraintLayout, Guideline, LinearLayout, FrameLayout, TableLayout, TableRow, Space.
 
-**Widgets**
+**Containers**: Spinner, RecyclerView, ScrollView, HorizontalScrollView, NestedScrollView, ViewPager, CardView, Tabs, AppBarLayout, NavigationView, BottonNavigationView, Toolbar, TabLayout, TabItem, ViewStub.
 
-View, ImageView, WebView, VideoView, CalendarView, ProgressBar, SeekBar, RatingBar, SearchBar, TextureView, SurfaceView, Horizontal / Vertical Divider.
+**Google**: AdView, MapView
 
-**Layouts**
-
-ConstraintLayout, Guideline, LinearLayout, FrameLayout, TableLayout, TableRow, Space.
-
-**Containers**
-
-Spinner, RecyclerView, ScrollView, HorizontalScrollView, NestedScrollView, ViewPager, CardView, Tabs, AppBarLayout, NavigationView, BottonNavigationView, Toolbar, TabLayout, TabItem, ViewStub.
-
-**Google**
-
-AdView, MapView
-
-**Legacy**
-
-GridLayout, ListView, TabHost, RelativeLayout, GridView.
+**Legacy**: GridLayout, ListView, TabHost, RelativeLayout, GridView.
 
 #### iOS
 

@@ -58,7 +58,7 @@ if (doc.fileURL()) {
 
 按照上文继续修改代码，这回运行之后会列出当前文档的所有 Artboard 和所在的 Page。在 Sketch 内部 Symbol Master 继承自 Artboard，所以它也会被显示出来。
 
-在导出图片之前，需要思考一个问题，我们把图片导出到一个与当前 Sketch 同名的文件夹内，所以必须检查下是否存在同名文件夹。另外如果修改过 Artboard 或 Symbol Master 的命名，导出后还有保留旧的图片，所以导出前要把现有文件夹删除。
+在导出图片之前，需要思考一个问题，我们把图片导出到一个与当前 Sketch 同名的文件夹内，所以必须检查下是否存在同名文件夹。如果修改过 Artboard 或 Symbol Master 的命名，导出后还有保留旧的图片，所以导出前要把现有文件夹删除。另外某些 Artboard 名称带有 “/” 会导致没必要产生多余的文件夹，可以将其替换为 “_”。
 
 接着增加删除现有文件夹的代码。
 
@@ -69,15 +69,15 @@ if (doc.fileURL()) {
     // 打算用来保存图片的文件夹路径。
     var exportPath = doc.fileURL().path().stringByDeletingPathExtension();
     // 删除现有文件夹。
-    if (NSFileManager.defaultManager().fileExistsAtPath_(exportPath)) {
-        NSFileManager.defaultManager().removeItemAtPath_error_(exportPath, nil);
+    if (NSFileManager.defaultManager().fileExistsAtPath(exportPath)) {
+        NSFileManager.defaultManager().removeItemAtPath_error(exportPath, nil);
     }
     // 遍历文档的 Page 和每个 Page 的 Artboard。
     for (var i = 0; i < doc.pages().count(); i++) {
         var page = doc.pages()[i];
         for (var j = 0; j < page.artboards().count(); j++) {
             var artboard = page.artboards()[j];
-            log(page.name() + "/" + artboard.name());
+            log(page.name() + "/" + artboard.name().replace(/(\/)/g, "_"));
         }
     }
 }
@@ -92,15 +92,16 @@ if (doc.fileURL()) {
     // 打算用来保存图片的文件夹路径。
     var exportPath = doc.fileURL().path().stringByDeletingPathExtension();
     // 删除现有文件夹。
-    if (NSFileManager.defaultManager().fileExistsAtPath_(exportPath)) {
-        NSFileManager.defaultManager().removeItemAtPath_error_(exportPath, nil);
+    if (NSFileManager.defaultManager().fileExistsAtPath(exportPath)) {
+        NSFileManager.defaultManager().removeItemAtPath_error(exportPath, nil);
     }
     // 遍历文档的 Page 和每个 Page 的 Artboard。
     for (var i = 0; i < doc.pages().count(); i++) {
         var page = doc.pages()[i];
         for (var j = 0; j < page.artboards().count(); j++) {
             var artboard = page.artboards()[j];
-            doc.saveArtboardOrSlice_toFile(artboard, exportPath + "/" + page.name() + "/" + artboard.name() + ".png");
+            var fullPath = exportPath + "/" + page.name() + "/" + artboard.name().replace(/(\/)/g, "_") + ".png";
+            doc.saveArtboardOrSlice_toFile(artboard, fullPath);
         }
     }
     // 显示提示。
