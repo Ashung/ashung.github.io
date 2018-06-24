@@ -1,7 +1,7 @@
 ---
 title: 深入理解 Sketch 库（中）
 excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，中部针对库管理者介绍库文件维护。
-updated: 2018-06-22
+updated: 2018-06-24
 ---
 
 这一部分主要是针对设计团队中库管理者或设计系统维护者，介绍一些库组件命名建议、组件管理、样式管理和库文件管理方面的信息，读者只需要有这方法管理经验，不需要一些编程开发的经验。
@@ -118,9 +118,25 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 
 ### 图标库优化
 
-以往的经验几百个图标在画布中直接使用分组和使用 Symbol Master 的性能差异较大，能感受到视图移动的卡顿。所以图标数量较大时，可以考虑画完在转换为 Symbol 并发送的 Symbol 页面。
+[Sketch Icons](https://github.com/AMoreaux/Sketch-Icons) 插件从 SVG 文件快速创建一个可以修改颜色的 Icon 库，但这个插件只适用前期 Icon 库未被其他人使用的情况下，或者使用插件快速创建一套模版，因为每次组件创建都会赋予新的 SymbolID，导致库组件无法同步。
 
-也可以使用 Sketch 脚本生成图标的库文件，如果使图标组件已被使用，要防止更新错误，需要考虑为每个图标都固定 Symbol ID。如果图标组件未被使用，[Sketch Icons](https://github.com/AMoreaux/Sketch-Icons) 插件从 SVG 文件快速创建一个可以修改颜色的 Icon 库。
+以往的经验几百个图标在画布中直接使用分组和使用 Symbol Master 的性能差异较大，能感受到视图移动的卡顿。所以图标数量较大时，可以考虑在工作页面画完图标，再转换为 Symbol 并发送的特定的 Symbol 页面。
+
+如果图标已经使用 Artboard 或图层组整理好了，可以使用上文提到的 [Automate](https://github.com/Ashung/Automate-Sketch) 插件的 “Selection to Symbol Masters” 快速转为组件，再使用 [Rename It](http://rodi01.github.io/RenameIt/) 整理命名。
+
+## 多人协作
+
+如果文件数量多，且需要多人协作维护同一个文档，建议使用版本控制系统来管理文件，尽管原始的版本控制系统并没有提供 Sketch 文件的差异比较和合并功能，但可以通过一些脚本或插件导出 Artboard 的图片来实现直观的修改对比。
+
+合并两个 Sketch 文件做法，类似没有出现库功能之前的做法，但不建议直接操作，因为容易造成出现多个相同内容的组件，无法直观判断导致哪个是最终使用的，合并操作可以借助插件实现。
+
+早期的 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内有 “Sync Symbol Master from Sketch File base Symbol ID” 可以实现用某一个文件的组件替换当前文档内相同 Symbol ID 的组件。这个功能的新版加入了可视化的界面，可以显示新加的组件，修改的组件可以显示类似库组件更新的前后预览图和名称对比。
+
+![](../images/deep-into-sketch-library/automate_sync_symbol_master_from_sketch_file.png)   
+
+由于插件是根据 Symbol ID 更新替换组件的，所以文件的参与修改者，需要在原组件上修改，复制组件修改会被认为是新的内容。这种替换方式只能二选一，如果需要用的双方的内容，最终的合并者可以在替换前复制备份出现冲突的组件，替换后根据需要手工修改内容。
+
+如果组件尺寸发生变化，可能会影响某些 overrides 已设置为该组件的组件，所以建议库文件内不要修改 overrides 的内容。
 
 ## 库测试
 
