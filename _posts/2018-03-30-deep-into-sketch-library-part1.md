@@ -183,7 +183,7 @@ Sketch 官方提供了两个示例文档。
 
 从 [Apple UI Design Resources](https://developer.apple.com/design/resources/) 下载的 Sketch 文件就是链接至 Apple 官方自托管的库，需要从库面板下载内置的 Apple iOS UI。库更新由 Apple 官方维护，使用者可以自动接收到更新。在 Sketch 51 之后的版本中开放了这个功能，用户可以自己使用内部的服务器、外部云或者 CDN 来保存库文件。Sketch 通过一个 URL 协议打开带有云端库链接和信息的 RSS 文件来载入远端库。
 
-在这一系列的文章分的高级部分，有详细介绍这种方案的实施。
+在这一系列的文章的高级部分，有详细介绍这种方案的实施。
 
 ### 使用 Sketch 插件同步
 
