@@ -106,6 +106,10 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 
 [官方文档](https://sketchapp.com/docs/other/performance/)中提到几点文件性能优化建议，一，避免使用过多大图；二，避免使用过多模糊效果；三，避免使用过多投影；四，适当分页，避免页面内过多画板；五，避免形状图层的路径节点过多。如果整个设计系统所需要的元素都保存在一个库文件内，那就需要尽量考虑文件的性能，尤其需要控制页面内画板的数量。使用上文提到的插件和方法，可以很方便的对组件分页。
 
+### 使用事先裁切过的图片
+
+我观察过很多设计师在做带有很多图片的界面时，都是直接把图片拖进 Sketch，这是一个非常不好的习惯，因为拖进 Sketch 的位图还是原来的尺寸，一旦图片增加到一定量，整个文件就变得非常卡，如果在库中使用图片时，可以固定使用一张通用的图，并尽量减少图片的使用，图片需要提前裁切到最终的尺寸。
+
 ### 库文件拆分与合并
 
 当整个设计系统的库比较庞大时，可以考虑拆分成多个文件，通常情况下 UI 元素和图标分成两个库文件，或者不同平台的 UI 元素也分拆分成多个文件。
@@ -158,11 +162,29 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 
 使用了被更改 ID 的库内的组件，或者丢失库的组件，会导致组件无法更新，如果确定这些组件同属于一个库，并且明确这个库已更换为另一库，可以使用 [Symbol Swapper](https://github.com/sonburn/symbol-swapper) 插件内的 Symbol Swap Libraries 功能，该功能可以把组件的库更换成另一个库。
 
-![](https://raw.githubusercontent.com/sonburn/symbol-swapper/master/Screenshots/Library%20Swapper.png)
-
 如果不是统一替换某个库，而是查找每个组件的链接状态，或者针对某个组件更改链接的库，则可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Library” 组下的 “Imported Symbols Link Mange” 功能，该功能可以只显示库不存在的组件，并且可以在更改链接的库时，检测库内是否包含该元素，实际上为相同 Symbol ID 的组件，如果内容不同则会提升组件更新。
 
 ![](../images/deep-into-sketch-library/automate_imported_symbols_link_manage.png)
+
+## 资源导出
+
+### 统一导出资源
+
+例如图标或某些公共的资源，应该由一个人或者一套固定的方法统一导出资源，最终可直接用于产品上的资源需要统一的管理和质量监控，以减少团队学习时间成本和发生错误的几率。
+
+在 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内有快速添加切片并绑定导出预设的功能。“Auto Slice” 可以自定义切片尺寸，需要用户在弹出框确认信息。“Fast Slice” 则保存用户设置不再提示，直接按图层边界增加切片，并修改切片名称。但在实际的大型项目中，手动添加切片方式或者设置组件可导出的做法，效率依然非常低，在这一系列文章的下部分，会介绍使用 Sketch 脚本或插件快速导出资源的方法。
+
+### 图片压缩和 SVG 优化
+
+最终输出的 PNG 格式位图资源，需要保证位图的质量，除了特殊需要压缩工具尽量不要使用有损的，决定以某种有损方式保存时可以保留原版。
+
+上文提到的可修改颜色图标库的做法，将图标主体作为蒙板增加加一个色彩组件，这种做法的组件，不会影响最终导出位图，但如果需要导出 SVG 就会让 SVG 产生多余的代码。
+
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件 “Utilities” 组下的 “Export Clean Code SVG”，可以在导出这种图层时，忽略图层组下一些例如图片、文本、组件实例等图层。在插件的 “SVG Export Setting” 中可以设置不使用图层名称作为 SVG 元素的 ID。
+
+![](../images/deep-into-sketch-library/automate_export_clean_code_svg.png)
+
+当导出很多图层时，选择 “Optimizion SVG Code with SVGO” （使用 SVGO 优化代码）会导致过程比较慢，建议导出未优化版，再使用 SVGO 单独优化。
 
 ----
 

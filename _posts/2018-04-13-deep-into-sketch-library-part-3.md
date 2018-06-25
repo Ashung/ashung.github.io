@@ -82,7 +82,7 @@ Sketch 插件其实是一个带 “sketchplugin” 的特定结构的文件夹�
 }
 ```
 
-编辑 “library.js”，使用新的 [Sketch JavaScript API](https://developer.sketchapp.com/reference/api) 几行代码就可以实现载人和删除库。
+编辑 “library.js”，使用新的 [Sketch JavaScript API](https://developer.sketchapp.com/reference/api) 几行代码就可以实现载入和删除库。
 
 ```javascript
 var addLibrary = function(context) {
@@ -130,9 +130,77 @@ appcast.xml 格式如下，格式与上文的远端库 XML 相似，需要保存
 
 建议把整个项目托管在类似 GitHub/GitLab 之类的程序上，程序会给整个项目一个类似 `https://github.com/user/project/archive/master.zip` 的压缩包格式地址，或者利用 Releases / Tags 功能将某次提交作为发布版本，这样就不需要人工打包插件。然后利用一个小脚本将日期之类的值作为 “appcast.xml” 和 “manifest.json” 这两个文件的版本号信息。
 
-## 统一导出资源
+## 使用脚本输出资源
 
-### 组件与输出资源的名称差异
+可以在 Sketch 的 “Run Script...” 弹出界面上，直接编写脚本并运行，这种形式通常用于运行某些代码解决某些特定的问题，或者测试代码片段，这种即时也可以保存成插件。
 
-### SVG 优化
+现在需要为一个图标库导出多种尺寸 PNG，如果图标都是 Symbol Master，但是文档中还有一些例如色彩的 Symbol 或者外部 Symbol 不希望导出，需要对文档中的 Symbol 进行一些过滤。
+
+```javascript
+var sketch = require('sketch/dom');
+var document = sketch.getSelectedDocument();
+var symbols = document.getSymbols();
+symbols.forEach(function(symbol) {
+    log(symbol.name);
+});
+```
+
+上面的代码会列出所有  Symbol，可以根据实际情况过滤某种名称的组件。
+
+```javascript
+var symbols = document.getSymbols().filter(function(symbol) {
+    return !/^\*/.test(symbol.name);
+});
+```
+
+或者只处理当前页面的组件。
+
+```javascript
+var symbols = document.getSymbols().filter(function(symbol) {
+    return symbol.sketchObject.parentGroup() == context.document.currentPage();
+});
+```
+
+或者只处理选中的组件。
+
+```javascript
+var symbols = document.selectedLayers.layers.filter(function(layer) {
+    return layer.type == "SymbolMaster";
+});
+```
+
+导出资源，默认将文件保存到 “~/Documents/Sketch Exports” 目录下。新的 SketchAPI 目前没有提供太多的导出设置，下文的案例会解决更复杂的需求，例如询问保存路径和文件名修改等。
+
+```javascript
+symbols.forEach(function(symbol) {
+    var options = {scales: "1, 1.5, 2, 3, 4", formats: 'png'}
+    sketch.export(symbol, options);
+});
+```
+
+## 组件与输出资源的名称差异
+
+组件为了方便检索会将其分类，例如一套图标有多种风格，组件名称可能按照类似下面的 “风格／分类／名称／尺寸” 格式命名。
+
+```
+Icon / Rounded / Action / Done / 16
+Icon / Rounded / Action / Done / 24
+Icon / Outlined / Action / Done / 16
+Icon / Outlined / Action / Done / 24
+Icon / Two-Tone / Action / Done / 16
+Icon / Two-Tone / Action / Done / 24
+```
+
+而资源却希望保存成类似下面的格式，还有多种尺寸资源。用传统增加切片，并修改图层名的方式工作量非常大。
+
+```
+round/action/drawable-xhdpi/ic_done_16dp.png
+round/action/drawable-xhdpi/ic_done_24dp.png
+outlined/action/drawable-xhdpi/ic_done_16dp.png
+outlined/action/drawable-xhdpi/ic_done_24dp.png
+twotone/action/drawable-xhdpi/ic_done_16dp.png
+twotone/action/drawable-xhdpi/ic_done_24dp.png
+```
+
+
 
