@@ -30,7 +30,7 @@ XML 格式如下，主要内容是 Sketch 文件地址和时间，时间用于�
 </rss>
 ```
 
-将 XML 和对应的 Sketch 文档都传到网上之后，需要给一个入口，可以在网页或邮箱内容上添加一个链接指向 XML 文件，HTML 代码格式如下，注意 XML 的 URL 地址需要转码。`sketch://add-library?url=http%3A%2F%2F...xml` 这个地址也可以在 Finder 的 “链接服务器” 上打开。
+将 XML 和对应的 Sketch 文档都传到网上之后，需要给一个入口，可以在网页或邮箱内容上添加一个链接指向 XML 文件，HTML 代码格式如下，注意 URL 参数的地址需要转码。`sketch://add-library?url=http%3A%2F%2F...xml` 这个地址也可以在 Finder 的 “链接服务器” 上打开。
 
 ```html
 <a href="sketch://add-library?url=http%3A%2F%2F...xml">Add to Library</a>
@@ -42,7 +42,7 @@ XML 格式如下，主要内容是 Sketch 文件地址和时间，时间用于�
 
 使用插件同步库的做法是将 Sketch 文件保存在 Sketch 插件内，安装插件时自动将文件载入到库面板中，之后通过插件的更新功能来提示设计师更新组件。
 
-Sketch 插件其实是一个带 “sketchplugin” 的特定结构的文件夹，将所有的 Sketch 文件放到插件内的 “Contents/Resources” 文件夹下，整个插件的目录结构如下。
+Sketch 插件其实是一个带有 “.sketchplugin” 后缀的特定结构的文件夹，将所有的 Sketch 文件放到插件内的 “Contents/Resources” 文件夹下，整个插件的目录结构如下。
 
 ```
 ./Library_Sync_Example.sketchplugin 
@@ -55,7 +55,7 @@ Sketch 插件其实是一个带 “sketchplugin” 的特定结构的文件夹�
         └── manifest.json
 ```
 
-编辑 “manifest.json”，这里监视 Sketch 的一些动作，当插件安装或被重新启用时，和软件打开或创建新文档时载入库，在插件卸载或禁用时删除库。
+编辑 “manifest.json”，这里配置让 Sketch 监视的一些动作，实现当插件安装或被重新启用时和软件打开或创建新文档时载入库，在插件卸载或禁用时删除库。
 
 ```json
 {
@@ -128,18 +128,20 @@ appcast.xml 格式如下，格式与上文的远端库 XML 相似，需要保存
 </rss>
 ```
 
-建议把整个项目托管在类似 GitHub/GitLab 之类的程序上，程序会给整个项目一个类似 `https://github.com/user/project/archive/master.zip` 的压缩包格式地址，或者利用 Releases / Tags 功能将某次提交作为发布版本，这样就不需要人工打包插件。然后利用一个小脚本将日期之类的值作为 “appcast.xml” 和 “manifest.json” 这两个文件的版本号信息。
+建议把整个项目托管在类似 GitHub/GitLab 之类的程序上，程序会给整个项目一个类似 `https://.../user/project/archive/master.zip` 的压缩包格式地址，或者利用 Releases / Tags 功能将某次提交作为发布版本，这样就不需要人工打包插件。然后利用一个小脚本将日期之类的值作为 “appcast.xml” 和 “manifest.json” 这两个文件的版本号信息。
 
 ## 使用脚本输出资源
 
-可以在 Sketch 的 “Run Script...” 弹出界面上，直接编写脚本并运行，这种形式通常用于运行某些代码解决某些特定的问题，或者测试代码片段，这种即时也可以保存成插件。
+可以在 Sketch 的 “Run Script...” 弹出界面上，直接编写脚本并运行，这种形式通常用于运行某些简短的代码来解决某些特定的问题，或者测试代码片段，或者输出某些信息，这些代码也可以被保存成插件。
 
 现在需要为一个图标库导出多种尺寸 PNG，如果图标都是 Symbol Master，但是文档中还有一些例如色彩的 Symbol 或者外部 Symbol 不希望导出，需要对文档中的 Symbol 进行一些过滤。
 
 ```javascript
 var sketch = require('sketch/dom');
 var document = sketch.getSelectedDocument();
+// 文档中所有组件
 var symbols = document.getSymbols();
+// 输出组件名
 symbols.forEach(function(symbol) {
     log(symbol.name);
 });
@@ -148,6 +150,7 @@ symbols.forEach(function(symbol) {
 上面的代码会列出所有  Symbol，可以根据实际情况过滤某种名称的组件。
 
 ```javascript
+// 过滤文档中所有组件
 var symbols = document.getSymbols().filter(function(symbol) {
     return !/^\*/.test(symbol.name);
 });
@@ -156,6 +159,7 @@ var symbols = document.getSymbols().filter(function(symbol) {
 或者只处理当前页面的组件。
 
 ```javascript
+// 过滤文档中所有组件
 var symbols = document.getSymbols().filter(function(symbol) {
     return symbol.sketchObject.parentGroup() == context.document.currentPage();
 });
@@ -164,17 +168,84 @@ var symbols = document.getSymbols().filter(function(symbol) {
 或者只处理选中的组件。
 
 ```javascript
+// 过滤文档中所有组件
 var symbols = document.selectedLayers.layers.filter(function(layer) {
     return layer.type == "SymbolMaster";
 });
 ```
 
-导出资源，默认将文件保存到 “~/Documents/Sketch Exports” 目录下。新的 SketchAPI 目前没有提供太多的导出设置，下文的案例会解决更复杂的需求，例如询问保存路径和文件名修改等。
+导出资源，默认将文件保存到 “~/Documents/Sketch Exports” 目录下。
 
 ```javascript
+// 导出资源
 symbols.forEach(function(symbol) {
-    var options = {scales: "1, 1.5, 2, 3, 4", formats: 'png'}
+    var options = {scales: "1, 1.5, 2, 3, 4", formats: "png"};
     sketch.export(symbol, options);
+});
+```
+
+新的 Sketch API 目前并没有提供太多的导出设置，实际情况下，通常会有例如询问保存路径的功能。
+
+```javascript
+// 询问保存路径
+var panel = NSOpenPanel.openPanel();
+panel.setCanChooseDirectories(true);
+panel.setCanChooseFiles(false);
+panel.setCanCreateDirectories(true);
+if (panel.runModal() == NSOKButton) {
+    var savePath = panel.URL().path();
+    // 输出组件保存路径
+    symbols.forEach(function(symbol) {
+        log(`${savePath}/${symbol.name}`);
+    });
+}
+```
+
+假设画板的名称格式类似 “icon/action/done”，我们需要导出 Android 平台的多分辨率 PNG 资源，另外我们想在文件名前多增加一个表示不同分辨率的文件夹，例如 “icon/action/drawable-xhpi/done” 和 “icon/action/drawable-xxhpi/done”。
+
+```javascript
+// 如果用户没有按下确定，程序就停止，改为这个格式以减少缩进。
+if (panel.runModal() != NSOKButton) {
+    return;
+}
+
+var savePath = panel.URL().path();
+symbols.forEach(function(symbol) {
+    // 创建 Export Request
+    var ancestry = MSImmutableLayerAncestry.ancestryWithMSLayer(symbol.sketchObject);
+    var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(ancestry).firstObject();
+    // 设置格式为 PNG
+    exportRequest.setFormat("png");
+    // Android 文件名称与缩放对应关系
+    var dpis = {
+        mdpi: 1,
+        hdpi: 1.5,
+        xhdpi: 2,
+        xxhdpi: 3,
+        xxxhdpi: 4
+    };
+	for (var dpi in dpis) {
+        // 在文件名前加上分辨率文件夹
+        var name = symbol.name.split("/");
+        name.splice(-1, 0, "drawable-" + dpi);
+        name = name.join("/");
+        // 设置缩放
+        exportRequest.setScale(dpis[dpi]);
+        // 导出资源
+        context.document.saveExportRequest_toFile(exportRequest, `${savePath}/${name}.png`);
+    }
+});
+```
+
+如果只导出 SVG 格式，代码就相对简单。
+
+```javascript
+var savePath = panel.URL().path();
+symbols.forEach(function(symbol) {
+    // 在文件名前加上 SVG
+    var name = symbol.name.substring(0, symbol.name.lastIndexOf("/")) + "/svg" + symbol.name.substring(symbol.name.lastIndexOf("/"));
+    // 导出资源
+    context.document.saveArtboardOrSlice_toFile(symbol.sketchObject, `${savePath}/${name}.svg`);
 });
 ```
 
