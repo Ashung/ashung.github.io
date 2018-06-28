@@ -201,10 +201,10 @@ if (panel.runModal() == NSOKButton) {
 }
 ```
 
-假设画板的名称格式类似 “icon/action/done”，我们需要导出 Android 平台的多分辨率 PNG 资源，另外我们想在文件名前多增加一个表示不同分辨率的文件夹，例如 “icon/action/drawable-xhpi/done” 和 “icon/action/drawable-xxhpi/done”。
+假设画板的名称格式类似 “icon/action/done”，我们需要导出 Android 平台的多分辨率 PNG 资源，另外还要在文件名前多增加一个表示不同分辨率的文件夹，例如 “icon/action/drawable-xhpi/done” 和 “icon/action/drawable-xxhpi/done”。
 
 ```javascript
-// 如果用户没有按下确定，程序就停止，改为这个格式以减少缩进。
+// 如果用户没有按下确定，程序就停止，改为这种格式以减少缩进。
 if (panel.runModal() != NSOKButton) {
     return;
 }
@@ -224,7 +224,7 @@ symbols.forEach(function(symbol) {
         xxhdpi: 3,
         xxxhdpi: 4
     };
-	for (var dpi in dpis) {
+    for (var dpi in dpis) {
         // 在文件名前加上分辨率文件夹
         var name = symbol.name.split("/");
         name.splice(-1, 0, "drawable-" + dpi);
@@ -242,7 +242,7 @@ symbols.forEach(function(symbol) {
 ```javascript
 var savePath = panel.URL().path();
 symbols.forEach(function(symbol) {
-    // 在文件名前加上 SVG
+    // 在文件名前加上 SVG 文件夹
     var name = symbol.name.substring(0, symbol.name.lastIndexOf("/")) + "/svg" + symbol.name.substring(symbol.name.lastIndexOf("/"));
     // 导出资源
     context.document.saveArtboardOrSlice_toFile(symbol.sketchObject, `${savePath}/${name}.svg`);
@@ -256,10 +256,12 @@ symbols.forEach(function(symbol) {
 ```
 Icon / Rounded / Action / Done / 16
 Icon / Rounded / Action / Done / 24
+Icon / Rounded / Action / Done All / 16
+Icon / Rounded / Action / Done All / 24
 Icon / Outlined / Action / Done / 16
 Icon / Outlined / Action / Done / 24
-Icon / Two-Tone / Action / Done / 16
-Icon / Two-Tone / Action / Done / 24
+Icon / TwoTone / Action / Done / 16
+Icon / TwoTone / Action / Done / 24
 ```
 
 而资源却希望保存成类似下面的格式，还有多种尺寸资源。用传统增加切片，并修改图层名的方式工作量非常大。
@@ -267,11 +269,47 @@ Icon / Two-Tone / Action / Done / 24
 ```
 round/action/drawable-xhdpi/ic_done_16dp.png
 round/action/drawable-xhdpi/ic_done_24dp.png
+round/action/drawable-xhdpi/ic_done_all_16dp.png
+round/action/drawable-xhdpi/ic_done_all_24dp.png
 outlined/action/drawable-xhdpi/ic_done_16dp.png
 outlined/action/drawable-xhdpi/ic_done_24dp.png
 twotone/action/drawable-xhdpi/ic_done_16dp.png
 twotone/action/drawable-xhdpi/ic_done_24dp.png
 ```
+
+
+
+```javascript
+symbols.forEach(function(symbol) {
+    // 创建 Export Request
+    var ancestry = MSImmutableLayerAncestry.ancestryWithMSLayer(symbol.sketchObject);
+    var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(ancestry).firstObject();
+    // 设置格式为 PNG
+    exportRequest.setFormat("png");
+    // Android 文件名称与缩放对应关系
+    var dpis = {
+        mdpi: 1,
+        hdpi: 1.5,
+        xhdpi: 2,
+        xxhdpi: 3,
+        xxxhdpi: 4
+    };
+    for (var dpi in dpis) {
+        // 重新组合名称，并在文件名前加上分辨率文件夹
+        var p1, p2, p3, p4, p5;
+        [p1, p2, p3, p4, p5] = symbol.name.split(/\s*\/\s*/);
+        var name = `${p2}/${p3}/drawable-${dpi}/ic_${p4}_${p5}dp`.replace(/\s+/g, "_").toLowerCase();
+        // 设置缩放
+        exportRequest.setScale(dpis[dpi]);
+        // 导出资源
+        context.document.saveExportRequest_toFile(exportRequest, `${savePath}/${name}.png`);
+    }
+});
+```
+
+
+
+
 
 
 
