@@ -4,7 +4,7 @@ excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，高级部分
 updated: 2018-06-24
 ---
 
-这一部分主要是库相关的高级内容，涉及到的方面比较广，每个主题也不会对初级的内容进行详细的介绍。
+这一部分主要是库相关的高级内容，每个主题不会详细介绍一些初级的内容，如果读者对某个主题感兴趣并且有一些疑问可以咨询作者。
 
 ## 自托管远端库
 
@@ -36,7 +36,7 @@ XML 格式如下，主要内容是 Sketch 文件地址和时间，时间用于�
 <a href="sketch://add-library?url=http%3A%2F%2F...xml">Add to Library</a>
 ```
 
-该功能将在 Sketch 51 开放，目前[测试版](https://sketchapp.com/beta/)使用需要修改协议为 `sketch-beta://add-library?url=` 。
+该功能将在 Sketch 51 开放，目前[测试版](https://sketchapp.com/beta/)需要修改协议为 `sketch-beta://add-library?url=` 。
 
 ## 使用插件同步库
 
@@ -55,7 +55,7 @@ Sketch 插件其实是一个带有 “.sketchplugin” 后缀的特定结构的�
         └── manifest.json
 ```
 
-编辑 “manifest.json”，这里配置让 Sketch 监视的一些动作，实现当插件安装或被重新启用时和软件打开或创建新文档时载入库，在插件卸载或禁用时删除库。
+编辑 “manifest.json”，这里配置让 Sketch 监视的一些动作，实现当插件安装或被重新启用时，和创建新文档时载入库，在插件卸载或禁用时删除库。
 
 ```json
 {
@@ -63,17 +63,17 @@ Sketch 插件其实是一个带有 “.sketchplugin” 后缀的特定结构的�
     "description": "...",
     "author": "...",
     "email": "...",
-    "homepage": "",
+    "homepage": "...",
     "appcast": "http://.../appcast.xml",
     "version": "1.0",
-    "identifier": "com.bohemiancoding.sketch.library.sync.example",
+    "identifier": "com.sketch.library.sync.example",
     "commands": [
         {
             "handlers": {
                 "actions": {
                     "Startup": "addLibrary",
-                    "OpenDocument": "addLibrary",
-                    "Shutdown": "addLibrary"
+                    "Shutdown": "addLibrary",
+                    "OpenDocument": "addLibrary"
                 }
             },
             "script": "library.js"
@@ -82,7 +82,7 @@ Sketch 插件其实是一个带有 “.sketchplugin” 后缀的特定结构的�
 }
 ```
 
-编辑 “library.js”，使用新的 [Sketch JavaScript API](https://developer.sketchapp.com/reference/api) 几行代码就可以实现载入和删除库。
+编辑 “library.js”，使用 [Sketch JavaScript API](https://developer.sketchapp.com/reference/api) 几行代码就可以实现载入和删除库。
 
 ```javascript
 var addLibrary = function(context) {
@@ -96,7 +96,7 @@ var addLibrary = function(context) {
         if (libraryUrl) {
             var libraryPath = String(libraryUrl.path());
             var library = Library.getLibraryForDocumentAtPath(libraryPath);
-            if (context.action == "Shutdown") {
+            if (context.action == 'Shutdown') {
                 library.remove();
             }
         }
@@ -128,7 +128,7 @@ appcast.xml 格式如下，格式与上文的远端库 XML 相似，需要保存
 </rss>
 ```
 
-建议把整个项目托管在类似 GitHub/GitLab 之类的程序上，程序会给整个项目一个类似 `https://.../user/project/archive/master.zip` 的压缩包格式地址，或者利用 Releases / Tags 功能将某次提交作为发布版本，这样就不需要人工打包插件。然后利用一个小脚本将日期之类的值作为 “appcast.xml” 和 “manifest.json” 这两个文件的版本号信息。
+建议把整个项目托管在类似 GitHub/GitLab 之类的程序上，程序会给整个项目一个类似 `http://.../user/project/archive/master.zip` 的压缩包格式地址，或者利用 Tags 功能将某次提交作为发布版本，地址类似 `http://.../user/project/archive/tagname.zip`，这样就不需要人工打包插件。
 
 ## 使用脚本输出资源
 
@@ -137,7 +137,7 @@ appcast.xml 格式如下，格式与上文的远端库 XML 相似，需要保存
 现在需要为一个图标库导出多种尺寸 PNG，如果图标都是 Symbol Master，但是文档中还有一些例如色彩的 Symbol 或者外部 Symbol 不希望导出，需要对文档中的 Symbol 进行一些过滤。
 
 ```javascript
-var sketch = require('sketch/dom');
+var sketch = require("sketch/dom");
 var document = sketch.getSelectedDocument();
 // 文档中所有组件
 var symbols = document.getSymbols();
@@ -174,17 +174,21 @@ var symbols = document.selectedLayers.layers.filter(function(layer) {
 });
 ```
 
-导出资源，默认将文件保存到 “~/Documents/Sketch Exports” 目录下。
+导出资源，如果 options 没有 output 设置，默认会将文件保存到 “~/Documents/Sketch Exports” 目录下。
 
 ```javascript
 // 导出资源
 symbols.forEach(function(symbol) {
-    var options = {scales: "1, 1.5, 2, 3, 4", formats: "png"};
+    var options = {
+        scales: "1, 1.5, 2, 3, 4",
+        formats: "png",
+        output: "~/Desktop/Sketch_Exports"
+    };
     sketch.export(symbol, options);
 });
 ```
 
-新的 Sketch API 目前并没有提供太多的导出设置，实际情况下，通常会有例如询问保存路径的功能。
+实际情况下，通常会有需要询问保存路径。
 
 ```javascript
 // 询问保存路径
@@ -194,22 +198,50 @@ panel.setCanChooseFiles(false);
 panel.setCanCreateDirectories(true);
 if (panel.runModal() == NSOKButton) {
     var savePath = panel.URL().path();
-    // 输出组件保存路径
+    // 导出资源
     symbols.forEach(function(symbol) {
-        log(`${savePath}/${symbol.name}`);
+        var options = {
+            scales: "1, 1.5, 2, 3, 4",
+            formats: "png",
+            output: String(savePath)
+        };
+        sketch.export(symbol, options);
+        log(`${options.output}/${symbol.name}.${options.formats}`);
     });
 }
 ```
 
+新的 Sketch JavaScript API 的导出目前只能将资源导出到指定的目录，实际情况下通常需要修改资源保存路径。另外目前在实际使用最常用的还是使用 `document.saveExportRequest_toFile` 和 `document.saveArtboardOrSlice_toFile` 来导出资源，这两个方法可以修改文件路径不受图层名限制。
+
+```javascript
+document.saveExportRequest_toFile(exportRequest, filePath);
+document.saveArtboardOrSlice_toFile(artboardOrSlice, filePath);
+```
+
+### 导出 Android 多尺寸 PNG
+
 假设画板的名称格式类似 “icon/action/done”，我们需要导出 Android 平台的多分辨率 PNG 资源，另外还要在文件名前多增加一个表示不同分辨率的文件夹，例如 “icon/action/drawable-xhpi/done” 和 “icon/action/drawable-xxhpi/done”。
 
 ```javascript
-// 如果用户没有按下确定，程序就停止，改为这种格式以减少缩进。
+var sketch = require("sketch/dom");
+var document = sketch.getSelectedDocument();
+
+// 处理选中的组件
+var symbols = document.selectedLayers.layers.filter(function(layer) {
+    return layer.type == "SymbolMaster";
+});
+
+// 询问保存路径
+var panel = NSOpenPanel.openPanel();
+panel.setCanChooseDirectories(true);
+panel.setCanChooseFiles(false);
+panel.setCanCreateDirectories(true);
 if (panel.runModal() != NSOKButton) {
     return;
 }
-
 var savePath = panel.URL().path();
+
+// 遍历要导出的组件
 symbols.forEach(function(symbol) {
     // 创建 Export Request
     var ancestry = MSImmutableLayerAncestry.ancestryWithMSLayer(symbol.sketchObject);
@@ -237,10 +269,43 @@ symbols.forEach(function(symbol) {
 });
 ```
 
-如果只导出 SVG 格式，代码就相对简单。
+### 导出 iOS 多尺寸 PNG
+
+假设画板的名称格式类似 “icon/action/done”，iOS 资源保存路径为 “icon/action/ios/done.png”、 “icon/action/ios/done@2x.png” 和  “icon/action/ios/done@3x.png”。
 
 ```javascript
-var savePath = panel.URL().path();
+// 遍历要导出的组件
+symbols.forEach(function(symbol) {
+    // 创建 Export Request
+    var ancestry = MSImmutableLayerAncestry.ancestryWithMSLayer(symbol.sketchObject);
+    var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(ancestry).firstObject();
+    // 设置格式为 PNG
+    exportRequest.setFormat("png");
+    // iOS 缩放和文件后缀对应关系
+    var scales = [
+        { scale: 1, suffix: "" },
+        { scale: 2, suffix: "@2x" },
+        { scale: 3, suffix: "@3x" }
+    ];
+    scales.forEach(function(item) {
+        // 在文件名前加上 ios 文件夹
+        var name = symbol.name.split("/");
+        name.splice(-1, 0, "ios");
+        name = name.join("/");
+        // 设置缩放
+        exportRequest.setScale(item.scale);
+        // 导出资源
+        context.document.saveExportRequest_toFile(exportRequest, `${savePath}/${name}${item.suffix}.png`);
+    }
+});
+```
+
+### 导出 SVG
+
+假设画板的名称格式类似 “icon/action/done”，SVG 资源保存路径为 “icon/action/svg/done.svg”。
+
+```javascript
+// 遍历要导出的组件
 symbols.forEach(function(symbol) {
     // 在文件名前加上 SVG 文件夹
     var name = symbol.name.substring(0, symbol.name.lastIndexOf("/")) + "/svg" + symbol.name.substring(symbol.name.lastIndexOf("/"));
@@ -249,7 +314,7 @@ symbols.forEach(function(symbol) {
 });
 ```
 
-## 组件与输出资源的名称差异
+### 组件与资源的名称差异
 
 组件为了方便检索会将其分类，例如一套图标有多种风格，组件名称可能按照类似下面的 “风格／分类／名称／尺寸” 格式命名。
 
@@ -264,7 +329,7 @@ Icon / TwoTone / Action / Done / 16
 Icon / TwoTone / Action / Done / 24
 ```
 
-而资源却希望保存成类似下面的格式，还有多种尺寸资源。用传统增加切片，并修改图层名的方式工作量非常大。
+而资源却希望保存成类似下面的格式，还有多种尺寸资源。人工增加切片，并修改图层名的方式工作量非常大。
 
 ```
 round/action/drawable-xhdpi/ic_done_16dp.png
@@ -277,9 +342,10 @@ twotone/action/drawable-xhdpi/ic_done_16dp.png
 twotone/action/drawable-xhdpi/ic_done_24dp.png
 ```
 
-
+只要组件名称与最终资源名称有一定规律的对应关系，脚本可以在导出前修改资源名称，而保存文件的组件名称不变，也不增加额外的切片图层。
 
 ```javascript
+// 遍历要导出的组件
 symbols.forEach(function(symbol) {
     // 创建 Export Request
     var ancestry = MSImmutableLayerAncestry.ancestryWithMSLayer(symbol.sketchObject);
@@ -305,6 +371,34 @@ symbols.forEach(function(symbol) {
         context.document.saveExportRequest_toFile(exportRequest, `${savePath}/${name}.png`);
     }
 });
+```
+
+如果是导出类似以下的 iOS 平台格式。
+
+```
+round/action/ios/ic_done_16pt.png
+round/action/ios/ic_done_16pt@2x.png
+round/action/ios/ic_done_16pt@3x.png
+```
+
+代码修改如下。
+
+```javascript
+// iOS 缩放和文件后缀对应关系
+var scales = [
+    { scale: 1, suffix: "" },
+    { scale: 2, suffix: "@2x" },
+    { scale: 3, suffix: "@3x" }
+];
+scales.forEach(function(item) {
+    var p1, p2, p3, p4, p5;
+    [p1, p2, p3, p4, p5] = symbol.name.split(/\s*\/\s*/);
+    var name = `${p2}/${p3}/ios/ic_${p4}_${p5}pt${item.suffix}`.replace(/\s+/g, "_").toLowerCase();
+    // 设置缩放
+    exportRequest.setScale(item.scale);
+    // 导出资源
+    context.document.saveExportRequest_toFile(exportRequest, `${savePath}/${name}.png`);
+}
 ```
 
 
