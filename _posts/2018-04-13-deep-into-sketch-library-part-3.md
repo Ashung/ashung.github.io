@@ -8,15 +8,16 @@ updated: 2018-06-24
 
 ## 自托管远端库
 
-Sketch 通过 `sketch` 协议打开网络上特定格式的 XML 文件，XML 文件内记录 Sketch 文档的信息，主要是 URL 地址，文档下载完成之后将自动加入库列表中。一个 XML 文档对应一个 Sketch 文档，这些内容可以是动态的，这样服务器端可以加入用户验证、订阅购买等功能，也很容易被整合到其他现有在线服务中。
+Sketch 通过 `sketch` 协议打开网络上特定格式的 XML 文件，XML 文件内记录 Sketch 文档的下载地址、更新时间、版本等信息，文档下载完成之后将自动加入库列表中。一个 XML 文档对应一个 Sketch 文档，这些内容可以是动态的，这样服务器端可以加入用户验证、订阅购买等功能，也很容易被整合到其他一些在线服务中。
 
-公司内部其实并不需要这样复杂的功能，只需有服务器可以托管一个简单的静态服务就行，一些可以访问原始文件路径的网盘或类似 GitHub/GitLab 的代码托管系统也是可以的，总之将一对一的 XML 和 Sketch 文件放到网络上，并且可以用固定地址访问到原始文件。
+公司内部往往并不需要这样复杂的功能，只需有服务器可以托管一个简单的静态服务就行，一些可以访问原始文件路径的网盘或类似 GitHub/GitLab 的代码托管系统也是可以的，总之将一对一的 XML 和 Sketch 文件放到网络上，并且可以用固定地址访问到原始文件。
 
-XML 格式如下，主要内容是 Sketch 文件地址和时间，时间用于检测是否需要更新文档，更新 Sketch 文档时同时也需要更改这个时间。
+XML 格式如下，当更新 Sketch 文档时同时也需要更改更新时间、版本号。文件大小可忽略。时间用于检测是否需要更新文档。
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>...</title>
     <description>...</description>
@@ -24,19 +25,21 @@ XML 格式如下，主要内容是 Sketch 文件地址和时间，时间用于�
     <item>
       <title>...</title>
       <pubDate>[UTC Time]</pubDate>
-      <enclosure url="[sketch 文件 URL]" sparkle:version="1" length="..." type="application/octet-stream" />
+      <enclosure url="[sketch 文件 URL]" sparkle:version="[version]" length="..." type="application/octet-stream" />
     </item>
   </channel>
 </rss>
 ```
 
-将 XML 和对应的 Sketch 文档都传到网上之后，需要给一个入口，可以在网页或邮箱内容上添加一个链接指向 XML 文件，HTML 代码格式如下，注意 URL 参数的地址需要转码。`sketch://add-library?url=http%3A%2F%2F...xml` 这个地址也可以在 Finder 的 “链接服务器” 上打开。
+将 XML 和对应的 Sketch 文档都传到网上之后，需要给一个入口，可以在网页或邮箱内容上添加一个链接指向 XML 文件，HTML 代码格式如下，注意 URL 参数的地址需要转码。
 
 ```html
 <a href="sketch://add-library?url=http%3A%2F%2F...xml">Add to Library</a>
 ```
 
-该功能将在 Sketch 51 开放，目前[测试版](https://sketchapp.com/beta/)需要修改协议为 `sketch-beta://add-library?url=` 。
+地址 `sketch://add-library?url=http%3A%2F%2F...xml` 也可以在 Finder 的 “链接服务器” 上打开。
+
+该功能将在 Sketch 51 上可用，[测试版](https://sketchapp.com/beta/)需要修改协议为 `sketch-beta://add-library?url=` 。
 
 ## 使用插件同步库
 
