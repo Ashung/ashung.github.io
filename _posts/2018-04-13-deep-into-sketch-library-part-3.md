@@ -148,7 +148,7 @@ var document = sketch.getSelectedDocument();
 var symbols = document.getSymbols();
 // 输出组件名
 symbols.forEach(function(symbol) {
-    log(symbol.name);
+    console.log(symbol.name);
 });
 ```
 
@@ -211,7 +211,7 @@ if (panel.runModal() == NSOKButton) {
             output: String(savePath)
         };
         sketch.export(symbol, options);
-        log(`${options.output}/${symbol.name}.${options.formats}`);
+        console.log(`${options.output}/${symbol.name}.${options.formats}`);
     });
 }
 ```
@@ -249,7 +249,7 @@ var savePath = panel.URL().path();
 // 遍历要导出的组件
 symbols.forEach(function(symbol) {
     // 创建 Export Request
-    var ancestry = MSImmutableLayerAncestry.ancestryWithMSLayer(symbol.sketchObject);
+    var ancestry = symbol.sketchObject.ancestry();
     var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(ancestry).firstObject();
     // 设置格式为 PNG
     exportRequest.setFormat("png");
@@ -282,7 +282,7 @@ symbols.forEach(function(symbol) {
 // 遍历要导出的组件
 symbols.forEach(function(symbol) {
     // 创建 Export Request
-    var ancestry = MSImmutableLayerAncestry.ancestryWithMSLayer(symbol.sketchObject);
+    var ancestry = symbol.sketchObject.ancestry();
     var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(ancestry).firstObject();
     // 设置格式为 PNG
     exportRequest.setFormat("png");
@@ -353,7 +353,7 @@ twotone/action/drawable-xhdpi/ic_done_24dp.png
 // 遍历要导出的组件
 symbols.forEach(function(symbol) {
     // 创建 Export Request
-    var ancestry = MSImmutableLayerAncestry.ancestryWithMSLayer(symbol.sketchObject);
+    var ancestry = symbol.sketchObject.ancestry();
     var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(ancestry).firstObject();
     // 设置格式为 PNG
     exportRequest.setFormat("png");
