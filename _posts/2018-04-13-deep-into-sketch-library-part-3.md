@@ -1,7 +1,7 @@
 ---
 title: （WIP）深入理解 Sketch 库（下）
 excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，高级部分。
-updated: 2018-06-24
+updated: 2018-07-09
 ---
 
 这一部分主要是库相关的高级内容，每个主题不会详细介绍一些初级的内容，如果读者对某个主题感兴趣并且有一些疑问可以咨询作者。
@@ -12,7 +12,7 @@ Sketch 通过 `sketch` 协议打开网络上特定格式的 XML 文件，XML 文
 
 公司内部往往并不需要这样复杂的功能，只需有服务器可以托管一个简单的静态服务就行，一些可以访问原始文件路径的网盘或类似 GitHub/GitLab 的代码托管系统也是可以的，总之将一对一的 XML 和 Sketch 文件放到网络上，并且可以用固定地址访问到原始文件。
 
-XML 格式如下，当更新 Sketch 文档时同时也需要更改更新时间、版本号。文件大小可忽略。时间用于检测是否需要更新文档。
+XML 格式如下，当更新 Sketch 文档时同时需要更改版本号。发布时间与文件长度在当前测试的版本中并没有发现有实际作用，可以忽略。
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -37,9 +37,11 @@ XML 格式如下，当更新 Sketch 文档时同时也需要更改更新时间�
 <a href="sketch://add-library?url=http%3A%2F%2F...xml">Add to Library</a>
 ```
 
-地址 `sketch://add-library?url=http%3A%2F%2F...xml` 也可以在 Finder 的 “链接服务器” 上打开。
+地址 `sketch://add-library?url=http%3A%2F%2F...xml` 也可以在 Finder 的 “链接服务器” 上打开。该功能在 Sketch 51 以后版本可用，[测试版](https://sketchapp.com/beta/)需要修改协议为 `sketch-beta://add-library?url=` 。
 
-该功能将在 Sketch 51 上可用，[测试版](https://sketchapp.com/beta/)需要修改协议为 `sketch-beta://add-library?url=` 。
+当 Sketch 检测到更新时会以系统通知形式通知用户，库面板中的相应文件会出现下载按钮。
+
+![](../images/deep-into-sketch-library/sketch_remote_libray_update.png)
 
 ## 使用插件同步库
 
