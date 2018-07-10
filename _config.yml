@@ -14,7 +14,7 @@ paginate_path: "/posts/page:num/"
 gems: [jekyll-paginate]
 markdown: kramdown
 kramdown:
-  auto_ids: false
+  auto_ids: true
 #  smart_quotes: apos,apos,quot,quot
 sass:
   style: compressed

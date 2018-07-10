@@ -341,6 +341,7 @@ input, textarea {
     font-size: 1rem;
     line-height: 1.8; // 36px
     padding: 1rem 1rem 2rem;
+    word-wrap: break-word;
     a:link, a:visited {
         color: $link-text-color;
         background-image: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,.3) 50%);
@@ -379,9 +380,6 @@ input, textarea {
     }
     p, blockquote, ul, ol, dl {
         margin-bottom: 1.333em;
-    }
-    p {
-        text-indent: 2em;
     }
     ul, ol {
         padding-left: 1.5em;
@@ -623,7 +621,7 @@ input, textarea {
         overflow: hidden;
         li {
             float: left;
-            margin-right: 1em;
+            margin: 0 1em 1em 0;
             a, a:link, a:visited {
                 display: block;
                 float: left;
