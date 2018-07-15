@@ -11,9 +11,11 @@ updated: 2018-07-10
 
 ## 自托管远端库
 
-Sketch 通过 `sketch` 协议打开网络上特定格式的 XML 文件，XML 文件内记录 Sketch 文档的下载地址、更新时间、版本等信息，文档下载完成之后将自动加入库列表中。一个 XML 文档对应一个 Sketch 文档，这些内容可以是动态的，这样服务器端可以加入用户验证、订阅购买等功能，也很容易被整合到其他一些在线服务中。
+在 Sketch 51 及以后版本可以通过 `sketch` 协议打开网络上特定格式的 XML/RSS 文件 来订阅库。XML/RSS 文件内记录 Sketch 文档的下载地址、更新时间、版本等信息，文档下载完成之后将自动加入库列表中。一个 XML 文档对应一个 Sketch 文档，这些内容可以是动态的，这样服务器端可以加入用户验证、订阅购买等功能，也很容易被整合到其他一些在线服务中。
 
 公司内部往往并不需要这样复杂的功能，只需有服务器可以托管一个简单的静态服务就行，一些可以访问原始文件路径的网盘或类似 GitHub/GitLab 的代码托管系统也是可以的，总之将一对一的 XML 和 Sketch 文件放到网络上，并且可以用固定地址访问到原始文件。
+
+发布在公网上的 XML 和 Sketch 文件的 URL 地址都必须是 HTTPS 协议，否则无法载入库。GitHub、GitLab 和 Dropbox 等平台都能提供 HTTPS 的文件地址，内网的文件并没有这个限制。
 
 XML 格式如下，当更新 Sketch 文档时同时需要更改版本号。发布时间与文件长度在当前测试的版本中并没有发现有实际作用，可以忽略。
 
@@ -28,7 +30,7 @@ XML 格式如下，当更新 Sketch 文档时同时需要更改版本号。发�
     <item>
       <title>...</title>
       <pubDate>[UTC Time]</pubDate>
-      <enclosure url="[sketch 文件 URL]" sparkle:version="[version]" length="..." type="application/octet-stream" />
+      <enclosure url="[sketch 文件完整 URL]" sparkle:version="[version]" length="..." type="application/octet-stream" />
     </item>
   </channel>
 </rss>
@@ -37,10 +39,16 @@ XML 格式如下，当更新 Sketch 文档时同时需要更改版本号。发�
 将 XML 和对应的 Sketch 文档都传到网上之后，需要给一个入口，可以在网页或邮箱内容上添加一个链接指向 XML 文件，HTML 代码格式如下，注意 URL 参数的地址需要转码。
 
 ```html
-<a href="sketch://add-library?url=http%3A%2F%2F...xml">Add to Library</a>
+<a href="sketch://add-library?url=https%3A%2F%2Fexample.com%2Fui_kit.xml">Add to Library</a>
 ```
 
-地址 `sketch://add-library?url=http%3A%2F%2F...xml` 也可以在 Finder 的 “链接服务器” 上打开。该功能在 Sketch 51 以后版本可用，[测试版](https://sketchapp.com/beta/)需要修改协议为 `sketch-beta://add-library?url=` 。
+URL 转码可以通过在浏览器的 Console 输入类似以下的代码获得。
+
+```javascript
+encodeURIComponent("https://example.com/ui_kit.xml")
+```
+
+地址 `sketch://add-library?url=https%3A%2F%2Fexample.com%2Fui_kit.xml` 也可以在 Finder 的 “链接服务器” 上打开。
 
 当 Sketch 检测到更新时会以系统通知形式通知用户，库面板中的相应文件会出现下载按钮。
 
