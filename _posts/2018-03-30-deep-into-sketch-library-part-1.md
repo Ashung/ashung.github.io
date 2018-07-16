@@ -4,13 +4,11 @@ excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，上部介绍
 updated: 2018-06-24
 ---
 
-在 [Sketch 47](https://sketchapp.com/updates/#version-47) 中引人的库（Library）功能，这次更新改变了设计团队工作方式和流程。库在设计团队维护一个设计系统或风格指南上，起到非常重要的作用，可以给团队带来更加高效工作体验。
+越来越多的设计师和团队使用 Sketch 作为主要的设计工具，得益于众多插件和第三方应用，即使在没有技术支持的情况下也能解决一些常见问题。然而每次引入大功能时，也会带来很多坑。事实上有些 UI 设计团队的领导，是不太注重方法和流程的，这种团队选择 Sketch 大多是为了更快速出图，也有可能是跟风或者形式上的改革，在这样的团队中的设计师就要艰辛地踩各种坑。
 
-越来越多的设计师和团队使用 Sketch 作为主要的设计工具，得益于众多插件和第三方应用，即使在没有技术支持的情况下也能解决一些常见问题。然而每次引入大功能时，也会带来很多坑。事实上有些 UI 设计团队的领导，是不太注重方法和流程的，这种团队选择 Sketch 大多是为了更快速出图，在这样的团队中设计师就要艰辛地踩各种坑。
+在 [Sketch 47](https://sketchapp.com/updates/#version-47) 中引人的库（Library）功能，维护一个设计系统或风格指南上，起到非常重要的作用，可以给团队带来高效工作体验，这个更新也会改变设计团队工作方式和流程。作为一个写 Sketch 插件的设计师，非常能理解这些问题给团队效率带来的影响。在 Sketch 47 刚发布时，我便开始在我的 [Automate](https://github.com/Ashung/Automate-Sketch) 插件中增加一些库相关的功能，久而久之便对库有了比较深入的了解。这篇文章主要介绍高级的信息，可以帮助设计团队更好的使用 Sketch 库，并解决一些复杂问题。如果需要基础教程，请查阅[官方文档](https://sketchapp.com/docs/libraries/)或其他网上的一些文章。
 
-作为一个写 Sketch 插件的设计师，非常能理解这些问题给团队效率带来的影响。在 Sketch 47 刚发布时，我便开始在我的 [Automate](https://github.com/Ashung/Automate-Sketch) 插件中增加一些库相关的功能，久而久之便对库有了比较深入的了解。这篇文章主要介绍高级的信息，可以帮助设计团队更好的使用 Sketch 库，并解决一些复杂问题。如果需要基础教程，请查阅[官方文档](https://sketchapp.com/docs/libraries/)或其他网上的一些文章。
-
-这一系列的文章分为上中下三部分，上部主要介绍基础概念和库的托管方案；中部主要针对库管理者，内容包括组件命名、库维护等；下部则是针对团队中相对高级的库管理者，一些复杂操作和使用脚本解决一些常见问题。
+这一系列的文章分为上中下三部分，上部主要介绍基础概念和简单的库托管方案；中部主要针对库管理者，内容包括组件命名、库维护和常见问题的解决等；下部则是针对团队中相对高级的库管理者，一些复杂操作和使用脚本解决一些常见问题。
 
 * toc
 {:toc}
@@ -20,7 +18,7 @@ updated: 2018-06-24
 
 [**模版**](https://sketchapp.com/docs/templates/)（Template）与[**库**](https://sketchapp.com/docs/libraries/)（Library）本质上并无区别，都是一个普通的 Sketch 文件，除了低版本（低于 43）Sketch建立的文件无法直接加入到库面板中外，任何带有组件（Symbols）的 Sketch 文件都可以直接加入库面板。
 
-有时模版特指被加入到菜单 “New From Template” 下或显示在 Welcome 界面上的那些文件。可以使用 “Save as Template...” 菜单或者直接将文件复制到 “~/Library/Application Support/com.bohemiancoding.sketch3/Templates” 文件夹内。
+模版这里特指被加入到菜单 “New From Template” 下或显示在 Welcome 界面上的那些文件。可以使用 “Save as Template...” 菜单或者直接将文件复制到 “~/Library/Application Support/com.bohemiancoding.sketch3/Templates” 文件夹内。
 
 ![](../images/deep-into-sketch-library/welcome_templates.png)
 
@@ -34,11 +32,11 @@ updated: 2018-06-24
 
 ### 库的类型
 
-**内置库**（Internal Libraries）是指随 Sketch 自带的库，目前就是 iOS UI Design 这个库，文件保存在 “/Applications/Sketch.app/Contents/Resources/libraries/iOS UI Design.sketch”，如果需要研究这个文件需要复制到其他地方再打开。
+**内置库**（Internal Libraries）是指随 Sketch 自带的库，目前就是 iOS UI Design 这个库，文件保存在程序目录 “/Applications/Sketch.app/Contents/Resources/libraries/iOS UI Design.sketch”，如果需要研究这个文件需要复制到其他地方再打开。
 
 **用户库**（User Libraries）就是用户从库面板上的 “Add Library...” 按钮上添加的库。
 
-**远端库**（Remote Libraries），在 [Sketch 49](https://sketchapp.com/updates/#version-49) 以后增加的一种新类型，内置的需要下载的 Apple iOS UI 属于这个类型。在 49.x - 50.x 的版本上，这个功能仅开放了从 Sketch Cloud 添加库，用户需要注册 Sketch Cloud 上传文件，分享页面链接给使用者，使用者页面上的 “Download - Add Library to Sketch” 菜单添加到库面板。在 51 之后的版本，可以添加保存到任何网络地址的库。
+**远端库**（Remote Libraries），在 [Sketch 49](https://sketchapp.com/updates/#version-49) 以后增加的一种新类型，内置的需要下载的 Apple iOS UI 属于这个类型。在 49.x - 50.x 的版本上，这个功能仅开放了从 Sketch Cloud 添加库，用户需要注册 Sketch Cloud 上传文件，分享页面链接给使用者，使用者页面上的 “Download - Add Library to Sketch” 菜单添加到库面板。在 51 之后的版本，可以添加保存到任何网络地址的库。远端库的本地缓存目录在 “~/Library/Application Support/com.bohemiancoding.sketch3/Libraries”。
 
 这三种类型在库面板上没有明显的视觉区分，可以简单地通过右键菜单（或库面板左下角齿轮图标下拉菜单）来确认属于哪一类型。内置库无法被移除也无法打开，可以被禁用；远端库无法使用 “Show in Finder” 和 “Open ...”菜单，来自 Sketch Cloud 的远端库会有 “View in Sketch Cloud” 菜单；用户库则都有这三个菜单。
 
@@ -52,21 +50,31 @@ updated: 2018-06-24
 
 ### 组件实例、组件母版与库组件
 
-**组件母版**（Symbol Master）是一种特殊画板，能够引出另一个分身称为**组件实例**（Symbol Instance），分身只有单一的图层，但可能会有不同外观。组件实例在图层面板有两种图标，旋转箭头图标表示文档内的实例，而索链图标则表示来着库的实例，这种来自库的实例无法在当前文档修改母版，很多情况就称为**库组件**（Library Symbol）。
+**组件母版**（Symbol Master）是一种特殊画板，能够引出另一个分身称为**组件实例**（Symbol Instance），分身只有单一的图层，通过修改尺寸和 Overrides 可以使其具有不同外观。组件实例在图层面板有两种图标，旋转箭头图标表示文档内的实例，而索链图标则表示来着库的实例，这种来自库的实例无法在当前文档修改母版，很多情况就称为**库组件**（Library Symbol）。
 
 ![](../images/deep-into-sketch-library/symbols_categories.png)
 
-为了区别文档上的组件母版和库组件，文档上所有的组件母版集合称为**内部组件**（Local Symbols），文档上所有库组件的集合通常叫**外部组件**（Foreign Symbols）或**导入的组件**（Imported Symbols）。
+为了区别文档上的组件母版和库组件，文档上所有的组件母版集合称为**本地组件**（Local Symbols），文档上所有库组件的集合称为**外部组件**（Foreign Symbols）或**导入的组件**（Imported Symbols）。
 
-从插入组件的菜单上，只能显示出库文档内的所有内部组件，文档内的外部组件是不会出现在菜单上的，所以通常情况下作为库的文档都是组件母版。使用了嵌入另一库组件的库组件，如果没载入内嵌库组件所属的库，在 Overrides 中把组件更换成其他组件，就只能重新插入来恢复之前的状态。在 Sketch 49 之后，未被使用的外部组件在文档保存时会被自动删除，为了保留外部组件可以插入到画布内。
+从插入组件的菜单上，只能显示出库文档内的所有本地组件，文档内的外部组件是不会出现在菜单上的，所以通常情况下作为库的文档都是组件母版。使用了嵌入另一库组件的库组件，如果没载入内嵌库组件所属的库，在 Overrides 中把组件更换成其他组件，就只能重新插入来恢复之前的状态。在 Sketch 49 之后，未被使用的外部组件在文档保存时会被自动删除，为了保留外部组件可以将其插入到画布内。
+
+### 本地样式和库样式
+
+在 Sketch 51 以及之后的版本中，可以在界面中显示所有库的文本样式和图层样式，对元素应用库样式，会让 Sketch 保存一份改样式的拷贝在文档中，目前界面上没有显示当前文档使用过哪些库样式，Sketch 在文档保存时会对无用的库样式进行清理。
+
+本地样式和库样式在图层列表上也没有差异显示，只能在右侧属性面板中查看信息，原来的文本样式和图层样式操作和管理方式没有改变。
 
 ### 库组件如何从关联的库更新
 
-在介绍库更新机制前，需要简单了解下 Sketch 内部是如何识别对象的。在 Sketch 中创建的任何对象，新建一个文件、插入一个图层、创建一个样式等等，Sketch 都会给这些对象添加唯一标识 [UUID](https://baike.baidu.com/item/UUID)。图层上的 UUID 这里称为图层 ID，组件上的 UUID 称为 组件 ID（SymbolID），组件母版和组件实例都即有图层 ID 也有 组件 ID。ID 信息在界面上没有体现，设计使也不会用到这些信息，它们是作为 Sketch 文档结构上使用的。
+在介绍库更新机制前，需要简单了解下 Sketch 内部是如何识别对象的。在 Sketch 中创建的任何对象，新建一个文件、插入一个图层、创建一个样式等等，Sketch 都会给这些对象添加唯一标识 [UUID](https://baike.baidu.com/item/UUID)。图层上的 UUID 这里称为图层 ID，组件上的 UUID 称为组件 ID（SymbolID），组件母版和组件实例都即有图层 ID 也有组件 ID。ID 信息在界面上没有体现，设计使也不会用到这些信息，它们是作为 Sketch 文档结构上使用的。
 
 库组件并非真实的链接，你将包含外部组件的文档发给其他人，并不会出现坏链导致文档错误，实际上这些数据都保存在当前的文档中，所以使用外部组件不会使文档体积减小，它的优势在于更新机制。库组件也没有保存库的路径，它记录了库名、库 ID 和组件原始 ID（Remote SymbolID， 组件在它的库中的 SymbolID），库的名称显示在属性面板和外部组件管理面板上，库 ID 没有在界面上体现出来。
 
 库组件自动更新，其实就是 “库列表” - “库 ID” - “外部组件原始 ID” 这三者的关联。通过库组件的库 ID，从库面板的列表中，按照添加的时间从新到旧依次检索所有未被禁用的、链接完好的库，直到匹配到库 ID ，然后查找该库文件内是否有与库组件 SymbolID 匹配的组件，如果包含并且内容有差异就提醒更新，更新的过程实际上就是内容替换。如果这个库文件没有与之匹配的组件，还会接着从另一个相同库 ID 的库文件内检索。如果某个环节没有结果，这个组件就不会有提示更新。比较棘手的问题是目前界面并没有地方可以处理这些关系，当这种隐藏的关系链出现问题，就需要借助特殊的插件，或通过在 “Plugins” - “Run Script...” 运行特定的脚本来查看信息或处理关联。
+
+### 库样式如何更新
+
+库样式的底层更新机制和更新界面都与库组件的更新一样，所以库样式在更新时也会存在与库组件类似的问题，比如关联的库丢失、关联的库中丢失样式和关联错误等等。
 
 ----
 
@@ -74,15 +82,21 @@ updated: 2018-06-24
 
 ### 建立库
 
-任何 Sketch 文件都可以当作库，对于独立的设计师的库管理者，可以比较随意的创建库，出现情况的可能性并不大。主要在于团队协作中，库管理者就需要了解上文的库类型和库组件更新原理，并且清晰这些库和组件的联系，根据自身团队的具体情况选择哪一种类型的库，用多个库文件还是一个库文件，每个库文件里有哪些内部组件。
+任何包含组件的 Sketch 文件都可以当作库，对于独立的设计师可以比较随意的创建库，但在于团队协作中，库管理者就需要了解上文的库类型和库组件更新原理，并且清晰这些库和组件的联系，根据自身团队的具体情况选择哪一种类型的库和那一种库托管方案，用多个库文件还是一个库文件，每个库文件里有哪些本地组件。
 
-在 Sketch 中创建组件是不可能出现重复的组件 ID 的，大部分问题出在库 ID 的管理上。从 Sketch 创建一个文档，就赋予文档一个 ID，这个在这个文档被用作库时就是库 ID，如果在 Finder 或其他非方式复制文件，就会导致库 ID 是相同的，如果直接在这个库里的组件母版修改内容，会出现相同 ID 的库里面也包含相同 ID 的组件，当这两个文件同时被加到库列表中，就会可能出现库组件关联错误或无法更新。所以确保库 ID 不重复的方法就是尽量新建文档。
+总之团队越大，项目越大，库文件越多，对于库管理者的技能要求就越高，除了表面上的对 Sketch 软件的熟悉程度，对相应系统平台的了解程度等等，还必须要求熟悉版本控制系统的操作，甚至还可能需要更国外的大型设计团队一样招一个专职或兼职的 DesignOps。否则当整个设计团队把主要设计工具从 Photoshop 转移到 Sketch，过程中遇到的疑难问题，并不会比 Photoshop 时期少，Photoshop 时期遇到的大部分问题时可以依靠劳力和时间解决，如果团队也把这种模式搬到 Sketch 上就会在本可以轻易解决的问题上浪费大量时间，这点可能只有少数大型团队才有切身体会。
 
-### 将内部组件转为库组件
+### 库预览图
 
-载入所有相关的库之后就可以把之前的文件转换为新的外部组件形式的文档，现在已经有成熟的插件可以处理这个艰巨的工作。
+Sketch 文件在加入库面板之后，使用文件内的一个名为 “Library Preview” 的画板作为库的预览图，该画板尺寸为 200x160。当该画板不存在时，则使用文档自身的预览图。
 
-如果你之前用的是模版文件方式来设计，而且库也是原来的模版文件，那么这种情况下库内的组件 ID 和设计文档的组件 ID 是可以匹配的，可以使用基于 ID 的方式来替换。[Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Symbol - Change Symbols to Library Symbol Base Symbol ID” 功能，在选择内部组件实例或组件母版之后，可以批量替换成制定库的相同组件 ID 的库组件。
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Library” 组下的 “Add Library Preview” 功能可以快速为文件添加库预览图的空画板。
+
+### 将本地组件转为库组件
+
+如果团队中的项目已经在没有库的时代运行了很长时间，载入所有相关的库之后就需要把之前的文件转换为新的外部组件形式的文档，现在已经有成熟的插件可以处理这个艰巨的工作，在转换文档时尽量做好备份或版本控制。
+
+如果你之前用的是模版文件方式来设计，而且库也是原来的模版文件，那么这种情况下库内的组件 ID 和设计文档的组件 ID 是可以匹配的，可以使用基于 ID 的方式来替换。[Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Symbol - Change Symbols to Library Symbol Base Symbol ID” 功能，在选择本地组件实例或组件母版之后，可以批量替换成制定库的相同组件 ID 的库组件。
 
 如果需要用到基于组件名称的批量替换可以使用以下插件。
 
@@ -90,33 +104,28 @@ updated: 2018-06-24
 - [Symbol Swapper](https://github.com/sonburn/symbol-swapper)
 - [Move to library](https://github.com/ahmedmigo/Move-to-library-sketchplugin)
 
-即非同 ID 也非同名的情况，就没法批量处理了，可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Symbol - Replace Symbol with Library Symbol” 功能逐个替换，在替换的列表中，会把相同尺寸或 ID 的组件前置。
+即非同 ID 也非同名的情况，就没法批量处理，可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Symbol - Replace Symbol with Library Symbol” 功能逐个替换，在替换的列表中，会把相同尺寸或 ID 的组件前置。
 
 ![](../images/deep-into-sketch-library/replace_symbol_with_library_symbol.png)
 
 如果库组件已经做了较大改变，根据 ID 或名称已经无法达到理想效果，可以在组件右键菜单中选择合适的库组件替换，最后再使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Symbol - Remove Unused Symbols” 删除多余的组件。
 
-### 从库同步图层和文本样式
+### 将本地样式转为库样式
 
-在 Sketch 47.x - 50.x 的版本中界面上只显示出库文档的内部组件，有些保存在库文档的资源，例如图层样式、文本样式，甚至色彩、渐变和图片填充，需要依靠插件同步至新文档。
+在 Sketch 47.x - 50.x 的版本中界面上只显示出库文档的本地组件，有些保存在库文档的资源，例如图层样式和文本样式则无法在界面上显示。这个问题在 50 的版本得到改进，现在使用库中的图层样式和文本样式，与使用库组件一样，甚至与库组件一样可以被更新，建议尽量本地样式转为与之属性一致的库样式。
 
-在 Sketch 51 之后的版本中，可以在界面中显示所有库的文本样式和图层样式，仍可能需要拷贝色彩、渐变和图片填充等资源。
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Library - Change Local Text Style to Library Text Style” 和 “Change Local Layer Style to Library Layer Style” 这两个功能，可以将本地样式转为某一个库中与之属性一致的库样式。如果由于属性不同而无法替换，则可以使用插件内的 “Style - Select Layers by Text Style” 和 “Select Layers by Layer Style” 选择带有本地样式的图层，然后在属性面板中将其替换为库样式。在旧版的 Sketch 上同步样式，可以参考该系列文章的第二部分 “样式管理”。
 
-[Automate](https://github.com/Ashung/Automate-Sketch) 插件包含从任意 Sketch 文件或库倒入文档资源和样式的功能。色彩、渐变和图片填充等文档资源是根据内容添加的不会导致列表重复，而样式则更加对象的 ID，同 ID 项的样式属性会被更新。
+![](../images/deep-into-sketch-library/automate_change_local_style_to_library_style.png)
 
-Automate 插件样式相关的功能如下：
+### 从库同步色彩等资源
+
+到目前为止，保存在库文档的色彩、渐变和图片填充等资源，需要依靠插件同步至新文档。
+
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件包含从任意 Sketch 文件或库导入文档资源的功能。色彩、渐变和图片填充等文档资源是根据内容添加的不会导致列表重复。
 
 - Style - Import Document Assets from Sketch File，从 Sketch 文件导入色彩、渐变及图片填充等资源。
-- Style - Import Text Styles from Sketch File，从 Sketch 文件导入文本样式。
-- Style - Import Layer Styles from Sketch File，从 Sketch 文件导入图层样式。
 - Library - Import Document Assets from Library，从库导入色彩、渐变及图片填充等资源。
-- Library - Import Styles from Library，从库导入文本和图层样式。
-
-### 库预览图
-
-Sketch 文件在加入库面板之后，使用文件内的一个名为 “Library Preview” 的画板作为库的预览图，该画板尺寸为 200x160。当该画板不存在时，则使用文档自身的预览图。
-
-[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Library” 组下的 “Add Library Preview” 功能可以快速为文件添加库预览图的空画板。
 
 ## 库的托管方案
 
@@ -185,7 +194,7 @@ Sketch 官方提供了两个示例文档。
 
 从 [Apple UI Design Resources](https://developer.apple.com/design/resources/) 下载的 Sketch 文件就是链接至 Apple 官方自托管的库，需要从库面板下载内置的 Apple iOS UI。库更新由 Apple 官方维护，使用者可以自动接收到更新。在 Sketch 51 之后的版本中开放了这个功能，用户可以自己使用内部的服务器、外部云或者 CDN 来保存库文件。Sketch 通过一个 URL 协议打开带有云端库链接和信息的 RSS 文件来载入远端库。
 
-这是方案特别适合针对某个平台的开放的库，或者公司内部有自己的文件管理系统，或者存在多地方办公的情况，由官方或某个团队来统一维护，使用者会第一时间接收到更新，在这一系列的文章的高级部分，有详细介绍这种方案的实施。
+这个方案特别适合针对某个平台的开放的库，或者公司内部有自己的文件管理系统，或者存在多地方办公的情况，由官方或某个团队来统一维护，使用者会第一时间接收到更新，在这一系列的文章的高级部分，有详细介绍这种方案的实施。
 
 ### 使用 Sketch 插件同步
 

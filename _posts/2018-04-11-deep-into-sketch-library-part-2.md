@@ -101,6 +101,20 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 
 ![](../images/deep-into-sketch-library/automate_style_menu.png)
 
+### 导入样式
+
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件包含从任意 Sketch 文件或库导入样式的功能，样式根据对象的 ID，同 ID 项的样式属性会被更新，所以这些功能在多人协作的库上，可以用来同步样式。插件样式相关的功能如下：
+
+- Style - Import Document Assets from Sketch File，从 Sketch 文件导入色彩、渐变及图片填充等资源。
+- Style - Import Text Styles from Sketch File，从 Sketch 文件导入文本样式。
+- Style - Import Layer Styles from Sketch File，从 Sketch 文件导入图层样式。
+- Library - Import Document Assets from Library，从库导入色彩、渐变及图片填充等资源。
+- Library - Import Styles from Library，从库导入文本和图层样式。
+
+### 清理无用样式
+
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Style - Remove Unused Layer Styles” 和 “Remove Unused Text Styles”，会以列出为被使用样式的预览，可以在界面中选择真正无用的样式将其移除，这比在默认的样式管理面板中操作更安全。
+
 ----
 
 ## 库文件性能优化
@@ -155,9 +169,9 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 
 ### 修改库 ID 冲突
 
-库 ID 即 Sketch 文档的 document ID，如果不通过 Sketch 新建文档，而是直接复制 Sketch 文档，他们就会具有相同的文档 ID，库面板中存在相同 ID 的库，并且库中有相同 ID 的组件，会导致更新到错误的内容。
+在 Sketch 中创建组件是不可能出现重复的组件 ID 的，大部分问题出在库 ID 的管理上。从 Sketch 创建一个文档，就赋予文档一个 ID，这个在这个文档被用作库时就是库 ID，如果在 Finder 或其他非方式复制文件，就会导致库 ID 是相同的，如果直接在这个库里的组件母版修改内容，会出现相同 ID 的库里面也包含相同 ID 的组件，当这两个文件同时被加到库列表中，就会可能出现库组件关联错误或无法更新。所以确保库 ID 不重复的方法就是尽量新建文档。
 
-[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Library” 组下的 “Fit Library ID Conflict”，在库面板列表包含相同 ID 库的时候，会显示所有 ID 冲突的库，然后根据情况改变库的 ID。
+对于已经重复 ID 的库，[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Library” 组下的 “Fit Library ID Conflict”，在库面板列表包含相同 ID 库的时候，会显示所有 ID 冲突的库，然后根据情况改变库的 ID。
 
 ![](../images/deep-into-sketch-library/automate_fix_library_id_conflic.png)
 
