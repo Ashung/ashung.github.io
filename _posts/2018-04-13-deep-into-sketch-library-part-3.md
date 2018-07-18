@@ -28,7 +28,7 @@ XML 格式如下，当更新 Sketch 文档时同时需要更改版本号。发�
     <description>...</description>
     <language>en</language>
     <item>
-      <title>...</title>
+      <title>[显示在库列表的名称]</title>
       <pubDate>[UTC Time]</pubDate>
       <enclosure url="[sketch 文件完整 URL]" sparkle:version="[version]" length="..." type="application/octet-stream" />
     </item>
@@ -112,6 +112,7 @@ var addLibrary = function(context) {
         if (libraryUrl) {
             var libraryPath = String(libraryUrl.path());
             var library = Library.getLibraryForDocumentAtPath(libraryPath);
+            AppController.sharedInstance().checkForAssetLibraryUpdates();
             if (context.action == 'Shutdown') {
                 library.remove();
             }
