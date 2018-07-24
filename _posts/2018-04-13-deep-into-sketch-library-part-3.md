@@ -26,6 +26,14 @@ XML 格式如下，当更新 Sketch 文档时同时需要更改版本号。发�
   <channel>
     <title>...</title>
     <description>...</description>
+    <link>[项目首页，在列表中右键菜单 “View in Browser” 中使用]</link>
+    <image>
+        <url>[图片 URL 在下载过程中显示]</url>
+        <title>...</title>
+        <link>[项目首页]</link>
+    </image>
+    <generator>Sketch</generator>
+    <lastBuildDate>[UTC Time]</lastBuildDate>
     <language>en</language>
     <item>
       <title>[显示在库列表的名称]</title>
@@ -80,9 +88,10 @@ Sketch 插件其实是一个带有 “.sketchplugin” 后缀的特定结构的�
     "author": "...",
     "email": "...",
     "homepage": "...",
-    "appcast": "http://.../appcast.xml",
+    "appcast": "https://.../appcast.xml",
     "version": "1.0",
     "identifier": "com.sketch.library.sync.example",
+    "icon": "icon.png",
     "commands": [
         {
             "handlers": {
