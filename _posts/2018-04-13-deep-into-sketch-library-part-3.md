@@ -1,7 +1,7 @@
 ---
 title: 深入理解 Sketch 库（下）
 excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，高级部分。
-updated: 2018-07-10
+updated: 2018-08-08
 ---
 
 这一部分主要是库相关的高级内容，每个主题不会详细介绍一些初级的内容，如果读者对某个主题感兴趣并且有一些疑问可以咨询作者。
@@ -15,8 +15,6 @@ updated: 2018-07-10
 
 公司内部往往并不需要这样复杂的功能，只需有服务器可以托管一个简单的静态服务就行，一些可以访问原始文件路径的网盘或类似 GitHub/GitLab 的代码托管系统也是可以的，总之将一对一的 XML 和 Sketch 文件放到网络上，并且可以用固定地址访问到原始文件。
 
-发布在公网上的 XML 和 Sketch 文件的 URL 地址都必须是 HTTPS 协议，否则无法载入库。GitHub、GitLab 和 Dropbox 等平台都能提供 HTTPS 的文件地址，内网的文件并没有这个限制。
-
 XML 格式如下，当更新 Sketch 文档时同时需要更改版本号。发布时间与文件长度在当前测试的版本中并没有发现有实际作用，可以忽略。
 
 ```xml
@@ -26,23 +24,33 @@ XML 格式如下，当更新 Sketch 文档时同时需要更改版本号。发�
   <channel>
     <title>...</title>
     <description>...</description>
-    <link>[项目首页，在列表中右键菜单 “View in Browser” 中使用]</link>
+    <link>...</link>
     <image>
-        <url>[图片 URL 在下载过程中显示]</url>
+        <url>...</url>
         <title>...</title>
-        <link>[项目首页]</link>
+        <link>...</link>
     </image>
     <generator>Sketch</generator>
     <lastBuildDate>[UTC Time]</lastBuildDate>
     <language>en</language>
     <item>
-      <title>[显示在库列表的名称]</title>
+      <title>...</title>
       <pubDate>[UTC Time]</pubDate>
-      <enclosure url="[sketch 文件完整 URL]" sparkle:version="[version]" length="..." type="application/octet-stream" />
+      <enclosure url="..." sparkle:version="[version]" length="..." type="application/octet-stream" />
     </item>
   </channel>
 </rss>
 ```
+
+`<link>` 标签内容为项目主页的 URL 地址，用于在库列表内的库右键菜单显示 “View in Browser” 项。
+
+`<image> <url>` 标签内容为在下载过程中显示图片的 URL 地址，图片尺寸为 200x160px。
+
+`<item> <title>` 标签内容为库显示在列表上的名称。
+
+`<lastBuildDate>` 和 `<pubDate>` 标签内容为 UTC Time 字符串，但库列表中显示的为文件属性上的修改时间。
+
+`<enclosure url>` 标签属性内容为 Sketch 文件的 URL 地址，如果发布在公网上，XML 和 Sketch 文件的 URL 地址都必须是 HTTPS 协议的，否则无法载入库，内网的文件并没有这个限制。GitHub、GitLab 和 Dropbox 等平台都能提供 HTTPS 的文件地址。
 
 将 XML 和对应的 Sketch 文档都传到网上之后，需要给一个入口，可以在网页或邮箱内容上添加一个链接指向 XML 文件，HTML 代码格式如下，注意 URL 参数的地址需要转码。
 
@@ -237,7 +245,7 @@ if (panel.runModal() == NSOKButton) {
 }
 ```
 
-新的 Sketch JavaScript API 的导出目前只能将资源导出到指定的目录，实际情况下通常需要修改资源保存路径。另外目前在实际使用最常用的还是使用 `document.saveExportRequest_toFile` 和 `document.saveArtboardOrSlice_toFile` 来导出资源，这两个方法可以修改文件路径不受图层名限制。
+新的 Sketch JavaScript API 的导出目前只能将资源导出到指定的目录，实际情况下通常需要修改资源保存路径，另外资源缩放会增加类似 “@2x” 的后缀。目前在实际使用最常用的还是使用 `document.saveExportRequest_toFile` 和 `document.saveArtboardOrSlice_toFile` 来导出资源，这两个方法可以修改文件路径不受图层名限制。
 
 ```javascript
 document.saveExportRequest_toFile(exportRequest, filePath);

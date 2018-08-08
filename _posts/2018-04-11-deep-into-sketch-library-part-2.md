@@ -1,7 +1,7 @@
 ---
 title: 深入理解 Sketch 库（中）
 excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，中部针对库管理者介绍库文件维护。
-updated: 2018-06-24
+updated: 2018-08-08
 ---
 
 这一部分主要是针对设计团队中库管理者或设计系统维护者，介绍一些库组件命名建议、组件管理、样式管理和库文件管理方面的信息，读者只需要有这方法管理经验，不需要一些编程开发的经验。
@@ -158,6 +158,16 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 由于插件是根据 Symbol ID 更新替换组件的，所以文件的参与修改者，需要在原组件上修改，复制组件修改会被认为是新的内容。这种替换方式只能二选一，如果需要用的双方的内容，最终的合并者可以在替换前复制备份出现冲突的组件，替换后根据需要手工修改内容。
 
 如果组件尺寸发生变化，可能会影响某些 overrides 已设置为该组件的组件，所以建议库文件内不要修改 overrides 的内容。
+
+## 库更新频率
+
+官方解释目前库检测更新频率默认为 1 小时，重启 Sketch 也会让库检测更新，官方提供 [Check for Library Updates](https://github.com/bomberstudios/check-for-library-updates) 插件来手动检测更新，此功能及集成到 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Library” 组下。
+
+官方还提供一种修改隐藏设置项来强制修改检测更新频率的做法，需要在终端输入以下命名，`10` 表示 10 分钟，此处可以替换为任意整数，单位为分钟，不建议过于频繁检测更新。
+
+```bash
+defaults write com.bohemiancoding.sketch3 checkForLibraryUpdatesPeriod -int 10
+```
 
 ## 库测试
 
