@@ -187,11 +187,17 @@ defaults write com.bohemiancoding.sketch3 checkForLibraryUpdatesPeriod -int 10
 
 ### 查找和修复坏链库组件
 
-使用了被更改 ID 的库内的组件，或者丢失库的组件，会导致组件无法更新，如果确定这些组件同属于一个库，并且明确这个库已更换为另一库，可以使用 [Symbol Swapper](https://github.com/sonburn/symbol-swapper) 插件内的 Symbol Swap Libraries 功能，该功能可以把组件的库更换成另一个库。
+导致库组件无法更新，通常有两种情况，一是库组件关联的库在库列表中不存在或者被禁用，这种情况试图编辑组件会得到 “This Symbol belongs to an unavailable Library.” 的提示；二是虽然库组件关联的库在库列表中存在，但库中并没有相应 ID 的组件，这种情况的提示和库中存在相应 ID 的组件时的提示一样为 “This Symbol belongs to an external Library.” 或者 “This Symbol belongs to a Template Library. ”，所以这种情况从界面上非常难判断链接的库里到底有没有相应 ID 的组件。
 
-如果不是统一替换某个库，而是查找每个组件的链接状态，或者针对某个组件更改链接的库，则可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Library” 组下的 “Imported Symbols Link Mange” 功能，该功能可以只显示库不存在的组件，并且可以在更改链接的库时，检测库内是否包含该元素，实际上为相同 Symbol ID 的组件，如果内容不同则会提升组件更新。
+利用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Library” 组下的 “Imported Symbols Link Mange” 功能，可以看出哪一种原因导致某一个库组件无法更新，界面中以红色小字直接提示 “Library not found.”、“Library is disabled.” 和 “Symbol not found.”。该功能可以查找每个库组件的链接状态，或者针对某个库组件更改链接的库，也可以只显示库不存在的组件，在更改链接的库时，会自动检测库内是否包含与该组件相应 ID 的组件。
 
 ![](../images/deep-into-sketch-library/automate_imported_symbols_link_manage.png)
+
+有一种经常遇到情况要将本来链接到一个库的所有组件修改到另一库，使用 Abstract 导出库文件的时候经常遇到这个操作，当组件数量多时使用 “Imported Symbols Link Mange” 就会有点费时，首先必须很明确要目标的库内都有相应的组件，这种情况下可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Library” 组下的 “Replace Library” 功能，另一个插件 [Symbol Swapper](https://github.com/sonburn/symbol-swapper) 插件内的 “Symbol Swap Libraries” 也提供类似功能。
+
+![](../images/deep-into-sketch-library/automate_replace_library.png)
+
+在使用 “Imported Symbols Link Mange” 和 “Replace Library” 操作前，最好保存或备份文件，在执行操作之后可以在 Sketch 的库更新中检测是替换否正确。
 
 ## 资源导出
 
