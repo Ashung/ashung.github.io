@@ -47,13 +47,25 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 [Symbol Organizer](https://github.com/sonburn/symbol-organizer) 组件管理插件，可以将组件组件按名称分组，水平或垂直排列。
 
-[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Arrange” 组下的很多功能，可以帮助你快速的排列各种元素，例如对换位置（Change Places Between Two Layers）、水平或垂直排列（Tile Objects by Position X/Y）、排列对象（Tile Objects）、根据位置对齐排列（Arrange Objects），这些都可以通过设置间距快速排列画板，“Tile Objects” 还加入按名称排序选项。“Order Layers By Name” 和 “Reverse Layer Order” 可以对图层列表按名称排序和反向。
+[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Arrange” 组下的很多功能，可以帮助你快速的排列各种元素，例如对换位置（Change Places Between Two Layers）、水平或垂直排列（Tile Objects by Position X/Y）、排列对象（Tile Objects）、根据位置对齐排列（Arrange Objects），这些都可以通过设置间距快速排列画板。
 
 ![](../images/deep-into-sketch-library/automate_arrange_menu.png)
 
 组件的分页不建议使用剪切粘贴组件母版这种操作，如果一个组件可以确定没有被使用，那么同一文档内组件母版的剪切粘贴是可以的，这个操作不会导致组件 ID 改变，如果组件被使用，会导致该组件的实例变成组。从不同文档间的组件母版复制相对较安全些，如果 ID 相同新的组件母版的 Symbol ID 会被重建，如果包含内嵌的组件，则会产生相应的母版。
 
 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Move Symbol Masters to Another Page” 可以将选中的组件母版移动到指定的页面。
+
+### 修改组件母版与实例名称
+
+运行菜单 “View” - “Layer List” - “Cellipse All Groups” 可以在图层列表缩收所有图层，这时聚焦在图层列表时，使用 “Tab” 或 “Shift - Tab” 可以按次序切换当前选中的最外一级的图层，使用 “Cmd - 2” 显示当前图层，使用 “Cmd - R” 修改图层名称，使用 “fn - ↑↓” 切换分页。
+
+如果不熟悉这些复杂的快捷键操作，[Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Artboard - Artboard Navigator” 提供一个相对便捷的导航和重命名操作界面。
+
+![](../images/deep-into-sketch-library/automate_artboard_navigator.png)
+
+插件的 “Arrange” 组下还有一些功能是对图层列表名称排序的，可以让图层列表更井然有序，例如 “Order Layers By Name” 和 “Reverse Layer Order” 。
+
+当组件母版名称被修改时，有时也需要将该组件的实例名称修改为相应的名称，以便更清晰的看出组件间的嵌套关系。选中组件母版时，运行插件的 “Symbol - Rename Instances”，可以将其所有实例的名称修改为组件名、组件名的第一段、组件名的最后一段或者自定义名称。
 
 ### 原位置创建组件母版
 
