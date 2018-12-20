@@ -334,9 +334,23 @@ symbols.forEach(function(symbol) {
 });
 ```
 
+### 导出 PDF
+
+PDF 格式用于 iOS 和 macOS 开发，假设画板的名称格式类似 “icon/action/done”，PDF 资源保存路径为 “icon/action/pdf/done.pdf”。
+
+```javascript
+// 遍历要导出的组件
+symbols.forEach(function(symbol) {
+    // 在文件名前加上 PDF 文件夹
+    var name = symbol.name.substring(0, symbol.name.lastIndexOf("/")) + "/pdf" + symbol.name.substring(symbol.name.lastIndexOf("/"));
+    // 导出资源
+    context.document.saveArtboardOrSlice_toFile(symbol.sketchObject, `${savePath}/${name}.pdf`);
+});
+```
+
 ### 导出 SVG
 
-假设画板的名称格式类似 “icon/action/done”，SVG 资源保存路径为 “icon/action/svg/done.svg”。
+PDF 格式用于网页平台或用于转换为其他类似字体等格式，假设画板的名称格式类似 “icon/action/done”，SVG 资源保存路径为 “icon/action/svg/done.svg”。
 
 ```javascript
 // 遍历要导出的组件
@@ -348,7 +362,7 @@ symbols.forEach(function(symbol) {
 });
 ```
 
-### 组件与资源的名称差异
+### 解决组件与资源的名称差异
 
 组件为了方便检索会将其分类，例如一套图标有多种风格，组件名称可能按照类似下面的 “风格／分类／名称／尺寸” 格式命名。
 
@@ -435,7 +449,7 @@ scales.forEach(function(item) {
 }
 ```
 
-
+### 转换 VectorDrawable (TODO)
 
 
 

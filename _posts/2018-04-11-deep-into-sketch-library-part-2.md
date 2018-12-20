@@ -127,6 +127,10 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 
 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Style - Remove Unused Layer Styles” 和 “Remove Unused Text Styles”，会以列出为被使用样式的预览，可以在界面中选择真正无用的样式将其移除，这比在默认的样式管理面板中操作更安全。
 
+### 样式 Overrides
+
+TODO
+
 ----
 
 ## 库文件性能优化
