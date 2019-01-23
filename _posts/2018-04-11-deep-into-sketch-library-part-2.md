@@ -53,7 +53,7 @@ Overrides 标签命即是组件内相应的图层名，为了能清晰表达 Ove
 
 组件的分页不建议使用剪切粘贴组件母版这种操作，如果一个组件可以确定没有被使用，那么同一文档内组件母版的剪切粘贴是可以的，这个操作不会导致组件 ID 改变，如果组件被使用，会导致该组件的实例变成组。从不同文档间的组件母版复制相对较安全些，如果 ID 相同新的组件母版的 Symbol ID 会被重建，如果包含内嵌的组件，则会产生相应的母版。
 
-[Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Move Symbol Masters to Another Page” 可以将选中的组件母版移动到指定的页面。
+在左侧图层列表中，将组件图层拖到页面的标题上可以做到把图层移动到相应的页面，或者 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Move Symbol Masters to Another Page” 也可以将选中的组件母版移动到指定的页面。
 
 ### 修改组件母版与实例名称
 
@@ -126,10 +126,6 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 ### 清理无用样式
 
 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Style - Remove Unused Layer Styles” 和 “Remove Unused Text Styles”，会以列出为被使用样式的预览，可以在界面中选择真正无用的样式将其移除，这比在默认的样式管理面板中操作更安全。
-
-### 样式 Overrides
-
-TODO
 
 ----
 

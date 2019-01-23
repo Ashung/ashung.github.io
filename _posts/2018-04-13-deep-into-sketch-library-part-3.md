@@ -449,8 +449,6 @@ scales.forEach(function(item) {
 }
 ```
 
-### 转换 VectorDrawable (TODO)
-
 
 
 
