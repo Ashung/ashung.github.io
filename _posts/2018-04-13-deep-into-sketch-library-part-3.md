@@ -119,10 +119,10 @@ Sketch 插件其实是一个带有 “.sketchplugin” 后缀的特定结构的�
 
 ```javascript
 var addLibrary = function(context) {
-    var Library = require('sketch/dom').Library;
+    var Library = require("sketch/dom").Library;
     var libraryFiles = [
-        'icon.sketch',
-        'ui.sketch'
+        "icon.sketch",
+        "ui.sketch"
     ];
     libraryFiles.forEach(function(fileName) {
         var libraryUrl = context.plugin.urlForResourceNamed(fileName);
