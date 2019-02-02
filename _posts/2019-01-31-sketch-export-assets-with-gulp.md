@@ -17,11 +17,11 @@ updated: 2019-01-31
 
 每一个图标都是一个 Symbol Master，这样做 Sketch 文件可以被当作库来使用。可以先创建 Artboard 再将其转为 Symbol，就可以在原位置创建 Symbol 而不会产生一个 Symbol 实例，如果已经使用组来分类每个图标，可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Selection to Symbol Masters” 功能直接转为 Symbol Master。
 
-在 Sketch 52.x 中 Symbol 实例可以更改 style overrides，所以为每个图标绑定一个类似 “Color / Default” 的黑色样式是个不错的做法。当然图标也可以是彩色或者包含透明度的，但你必须清楚了解某些类型资源本身的限制，例如目前图标字体只会是单色。
+在 Sketch 52.x 中 Symbol 实例可以更改 style overrides，所以为每个图标绑定一个类似 “Colors/Default” 的黑色样式是个不错的做法。当然图标也可以是彩色或者包含透明度的，但你必须清楚了解某些类型资源本身的限制，例如目前图标字体只会是单色。
 
 尽量将图标的图层都合并到一个形状图层上，特别是需要输出代码形式的资源，这样可以得到更少的代码。如果需要导出 Android 平台的 Vector Drawable，建议把形状图层填充选项设置为 Non-Zero，在 Sketch 52.x 中此设置包含在样式中，所以默认样式要包含此设置。另外一些特殊功能蒙板、投影样式等，某些代码类型的资源可能不支持，需要仔细了解各自的限制。
 
-资源的命名上，为了避免多余整理命名操作，不建议使用 Sketch 的分组符号 “/”，而是用小写英文和分隔符（“-” 或 “_”）的组合。
+资源的命名上，为了避免多余整理命名操作，不建议使用 Sketch 的分组符号 “/”，而是用小写英文和分隔符（“-” 或 “\_”）的组合。示例中使用 Sketch 组件命名使用 “\_” 分隔符。
 
 图标尺寸使用图标原始的尺寸，例如统一使用 24x24px。 
 
@@ -51,7 +51,7 @@ npm install --save-dev gulp
 安装 gulp 插件和 node.js 模块。这里使用 [del](https://www.npmjs.com/package/del) 在生成资源前删除旧的资源，避免因 Sketch 文件图层名修改造成资源冗余。使用 [gulp-imagemin](https://github.com/sindresorhus/gulp-imagemin) 压缩 PNG 和 SVG 资源。输出其他类型资源还需要安装额外的模块。
 
 ```bash
-npm install --save-dev del child-process-promise gulp-imagemin
+npm install --save-dev del child-process-promise gulp-imagemin gulp-rename
 ```
 
 项目的目录结构如下，sketch 文件夹用来保存设计源文件。
@@ -78,6 +78,7 @@ const del = require('del');
 const exec = require('child-process-promise').exec;
 
 const imagemin = require('gulp-imagemin');
+const rename = require('gulp-rename');
 
 let sketchtool = '/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool';
 let sketchFile = './sketch/icons.sketch';
@@ -88,6 +89,8 @@ let sketchFile = './sketch/icons.sketch';
 单个任务，运行 `gulp task1`。
 
 ```javascript
+const gulp = require('gulp');
+
 function task() { ... }
 task.displayName = 'task1';
 task.description = 'task description';
@@ -98,6 +101,8 @@ gulp.task(task);
 多个系列任务，运行 `gulp task1`。很多情况下会使用这种方式，导出一种资源通常需要删除旧数据，导出资源和优化资源等 3 个子任务。
 
 ```javascript
+const gulp = require('gulp');
+
 function subtask1() { ... }
 subtask1.displayName = 'subtask 1';
 
@@ -110,7 +115,67 @@ task.description = 'task 1';
 gulp.task('task1', task);
 ```
 
-### 1x PNG
+这种编码习惯，在运行  `gulp --tasks` 时可以清晰列出 task 名和描述，及其依赖的子任务。
+
+```bash
+gulp --tasks
+
+[14:32:08] Tasks for ~/Works/icon_project/gulpfile.js
+[14:32:08] └─┬ PNG 1x  Export 1x Optimized PNG
+[14:32:08]   └─┬ <series>
+[14:32:08]     ├── Clean 1x PNG
+[14:32:08]     ├── Export 1x PNG
+[14:32:08]     └── Optimize 1x PNG
+```
+
+在运行任务过程中也能清晰看到当前执行的任务。
+
+```
+gulp "PNG 1x"
+
+[14:33:24] Using gulpfile ~/Works/icon_project/gulpfile.js
+[14:33:24] Starting 'PNG 1x'...
+[14:33:24] Starting 'Clean 1x PNG'...
+[14:33:24] Finished 'Clean 1x PNG' after 9.57 ms
+[14:33:24] Starting 'Export 1x PNG'...
+[14:33:25] Finished 'Export 1x PNG' after 614 ms
+[14:33:25] Starting 'Optimize 1x PNG'...
+[14:33:26] gulp-imagemin: Minified 83 images (saved 3.05 kB - 12.7%)
+[14:33:26] Finished 'Optimize 1x PNG' after 971 ms
+[14:33:26] Finished 'PNG 1x' after 1.6 s
+```
+
+## 资源文件名修改
+
+sketchtool 会在导出放大的资源时自动增加 “@nx” 后缀，其他平台并不需要这种多余后缀，还有 Android 平台需要把不同分辨率保存在不同文件夹内，还有在整个示例中输出的文件名统一使用  “\_” 分隔符，文件夹名使用 “-” 分隔符， SVG 或 CSS 代码中的 id 或 class 也使用 “-” 分隔符。在项目中使用 [gulp-rename](https://www.npmjs.com/package/gulp-rename) 来重命名文件和更改目录，可以不需要增加一个子任务函数来处理名称，把代码加在某个任务的 `pipe` 内。gulp-rename 的重命名文件是对文件的复制，所以还需要删除旧的文件。
+
+```bash
+npm install --save-dev gulp-rename
+```
+
+统一文件名分隔符。
+
+```javascript
+function subtask1() {
+    return gulp.src('...')
+    	.pipe(rename((path, file) => {
+            path.basename = path.basename.replace(/(-|\s+)/g, '_'); // 将 - 或空格都替换为 _
+            del(file.path);
+        })
+    	.pipe(gulp.dest('...'));
+}
+```
+
+删除或替换后缀。
+
+```javascript
+path.basename = path.basename.replace(/@\dx$/, ''); // 删除后缀
+path.basename = path.basename.replace(/@(\d)x$/, '_$1x'); // 替换后缀
+```
+
+## 输出资源
+
+### Web: 1x PNG
 
 直接使用 sketchtool 命令导出 PNG，然后使用 [gulp-imagemin](https://github.com/sindresorhus/gulp-imagemin) 的默认选项压缩，如果需要加入其他压缩工具或修改压缩选项请参考官方文档。
 
@@ -144,67 +209,28 @@ gulp.task('PNG 1x', taskPNG1x);
 
 导出资源运行 `gulp "PNG 1x"`。
 
-这种编码方式，在运行  `gulp --tasks` 时可以清晰列出 task 名和描述，及其依赖的子任务。
+### Web: 2x PNG
 
-```bash
-gulp --tasks
-
-[14:32:08] Tasks for ~/Works/icon_project/gulpfile.js
-[14:32:08] └─┬ PNG 1x  Export 1x Optimized PNG
-[14:32:08]   └─┬ <series>
-[14:32:08]     ├── Clean 1x PNG
-[14:32:08]     ├── Export 1x PNG
-[14:32:08]     └── Optimize 1x PNG
-```
-
-在运行任务过程中也能清晰看到当前执行的任务。
-
-```
-gulp "PNG 1x"
-
-[14:33:24] Using gulpfile ~/Works/icon_project/gulpfile.js
-[14:33:24] Starting 'PNG 1x'...
-[14:33:24] Starting 'Clean 1x PNG'...
-[14:33:24] Finished 'Clean 1x PNG' after 9.57 ms
-[14:33:24] Starting 'Export 1x PNG'...
-[14:33:25] Finished 'Export 1x PNG' after 614 ms
-[14:33:25] Starting 'Optimize 1x PNG'...
-[14:33:26] gulp-imagemin: Minified 83 images (saved 3.05 kB - 12.7%)
-[14:33:26] Finished 'Optimize 1x PNG' after 971 ms
-[14:33:26] Finished 'PNG 1x' after 1.6 s
-```
-
-### 2x PNG
-
-sketchtool 会在放大 2 倍资源自动增加 “@2x” 后缀，可以使用 [gulp-rename](https://www.npmjs.com/package/gulp-rename) 重命名文件，重命名文件是对文件的复制，所以还需要删除旧的文件。
-
-```bash
-npm install --save-dev gulp-rename
-```
-
-可以不需要增加一个子任务函数来处理名称，把代码加在 `subtaskOptimizePNG2x` 的 `pipe` 内。
+sketchtool 会在放大 2 倍资源自动增加 “@2x” 后缀，这里使用 [gulp-rename](https://www.npmjs.com/package/gulp-rename) 重命名文件。
 
 ```javascript
 const rename = require('gulp-rename');
 
-// 清理资源
 function subtaskCleanPNG2x() {
     return del(['./dest/png-2x']);
 }
 subtaskCleanPNG2x.displayName = 'Clean 2x PNG';
 
-// 导出资源
 function subtaskExportPNG2x() {
     let dest = './dest/png-2x';
     return exec(`${sketchtool} export artboards ${sketchFile} --formats="png" --scale="2" --output="${dest}" --include-symbols="yes"`);
 }
 subtaskExportPNG2x.displayName = 'Export 2x PNG';
 
-// 压缩资源
 function subtaskOptimizePNG2x() {
     return gulp.src('./dest/png-2x/*')
         .pipe(rename((path, file) => {
-            path.basename = path.basename.replace('@2x', '');
+            path.basename = path.basename.replace(/@2x$/, '');
             del(file.path);
         }))
         .pipe(imagemin())
@@ -220,30 +246,27 @@ gulp.task('PNG 2x', taskPNG2x);
 
 导出资源运行 `gulp "PNG 2x"`。
 
-### 1x 和 2x PNG
+### Web: 1x 和 2x PNG
 
 同时导出 1x 和 2x 的 PNG，使用 [gulp-rename](https://www.npmjs.com/package/gulp-rename) 重命名文件。
 
 ```javascript
-// 清理旧资源
 function subtaskCleanPNG() {
     return del(['./dest/png']);
 }
 subtaskCleanPNG.displayName = 'Clean PNG';
 
-// 导出资源
 function subtaskExportPNG() {
     let dest = './dest/png';
     return exec(`${sketchtool} export artboards ${sketchFile} --formats="png" --scale="1,2" --output="${dest}" --include-symbols="yes"`);
 }
 subtaskExportPNG.displayName = 'Export PNG';
 
-// 压缩资源
 function subtaskOptimizePNG() {
     return gulp.src('./dest/png/*')
         .pipe(rename((path, file) => {
             if (/@2x$/.test(path.basename)) {
-                path.basename = path.basename.replace('@2x', '-2x');
+                path.basename = path.basename.replace(/@2x$/, '_2x');
                 del(file.path);
             }
         }))
@@ -260,25 +283,22 @@ gulp.task('PNG', taskPNG);
 
 导出资源运行 `gulp "PNG"`。
 
-### Apple 多分辨率 PNG
+### iOS: 多分辨率 PNG
 
 sketchtool 可以非常方便导出 Sketch 资源为 iOS 多分辨率 PNG，自带 @2x 和 @3x 后缀。
 
 ```javascript
-// 清理旧资源
 function subtaskCleanIOSPNG() {
     return del(['./dest/ios-png']);
 }
 subtaskCleanIOSPNG.displayName = 'Clean iOS PNG';
 
-// 导出资源
 function subtaskExportIOSPNG() {
     let dest = './dest/ios-png/';
     return exec(`${sketchtool} export artboards ${sketchFile} --formats="png" --scale="1,2,3" --output="${dest}" --include-symbols="yes"`);
 }
 subtaskExportIOSPNG.displayName = 'Export iOS PNG';
 
-// 压缩资源
 function subtaskOptimizeIOSPNG() {
     return gulp.src('./dest/ios-png/*')
         .pipe(imagemin())
@@ -294,25 +314,22 @@ gulp.task('iOS PNG', taskIOSPNG);
 
 导出资源运行 `gulp "iOS PNG"`。
 
-### Android 多分辨率 PNG
+### Android: 多分辨率 PNG
 
 同时导出 1x、1.5x、2x、3x、4x 的 PNG，使用 [gulp-rename](https://www.npmjs.com/package/gulp-rename) 重命名文件保存到不同的文件夹中，另外按照 Android 资源的命名习惯，在文件名前增加 “ic_” 前缀，并将所有 “-” 替换为 “\_”。
 
 ```javascript
-// 清理旧资源
 function subtaskCleanAndroidPNG() {
     return del(['./dest/android-png']);
 }
 subtaskCleanAndroidPNG.displayName = 'Clean Android PNG';
 
-// 导出资源
 function subtaskExportAndroidPNG() {
     let dest = './dest/android-png/';
     return exec(`${sketchtool} export artboards ${sketchFile} --formats="png" --scale="1,1.5,2,3,4" --output="${dest}" --include-symbols="yes"`);
 }
 subtaskExportAndroidPNG.displayName = 'Export Android PNG';
 
-// 压缩资源
 function subtaskOptimizeAndroidPNG() {
     return gulp.src('./dest/android-png/*')
         .pipe(rename((path, file) => {
@@ -332,7 +349,7 @@ function subtaskOptimizeAndroidPNG() {
                 path.dirname = 'drawable-mdpi';
             }
             path.basename = path.basename.replace(/@\dx$/, '');
-            path.basename = path.basename.replace(/\-/g, '_');
+            path.basename = path.basename.replace(/-/g, '_');
             path.basename = 'ic_' + path.basename;
             del(file.path);
         }))
@@ -349,16 +366,14 @@ gulp.task('Android PNG', taskAndroidPNG);
 
 导出资源运行 `gulp "Android PNG"`。
 
-### PDF
+### iOS: PDF
 
 ```javascript
-// 清理旧资源
 function subtaskCleanPDF() {
     return del(['./dest/pdf']);
 }
 subtaskCleanPDF.displayName = 'Clean PDF';
 
-// 导出资源
 function subtaskExportPDF() {
     let dest = './dest/pdf/';
     return exec(`${sketchtool} export artboards ${sketchFile} --formats="pdf" --output="${dest}" --include-symbols="yes"`);
@@ -378,20 +393,17 @@ gulp.task('PDF', taskPDF);
 这里压缩 SVG 时保留 2 位小数，保留 viewBox 属性，而删除 width 和 height 属性，这样将 SVG 代码插入到 HTML 上时可以使用 CSS 控制尺寸，更多压缩配置请参考 [svgo](https://github.com/svg/svgo) 文档。
 
 ```javascript
-// 清理旧资源
 function subtaskCleanSVG() {
     return del(['./dest/svg']);
 }
 subtaskCleanSVG.displayName = 'Clean SVG';
 
-// 导出资源
 function subtaskExportSVG() {
     let dest = './dest/svg/';
     return exec(`${sketchtool} export artboards ${sketchFile} --formats="svg" --output="${dest}" --include-symbols="yes"`);
 }
 subtaskExportSVG.displayName = 'Export SVG';
 
-// 压缩资源
 function subtaskOptimizeSVG() {
     return gulp.src('./dest/svg/*.svg')
         .pipe(imagemin([
@@ -417,13 +429,125 @@ gulp.task('SVG', taskSVG);
 
 导出资源运行 `gulp "SVG"`。
 
-### 图标检索文件
+### 图标检索文档
 
-TODO
+当图标数量较多时最好有一份 HTML 格式展示所有图标，并且可以搜索的文档。这里使用 [gulp-mustache](https://www.npmjs.com/package/gulp-mustache) 来从 [mustache](http://mustache.github.io) 模版文件生成 HTML。
 
-## 通过 SVG 转换为其他格式
+![](../images/sketch-gulp/sketch_gulp_2.png)
 
-### SVG Sprite
+安装 gulp-mustache。
+
+```bash
+npm install --save-dev gulp-mustache
+```
+
+template/icons.html 的内容，使用 [Vue.js](https://cn.vuejs.org/index.html) 实现一个简单的搜索。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }} - {{ description }}</title>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+body{margin:0;font:14px sans-serif;background:#EFF1F5;}
+.container{display:flex;align-items: flex-start;align-content:flex-start;flex-wrap:wrap;}
+.search{display:block;width:240px;margin:16px;padding:16px 16px 16px 56px;border-radius:4px;border:0;font-size:inherit;font-family:inherit;outline:none;background:#fff url(svg/search.svg) no-repeat 16px 50%;background-size:24px 24px;box-shadow:inset 0 1px 2px rgba(0,0,0,.2);}
+.icon{text-align:center;padding:16px;margin:0 0 16px 16px;border-radius:4px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.5);}
+.icon img{display:block;margin:0 auto 8px;}
+.icon-name{display:block;white-space:nowrap;}
+.info{color:#999;padding:16px;}
+</style>
+</head>
+<body>
+<div id="app">
+    <input class="search" type="text" v-model="search" placeholder="search..."/>
+    <div class="container">
+        <div v-for="icon in filteredList" class="icon">
+            <img v-bind:src="'svg/' + icon.name + '.svg'" width="48" height="48" alt="">
+            <span class="icon-name">{{=<% %>=}}{{ icon.name }}<%={{ }}=%></span>
+        </div>
+    </div>
+    <p class="info">Version: {{ version }}, build date: {{ date }}, contains {{ icons.length }} icons.</p>
+</div>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            search: '',
+            icons: [
+                {{#icons}}
+                { 'name': '{{name}}' },
+                {{/icons}}
+            ]
+        },
+        computed: {
+            filteredList() {
+                return this.icons.filter(icon => {
+                    if ((new RegExp(this.search, 'i')).test(icon.name)) {
+                        return icon;
+                    }
+                })
+            }
+        }
+    });
+</script>
+</body>
+</html>
+```
+
+在 gulpfile.js 上增加一些 Mustache 模版上需要的信息，例如 HTML 文档 Title、项目版本号、生成日期等。
+
+```javascript
+const mustache = require("gulp-mustache");
+
+let packageInfo = require('./package.json');
+let projectTitle = packageInfo.name.split('-').map(item => {
+    return item[0].toUpperCase() + item.substr(1)
+}).join(' ');
+let projectDescription = packageInfo.description;
+let projectVersion = packageInfo.version;
+let projectBuildDate = String(new Date().getFullYear()) +
+    (new Date().getMonth() > 8 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1)) +
+    (new Date().getDate() > 9 ? new Date().getDate() : '0' + new Date().getDate());
+```
+
+把创建文档的操作作为一个子任务，在优化 SVG 完成之后执行。
+
+```javascript
+function subtaskCleanSVG() { ... }
+
+function subtaskExportSVG() { ... }
+
+function subtaskOptimizeSVG() { ... }
+
+function subtaskCreateIconsHTML() {
+    return gulp.src('./templates/icons.html')
+        .pipe(mustache({
+            title: projectTitle,
+            description: projectDescription,
+            version: projectVersion,
+            date: projectBuildDate,
+            icons: fs.readdirSync('./dest/svg/').map(file => {
+                return {
+                    'name': file.replace(/\.svg$/, '')
+                }
+            })
+        }))
+        .pipe(gulp.dest('./dest/'));
+}
+subtaskCreateIconsHTML.displayName = 'Create a search HTML for all icons';
+
+let taskSVG = gulp.series(subtaskCleanSVG, subtaskExportSVG, subtaskOptimizeSVG, subtaskCreateIconsHTML);
+taskSVG.description = 'Export SVG';
+
+gulp.task('SVG', taskSVG);
+```
+
+
+
+### Web: SVG Sprite
 
 (WIP)
 
@@ -503,19 +627,148 @@ TODO
 
 TODO
 
-### Icon Font
+### Web: Icon Font
 
-TODO
+(WIP)
 
-#### ttf 格式字体
+```javascript
+const mustacheRender = require("mustache").render;
 
-#### woff 格式字体
+const svgicons2svgfont = require('gulp-svgicons2svgfont');
+const svg2ttf = require('gulp-svg2ttf');
+const ttf2woff = require('gulp-ttf2woff');
+```
 
-#### CSS
 
-#### 检索文档
 
-### Android Vector Drawable
+```javascript
+let packageInfo = require('./package.json');
+let projectTitle = packageInfo.name.split('-').map(item => {
+    return item[0].toUpperCase() + item.substr(1)
+}).join(' ');
+let projectDescription = packageInfo.description;
+let projectVersion = packageInfo.version;
+let projectBuildDate = String(new Date().getFullYear()) +
+    (new Date().getMonth() > 8 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1)) +
+    (new Date().getDate() > 9 ? new Date().getDate() : '0' + new Date().getDate());
 
-TODO
+let fontMetadata = {
+    id: 'icon-font',
+    name: 'icon-font',
+    version: packageInfo.version.match(/^\d+\.\d+/)[0],
+    copyright: 'License ' + packageInfo.license + ' ' + new Date().getFullYear() + ', ' + packageInfo.author + '.'
+};
+```
+
+
+
+
+
+```javascript
+function subtaskCleanIconFont() {
+    return del(['./dest/iconfont']);
+}
+subtaskCleanIconFont.displayName = 'Clean Icon Font';
+
+function subtaskCreateIconFont() {
+    let dest = './dest/iconfont';
+    return gulp.src('./dest/svg/*.svg')
+        .pipe(svgicons2svgfont({
+            fontName: fontMetadata.name,
+            fontId: fontMetadata.id,
+            fontHeight: 1000,
+            normalize: true
+        }))
+        .on('glyphs', glyphs => {
+
+        	let icons = [];
+            glyphs.forEach(glyph => {
+                let character = glyph.unicode[0];
+                let codepoint = character.codePointAt(0).toString(16);
+                if (codepoint.length < 4) {
+                    codepoint = '0'.repeat(4 - codepoint.length) + codepoint;
+                }
+                icons.push(
+                    {
+                        name: glyph.name,
+                        className: glyph.name.replace(/_/g, '-'),
+                        character: character,
+                        code: codepoint
+                    }
+                );
+            });
+
+            let htmlTemplate = fs.readFileSync('./templates/iconfont.html', 'utf-8');
+            let htmlCode = mustacheRender(htmlTemplate, {
+                title: projectTitle,
+                description: projectDescription,
+                version: projectVersion,
+                date: projectBuildDate,
+                icons: icons,
+                fontName: fontMetadata.name
+            });
+            fs.writeFileSync(path.join(dest, 'iconfont.html'), htmlCode);
+
+        })
+        .pipe(svg2ttf({
+            version: fontMetadata.version,
+            copyright: fontMetadata.copyright
+        }))
+        .pipe(gulp.dest(dest))
+        .pipe(ttf2woff())
+        .pipe(gulp.dest(dest));
+}
+subtaskCreateIconFont.displayName = 'Create Icon Font';
+
+let taskIconFont = gulp.series(subtaskCleanIconFont, subtaskCreateIconFont);
+taskIconFont.description = 'Export Icon Font';
+
+gulp.task('Icon Font', taskIconFont);
+```
+
+
+
+
+
+
+
+
+
+
+
+### Android: Vector Drawable
+
+Vector Drawable 需要从 SVG 文件转换，所以此任务必须等待 SVG 任务结束之后执行。安装 vinyl-paths 和 svg2vectordrawable 模块。
+
+```bash
+npm install --save-dev svg2vectordrawable vinyl-paths
+```
+
+ [vinyl-paths](https://www.npmjs.com/package/vinyl-paths) 用于在 pipe 中获取 stream 中每个文件的路径，然后使用 [svg2vectordrawable](https://www.npmjs.com/package/svg2vectordrawable) 将 SVG 转为 Vector Drawable。
+
+```javascript
+const vinylPaths = require('vinyl-paths');
+const svg2vectordrawable = require('svg2vectordrawable/lib/svg-file-to-vectordrawable-file');
+
+
+function subtaskCleanVectorDrawable() {
+    return del(['./dest/android-vector-drawable']);
+}
+subtaskCleanVectorDrawable.displayName = 'Clean Vector Drawable';
+
+function subtaskCreateVectorDrawable() {
+    let dest = './dest/android-vector-drawable';
+    return gulp.src('./dest/svg/*.svg')
+        .pipe(vinylPaths(function (file) {
+            let outputPath = path.join(dest, 'ic_' + path.basename(file).replace(/\.svg$/, '.xml'));
+            return svg2vectordrawable(file, outputPath);
+        }));
+}
+subtaskCreateVectorDrawable.displayName = 'Create Vector Drawable';
+
+let taskVectorDrawable = gulp.series('SVG', subtaskCleanVectorDrawable, subtaskCreateVectorDrawable);
+taskSVG.description = 'Export Vector Drawable';
+
+gulp.task('Android Vector Drawable', taskVectorDrawable);
+```
 
