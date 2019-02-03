@@ -732,10 +732,10 @@ subtaskCreateVectorDrawable.displayName = 'Create Vector Drawable';
 let taskVectorDrawable = gulp.series('SVG', subtaskCleanVectorDrawable, subtaskCreateVectorDrawable);
 taskSVG.description = 'Export Vector Drawable';
 
-gulp.task('Android Vector Drawable', taskVectorDrawable);
+gulp.task('Vector Drawable', taskVectorDrawable);
 ```
 
-导出资源运行 `gulp "Android Vector Drawable"`。
+导出资源运行 `gulp "Vector Drawable"`。
 
 
 
