@@ -1,19 +1,22 @@
 ---
 title: 使用 gulp 导出 Sketch 资源
 excerpt: 使用 gulp 从 Sketch 文件导出各种资源，包括 SVG Sprite、Icon Font 和 Android Vector Drawable 等等。
-updated: 2019-01-31
+updated: 2019-02-03
 ---
 
-国内很多开源 UI 框架大多是前端工程师主导的，很多在项目中使用这些 UI 框架的时候，会发现一些设计上问题例如主题非常少，图标或 UI 的设计文件不开源，还有 UI 设计师的设计和输出流程没有文档。又因为很多公司的 UI 设计师水平有限，在项目中使用这些 UI 框架的开发人员，特别是在一些设计团队老是想主动产品，而开发必须在现有的 UI 框架快速搭建产品会出现不少沟通的问题。只会从设计软件直接导出资源的 UI 设计师是无法适应现在这种技术环境的。
+国内很多开源 UI 框架大多是前端工程师主导的，很多在项目中使用这些 UI 框架的时候，会发现一些设计上问题例如主题非常少，图标或 UI 的设计文件不开源，还有 UI 设计师的设计和输出流程没有文档。很多国内公司的 UI 设计师水平有限，在项目中使用这些 UI 框架快速搭建产品的开发人员，与希望主导整个产品的设计团队之间会出现不少沟通的问题。
 
 其实在 [npmjs.com](https://www.npmjs.com) 上有很多模块用来处理这类资源输出和转换问题，本文将介绍如何利用 gulp 插件和 node.js 模块从 Sketch 文件导出目前各种常见应用场景的资源，包括多分辨率 PNG，iOS 和 macOS 平台的 PDF，网页上使用的图标字体、SVG Sprite 或 SVG symbol，Android 平台的 Vector Drawable 等等。读者需要了解基础的命令行操作，以及基础的 gulp 和 node.js 编程，由于使用 Sketch 自带的命令行工具 sketchtool，所有依赖此工具的都必须在安装有 Sketch 的 macOS 上运行。另外本文不会介绍各种资源的优缺点，采用哪一资源请根据具体的开发环境决定。
 
 * toc
 {:toc}
+## 项目源码
+
+文章中的所有代码及 Sketch 文档都保存在 [Sketch Export Master](https://github.com/Ashung/sketch-export-master) 项目中，为了文章的篇幅简洁部分非主要代码会省略，可以到项目的 GitHub 上查看完整代码。
 
 ## Sketch 文件规范
 
-在现实中需要使用这种快速导出资源并转换多种格式操作的，大部分都是处理一些数量较多的系列图标或者插图等，文章中会以图标作为示例。为了方便程序准确的读取 Sketch 文件的信息，需要让设计师在设计图标时遵循一些规范，根据当前 Sketch 的功能，我使用如下的规范：
+在现实中需要使用这种快速导出资源并转换多种格式操作的，大部分都是处理一些数量较多的系列图标或者插图等，文章中会以图标作为示例。为了方便程序准确的读取 Sketch 文件的信息，需要让设计师在设计图标时遵循一些规范，根据当前 Sketch 的功能，我使用如下的规范。Sketch 文件可以在 [Sketch Export Master](https://github.com/Ashung/sketch-export-master) 项目中找到。
 
 每一个图标都是一个 Symbol Master，这样做 Sketch 文件可以被当作库来使用。可以先创建 Artboard 再将其转为 Symbol，就可以在原位置创建 Symbol 而不会产生一个 Symbol 实例，如果已经使用组来分类每个图标，可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Selection to Symbol Masters” 功能直接转为 Symbol Master。
 
@@ -35,23 +38,26 @@ updated: 2019-01-31
 sudo npm install --g gulp-cli
 ```
 
-初始化项目。
+你可以使用下面命令，从 [Sketch Export Master](https://github.com/Ashung/sketch-export-master) 项目上克隆代码，这样会得到一个完整功能的 gulpfile.js，这时可以忽略下文的安装 gulp 插件和 node.js 模块。
+
+``` bash
+git clone https://github.com/Ashung/sketch-export-master.git
+cd sketch-export-master
+npm install
+```
+
+如果你不需要所有功能，也可以初始化一个新的项目，并安装最新版的 gulp。
 
 ```bash
 cd icon_project
 npm init
-```
-
-安装最新版的 gulp。
-
-```bash
 npm install --save-dev gulp
 ```
 
-安装 gulp 插件和 node.js 模块。这里使用 [del](https://www.npmjs.com/package/del) 在生成资源前删除旧的资源，避免因 Sketch 文件图层名修改造成资源冗余。使用 [gulp-imagemin](https://github.com/sindresorhus/gulp-imagemin) 压缩 PNG 和 SVG 资源。输出其他类型资源还需要安装额外的模块。
+这种情况就需要安装输出不同资源所需要 gulp 插件或 node.js 模块。这里使用 [del](https://www.npmjs.com/package/del) 在生成资源前删除旧的资源，避免因 Sketch 文件图层名修改造成资源冗余。使用 [gulp-imagemin](https://github.com/sindresorhus/gulp-imagemin) 压缩 PNG 和 SVG 资源。 [child-process-promise](https://www.npmjs.com/package/child-process-promise) 用来运行命令从 Sketch 文件导出最初的资源。这几个是必须的。
 
 ```bash
-npm install --save-dev del child-process-promise gulp-imagemin gulp-rename
+npm install --save-dev del child-process-promise gulp-imagemin
 ```
 
 项目的目录结构如下，sketch 文件夹用来保存设计源文件。
@@ -78,7 +84,6 @@ const del = require('del');
 const exec = require('child-process-promise').exec;
 
 const imagemin = require('gulp-imagemin');
-const rename = require('gulp-rename');
 
 let sketchtool = '/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool';
 let sketchFile = './sketch/icons.sketch';
@@ -213,9 +218,15 @@ gulp.task('PNG 1x', taskPNG1x);
 
 sketchtool 会在放大 2 倍资源自动增加 “@2x” 后缀，这里使用 [gulp-rename](https://www.npmjs.com/package/gulp-rename) 重命名文件。
 
+在 gulpfile.js 引入 gulp-rename。
+
 ```javascript
 const rename = require('gulp-rename');
+```
 
+任务代码。
+
+```javascript
 function subtaskCleanPNG2x() {
     return del(['./dest/png-2x']);
 }
@@ -249,6 +260,14 @@ gulp.task('PNG 2x', taskPNG2x);
 ### Web: 1x 和 2x PNG
 
 同时导出 1x 和 2x 的 PNG，使用 [gulp-rename](https://www.npmjs.com/package/gulp-rename) 重命名文件。
+
+在 gulpfile.js 引入 gulp-rename。
+
+```javascript
+const rename = require('gulp-rename');
+```
+
+任务代码。
 
 ```javascript
 function subtaskCleanPNG() {
@@ -317,6 +336,14 @@ gulp.task('iOS PNG', taskIOSPNG);
 ### Android: 多分辨率 PNG
 
 同时导出 1x、1.5x、2x、3x、4x 的 PNG，使用 [gulp-rename](https://www.npmjs.com/package/gulp-rename) 重命名文件保存到不同的文件夹中，另外按照 Android 资源的命名习惯，在文件名前增加 “ic_” 前缀，并将所有 “-” 替换为 “\_”。
+
+在 gulpfile.js 引入 gulp-rename。
+
+```javascript
+const rename = require('gulp-rename');
+```
+
+任务代码。
 
 ```javascript
 function subtaskCleanAndroidPNG() {
@@ -441,23 +468,17 @@ gulp.task('SVG', taskSVG);
 npm install --save-dev gulp-mustache
 ```
 
-template/icons.html 的内容，使用 [Vue.js](https://cn.vuejs.org/index.html) 实现一个简单的搜索。
+templates/icons.html 的内容（[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/icons.html)），使用 [Vue.js](https://cn.vuejs.org/index.html) 实现一个简单的搜索。
 
 ```html
-<!DOCTYPE html>
+{% raw %}<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>{{ title }} - {{ description }}</title>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <style>
-body{margin:0;font:14px sans-serif;background:#EFF1F5;}
-.container{display:flex;align-items: flex-start;align-content:flex-start;flex-wrap:wrap;}
-.search{display:block;width:240px;margin:16px;padding:16px 16px 16px 56px;border-radius:4px;border:0;font-size:inherit;font-family:inherit;outline:none;background:#fff url(svg/search.svg) no-repeat 16px 50%;background-size:24px 24px;box-shadow:inset 0 1px 2px rgba(0,0,0,.2);}
-.icon{text-align:center;padding:16px;margin:0 0 16px 16px;border-radius:4px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.5);}
-.icon img{display:block;margin:0 auto 8px;}
-.icon-name{display:block;white-space:nowrap;}
-.info{color:#999;padding:16px;}
+....
 </style>
 </head>
 <body>
@@ -494,10 +515,10 @@ body{margin:0;font:14px sans-serif;background:#EFF1F5;}
     });
 </script>
 </body>
-</html>
+</html>{% endraw %}
 ```
 
-在 gulpfile.js 上增加一些 Mustache 模版上需要的信息，例如 HTML 文档 Title、项目版本号、生成日期等。
+在 gulpfile.js 引入 gulp-mustache，并增加一些 Mustache 模版上需要的信息，例如 HTML 文档 Title、项目版本号、生成日期等。
 
 ```javascript
 const mustache = require("gulp-mustache");
@@ -544,6 +565,177 @@ taskSVG.description = 'Export SVG';
 
 gulp.task('SVG', taskSVG);
 ```
+
+### Web: Icon Font
+
+安装字体生成模块 [gulp-iconfont](https://www.npmjs.com/package/gulp-iconfont)，此任务依赖 SVG 任务。
+
+```bash
+npm install --save-dev gulp-iconfont
+```
+
+增加 Icon Font 的检索文档模版 templates/icons.html（[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/iconfont.html)），内容与 SVG 的检索文档模版大致相同，只是在图标下方增加 CSS 类名和字符的 Unicode 编码。
+
+![](../images/sketch-gulp/sketch_gulp_3.png)
+
+增加 templates/iconfont.css 模版，文中使用原生的 CSS，可以直接改为 SCSS 或 LESS，也可以根据项目上目前使用的 iconfont css 修改模版。
+
+```css
+{% raw %}@font-face {
+    font-family: "{{ fontName }}";
+    font-style: normal;
+    font-weight: normal;
+    font-display: auto;
+    src: url("{{ fontName }}.eot");
+    src: url("{{ fontName }}.eot") format("embedded-opentype"),
+         url("{{ fontName }}.woff2") format("woff2"),
+         url("{{ fontName }}.woff") format("woff"),
+         url("{{ fontName }}.ttf") format("truetype"),
+         url("{{ fontName }}.svg") format("svg");
+}
+.ic {
+    font-family: "{{ fontName }}";
+    display: inline-block;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+.ic-s { font-size: 16px; }
+.ic-m { font-size: 20px; }
+.ic-1x { font-size: 24px; }
+.ic-l { font-size: 32px; }
+.ic-2x { font-size: 48px; }
+{{#icons}}
+.{{className}}:before { content: "\{{code}}"; }
+{{/icons}}{% endraw %}
+```
+
+在 HTML 上显示 icon font 的方式。
+
+```html
+<i class="ic ic-account"></i>
+<i class="ic ic-account ic-1x"></i> <!-- 24px -->
+```
+
+在 gulpfile.js 引入 Mustache 和 gulp-iconfont。
+
+```javascript
+const mustacheRender = require("mustache").render;
+const iconfont = require('gulp-iconfont');
+```
+
+使用 gulp-iconfont 生成 svg、ttf、eot、woff、woff2 等 5 种字体，并渲染 templates/icons.html 和 templates/iconfont.css 两个模版。
+
+```javascript
+let fontName = 'icon-font';
+
+function subtaskCleanIconFont() {
+    return del(['./dest/iconfont']);
+}
+subtaskCleanIconFont.displayName = 'Clean Icon Font';
+
+function renderMustacheToFile(inputFile, outputFile, data) {
+    let templateString = fs.readFileSync(inputFile, 'utf-8');
+    let code = mustacheRender(templateString, data);
+    fs.writeFileSync(outputFile, code);
+}
+
+function subtaskCreateIconFont() {
+    let dest = './dest/iconfont';
+    return gulp.src('./dest/svg/*.svg')
+        .pipe(iconfont({
+            fontName: fontName,
+            prependUnicode: true,
+            formats: ['svg', 'ttf', 'eot', 'woff', 'woff2'],
+            timestamp: Math.round(Date.now() / 1000),
+            fontHeight: 1000,
+            normalize: true
+        }))
+        .on('glyphs', glyphs => {
+            let icons = glyphs.map(glyph => {
+                let character = glyph.unicode[0];
+                let codepoint = character.codePointAt(0).toString(16);
+                if (codepoint.length < 4) {
+                    codepoint = '0'.repeat(4 - codepoint.length) + codepoint;
+                }
+                return {
+                    name: glyph.name,
+                    className: 'ic-' + glyph.name.replace(/_/g, '-'),
+                    character: character,
+                    code: codepoint
+                };
+            });
+            renderMustacheToFile('./templates/iconfont.html', path.join(dest, 'iconfont.html'), {
+                title: projectTitle,
+                description: projectDescription,
+                version: projectVersion,
+                date: projectBuildDate,
+                icons: icons,
+                fontName: fontName
+            });
+            renderMustacheToFile('./templates/iconfont.css', path.join(dest, 'iconfont.css'), {
+                icons: icons,
+                fontName: fontName
+            });
+        })
+        .pipe(gulp.dest(dest));
+}
+subtaskCreateIconFont.displayName = 'Create Icon Font';
+
+let taskIconFont = gulp.series('SVG', subtaskCleanIconFont, subtaskCreateIconFont);
+taskIconFont.description = 'Export Icon Font';
+
+gulp.task('Icon Font', taskIconFont);
+```
+
+导出资源运行 `gulp "Icon Font"`。
+
+### Android: Vector Drawable
+
+Vector Drawable 需要从 SVG 文件转换，所以此任务依赖 SVG 任务。
+
+安装 [vinyl-paths](https://www.npmjs.com/package/vinyl-paths) 和 [svg2vectordrawable](https://www.npmjs.com/package/svg2vectordrawable) 模块。
+
+```bash
+npm install --save-dev svg2vectordrawable vinyl-paths
+```
+
+在 gulpfile.js 引入这两个模块，vinyl-paths 用于在 pipe 中获取 stream 中每个文件的路径，然后使用 svg2vectordrawable 将 SVG 转为 Vector Drawable。
+
+```javascript
+const vinylPaths = require('vinyl-paths');
+const svg2vectordrawable = require('svg2vectordrawable/lib/svg-file-to-vectordrawable-file');
+```
+
+任务代码。
+
+```javascript
+function subtaskCleanVectorDrawable() {
+    return del(['./dest/android-vector-drawable']);
+}
+subtaskCleanVectorDrawable.displayName = 'Clean Vector Drawable';
+
+function subtaskCreateVectorDrawable() {
+    let dest = './dest/android-vector-drawable';
+    return gulp.src('./dest/svg/*.svg')
+        .pipe(vinylPaths(function (file) {
+            let outputPath = path.join(dest, 'ic_' + path.basename(file).replace(/\.svg$/, '.xml'));
+            return svg2vectordrawable(file, outputPath);
+        }));
+}
+subtaskCreateVectorDrawable.displayName = 'Create Vector Drawable';
+
+let taskVectorDrawable = gulp.series('SVG', subtaskCleanVectorDrawable, subtaskCreateVectorDrawable);
+taskSVG.description = 'Export Vector Drawable';
+
+gulp.task('Android Vector Drawable', taskVectorDrawable);
+```
+
+导出资源运行 `gulp "Android Vector Drawable"`。
 
 
 
@@ -626,149 +818,3 @@ TODO
 #### SVG Stack
 
 TODO
-
-### Web: Icon Font
-
-(WIP)
-
-```javascript
-const mustacheRender = require("mustache").render;
-
-const svgicons2svgfont = require('gulp-svgicons2svgfont');
-const svg2ttf = require('gulp-svg2ttf');
-const ttf2woff = require('gulp-ttf2woff');
-```
-
-
-
-```javascript
-let packageInfo = require('./package.json');
-let projectTitle = packageInfo.name.split('-').map(item => {
-    return item[0].toUpperCase() + item.substr(1)
-}).join(' ');
-let projectDescription = packageInfo.description;
-let projectVersion = packageInfo.version;
-let projectBuildDate = String(new Date().getFullYear()) +
-    (new Date().getMonth() > 8 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1)) +
-    (new Date().getDate() > 9 ? new Date().getDate() : '0' + new Date().getDate());
-
-let fontMetadata = {
-    id: 'icon-font',
-    name: 'icon-font',
-    version: packageInfo.version.match(/^\d+\.\d+/)[0],
-    copyright: 'License ' + packageInfo.license + ' ' + new Date().getFullYear() + ', ' + packageInfo.author + '.'
-};
-```
-
-
-
-
-
-```javascript
-function subtaskCleanIconFont() {
-    return del(['./dest/iconfont']);
-}
-subtaskCleanIconFont.displayName = 'Clean Icon Font';
-
-function subtaskCreateIconFont() {
-    let dest = './dest/iconfont';
-    return gulp.src('./dest/svg/*.svg')
-        .pipe(svgicons2svgfont({
-            fontName: fontMetadata.name,
-            fontId: fontMetadata.id,
-            fontHeight: 1000,
-            normalize: true
-        }))
-        .on('glyphs', glyphs => {
-
-        	let icons = [];
-            glyphs.forEach(glyph => {
-                let character = glyph.unicode[0];
-                let codepoint = character.codePointAt(0).toString(16);
-                if (codepoint.length < 4) {
-                    codepoint = '0'.repeat(4 - codepoint.length) + codepoint;
-                }
-                icons.push(
-                    {
-                        name: glyph.name,
-                        className: glyph.name.replace(/_/g, '-'),
-                        character: character,
-                        code: codepoint
-                    }
-                );
-            });
-
-            let htmlTemplate = fs.readFileSync('./templates/iconfont.html', 'utf-8');
-            let htmlCode = mustacheRender(htmlTemplate, {
-                title: projectTitle,
-                description: projectDescription,
-                version: projectVersion,
-                date: projectBuildDate,
-                icons: icons,
-                fontName: fontMetadata.name
-            });
-            fs.writeFileSync(path.join(dest, 'iconfont.html'), htmlCode);
-
-        })
-        .pipe(svg2ttf({
-            version: fontMetadata.version,
-            copyright: fontMetadata.copyright
-        }))
-        .pipe(gulp.dest(dest))
-        .pipe(ttf2woff())
-        .pipe(gulp.dest(dest));
-}
-subtaskCreateIconFont.displayName = 'Create Icon Font';
-
-let taskIconFont = gulp.series(subtaskCleanIconFont, subtaskCreateIconFont);
-taskIconFont.description = 'Export Icon Font';
-
-gulp.task('Icon Font', taskIconFont);
-```
-
-
-
-
-
-
-
-
-
-
-
-### Android: Vector Drawable
-
-Vector Drawable 需要从 SVG 文件转换，所以此任务必须等待 SVG 任务结束之后执行。安装 vinyl-paths 和 svg2vectordrawable 模块。
-
-```bash
-npm install --save-dev svg2vectordrawable vinyl-paths
-```
-
- [vinyl-paths](https://www.npmjs.com/package/vinyl-paths) 用于在 pipe 中获取 stream 中每个文件的路径，然后使用 [svg2vectordrawable](https://www.npmjs.com/package/svg2vectordrawable) 将 SVG 转为 Vector Drawable。
-
-```javascript
-const vinylPaths = require('vinyl-paths');
-const svg2vectordrawable = require('svg2vectordrawable/lib/svg-file-to-vectordrawable-file');
-
-
-function subtaskCleanVectorDrawable() {
-    return del(['./dest/android-vector-drawable']);
-}
-subtaskCleanVectorDrawable.displayName = 'Clean Vector Drawable';
-
-function subtaskCreateVectorDrawable() {
-    let dest = './dest/android-vector-drawable';
-    return gulp.src('./dest/svg/*.svg')
-        .pipe(vinylPaths(function (file) {
-            let outputPath = path.join(dest, 'ic_' + path.basename(file).replace(/\.svg$/, '.xml'));
-            return svg2vectordrawable(file, outputPath);
-        }));
-}
-subtaskCreateVectorDrawable.displayName = 'Create Vector Drawable';
-
-let taskVectorDrawable = gulp.series('SVG', subtaskCleanVectorDrawable, subtaskCreateVectorDrawable);
-taskSVG.description = 'Export Vector Drawable';
-
-gulp.task('Android Vector Drawable', taskVectorDrawable);
-```
-
