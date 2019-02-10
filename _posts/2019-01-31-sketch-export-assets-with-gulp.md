@@ -4,9 +4,7 @@ excerpt: 使用 gulp 从 Sketch 文件导出各种资源，包括 SVG Sprite、I
 updated: 2019-02-03
 ---
 
-国内很多开源 UI 框架大多是前端工程师主导的，很多在项目中使用这些 UI 框架的时候，会发现一些设计上问题例如主题非常少，图标或 UI 的设计文件不开源，还有 UI 设计师的设计和输出流程没有文档。很多国内公司的 UI 设计师水平有限，在项目中使用这些 UI 框架快速搭建产品的开发人员，与希望主导整个产品的设计团队之间会出现不少沟通的问题。
-
-其实在 [npmjs.com](https://www.npmjs.com) 上有很多模块用来处理这类资源输出和转换问题，本文将介绍如何利用 gulp 插件和 node.js 模块从 Sketch 文件导出目前各种常见应用场景的资源，包括多分辨率 PNG，iOS 和 macOS 平台的 PDF，网页上使用的图标字体、SVG Sprite 或 SVG symbol，Android 平台的 Vector Drawable 等等。读者需要了解基础的命令行操作，以及基础的 gulp 和 node.js 编程，由于使用 Sketch 自带的命令行工具 sketchtool，所有依赖此工具的都必须在安装有 Sketch 的 macOS 上运行。另外本文不会介绍各种资源的优缺点，采用哪一资源请根据具体的开发环境决定。
+本文主要介绍如何利用 gulp 插件或 node.js 模块从 Sketch 文件输出资源，希望能让工程师与设计师更好地协作。现在的程序开发资源不像以往只是简单的图片，很多 Web 前端 UI 框架使用 icon font，设计师虽然可以使用 iconfont.cn，icomoon.io 这类网站，但管理起来效率却不高。本文会尽量囊括目前各种应用场景的资源，包括多分辨率 PNG，iOS 和 macOS 平台的 PDF，Web 的图标字体、SVG Sprite 或 SVG symbol，Android 平台的 Vector Drawable 等等。读者需要了解基础的命令行操作，以及基础的 gulp 和 node.js 编程，由于使用 Sketch 自带的命令行工具 sketchtool，所有依赖此工具的都必须在安装有 Sketch 的 macOS 上运行。另外本文不会介绍各种资源的优缺点，采用哪一资源请根据具体的开发环境决定。
 
 * toc
 {:toc}
@@ -16,7 +14,7 @@ updated: 2019-02-03
 
 ## Sketch 文件规范
 
-在现实中需要使用这种快速导出资源并转换多种格式操作的，大部分都是处理一些数量较多的系列图标或者插图等，文章中会以图标作为示例。为了方便程序准确的读取 Sketch 文件的信息，需要让设计师在设计图标时遵循一些规范，根据当前 Sketch 的功能，我使用如下的规范。Sketch 文件可以在 [Sketch Export Master](https://github.com/Ashung/sketch-export-master) 项目中找到。
+在现实中需要使用快速导出资源并转换多种格式操作的，大部分都是处理一些数量较多的系列图标或者插图等，文章中会以图标作为示例。为了方便程序准确的读取 Sketch 文件的信息，需要让设计师在设计图标时遵循一些规范，根据当前 Sketch 的功能，我使用如下的规范。Sketch 文件可以在 [Sketch Export Master](https://github.com/Ashung/sketch-export-master) 项目中找到。
 
 每一个图标都是一个 Symbol Master，这样做 Sketch 文件可以被当作库来使用。可以先创建 Artboard 再将其转为 Symbol，就可以在原位置创建 Symbol 而不会产生一个 Symbol 实例，如果已经使用组来分类每个图标，可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内 “Symbol - Selection to Symbol Masters” 功能直接转为 Symbol Master。
 
@@ -176,6 +174,45 @@ function subtask1() {
 ```javascript
 path.basename = path.basename.replace(/@\dx$/, ''); // 删除后缀
 path.basename = path.basename.replace(/@(\d)x$/, '_$1x'); // 替换后缀
+```
+
+## 处理多个 Sketch 文件
+
+文中的示例都只是处理一个 Sketch 文件，如果需要从多个文件导出资源可以参考下面的方式。
+
+```javascript
+function subtask() {
+    let dest = './dest/png-1x';
+    return gulp.src('./sketch/*.sketch')
+        .pipe(vinylPaths(file => {
+            return exec(`${sketchtool} export artboards ${file} --formats="png" --scale="1" --output="${dest}" --include-symbols="yes"`);
+        }));
+}
+```
+
+## 清理多余文件
+
+示例的 Sketch 文件需要导出的资源都是以 Symbol 形式，但 sketchtool 只有并没有只导出 symbol 功能，而是使用导出 artboard 的 `--include-symbol="yes"` 参数，也就是如果 Sketch 文件有 art board 是会被导出的，所以有些情况下在导出资源之后，需要删除多余的内容。
+
+命名为 “Library Preview” 的 Artboard 可作为 Library 的预览图，可以将不需要导出的 Artboard 增加某种前缀或者后缀，例如以 “_” 开始。
+
+```javascript
+function subtaskCleanFiles() {
+    return del([
+        './dest/*/Library Preview*',
+        './dest/*/_*'
+    ]);
+}
+subtaskCleanIconFont.displayName = 'Clean files';
+```
+
+清理资源的任务要在导出资源之后，优化或转换资源之前运行。
+
+```javascript
+let taskPNG1x = gulp.series(subtaskCleanPNG1x, subtaskExportPNG1x, subtaskCleanFiles, subtaskOptimizePNG1x);
+taskPNG1x.description = 'Export 1x Optimized PNG';
+
+gulp.task('PNG 1x', taskPNG1x);
 ```
 
 ## 输出资源
@@ -468,7 +505,7 @@ gulp.task('SVG', taskSVG);
 npm install --save-dev gulp-mustache
 ```
 
-templates/icons.html 的内容（[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/icons.html)），使用 [Vue.js](https://cn.vuejs.org/index.html) 实现一个简单的搜索。
+templates/icons.html 的内容（[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/icons.html)），使用 [Vue.js](https://cn.vuejs.org/index.html) 实现一个简单的搜索，用 [clipboard js](https://clipboardjs.com/) 实现复制代码功能。
 
 ```html
 {% raw %}<!DOCTYPE html>
@@ -477,6 +514,7 @@ templates/icons.html 的内容（[完整代码](https://github.com/Ashung/sketch
 <meta charset="UTF-8">
 <title>{{ title }} - {{ description }}</title>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 <style>
 ....
 </style>
@@ -485,12 +523,11 @@ templates/icons.html 的内容（[完整代码](https://github.com/Ashung/sketch
 <div id="app">
     <input class="search" type="text" v-model="search" placeholder="search..."/>
     <div class="container">
-        <div v-for="icon in filteredList" class="icon">
+        <div v-for="icon in filteredList" class="icon" v-bind:data-clipboard-text="'svg/' + icon.name + '.svg'" v-on:click="copy()">
             <img v-bind:src="'svg/' + icon.name + '.svg'" width="48" height="48" alt="">
             <span class="icon-name">{{=<% %>=}}{{ icon.name }}<%={{ }}=%></span>
         </div>
     </div>
-    <p class="info">Version: {{ version }}, build date: {{ date }}, contains {{ icons.length }} icons.</p>
 </div>
 <script>
     const app = new Vue({
@@ -510,6 +547,21 @@ templates/icons.html 的内容（[完整代码](https://github.com/Ashung/sketch
                         return icon;
                     }
                 })
+            }
+        },
+        methods: {
+            copy: () => {
+                let clipboard = new ClipboardJS('.icon');
+                clipboard.on('success', e => {
+                    clipboard.destroy();
+                    let toast = document.createElement('div');
+                    toast.setAttribute('id', 'toast');
+                    toast.innerHTML = `"${e.text}" copy!`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => {
+                        toast.remove(toast.selectedIndex);
+                    }, 1500);
+                });
             }
         }
     });
@@ -652,7 +704,7 @@ function subtaskCreateIconFont() {
             prependUnicode: true,
             formats: ['svg', 'ttf', 'eot', 'woff', 'woff2'],
             timestamp: Math.round(Date.now() / 1000),
-            fontHeight: 1000,
+            fontHeight: 1024,
             normalize: true
         }))
         .on('glyphs', glyphs => {
@@ -722,7 +774,7 @@ subtaskCleanVectorDrawable.displayName = 'Clean Vector Drawable';
 function subtaskCreateVectorDrawable() {
     let dest = './dest/android-vector-drawable';
     return gulp.src('./dest/svg/*.svg')
-        .pipe(vinylPaths(function (file) {
+        .pipe(vinylPaths(file => {
             let outputPath = path.join(dest, 'ic_' + path.basename(file).replace(/\.svg$/, '.xml'));
             return svg2vectordrawable(file, outputPath);
         }));
@@ -736,8 +788,6 @@ gulp.task('Vector Drawable', taskVectorDrawable);
 ```
 
 导出资源运行 `gulp "Vector Drawable"`。
-
-
 
 ### Web: SVG Sprite
 
