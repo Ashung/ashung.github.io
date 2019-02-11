@@ -4,7 +4,9 @@ excerpt: 使用 gulp 从 Sketch 文件导出各种资源，包括 SVG Sprite、I
 updated: 2019-02-03
 ---
 
-本文主要介绍如何利用 gulp 插件或 node.js 模块从 Sketch 文件输出资源，希望能让工程师与设计师更好地协作。现在的程序开发资源不像以往只是简单的图片，很多 Web 前端 UI 框架使用 icon font，设计师虽然可以使用 iconfont.cn，icomoon.io 这类网站，但管理起来效率却不高。本文会尽量囊括目前各种应用场景的资源，包括多分辨率 PNG，iOS 和 macOS 平台的 PDF，Web 的图标字体、SVG Sprite 或 SVG symbol，Android 平台的 Vector Drawable 等等。读者需要了解基础的命令行操作，以及基础的 gulp 和 node.js 编程，由于使用 Sketch 自带的命令行工具 sketchtool，所有依赖此工具的都必须在安装有 Sketch 的 macOS 上运行。另外本文不会介绍各种资源的优缺点，采用哪一资源请根据具体的开发环境决定。
+本文主要介绍如何利用开源的 gulp 插件或 node.js 模块从 Sketch 文件输出资源，希望能让工程师与设计师更好地协作。现在的程序开发资源不像以往只是简单的图片，很多 Web 前端 UI 框架使用 icon font，设计师虽然可以使用 iconfont.cn，icomoon.io 这类网站管理和输出资源，但效率不高。
+
+文中会尽量囊括目前各种应用场景的资源，包括多分辨率 PNG，iOS 和 macOS 平台的 PDF，Web 的图标字体、SVG Sprite 或 SVG symbol，Android 平台的 Vector Drawable 等等。读者需要了解基础的命令行操作，以及基础的 gulp 和 node.js 编程，由于使用 Sketch 自带的命令行工具 sketchtool，所有依赖此工具的都必须在安装有 Sketch 的 macOS 上运行。
 
 * toc
 {:toc}
@@ -536,7 +538,7 @@ templates/icons.html 的内容（[完整代码](https://github.com/Ashung/sketch
             search: '',
             icons: [
                 {{#icons}}
-                { 'name': '{{name}}' },
+                { 'name': '{{name}}' }{{^last}},{{/last}}
                 {{/icons}}
             ]
         },
@@ -549,10 +551,14 @@ templates/icons.html 的内容（[完整代码](https://github.com/Ashung/sketch
                 })
             }
         },
-        methods: {
+		methods: {
             copy: () => {
                 let clipboard = new ClipboardJS('.icon');
                 clipboard.on('success', e => {
+                    if (document.getElementById('toast')) {
+                        let toast = document.getElementById('toast');
+                        toast.remove(toast.selectedIndex);
+                    }
                     clipboard.destroy();
                     let toast = document.createElement('div');
                     toast.setAttribute('id', 'toast');
@@ -701,7 +707,6 @@ function subtaskCreateIconFont() {
     return gulp.src('./dest/svg/*.svg')
         .pipe(iconfont({
             fontName: fontName,
-            prependUnicode: true,
             formats: ['svg', 'ttf', 'eot', 'woff', 'woff2'],
             timestamp: Math.round(Date.now() / 1000),
             fontHeight: 1024,
@@ -791,80 +796,619 @@ gulp.task('Vector Drawable', taskVectorDrawable);
 
 ### Web: SVG Sprite
 
-(WIP)
+文章中使用 [gulp-svg-sprite](https://www.npmjs.com/package/gulp-svg-sprite) 来生成各种 SVG Sprite，[svg-sprite](https://github.com/jkphl/svg-sprite) 支持如下 5 种不同形式的 SVG Sprite，这里将每个不同形式的 Sprite 都分开成不同的任务，可以根据具体的项目选择合适的 SVG  Sprite。
 
-https://www.npmjs.com/package/gulp-svg-sprite, https://github.com/jkphl/svg-sprite
+安装 gulp-svg-sprite。
 
 ```bash
 npm install --save-dev gulp-svg-sprite
 ```
 
-
+引入模块。
 
 ```javascript
+const svgSprite = require('gulp-svg-sprite');
+```
 
-function subtaskCleanSVGSprite() {
-    return del(['./dest/svg-sprite']);
-}
-subtaskCleanSVGSprite.displayName = 'Clean SVG Sprite';
+加入 svg-sprite 的功能配置和 HTML 模版需要的变量。
 
-let svgSpriteConfig = {
+```javascript
+let packageInfo = require('./package.json');
+let projectTitle = packageInfo.name.split('-').map(item => {
+    return item[0].toUpperCase() + item.substr(1)
+}).join(' ');
+let projectDescription = packageInfo.description;
+let projectVersion = packageInfo.version;
+let projectBuildDate = String(new Date().getFullYear()) +
+    (new Date().getMonth() > 8 ? new Date().getMonth() + 1 : '0' + (new Date().getMonth() + 1)) +
+    (new Date().getDate() > 9 ? new Date().getDate() : '0' + new Date().getDate());
+let svgSpriteCommonConfig = {
     shape: {
         id: {
             separator: '-',
+            whitespace: '-',
             generator: (name, file) => {
-                return 'icon-' + name.replace(/\.svg$/, '').replace(/(_|-|\s+)/g, '-');
+                return name.replace(/\.svg$/, '').replace(/(_|-|\s+)/g, '-');
             }
         }
     },
-    mode: {
-        css: {
-            dest: 'css',
-            bust: false,
-            sprite: 'sprite.svg',
-            example: {
-                dest: 'index.html'
-            },
-            render: {
-                css: true, scss: {dest: '_sprite.scss'}
-            }
-        }, // Create a «css» sprite
-        view: true, // Create a «view» sprite
-        defs: true, // Create a «defs» sprite
-        symbol: true, // Create a «symbol» sprite
-        stack: true // Create a «stack» sprite
-    }
+    variables: {
+        'title': projectTitle,
+        'description': projectDescription,
+        'version': projectVersion,
+        'buildDate': projectBuildDate,
+    },
+    mode: {}
 };
-
-function subtaskCreateSVGSprite() {
-    return gulp.src('./dest/svg/*.svg')
-        .pipe(svgSprite(svgSpriteConfig))
-        .pipe(gulp.dest('./dest/svg-sprite'));
-}
-subtaskCreateSVGSprite.displayName = 'Create SVG Sprite';
-
-let taskSVGSprite = gulp.series('SVG', subtaskCleanSVGSprite, subtaskCreateSVGSprite);
-taskSVGSprite.description = 'Export SVG Sprite';
-
-gulp.task('SVG Sprite', taskSVGSprite);
 ```
 
+#### SVG CSS Sprite
 
+传统的 CSS Sprite 通过 CSS 的 background-position 定位，只是将图片换成 SVG。
 
-#### CSS Sprite
+在 HTML 上显示图标的方式。
 
+```html
+<i class="icon icon-account"></i>
+```
 
+增加检索文档模版 templates/svg_css_sprite.html（[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/svg_css_sprite.html)）。
 
-#### CSS Sprite View 元素的
+```html
+{% raw %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }} - {{ description }}</title>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<style>
+....
+</style>
+<link rel="stylesheet" href="sprite.css">
+</head>
+<body>
+<div id="app">
+    <div class="search">
+        <i class="icon icon-search"></i>
+        <input type="text" v-model="search" placeholder="search..."/>
+    </div>
+    <div class="container">
+        <div v-for="icon in filteredList" class="thumb" v-bind:data-clipboard-text="icon.className" v-on:click="copy()">
+            <i v-bind:class="'icon icon-2x ' + icon.className"></i>
+            <span class="thumb-name">{{=<% %>=}}{{ icon.className }}<%={{ }}=%></span>
+        </div>
+    </div>
+</div>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            search: '',
+            icons: [
+                {{#shapes}}
+                { 'name': '{{name}}', 'className': '{{#selector.shape}}{{#last}}{{#classname}}{{raw}}{{/classname}}{{/last}}{{/selector.shape}}' }{{^last}},{{/last}}
+                {{/shapes}}
+            ]
+        },
+        computed: {
+            filteredList() {
+                return this.icons.filter(icon => {
+                    if ((new RegExp(this.search, 'i')).test(icon.name)) {
+                        return icon;
+                    }
+                })
+            }
+        },
+        methods: {
+            copy: () => {
+                let clipboard = new ClipboardJS('.thumb');
+                clipboard.on('success', e => {
+                    if (document.getElementById('toast')) {
+                        let toast = document.getElementById('toast');
+                        toast.remove(toast.selectedIndex);
+                    }
+                    clipboard.destroy();
+                    let toast = document.createElement('div');
+                    toast.setAttribute('id', 'toast');
+                    toast.innerHTML = `"${e.text}" copy!`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => {
+                        toast.remove(toast.selectedIndex);
+                    }, 1500);
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>{% endraw %}
+```
 
+增加 templates/svg_css_sprite.css 模版。
 
+```css
+{{#hasCommon}}.{{commonName}} {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url("{{sprite}}") no-repeat;
+}{{/hasCommon}}
+{{#shapes}}
+{{#selector.shape}}{{expression}}{{^last}},{{/last}}{{/selector.shape}} {
+    {{#hasCommon}}background-position: {{position.absolute.xy}};{{/hasCommon}}{{^hasCommon}}background: url("{{sprite}}") {{position.absolute.xy}} no-repeat;{{/hasCommon}}
+}
+{{/shapes}}
+```
 
-#### defs 
+任务代码。
 
-TODO
+```javascript
+function subtaskCleanSVGCSSSprite() {
+    return del(['./dest/svg-css-sprite']);
+}
+subtaskCleanSVGCSSSprite.displayName = 'Clean SVG CSS Sprite';
+
+function subtaskCreateSVGCSSSprite() {
+    let config = svgSpriteCommonConfig;
+    config.mode.css = {
+        dest: 'svg-css-sprite',
+        bust: false,
+        prefix: '.icon-%s',
+        dimensions: '',
+        sprite: 'sprite.svg',
+        common: 'icon',
+        example: {
+            template: './templates/svg_css_sprite.html',
+            dest: 'index.html'
+        },
+        render: {
+            css: {
+                template: './templates/svg_css_sprite.css',
+                dest: 'sprite.css'
+            }
+        }
+    };
+    return gulp.src('./dest/svg/*.svg')
+        .pipe(svgSprite(config))
+        .pipe(gulp.dest('./dest/'));
+}
+subtaskCreateSVGCSSSprite.displayName = 'Create SVG CSS Sprite';
+
+let taskSVGCSSSprite = gulp.series('SVG', subtaskCleanSVGCSSSprite, subtaskCreateSVGCSSSprite);
+taskSVGCSSSprite.description = 'Export SVG CSS Sprite';
+
+gulp.task('SVG CSS Sprite', taskSVGCSSSprite);
+```
+
+导出资源运行 `gulp "SVG CSS Sprite"`。
+
+#### SVG View Sprite
+
+SVG view sprite 的 SVG 文件是在 SVG CSS sprite 的基础上增加 `<view id="..." viewBox="..."/>` 标签。这样除了和 SVG CSS sprite 一样通过使用 CSS 背景定位还可以直接使用 img 标签插入图标，使用 img 标签插入时可以更改图标尺寸。
+
+```html
+<img src="sprite.svg#account" width="48" height="48"/>
+```
+
+增加 templates/svg_view_sprite.html （[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/svg_view_sprite.html)）模版，CSS 模版沿用 templates/svg_css_sprite.css。
+
+```html
+{% raw %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }} - {{ description }}</title>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<style>
+...
+</style>
+<link rel="stylesheet" href="sprite.css">
+</head>
+<body>
+<div id="app">
+    <div class="search">
+        <i class="icon icon-search"></i>
+        <input type="text" v-model="search" placeholder="search..."/>
+    </div>
+    <div class="container">
+        <div v-for="icon in filteredList" class="thumb" >
+            <img v-bind:src="'{{example}}#' + icon.name" width="48" height="48"/>
+            <span class="copy thumb-name" v-bind:data-clipboard-text="icon.className" v-on:click="copy()">{{=<% %>=}}{{ icon.className }}<%={{ }}=%></span>
+            <span class="copy thumb-name" v-bind:data-clipboard-text="'{{example}}#' + icon.className" v-on:click="copy()">{{=<% %>=}}{{ 'sprite.svg#' + icon.className }}<%={{ }}=%></span>
+        </div>
+    </div>
+</div>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            search: '',
+            icons: [
+                {{#shapes}}
+                { 'name': '{{name}}', 'className': '{{#selector.shape}}{{#last}}{{#classname}}{{raw}}{{/classname}}{{/last}}{{/selector.shape}}' }{{^last}},{{/last}}
+                {{/shapes}}
+            ]
+        },
+        computed: {
+            filteredList() {
+                return this.icons.filter(icon => {
+                    if ((new RegExp(this.search, 'i')).test(icon.name)) {
+                        return icon;
+                    }
+                })
+            }
+        },
+        methods: {
+            copy: () => {
+                let clipboard = new ClipboardJS('.copy');
+                clipboard.on('success', e => {
+                    if (document.getElementById('toast')) {
+                        let toast = document.getElementById('toast');
+                        toast.remove(toast.selectedIndex);
+                    }
+                    clipboard.destroy();
+                    let toast = document.createElement('div');
+                    toast.setAttribute('id', 'toast');
+                    toast.innerHTML = `"${e.text}" copy!`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => {
+                        toast.remove(toast.selectedIndex);
+                    }, 1500);
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>{% endraw %}
+```
+
+任务代码。
+
+```javascript
+function subtaskCleanSVGViewSprite() {
+    return del(['./dest/svg-view-sprite']);
+}
+subtaskCleanSVGViewSprite.displayName = 'Clean SVG View Sprite';
+
+function subtaskCreateSVGViewSprite() {
+    let config = svgSpriteCommonConfig;
+    config.mode.view = {
+        dest: 'svg-view-sprite',
+        bust: false,
+        prefix: '.icon-%s',
+        dimensions: '',
+        sprite: 'sprite.svg',
+        common: 'icon',
+        example: {
+            template: './templates/svg_view_sprite.html',
+            dest: 'index.html'
+        },
+        render: {
+            css: {
+                template: './templates/svg_css_sprite.css',
+                dest: 'sprite.css'
+            }
+        }
+    };
+    return gulp.src('./dest/svg/*.svg')
+        .pipe(svgSprite(config))
+        .pipe(gulp.dest('./dest/'));
+}
+subtaskCreateSVGViewSprite.displayName = 'Create SVG View Sprite';
+
+let taskSVGViewSprite = gulp.series('SVG', subtaskCleanSVGViewSprite, subtaskCreateSVGViewSprite);
+taskSVGViewSprite.description = 'Export SVG View Sprite';
+
+gulp.task('SVG View Sprite', taskSVGViewSprite);
+```
+
+导出资源运行 `gulp "SVG View Sprite"`。
+
+#### SVG Defs Sprite
+
+SVG Defs Sprite 是在 HTML 上预先插入定义了所有图标代码的 SVG，然后通过 SVG 的 use 标签引用图标。
+
+```html
+<body>
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <svg viewBox="0 0 24 24" id="account" xmlns="http://www.w3.org/2000/svg">...</svg>
+        </defs>
+    </svg>
+
+    <div>
+        <svg viewBox="0 0 24 24" width="48" height="48">
+            <use xlink:href="#account"></use>
+        </svg>
+    </div>
+</body>
+```
+
+增加 templates/svg_defs_sprite.html （[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/svg_defs_sprite.html)）模版，无需 CSS。
+
+```html
+{% raw %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ title }} - {{ description }}</title>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<style>
+...
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+    <defs>
+        {{#shapes}}
+        {{{svg}}}
+        {{/shapes}}
+    </defs>
+</svg>
+<div id="app">
+    <div class="search">
+        <svg class="icon-search" viewBox="0 0 24 24" width="24" height="24">
+            <use xlink:href="#search"></use>
+        </svg>
+        <i class="icon icon-search"></i>
+        <input type="text" v-model="search" placeholder="search..."/>
+    </div>
+    <div class="container">
+        <div v-for="icon in filteredList" class="thumb" v-bind:data-clipboard-text="'#'+icon.name" v-on:click="copy()">
+            <svg v-bind:viewBox="'0 0 ' + icon.viewportWidth + ' ' + icon.viewportHeight" width="48" height="48">
+                <use v-bind="{'xlink:href' : '#' + icon.name}"></use>
+            </svg>
+            <span class="thumb-name">{{=<% %>=}}{{ icon.name }}<%={{ }}=%></span>
+        </div>
+    </div>
+</div>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            search: '',
+            icons: [
+                {{#shapes}}
+                { 'name': '{{name}}', 'viewportWidth': '{{width.outer}}', 'viewportHeight': '{{height.outer}}'}{{^last}},{{/last}}
+                {{/shapes}}
+            ]
+        },
+        computed: {
+            filteredList() {
+                return this.icons.filter(icon => {
+                    if ((new RegExp(this.search, 'i')).test(icon.name)) {
+                        return icon;
+                    }
+                })
+            }
+        },
+        methods: {
+            copy: () => {
+                let clipboard = new ClipboardJS('.thumb');
+                clipboard.on('success', e => {
+                    if (document.getElementById('toast')) {
+                        let toast = document.getElementById('toast');
+                        toast.remove(toast.selectedIndex);
+                    }
+                    clipboard.destroy();
+                    let toast = document.createElement('div');
+                    toast.setAttribute('id', 'toast');
+                    toast.innerHTML = `"${e.text}" copy!`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => {
+                        toast.remove(toast.selectedIndex);
+                    }, 1500);
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>{% endraw%}
+```
+
+任务代码。
+
+```javascript
+function subtaskCleanSVGDefsSprite() {
+    return del(['./dest/svg-defs-sprite']);
+}
+subtaskCleanSVGDefsSprite.displayName = 'Clean SVG Defs Sprite';
+
+function subtaskCreateSVGDefsSprite() {
+    let config = svgSpriteCommonConfig;
+    config.mode.defs = {
+        dest: 'svg-defs-sprite',
+        bust: false,
+        sprite: 'sprite.svg',
+        example: {
+            template: './templates/svg_defs_sprite.html',
+            dest: 'index.html'
+        }
+    };
+    return gulp.src('./dest/svg/*.svg')
+        .pipe(svgSprite(config))
+        .pipe(gulp.dest('./dest/'));
+}
+subtaskCreateSVGDefsSprite.displayName = 'Create SVG Defs Sprite';
+
+let taskSVGDefsSprite = gulp.series('SVG', subtaskCleanSVGDefsSprite, subtaskCreateSVGDefsSprite);
+taskSVGDefsSprite.description = 'Export SVG Defs Sprite';
+
+gulp.task('SVG Defs Sprite', taskSVGDefsSprite);
+```
+
+导出资源运行 `gulp "SVG Defs Sprite"`。
 
 #### SVG Symbol
 
+SVG Symbol 与 SVG Defs Sprite 使用方法类似，只是保存所有图标的 SVG 的代码略有不同。
+
+```html
+<body>
+    <svg width="0" height="0" style="position:absolute">
+        <symbol viewBox="0 0 24 24" id="account" xmlns="http://www.w3.org/2000/svg">...</symbol>
+    </svg>
+
+    <div>
+        <svg viewBox="0 0 24 24" width="48" height="48">
+            <use xlink:href="#account"></use>
+        </svg>
+    </div>
+</body>
+```
+
+增加 templates/svg_symbol_sprite.html （[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/svg_symbol_sprite.html)）模版，在 templates/svg_defs_sprite.html 上稍作修改，无需 CSS。
+
+```html
+{% raw %}...
+<body>
+<svg width="0" height="0" style="position:absolute">
+    {{#shapes}}
+    {{{svg}}}
+    {{/shapes}}
+</svg>
+<div id="app">
+...{% endraw %}
+```
+
+任务代码，在 SVG  Defs Sprite 上稍作修改。
+
+```javascript
+function subtaskCleanSVGSymbolSprite() {
+    return del(['./dest/svg-symbol-sprite']);
+}
+subtaskCleanSVGSymbolSprite.displayName = 'Clean SVG Symbol Sprite';
+
+function subtaskCreateSVGSymbolSprite() {
+    let config = svgSpriteCommonConfig;
+    config.mode.symbol = {
+        dest: 'svg-symbol-sprite',
+        bust: false,
+        sprite: 'sprite.svg',
+        example: {
+            template: './templates/svg_symbol_sprite.html',
+            dest: 'index.html'
+        }
+    };
+    return gulp.src('./dest/svg/*.svg')
+        .pipe(svgSprite(config))
+        .pipe(gulp.dest('./dest/'));
+}
+subtaskCreateSVGSymbolSprite.displayName = 'Create SVG Symbol Sprite';
+
+let taskSVGSymbolSprite = gulp.series('SVG', subtaskCleanSVGSymbolSprite, subtaskCreateSVGSymbolSprite);
+taskSVGSymbolSprite.description = 'Export SVG Symbol Sprite';
+
+gulp.task('SVG Symbol Sprite', taskSVGSymbolSprite);
+```
+
+导出资源运行 `gulp "SVG Symbol Sprite"`。
+
 #### SVG Stack
 
-TODO
+S
+
+SVG Stack 使用 img 标签插入图标，可以更改图标尺寸。
+
+```html
+<img src="sprite.svg#account" width="48" height="48"/>
+```
+
+增加 templates/svg_stack_sprite.html （[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/svg_view_sprite.html)）模版。在 templates/svg_defs_sprite.html 上稍作修改，无需 CSS。
+
+```html
+{% raw %}...
+<div id="app">
+    <div class="search">
+        <img class="icon-search" src="{{example}}#search" width="24" height="24" alt="">
+        <input type="text" v-model="search" placeholder="search..."/>
+    </div>
+    <div class="container">
+        <div v-for="icon in filteredList" class="thumb" v-bind:data-clipboard-text="'{{example}}#' + icon.name" v-on:click="copy()">
+            <img v-bind:src="'{{example}}#' + icon.name" width="48" height="48"/>
+            <span class="thumb-name">{{=<% %>=}}{{ icon.name }}<%={{ }}=%></span>
+        </div>
+    </div>
+    <p class="info">Version: {{ version }}, build date: {{ buildDate }}, contains {{ shapes.length }} icons.</p>
+</div>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            search: '',
+            icons: [
+                {{#shapes}}
+                { 'name': '{{name}}' }{{^last}},{{/last}}
+                {{/shapes}}
+            ]
+        },
+        computed: {
+            filteredList() {
+                return this.icons.filter(icon => {
+                    if ((new RegExp(this.search, 'i')).test(icon.name)) {
+                        return icon;
+                    }
+                })
+            }
+        },
+        methods: {
+            copy: () => {
+                let clipboard = new ClipboardJS('.thumb');
+                clipboard.on('success', e => {
+                    if (document.getElementById('toast')) {
+                        let toast = document.getElementById('toast');
+                        toast.remove(toast.selectedIndex);
+                    }
+                    clipboard.destroy();
+                    let toast = document.createElement('div');
+                    toast.setAttribute('id', 'toast');
+                    toast.innerHTML = `"${e.text}" copy!`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => {
+                        toast.remove(toast.selectedIndex);
+                    }, 1500);
+                });
+            }
+        }
+    });
+</script>
+...{% endraw %}
+```
+
+任务代码，在 SVG  Defs Sprite 上稍作修改。
+
+```javascript
+function subtaskCleanSVGStackSprite() {
+    return del(['./dest/svg-stack-sprite']);
+}
+subtaskCleanSVGStackSprite.displayName = 'Clean SVG Stack Sprite';
+
+function subtaskCreateSVGStackSprite() {
+    let config = svgSpriteCommonConfig;
+    config.mode.stack = {
+        dest: 'svg-stack-sprite',
+        bust: false,
+        sprite: 'sprite.svg',
+        example: {
+            template: './templates/svg_stack_sprite.html',
+            dest: 'index.html'
+        }
+    };
+    return gulp.src('./dest/svg/*.svg')
+        .pipe(svgSprite(config))
+        .pipe(gulp.dest('./dest/'));
+}
+subtaskCreateSVGStackSprite.displayName = 'Create SVG Stack Sprite';
+
+let taskSVGStackSprite = gulp.series('SVG', subtaskCleanSVGStackSprite, subtaskCreateSVGStackSprite);
+taskSVGStackSprite.description = 'Export SVG Stack Sprite';
+
+gulp.task('SVG Stack Sprite', taskSVGStackSprite);
+```
+
+导出资源运行 `gulp "SVG Stack Sprite"`。
