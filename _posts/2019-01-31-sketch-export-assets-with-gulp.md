@@ -928,7 +928,7 @@ let svgSpriteCommonConfig = {
 增加 templates/svg_css_sprite.css 模版。
 
 ```css
-{{#hasCommon}}.{{commonName}} {
+{% raw %}{{#hasCommon}}.{{commonName}} {
     display: inline-block;
     width: 24px;
     height: 24px;
@@ -938,7 +938,7 @@ let svgSpriteCommonConfig = {
 {{#selector.shape}}{{expression}}{{^last}},{{/last}}{{/selector.shape}} {
     {{#hasCommon}}background-position: {{position.absolute.xy}};{{/hasCommon}}{{^hasCommon}}background: url("{{sprite}}") {{position.absolute.xy}} no-repeat;{{/hasCommon}}
 }
-{{/shapes}}
+{{/shapes}}{% endraw %}
 ```
 
 任务代码。
@@ -1311,15 +1311,15 @@ gulp.task('SVG Symbol Sprite', taskSVGSymbolSprite);
 
 #### SVG Stack
 
-S
-
-SVG Stack 使用 img 标签插入图标，可以更改图标尺寸。
+SVG Stack 可以使用 img 标签和 CSS background 插入图标，可以更改图标尺寸。
 
 ```html
 <img src="sprite.svg#account" width="48" height="48"/>
+<div style="width:48px;height:48px;background:url(sprite.svg#account) no-repeat"></span>
+<i class="icon icon-account"></i>
 ```
 
-增加 templates/svg_stack_sprite.html （[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/svg_view_sprite.html)）模版。在 templates/svg_defs_sprite.html 上稍作修改，无需 CSS。
+增加 templates/svg_stack_sprite.html （[完整代码](https://github.com/Ashung/sketch-export-master/blob/master/templates/svg_view_sprite.html)）模版。在 templates/svg_defs_sprite.html 上稍作修改。
 
 ```html
 {% raw %}...
@@ -1329,9 +1329,10 @@ SVG Stack 使用 img 标签插入图标，可以更改图标尺寸。
         <input type="text" v-model="search" placeholder="search..."/>
     </div>
     <div class="container">
-        <div v-for="icon in filteredList" class="thumb" v-bind:data-clipboard-text="'{{example}}#' + icon.name" v-on:click="copy()">
+        <div v-for="icon in filteredList" class="thumb">
             <img v-bind:src="'{{example}}#' + icon.name" width="48" height="48"/>
-            <span class="thumb-name">{{=<% %>=}}{{ icon.name }}<%={{ }}=%></span>
+            <span class="copy thumb-name" v-bind:data-clipboard-text="'{{example}}#' + icon.name" v-on:click="copy()">{{=<% %>=}}{{ icon.name }}<%={{ }}=%></span>
+            <span class="copy thumb-name" v-bind:data-clipboard-text="'icon-' + icon.name" v-on:click="copy()">{{=<% %>=}}{{ 'icon-' + icon.name }}<%={{ }}=%></span>
         </div>
     </div>
     <p class="info">Version: {{ version }}, build date: {{ buildDate }}, contains {{ shapes.length }} icons.</p>
@@ -1358,7 +1359,7 @@ SVG Stack 使用 img 标签插入图标，可以更改图标尺寸。
         },
         methods: {
             copy: () => {
-                let clipboard = new ClipboardJS('.thumb');
+                let clipboard = new ClipboardJS('.copy');
                 clipboard.on('success', e => {
                     if (document.getElementById('toast')) {
                         let toast = document.getElementById('toast');
@@ -1380,6 +1381,20 @@ SVG Stack 使用 img 标签插入图标，可以更改图标尺寸。
 ...{% endraw %}
 ```
 
+增加 templates/svg_stack.css 模版。
+
+```css
+{% raw %}.icon { display: inline-block; width: 24px; height: 24px; background-repeat: no-repeat; }
+.icon-s { width: 16px; height: 16px; }
+.icon-m { width: 20px; height: 20px; }
+.icon-1x { width: 24px; height: 24px; }
+.icon-l { width: 32px; height: 32px; }
+.icon-2x { width: 48px; height: 48px; }
+{{#shapes}}
+.icon-{{name}} { background-image: url("{{sprite}}#{{name}}"); }
+{{/shapes}}{% endraw %}
+```
+
 任务代码，在 SVG  Defs Sprite 上稍作修改。
 
 ```javascript
@@ -1397,6 +1412,12 @@ function subtaskCreateSVGStackSprite() {
         example: {
             template: './templates/svg_stack_sprite.html',
             dest: 'index.html'
+        },
+        render: {
+            css: {
+                template: './templates/svg_stack.css',
+                dest: 'sprite.css'
+            }
         }
     };
     return gulp.src('./dest/svg/*.svg')
