@@ -120,9 +120,9 @@ Sketch 文件在加入库面板之后，使用文件内的一个名为 “Librar
 
 ### 从库同步色彩等资源
 
-到目前为止，保存在库文档的色彩、渐变和图片填充等资源，需要依靠插件同步至新文档。
+在 Sketch 53 及之后的版本，库的色彩等资源可以在取色器下方的 GLOBAL / DOCUMENT 下拉菜单中显示。
 
-[Automate](https://github.com/Ashung/Automate-Sketch) 插件包含从任意 Sketch 文件或库导入文档资源的功能。色彩、渐变和图片填充等文档资源是根据内容添加的不会导致列表重复。
+旧版本可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件从任意 Sketch 文件或库导入文档资源的功能。色彩、渐变和图片填充等文档资源是根据内容添加的不会导致列表重复。
 
 - Style - Import Document Assets from Sketch File，从 Sketch 文件导入色彩、渐变及图片填充等资源。
 - Library - Import Document Assets from Library，从库导入色彩、渐变及图片填充等资源。

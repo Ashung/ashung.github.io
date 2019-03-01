@@ -164,7 +164,7 @@ appcast.xml 格式如下，格式与上文的远端库 XML 相似，需要保存
 
 建议把整个项目托管在类似 GitHub/GitLab 之类的程序上，程序会给整个项目一个类似 `http://.../user/project/archive/master.zip` 的压缩包格式地址，或者利用 Tags 功能将某次提交作为发布版本，地址类似 `http://.../user/project/archive/tagname.zip`，这样就不需要人工打包插件。
 
-## 使用脚本输出资源
+## 使用 Sketch 脚本输出资源
 
 可以在 Sketch 的 “Run Script...” 弹出界面上，直接编写脚本并运行，这种形式通常用于运行某些简短的代码来解决某些特定的问题，或者测试代码片段，或者输出某些信息，这些代码也可以被保存成插件。
 

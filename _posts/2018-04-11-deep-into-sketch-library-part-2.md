@@ -115,7 +115,7 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 
 ### 导入样式
 
-[Automate](https://github.com/Ashung/Automate-Sketch) 插件包含从任意 Sketch 文件或库导入样式的功能，样式根据对象的 ID，同 ID 项的样式属性会被更新，所以这些功能在多人协作的库上，可以用来同步样式。插件样式相关的功能如下：
+Sketch 52 及以后版本增加样式 Override 所以不需要从其他文档导入样式。旧版可以使用 [Automate](https://github.com/Ashung/Automate-Sketch) 插件从任意 Sketch 文件或库导入样式，样式根据对象的 ID，同 ID 项的样式属性会被更新，所以这些功能在多人协作的库上，可以用来同步样式。插件样式相关的功能如下：
 
 - Style - Import Document Assets from Sketch File，从 Sketch 文件导入色彩、渐变及图片填充等资源。
 - Style - Import Text Styles from Sketch File，从 Sketch 文件导入文本样式。
@@ -181,7 +181,7 @@ Overrides 中组件的下拉菜单会显示相同尺寸的组件，如果希望�
 defaults write com.bohemiancoding.sketch3 checkForLibraryUpdatesPeriod -int 10
 ```
 
-## 库测试
+## 其他库问题
 
 ### 创建模版或批量插入组件实例
 
@@ -230,6 +230,12 @@ defaults write com.bohemiancoding.sketch3 checkForLibraryUpdatesPeriod -int 10
 ![](../images/deep-into-sketch-library/automate_export_clean_code_svg.png)
 
 当导出很多图层时，选择 “Optimizion SVG Code with SVGO” （使用 SVGO 优化代码）会导致过程比较慢，建议导出未优化版，再使用 SVGO 单独优化。
+
+### 搭建资源输出工具
+
+TODO
+
+
 
 ----
 
