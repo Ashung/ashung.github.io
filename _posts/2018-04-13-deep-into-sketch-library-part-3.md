@@ -449,7 +449,8 @@ scales.forEach(function(item) {
 }
 ```
 
+## 搭建资源输出工具
 
+现在很多平台需要特殊格式的资源，例如网页上的 Icon Font 和 SVG Sprite，Android 的 Vector Drawable 等等，这些对于一般设计师来说比较复杂，操作起来效率低下，容易因使用不同工具和无法验证等问题而出现返工。特别是在资源数量较大的情况下，例如一整套的图标、插画等等，更需要搭建一个可以自动化处理这些操作的工具。
 
-
-
+Sketch 自动的命令行工具 sktchtool 实现了通过编程到处 Sketch 资源的可能性，只要对 Sketch 文档的图层结构合理的调整，就能非常轻松导出资源，再利用已有开源工具实现不同类型资源的转化。这些特殊格式资源都有非常成熟 Node.js 的转换工具，利用 Node.js 模块和 gulp 插件自动导出和转换各种格式资源的详细操作和代码可以查看《[使用 gulp 导出 Sketch 资源](http://ashung.github.io/posts/sketch-export-assets-with-gulp.html)》这篇文章。

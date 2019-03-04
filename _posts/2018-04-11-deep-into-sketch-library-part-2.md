@@ -1,7 +1,7 @@
 ---
 title: 深入理解 Sketch 库（中）
 excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，中部针对库管理者介绍库文件维护。
-updated: 2018-08-08
+updated: 2019-03-02
 ---
 
 这一部分主要是针对设计团队中库管理者或设计系统维护者，介绍一些库组件命名建议、组件管理、样式管理和库文件管理方面的信息，读者只需要有这方法管理经验，不需要一些编程开发的经验。
@@ -159,6 +159,8 @@ Sketch 52 及以后版本增加样式 Override 所以不需要从其他文档导
 
 ## 多人协作
 
+### 同一文件的多人编辑
+
 如果文件数量多，且需要多人协作维护同一个文档，建议使用版本控制系统来管理文件，尽管原始的版本控制系统并没有提供 Sketch 文件的差异比较和合并功能，但可以通过一些脚本或插件导出 Artboard 的图片来实现直观的修改对比。
 
 合并两个 Sketch 文件做法，类似没有出现库功能之前的做法，但不建议直接操作，因为容易造成出现多个相同内容的组件，无法直观判断导致哪个是最终使用的，合并操作可以借助插件实现。
@@ -171,7 +173,7 @@ Sketch 52 及以后版本增加样式 Override 所以不需要从其他文档导
 
 如果组件尺寸发生变化，可能会影响某些 overrides 已设置为该组件的组件，所以建议库文件内不要修改 overrides 的内容。
 
-## 库更新频率
+### 库提示更新频率
 
 官方解释目前库检测更新频率默认为 1 小时，重启 Sketch 也会让库检测更新，官方提供 [Check for Library Updates](https://github.com/bomberstudios/check-for-library-updates) 插件来手动检测更新，此功能及集成到 [Automate](https://github.com/Ashung/Automate-Sketch) 插件内的 “Library” 组下。
 
@@ -180,6 +182,12 @@ Sketch 52 及以后版本增加样式 Override 所以不需要从其他文档导
 ```bash
 defaults write com.bohemiancoding.sketch3 checkForLibraryUpdatesPeriod -int 10
 ```
+
+### 同步库组件
+
+目前的库组件同步窗口会列出所有存在差异的组件，但没有提供搜索、取消选择功能，在实际使用过程中经常会出现当有更新的库组件数量非常多时，很难选择只更新某些特定组件。默认情况下 Sketch 全选所有组件，Sketch 53.2 版在 “File” 菜单下增加 “Sync Library Components...” 可以不显示对比窗口直接更新所有库组件。
+
+在实际工作中，同步组件经常发生组件更新导致布局错误的情况，Automate 插件的 “Update Selected Library Symbols” 可以在选中几个库组件的情况，直接更新这几个组件。这样可以方便发现问题并及时修改布局或撤销操作。
 
 ## 其他库问题
 
@@ -231,12 +239,6 @@ defaults write com.bohemiancoding.sketch3 checkForLibraryUpdatesPeriod -int 10
 
 当导出很多图层时，选择 “Optimizion SVG Code with SVGO” （使用 SVGO 优化代码）会导致过程比较慢，建议导出未优化版，再使用 SVGO 单独优化。
 
-### 搭建资源输出工具
-
-TODO
-
-
-
 ----
 
 ## 附：插件推荐
@@ -263,6 +265,7 @@ TODO
 
 - [Sketch Style Libraries](https://github.com/sigtm/sketch-style-libraries) 从库同步样式
 - [Sketch Text Styles Manager](https://gumroad.com/l/sketch-text-styles-manager) 付费插件，样式命名管理
+- [Styles Hierarchy](https://github.com/mathieudutour/sketch-styles-hierarchy) 使用图层自动创建样式
 
 ## 附：平台控件标准名称
 
