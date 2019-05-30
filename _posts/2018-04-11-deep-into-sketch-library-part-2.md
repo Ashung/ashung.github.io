@@ -4,7 +4,7 @@ excerpt: 深入讲述 Sketch 库在团队使用中的各种问题，中部针对
 updated: 2019-03-02
 ---
 
-这一部分主要是针对设计团队中库管理者或设计系统维护者，介绍一些库组件命名建议、组件管理、样式管理和库文件管理方面的信息，读者只需要有这方法管理经验，不需要一些编程开发的经验。
+这一部分主要是针对设计团队中库管理者或设计系统维护者，介绍一些库组件命名建议、组件管理、样式管理和库文件管理方面的信息，读者只需要有这方面管理经验，不需要一些编程开发的经验。
 
 * toc
 {:toc}
@@ -260,6 +260,7 @@ defaults write com.bohemiancoding.sketch3 checkForLibraryUpdatesPeriod -int 10
 - [Symbol Organizer](https://github.com/sonburn/symbol-organizer) 组件管理，主要用于排列组件
 - [Merge duplicate symbols](https://github.com/oodesign/merge-duplicate-symbols) 合并同名组件
 - [Sketch Symbols Manager Plugin](https://gumroad.com/l/sketch-symbols-manager) 付费插件，组件命名管理
+- [Stickers](https://github.com/romannurik/Sketch-Stickers) 快速插入和搜索库中的被特殊标记的图层组合，。
 
 #### 样式管理
 
