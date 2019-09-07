@@ -260,6 +260,7 @@ defaults write com.bohemiancoding.sketch3 checkForLibraryUpdatesPeriod -int 10
 - [Symbol Organizer](https://github.com/sonburn/symbol-organizer) 组件管理，主要用于排列组件
 - [Merge duplicate symbols](https://github.com/oodesign/merge-duplicate-symbols) 合并同名组件
 - [Sketch Symbols Manager Plugin](https://gumroad.com/l/sketch-symbols-manager) 付费插件，组件命名管理
+- [Stickers](https://github.com/romannurik/Sketch-Stickers) 快速插入和搜索库中的被特殊标记的图层组合，。
 
 #### 样式管理
 
