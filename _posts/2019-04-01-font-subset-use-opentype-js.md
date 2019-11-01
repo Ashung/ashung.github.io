@@ -1,6 +1,6 @@
 ---
 title: 使用 Opentype.js 生成字体子集
-excerpt: 使用 Opentype.js 生成字体子集。
+excerpt: 使用 Opentype.js 在浏览器或 Node.js 环境生成字体子集。
 updated: 2019-10-10
 ---
 
@@ -13,9 +13,7 @@ HTML
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Font Subset</title>
     <script src="https://cdn.jsdelivr.net/npm/opentype.js@latest/dist/opentype.min.js"></script>
 </head>
 <body>
