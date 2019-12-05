@@ -28,29 +28,6 @@ var _hmt = _hmt || [];
     </ul>
 </header>
 
-<section class="summary">
-<h3>个人简介</h3>
-{{ content }}
-</section>
-
-<section class="design">
-<h3>设计作品</h3>
-<ul>
-{% for item in page.design %}
-    <li><a href="{{ item.url }}">{{ item.title }}</a></li>
-{% endfor %}
-</ul>
-</section>
-
-<section class="codeporject">
-<h3>开源项目</h3>
-<ul>
-{% for item in page.code %}
-    <li><a href="{{ item.url }}">{{ item.title }}</a> {{ item.desction }}</li>
-{% endfor %}
-</ul>
-</section>
-
 <section class="experience">
 <h3>工作经历</h3>
 {% for item in page.experience %}
@@ -67,6 +44,24 @@ var _hmt = _hmt || [];
 {% endfor %}
 </section>
 
+<section class="design">
+<h3>设计作品</h3>
+<ul>
+{% for item in page.design %}
+    <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+{% endfor %}
+</ul>
+</section>
+    
+<section class="codeporject">
+<h3>开源项目</h3>
+<ul>
+{% for item in page.code %}
+    <li><a href="{{ item.url }}">{{ item.title }}</a> {{ item.desction }}</li>
+{% endfor %}
+</ul>
+</section>
+
 <section class="education">
 <h3>教育经历</h3>
 {% for item in page.education %}
@@ -75,6 +70,11 @@ var _hmt = _hmt || [];
     <p>{{ item.school }} <span class="title">{{ item.title }}</span></p>
 </div>
 {% endfor %}
+</section>
+
+<section class="summary">
+<h3>个人简介</h3>
+{{ content }}
 </section>
 
 <div class="download">
