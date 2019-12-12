@@ -20,6 +20,7 @@ var _hmt = _hmt || [];
 <header class="profile">
     <div class="name">
         <h1>{{ page.profile.name }}</h1>
+        <h2>{{ page.profile.title }}</h2>
     </div>
     <ul class="contacts">
         <li class="ic-phone">电话: {{ page.profile.phone }}</li>
@@ -57,7 +58,7 @@ var _hmt = _hmt || [];
 <h3>开源项目</h3>
 <ul>
 {% for item in page.code %}
-    <li><a href="{{ item.url }}">{{ item.title }}</a> {{ item.desction }}</li>
+    <li><a href="{{ item.url }}">{{ item.title }}</a> {{ item.description }}</li>
 {% endfor %}
 </ul>
 </section>
