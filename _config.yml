@@ -1,4 +1,4 @@
-title: Design + Code + Sketch
+title: Code for Design
 author: Ashung Hung
 email: ashung.hung@gmail.com
 description: Automate Workflow for UI Design, UI设计自动化工作流程
@@ -32,21 +32,21 @@ defaults:
       type: drafts
     values:
       layout: post
-  - scope:
-      path: ""
-      type: book
-    values:
-      layout: book
+#   - scope:
+#       path: ""
+#       type: book
+#     values:
+#       layout: book
 
-collections:
-  book:
-    output: true
-    permalink: /:collection/:path
+# collections:
+#   book:
+#     output: true
+#     permalink: /:collection/:path
 
 sns:
-  - title: dribbble
-    url: "https://dribbble.com/ashung"
   - title: Behance
     url: "https://behance.net/ashung"
+  - title: dribbble
+    url: "https://dribbble.com/ashung"
   - title: GitHub
     url: "https://github.com/Ashung"
