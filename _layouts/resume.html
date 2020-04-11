@@ -34,8 +34,8 @@ var _hmt = _hmt || [];
 {% for item in page.experience %}
 <div class="list">
     <p class="date">{{ item.from }} - {{ item.to }}</p>
-    <p><strong>{{ item.company }}</strong></p>
-    <p>{{ item.title }}</p>
+    <p class="company">{{ item.company }}</p>
+    <p class="title">{{ item.title }}</p>
     {% if item.content %}
     <div class="content">
         {{ item.content }}
@@ -54,7 +54,7 @@ var _hmt = _hmt || [];
 </ul>
 </section>
     
-<section class="codeporject">
+<section class="project">
 <h3>开源项目</h3>
 <ul>
 {% for item in page.code %}

@@ -66,12 +66,12 @@ npm install --save-dev del child-process-promise gulp-imagemin
 
 ```
 icon_project/
-	|-- node_modules/
-	|-- sketch/
-		|-- icons.sketch
-	|-- gulpfile.js
-	|-- package.json
-	|-- package-lock.json
+    |-- node_modules/
+    |-- sketch/
+        |-- icons.sketch
+    |-- gulpfile.js
+    |-- package.json
+    |-- package-lock.json
 ```
 
 ## 在 gulp 中使用 sketchtool
@@ -165,11 +165,11 @@ npm install --save-dev gulp-rename
 ```javascript
 function subtask1() {
     return gulp.src('...')
-    	.pipe(rename((path, file) => {
+        .pipe(rename((path, file) => {
             path.basename = path.basename.replace(/(-|\s+)/g, '_'); // 将 - 或空格都替换为 _
             del(file.path);
         })
-    	.pipe(gulp.dest('...'));
+        .pipe(gulp.dest('...'));
 }
 ```
 
@@ -553,7 +553,7 @@ templates/icons.html 的内容（[完整代码](https://github.com/Ashung/sketch
                 })
             }
         },
-		methods: {
+        methods: {
             copy: () => {
                 let clipboard = new ClipboardJS('.icon');
                 clipboard.on('success', e => {
@@ -617,7 +617,7 @@ function subtaskCreateIconsHTML() {
             })
         }))
         .pipe(gulp.dest('./dest/'));
-}
+}    
 subtaskCreateIconsHTML.displayName = 'Create a search HTML for all icons';
 
 let taskSVG = gulp.series(subtaskCleanSVG, subtaskExportSVG, subtaskOptimizeSVG, subtaskCreateIconsHTML);

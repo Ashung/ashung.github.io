@@ -61,6 +61,7 @@ h3 {
     padding-bottom: 2em;
     border-bottom: 2px solid #eee;
     .name {
+        margin-bottom: .5em;
         h1, h2 {
             font-size: $title-text-size;
             display: inline;
@@ -98,7 +99,7 @@ section {
     margin: 2em 0;
 }
 
-.design, .codeporject {
+.design, .project {
     ul {
         margin-left: 2em;
     }
@@ -116,6 +117,12 @@ section {
         color: $secondary-text-color;
         letter-spacing: -0.05em;
     }
+    .company {
+        font-weight: bold;
+    }
+    .title {
+        color: $secondary-text-color;
+    }
     li {
         padding-left: 0;
         list-style-type: disc;
@@ -128,7 +135,6 @@ section {
     .content {
         margin-top: 0.5em;
         p {
-            text-indent: 2em;
             margin: 0.5em 0;
         }
         ul {
